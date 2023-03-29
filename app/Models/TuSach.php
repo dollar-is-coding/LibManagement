@@ -12,4 +12,9 @@ class TuSach extends Model
     use SoftDeletes;
     protected $table='tu_sach';
     protected $fillable=['ten','khu_vuc_id'];
+
+    public function fkKhuVuc()
+    {
+        return $this->belongsTo(KhuVuc::class);
+    }
 }
