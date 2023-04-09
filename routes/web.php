@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,18 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/form', [Admincontroller::class, 'index'])->name('index');
+Route::get('/form', [AdminController::class, 'index'])->name('index');
 
-Route::post('/themtacgia', [Admincontroller::class, 'themTacGia'])->name('themtacgia');
-Route::get('/xoatacgia/{id}', [Admincontroller::class, 'xoaTacGia'])->name('xoatacgia');
+Route::post('/themtacgia', [AdminController::class, 'themTacGia'])->name('themtacgia');
+Route::get('/xoatacgia/{id}', [AdminController::class, 'xoaTacGia'])->name('xoatacgia');
 
-Route::post('/themnhaxuatban', [Admincontroller::class, 'themNhaXuatBan'])->name('themnhaxuatban');
-Route::get('/xoanxb/{id}', [Admincontroller::class, 'xoaNhaXuatBan'])->name('xoanxb');
-
-
-Route::post('/themtheloai', [Admincontroller::class, 'themTheLoai'])->name('themtheloai');
-Route::get('/xoatheloai/{id}', [Admincontroller::class, 'xoaTheLoai'])->name('xoatheloai');
+Route::post('/themnhaxuatban', [AdminController::class, 'themNhaXuatBan'])->name('themnhaxuatban');
+Route::get('/xoanxb/{id}', [AdminController::class, 'xoaNhaXuatBan'])->name('xoanxb');
 
 
-Route::post('/themkhuvuc', [Admincontroller::class, 'themKhuVuc'])->name('themkhuvuc');
-Route::get('/xoakhuvuc/{id}', [Admincontroller::class, 'xoaKhuVuc'])->name('xoakhuvuc');
+Route::post('/themtheloai', [AdminController::class, 'themTheLoai'])->name('themtheloai');
+Route::get('/xoatheloai/{id}', [AdminController::class, 'xoaTheLoai'])->name('xoatheloai');
+
+
+Route::post('/themkhuvuc', [AdminController::class, 'themKhuVuc'])->name('themkhuvuc');
+Route::get('/xoakhuvuc/{id}', [AdminController::class, 'xoaKhuVuc'])->name('xoakhuvuc');

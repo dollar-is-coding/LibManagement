@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\TheLoai;
 use App\Models\KhuVuc;
 use App\Models\TuSach;
-class Admincontroller extends Controller
+
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class Admincontroller extends Controller
         $_nhaxuatban = NhaXuatBan::all();
         $_theloai = TheLoai::all();
         $_khuvuc = KhuVuc::all();
-        return view('index',['_tacgia'=> $_tacgia, '_nhaxuatban'=> $_nhaxuatban, '_theloai'=> $_theloai,'_khuvuc'=>$_khuvuc]);
+        return view('index', ['_tacgia' => $_tacgia, '_nhaxuatban' => $_nhaxuatban, '_theloai' => $_theloai, '_khuvuc' => $_khuvuc]);
     }
 
     /**
@@ -29,7 +30,7 @@ class Admincontroller extends Controller
     {
         $_tacgia = TacGia::create([
             'ten' => $request->ten,
-            
+
         ]);
         return redirect()->route('index');
     }
