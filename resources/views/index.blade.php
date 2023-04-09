@@ -63,23 +63,23 @@
                     <a href="" class="close">&times;</a>
                 </div><!-- az-header-menu-header -->
                 <ul class="nav">
-                    <li class="nav-item">
+                    <li class="navitem">
                         <a href="index.html" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="navitem">
                         <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i> Pages</a>
                         <nav class="az-menu-sub">
                             <a href="page-signin.html" class="nav-link">Sign In</a>
                             <a href="page-signup.html" class="nav-link">Sign Up</a>
                         </nav>
                     </li>
-                    <li class="nav-item active">
+                    <li class="navitem active">
                         <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Charts</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="navitem">
                         <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Forms</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="navitem">
                         <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
                         <div class="az-menu-sub">
                             <div class="container">
@@ -157,11 +157,11 @@
                             <span>Premium Member</span>
                         </div><!-- az-header-profile -->
 
-                        <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
-                        <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
-                        <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
-                        <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
-                        <a href="page-signin.html" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-user-outline"></i> My Profile</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-edit"></i> Edit Profile</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-time"></i> Activity Logs</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
+                        <a href="page-signin.html" class="dropdownitem"><i class="typcn typcn-power-outline"></i> Sign Out</a>
                     </div><!-- dropdown-menu -->
                 </div>
             </div><!-- az-header-right -->
@@ -171,13 +171,13 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40 shadow-sm">
         <div class="container">
             <div class="az-content-left az-content-left-components shadow">
-                <div class="component-item" style="padding: 10;">
+                <div class="componentitem" style="padding: 10;">
                     <label>Menu</label>
                     <nav class="nav flex-column">
                         <a href="elem-buttons.html" class="nav-link">Dashboard</a>
                         <a href="elem-dropdown.html" class="nav-link">Add new Post</a>
                     </nav>
-                </div><!-- component-item -->
+                </div><!-- componentitem -->
 
             </div><!-- az-content-left -->
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
@@ -273,7 +273,7 @@
                                     <div class="form-floating mb-3" style="margin: 2%;">
                                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                                             <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($tacgia as $item)
+                                            @foreach ($_tacgia as $item)
                                             <option selected value="1">{{$item->ten}}</option>
                                             @endforeach
                                         </select>
@@ -283,7 +283,7 @@
                                     <div class="form-floating" style="margin: 2%;">
                                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                                             <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($theloai as $item)
+                                            @foreach ($_theloai as $item)
                                             <option value="2">{{$item->ten}}</option>
                                             @endforeach
                                         </select>
@@ -292,7 +292,7 @@
                                     <div class="form-floating mb-3" style="margin: 2%;">
                                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                                             <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($nhaxuatban as $item)
+                                            @foreach ($_nhaxuatban as $item)
                                             <option value="2">{{$item->ten}}</option>
                                             @endforeach
                                         </select>
@@ -329,7 +329,7 @@
                         <div id="author-form" class="form active">
                             <div style="padding: 2%;">
                                 <div style="margin-top: 5%;">
-                                    @foreach ($tacgia as $item)
+                                    @foreach ($_tacgia as $item)
                                     <p>+ {{ $item->ten }} <a href="{{ route('xoatacgia', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
                                     @endforeach
                                 </div>
@@ -346,7 +346,7 @@
                         <div id="publisher-form" class="form">
                             <div style="padding: 2%;">
                                 <div style="margin-top: 5%;">
-                                    @foreach ($nhaxuatban as $item)
+                                    @foreach ($_nhaxuatban as $item)
                                     <p>+ {{ $item->ten }} <a href="{{ route('xoanxb', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
                                     @endforeach
                                 </div>
@@ -363,7 +363,7 @@
                         <div id="category-form" class="form">
                             <div style="padding: 2%;">
                                 <div style="margin-top: 5%;">
-                                    @foreach ($theloai as $item)
+                                    @foreach ($_theloai as $item)
                                     <p>+ {{ $item->ten }} <a href="{{ route('xoatheloai', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
                                     @endforeach
                                 </div>
@@ -379,7 +379,7 @@
 
                         <div id="area-form" class="form">
                             <div style="padding: 2%;">
-                                @foreach ($khuvuc as $item)
+                                @foreach ($_khuvuc as $item)
                                 <p>+ {{ $item->ten }} <a href="{{ route('xoakhuvuc', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
                                 @endforeach
                             </div>

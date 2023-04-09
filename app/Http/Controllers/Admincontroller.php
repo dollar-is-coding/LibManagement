@@ -15,74 +15,74 @@ class Admincontroller extends Controller
      */
     public function index()
     {
-        $tacgia = TacGia::all();
-        $nhaxuatban = NhaXuatBan::all();
-        $theloai = TheLoai::all();
-        $khuvuc = KhuVuc::all();
-        return view('index',['tacgia'=> $tacgia, 'nhaxuatban'=> $nhaxuatban, 'theloai'=> $theloai,'khuvuc'=>$khuvuc]);
+        $_tacgia = TacGia::all();
+        $_nhaxuatban = NhaXuatBan::all();
+        $_theloai = TheLoai::all();
+        $_khuvuc = KhuVuc::all();
+        return view('index',['_tacgia'=> $_tacgia, '_nhaxuatban'=> $_nhaxuatban, '_theloai'=> $_theloai,'_khuvuc'=>$_khuvuc]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function themtacgia(Request $request)
+    public function themTacGia(Request $request)
     {
-        $tacgia = TacGia::create([
+        $_tacgia = TacGia::create([
             'ten' => $request->ten,
             
         ]);
         return redirect()->route('index');
     }
-    public function themnhaxuatban(Request $request)
+    public function themNhaXuatBan(Request $request)
     {
-        $nxb = NhaXuatBan::create([
+        $_nxb = NhaXuatBan::create([
             'ten' => $request->nhaxuatban,
 
         ]);
         return redirect()->route('index');
     }
-    public function themtheloai(Request $request)
+    public function themTheLoai(Request $request)
     {
-        $theloai = TheLoai::create([
+        $_theloai = TheLoai::create([
             'ten' => $request->theloai,
 
         ]);
         return redirect()->route('index');
     }
-    public function themkhuvuc(Request $request)
+    public function themKhuVuc(Request $request)
     {
-        $khuvuc = KhuVuc::create([
+        $_khuvuc = KhuVuc::create([
             'ten' => $request->khuvuc,
 
         ]);
         return redirect()->route('index');
     }
-    public function themtusach(Request $request)
+    public function themTuSach(Request $request)
     {
-        $khuvuc = TuSach::create([
+        $_khuvuc = TuSach::create([
             'ten' => $request->khuvuc,
 
         ]);
         return redirect()->route('index');
     }
-    public function xoatacgia($id)
+    public function xoaTacGia($id)
     {
-        $xoatg = TacGia::find($id)->delete();
+        $_xoatg = TacGia::find($id)->delete();
         return redirect()->route('index');
     }
-    public function xoanxb($id)
+    public function xoaNhaXuatBan($id)
     {
-        $xoanxb = NhaXuatBan::find($id)->delete();
+        $_xoanxb = NhaXuatBan::find($id)->delete();
         return redirect()->route('index');
     }
-    public function xoatheloai($id)
+    public function xoaTheLoai($id)
     {
-        $xoatt = TheLoai::find($id)->delete();
+        $_xoatt = TheLoai::find($id)->delete();
         return redirect()->route('index');
     }
-    public function xoakhuvuc($id)
+    public function xoaKhuVuc($id)
     {
-        $xoakv = KhuVuc::find($id)->delete();
+        $_xoakv = KhuVuc::find($id)->delete();
         return redirect()->route('index');
     }
     /**
