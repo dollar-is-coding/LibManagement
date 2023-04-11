@@ -14,7 +14,9 @@
         gtag('config', 'UA-90680653-2');
     </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Sau đó, bạn có thể khởi tạo trình soạn thảo bằng cách sử dụng mã JavaScript -->
     <script>
@@ -32,7 +34,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <!-- Meta -->
 <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
@@ -64,7 +67,8 @@
                 </div><!-- az-header-menu-header -->
                 <ul class="nav">
                     <li class="navitem">
-                        <a href="index.html" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
+                        <a href="index.html" class="nav-link"><i class="typcn typcn-chart-area-outline"></i>
+                            Dashboard</a>
                     </li>
                     <li class="navitem">
                         <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i> Pages</a>
@@ -74,10 +78,12 @@
                         </nav>
                     </li>
                     <li class="navitem active">
-                        <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Charts</a>
+                        <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i>
+                            Charts</a>
                     </li>
                     <li class="navitem">
-                        <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Forms</a>
+                        <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i>
+                            Forms</a>
                     </li>
                     <li class="navitem">
                         <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
@@ -97,7 +103,8 @@
                 </ul>
             </div><!-- az-header-menu -->
             <div class="az-header-right">
-                <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank" class="az-header-search-link"><i class="far fa-file-alt"></i></a>
+                <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank"
+                    class="az-header-search-link"><i class="far fa-file-alt"></i></a>
                 <a href="" class="az-header-search-link"><i class="fas fa-search"></i></a>
                 <div class="az-header-message">
                     <a href="#"><i class="typcn typcn-messages"></i></a>
@@ -157,42 +164,35 @@
                             <span>Premium Member</span>
                         </div><!-- az-header-profile -->
 
-                        <a href="" class="dropdownitem"><i class="typcn typcn-user-outline"></i> My Profile</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-user-outline"></i> My
+                            Profile</a>
                         <a href="" class="dropdownitem"><i class="typcn typcn-edit"></i> Edit Profile</a>
                         <a href="" class="dropdownitem"><i class="typcn typcn-time"></i> Activity Logs</a>
-                        <a href="" class="dropdownitem"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
-                        <a href="page-signin.html" class="dropdownitem"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+                        <a href="" class="dropdownitem"><i class="typcn typcn-cog-outline"></i> Account
+                            Settings</a>
+                        <a href="page-signin.html" class="dropdownitem"><i class="typcn typcn-power-outline"></i>
+                            Sign Out</a>
                     </div><!-- dropdown-menu -->
                 </div>
             </div><!-- az-header-right -->
         </div><!-- container -->
     </div><!-- az-header -->
 
-    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40 shadow-sm">
+    <div class="az-content pd-y-20 pd-lg-y-30 shadow-sm">
         <div class="container">
-            <div class="az-content-left az-content-left-components shadow">
-                <div class="componentitem" style="padding: 10;">
-                    <label>Menu</label>
-                    <nav class="nav flex-column">
-                        <a href="elem-buttons.html" class="nav-link">Dashboard</a>
-                        <a href="elem-dropdown.html" class="nav-link">Add new Post</a>
-                    </nav>
-                </div><!-- componentitem -->
-
-            </div><!-- az-content-left -->
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <h2 class="az-content-title">Add new Post</h2>
+            <div class="az-content-body d-flex flex-column">
                 <div style="display: flex;">
                     <div style="flex-basis: 70%;margin-right: 2%;padding: 2%;" class="shadow border rounded">
                         <form>
                             <div style="display: flex;">
                                 <div class="upload-container" style="flex-basis: 30%;margin-right: 2%;">
                                     <div class="upload-container border rounded">
-                                        <label for="upload-file" class="upload-label" style="font-size: 130%;">Tải ảnh lên</label>
-                                        <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file" accept="image/*">
+                                        <label for="upload-file" class="upload-label" style="font-size: 130%;">Tải
+                                            ảnh lên</label>
+                                        <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file"
+                                            accept="image/*">
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
-
                                     <style>
                                         .upload-container {
                                             position: relative;
@@ -263,82 +263,95 @@
 
 
                                 </div>
-                                <div class="border rounded" style="flex-basis: 70%;">
+                                <div style="flex-basis: 70%;">
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Tên sách</label>
+                                        <input type="text" name="ten_sach" class="form-control"
+                                            placeholder="Nhập tên sách" value="">
+                                    </div><!-- form-group -->
 
-                                    <div class="form-floating mb-3" style="margin: 2%;">
-                                        <input type="text" class="form-control rounded" id="floatingInput" placeholder="name@example.com">
-                                        <label for="floatingInput">Book name</label>
-                                    </div>
-
-                                    <div class="form-floating mb-3" style="margin: 2%;">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                            <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($_tacgia as $item)
-                                            <option selected value="1">{{$item->ten}}</option>
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Tác giả</label>
+                                        <select id="form-select" class="form-control select2-no-search">
+                                            @foreach ($tac_gia as $item)
+                                                <option selected value="1">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="floatingSelect">Tác giả</label>
                                     </div>
 
-                                    <div class="form-floating" style="margin: 2%;">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                            <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($_theloai as $item)
-                                            <option value="2">{{$item->ten}}</option>
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Thể loại</label>
+                                        <select id="form-select" class="form-control select2-no-search">
+                                            @foreach ($the_loai as $item)
+                                                <option value="2">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="floatingSelect">Thể loại</label>
                                     </div>
-                                    <div class="form-floating mb-3" style="margin: 2%;">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                            <!-- <option selected>Chọn thể loại</option> -->
-                                            @foreach ($_nhaxuatban as $item)
-                                            <option value="2">{{$item->ten}}</option>
+
+
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Nhà xuất bản</label>
+                                        <select id="form-select" class="form-control select2-no-search">
+                                            @foreach ($nha_xuat_ban as $item)
+                                                <option value="2">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="floatingSelect">Nhà xuất bản</label>
                                     </div>
-                                    <div class="form-floating mb-3" style="margin: 2%;">
-                                        <input type="number" class="form-control rounded" id="floatingInput" placeholder="name@example.com">
-                                        <label for="floatingInput">Năm xuất bản</label>
-                                    </div>
+
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Năm xuất bản</label>
+                                        <input type="number" name="ten_sach" class="form-control"
+                                            placeholder="Nhập tên sách" value="">
+                                    </div><!-- form-group -->
                                 </div>
                             </div>
-                            <div class="form-floating" style="margin-top: 2%;">
-                                <textarea class="form-control rounded" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                                <label for="floatingTextarea2">Tóm tắt</label>
+
+                            <div class="form-group">
+                                <label for="">&nbsp;&nbsp;Nội dung tóm tắt</label>
+                                <textarea rows="10" class="form-control" placeholder="Nhập tóm tắt nội dung sách"></textarea>
                             </div>
+
                             <div style="display: flex;justify-content: end;margin-top: 5%;">
-                                <a href="" class="btn btn-danger rounded" style="margin-right: 2%;">hủy</a>
+                                <a href="" class="btn btn-danger rounded" style="margin-right: 2%;">Làm
+                                    mới</a>
                                 <a href="" class="btn btn-success rounded">Thêm</a>
                             </div>
                         </form>
                     </div>
 
-
                     <div style="flex-basis: 30%;padding: 2%;" class="shadow border rounded">
-                        <select id="form-select" style="width: 100%;height: 7%;" class="rounded">
+                        <select class="form-control select2-no-search">
                             <option value="author-form">Tác giả</option>
                             <option value="publisher-form">Nhà xuất bản</option>
                             <option value="category-form">Thể loại</option>
                             <option value="area-form">Khu vực</option>
-                            <option value="bookshelf-form">Tủ sách</option>
+                            {{-- <option value="bookshelf-form">Tủ sách</option> --}}
                         </select>
 
-
                         <div id="author-form" class="form active">
-                            <div style="padding: 2%;">
-                                <div style="margin-top: 5%;">
-                                    @foreach ($_tacgia as $item)
-                                    <p>+ {{ $item->ten }} <a href="{{ route('xoatacgia', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
-                                    @endforeach
-                                </div>
+                            <div class="mt-1 mb-1">
+                                @foreach ($tac_gia as $key => $item)
+                                    <div
+                                        class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
+                                        <div>{{ $key + 1 }}. {{ $item->ten }}</div>
+                                        <div>
+                                            <a href=""><i
+                                                    class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                            &nbsp;
+                                            <a href="{{ route('xoa-tac-gia', ['id' => $item->id]) }}"><i
+                                                    class="fa-solid fa-xmark text-danger"></i></a>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <form action="{{route('themtacgia')}}" method="post">
+                            <form action="{{ route('them-tac-gia') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="ten" type="text" class="form-control rounded" style="margin-right: 5%;" placeholder="Thêm tác giả" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="ten" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm tác giả"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -346,16 +359,29 @@
                         <div id="publisher-form" class="form">
                             <div style="padding: 2%;">
                                 <div style="margin-top: 5%;">
-                                    @foreach ($_nhaxuatban as $item)
-                                    <p>+ {{ $item->ten }} <a href="{{ route('xoanxb', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
+                                    @foreach ($nha_xuat_ban as $key => $item)
+                                        <div
+                                            class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} justify-content-between">
+                                            <p>{{ $key + 1 }}. {{ $item->ten }}</p>
+                                            <div>
+                                                <a href=""><i
+                                                        class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                                &nbsp;
+                                                <a href="{{ route('xoa-nha-xuat-ban', ['id' => $item->id]) }}"><i
+                                                        class="fa-solid fa-xmark text-danger"></i></a>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <form action="{{route('themnhaxuatban')}}" method="post">
+                            <form action="{{ route('them-nha-xuat-ban') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="nhaxuatban" type="text" class="form-control rounded" style="margin-right: 5%;" placeholder="Thêm nhà xuất bản" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="nhaxuatban" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm nhà xuất bản"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -363,57 +389,90 @@
                         <div id="category-form" class="form">
                             <div style="padding: 2%;">
                                 <div style="margin-top: 5%;">
-                                    @foreach ($_theloai as $item)
-                                    <p>+ {{ $item->ten }} <a href="{{ route('xoatheloai', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
+                                    @foreach ($the_loai as $key => $item)
+                                        <div
+                                            class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} justify-content-between">
+                                            <p>{{ $key + 1 }}. {{ $item->ten }}</p>
+                                            <div>
+                                                <a href=""><i
+                                                        class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                                &nbsp;
+                                                <a href="{{ route('xoa-the-loai', ['id' => $item->id]) }}"><i
+                                                        class="fa-solid fa-xmark text-danger"></i></a>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <form action="{{route('themtheloai')}}" method="post">
+                            <form action="{{ route('them-the-loai') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="theloai" type="text" class="form-control rounded" style="margin-right: 5%;" placeholder="Thêm thể loại" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="theloai" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm thể loại"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
 
                         <div id="area-form" class="form">
                             <div style="padding: 2%;">
-                                @foreach ($_khuvuc as $item)
-                                <p>+ {{ $item->ten }} <a href="{{ route('xoakhuvuc', ['id' => $item->id]) }}"><i style="left:0;color: red;" class="fa-solid fa-x"></i></a></p>
-                                @endforeach
+                                <div style="margin-top: 5%;">
+                                    @foreach ($khu_vuc as $key => $item)
+                                        <div
+                                            class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} justify-content-between">
+                                            <p>{{ $key + 1 }}. {{ $item->ten }}</p>
+                                            <div>
+                                                <a href=""><i
+                                                        class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                                &nbsp;
+                                                <a href="{{ route('xoa-khu-vuc', ['id' => $item->id]) }}"><i
+                                                        class="fa-solid fa-xmark text-danger"></i></a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <form action="{{route('themkhuvuc')}}" method="post">
+                            <form action="{{ route('them-khu-vuc') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="khuvuc" type="text" class="form-control rounded" style="margin-right: 5%;" placeholder="Thêm khu vực" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="khuvuc" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm khu vực"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
 
-                        <div id="bookshelf-form" class="form" action="">
+                        {{-- <div id="bookshelf-form" class="form" action="">
                             <div style="padding: 2%;">
                                 <div class="form-check" style="display: flex;margin-top: 5%;">
                                     <div style="flex-basis: 70%;">
-                                        <input name="tusach" style="padding: 2%;" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input name="tusach" style="padding: 2%;" class="form-check-input"
+                                            type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Tủ sách
                                         </label>
                                     </div>
                                     <div style="flex-basis: 30%;padding-top: 2%;">
-                                        <span><a href="#"><i style="color:red;margin-left: 75%;" class="fa-solid fa-x"></i></a></span>
+                                        <span><a href="#"><i style="color:red;margin-left: 75%;"
+                                                    class="fa-solid fa-x"></i></a></span>
                                     </div>
                                 </div>
                             </div>
                             <form action="" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="tusach" type="text" class="form-control rounded" style="margin-right: 5%;" placeholder="Thêm tủ sách" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="button" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="tusach" type="text" class="form-control rounded"
+                                        style="margin-right: 5%;" placeholder="Thêm tủ sách"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="button" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
 
                         <style>
                             input[type="number"]::-webkit-inner-spin-button,
@@ -472,6 +531,16 @@
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
+
+    <div class="az-footer ht-40">
+        <div class="container ht-100p pd-t-0-f">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
+                2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+                    templates</a> from Bootstrapdash.com</span>
+        </div><!-- container -->
+    </div><!-- az-footer -->
 
     <script src="/lib/jquery/jquery.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
