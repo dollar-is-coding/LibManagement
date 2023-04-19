@@ -7,6 +7,7 @@ use App\Models\NhaXuatBan;
 use Illuminate\Http\Request;
 use App\Models\TheLoai;
 use App\Models\KhuVuc;
+use App\Models\Sach;
 use App\Models\TuSach;
 use App\Models\ThuVien;
 
@@ -18,20 +19,21 @@ class AdminController extends Controller
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
-        return view('them', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc]);
+        $tu_sach =TuSach::all();
+        return view('them', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
     }
-    public function layKhuVuc()
-    {
-        $danh_sach_khu_vuc = KhuVuc::all();
+    // public function layKhuVuc()
+    // {
+    //     $danh_sach_khu_vuc = KhuVuc::all();
 
-        return response()->json($danh_sach_khu_vuc);
-    }
-    public function laytuSachTheoID(Request $request)
-    {
-        $khu_vuc_id = $request->input('khu_vuc_id');
-        $tu_sach = TuSach::where('khu_vuc_id', $khu_vuc_id)->get();
-        return response()->json(['tu_sach' => $tu_sach]);
-    }
+    //     return response()->json($danh_sach_khu_vuc);
+    // }
+    // public function laytuSachTheoID(Request $request)
+    // {
+    //     $khu_vuc_id = $request->input('khu_vuc_id');
+    //     $tu_sach = TuSach::where('khu_vuc_id', $khu_vuc_id)->get();
+    //     return response()->json(['tu_sach' => $tu_sach]);
+    // }
     public function themTacGia(Request $request)
     {
         TacGia::create(['ten' => $request->tacgia]);
@@ -98,6 +100,10 @@ class AdminController extends Controller
     {
         return view('ds_sach',['ds_sach'=>ThuVien::all()]);
     }
+    // public function hienTacGia($id){
+    //     $tac_gia =TacGia::find($id);
+    //     return view('them',['tac_gia'=>$tac_gia]);
+    // }
     public function suaTacgia($id, Request $request)
     {
         TacGia::find($id)->update([
@@ -126,5 +132,31 @@ class AdminController extends Controller
         ]);
         return redirect()->route('hien-thi-them');
     }
-    
+    public function suaTuSach($id, Request $request)
+    {
+        TuSach::find($id)->update([
+            'ten' => $request->tu_sach,
+            'khu_vuc_id' => $request->khu_vuc_id,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function themSach(Request $request){
+        if($request->has('file_upload')){
+            $file =$request->file_upload;
+            $file_name = $file->getClientOriginalName();
+            $file->move(public_path('img/sach'), $file_name);
+        }
+        $request->merge(['hinh_anh'=>$file_name]);
+
+        $sach = Sach::create([
+            'ten' => 'Dinh',
+            'the_loai_id' => 1,
+            'tac_gia_id' => 2,
+            'nha_xuat_ban_id' => 3,
+            'nam_xuat_ban' => 2002,
+            'tom_tat' => 'Cung hay',
+            'hinh_anh' => $file_name,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
 }
