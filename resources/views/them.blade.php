@@ -183,83 +183,30 @@
                         <form action="{{route('them-sach')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div style="display: flex;">
-                                <div class="upload-container" style="flex-basis: 30%;margin-right: 2%;">
+                                <!-- up ảnh -->
+                                <div class="upload-container row" style="flex-basis: 30%;margin-right: 2%;">
                                     <div class="upload-container border rounded">
                                         <label for="upload-file" class="upload-label" style="font-size: 130%;">Tải
                                             ảnh lên</label>
                                         <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file" name="file_upload" accept="image/*">
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
-                                    <style>
-                                        .upload-container {
-                                            position: relative;
-                                            width: 200px;
-                                            height: 200px;
-                                            border: 1px border #ccc;
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-                                            /* cursor: pointer; */
-                                        }
-
-                                        .upload-label {
-                                            position: absolute;
-                                            top: 50%;
-                                            left: 50%;
-                                            transform: translate(-50%, -50%);
-                                        }
-
-                                        .preview-container {
-                                            position: absolute;
-                                            width: 100%;
-                                            height: 100%;
-                                            top: 0;
-                                            left: 0;
-                                            display: none;
-                                        }
-
-                                        .preview-container img {
-                                            width: 100%;
-                                            height: 100%;
-                                            object-fit: cover;
-                                        }
-                                    </style>
-                                    <script>
-                                        const uploadFile = document.getElementById('upload-file');
-                                        const previewContainer = document.getElementById('preview-container');
-
-                                        let selectedFile = null;
-
-                                        uploadFile.addEventListener('change', (event) => {
-                                            selectedFile = event.target.files[0];
-                                            const reader = new FileReader();
-                                            reader.onload = () => {
-                                                const image = new Image();
-                                                image.src = reader.result;
-                                                image.onload = () => {
-                                                    previewContainer.innerHTML = '';
-                                                    previewContainer.appendChild(image);
-                                                    previewContainer.style.display = 'block';
-                                                    uploadFile.style.display = 'none';
-                                                    document.querySelector('.upload-label').style.display = 'none';
-                                                };
-                                            };
-                                            reader.readAsDataURL(selectedFile);
-                                        });
-
-                                        previewContainer.addEventListener('click', () => {
-                                            if (selectedFile) {
-                                                selectedFile = null;
-                                                previewContainer.style.display = 'none';
-                                                uploadFile.style.display = 'block';
-                                                document.querySelector('.upload-label').style.display = 'block';
-                                                uploadFile.value = '';
-                                            }
-                                        });
-                                    </script>
-
-
+                                    <!-- số lượng -->
+                                    <div style="margin-top: 6%;" class="form-group">
+                                        <label>&nbsp;&nbsp;Số lượng</label>
+                                        <input type="number" name="so_luong" class="form-control" placeholder="Số lượng" value="">
+                                    </div>
+                                    <!-- khu vực -->
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Khu vực</label>
+                                        <select id="khuVucSelect" class="form-control select2-no-search">
+                                            @foreach($khu_vuc as $item)
+                                            <option value="{{$item->id}}">{{$item->ten}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
+                                <!-- form -->
                                 <div style="flex-basis: 70%;">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tên sách</label>
@@ -298,14 +245,7 @@
                                         <label>&nbsp;&nbsp;Năm xuất bản</label>
                                         <input type="number" name="ten_sach" class="form-control" placeholder="Nhập tên sách" value="">
                                     </div><!-- form-group -->
-                                    <div class="form-group">
-                                        <label>&nbsp;&nbsp;Khu vực</label>
-                                        <select id="khuVucSelect" class="form-control select2-no-search">
-                                            @foreach($khu_vuc as $item)
-                                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tủ sách</label>
                                         <select id="tuSachSelect" class="form-control select2-no-search">
@@ -338,7 +278,7 @@
                         </form>
                     </div>
 
-                    <div style="flex-basis: 30%;padding: 2%;" class="shadow border rounded">
+                    <div style="flex-basis: 30%;padding: 2%;height: 40%;" class="shadow border rounded">
                         <select id="option-select" class="form-control select2-no-search">
                             <option value="author-form">Tác giả</option>
                             <option value="publisher-form">Nhà xuất bản</option>
@@ -708,6 +648,74 @@
                     templates</a> from Bootstrapdash.com</span>
         </div><!-- container -->
     </div><!-- az-footer -->
+    <style>
+        .upload-container {
+            position: relative;
+            width: 270px;
+            height: 316px;
+            border: 1px border #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* cursor: pointer; */
+        }
+
+        .upload-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .preview-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .preview-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        const uploadFile = document.getElementById('upload-file');
+        const previewContainer = document.getElementById('preview-container');
+
+        let selectedFile = null;
+
+        uploadFile.addEventListener('change', (event) => {
+            selectedFile = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const image = new Image();
+                image.src = reader.result;
+                image.onload = () => {
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(image);
+                    previewContainer.style.display = 'block';
+                    uploadFile.style.display = 'none';
+                    document.querySelector('.upload-label').style.display = 'none';
+                };
+            };
+            reader.readAsDataURL(selectedFile);
+        });
+
+        previewContainer.addEventListener('click', () => {
+            if (selectedFile) {
+                selectedFile = null;
+                previewContainer.style.display = 'none';
+                uploadFile.style.display = 'block';
+                document.querySelector('.upload-label').style.display = 'block';
+                uploadFile.value = '';
+            }
+        });
+    </script>
+
 
     <script>
         $(document).ready(function() {
