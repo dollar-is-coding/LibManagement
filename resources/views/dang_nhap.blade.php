@@ -98,7 +98,6 @@
     <script>
         $(function() {
             'use strict'
-
         });
     </script>
 </body>

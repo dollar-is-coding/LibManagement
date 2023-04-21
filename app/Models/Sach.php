@@ -20,11 +20,16 @@ class Sach extends Model
 
     public function fkTacGia()
     {
-        return $this->belongsTo(TacGia::class,'the_loai_id');
+        return $this->belongsTo(TacGia::class,'tac_gia_id');
     }
 
     public function fkNhaXuatBan()
     {
         return $this->belongsTo(NhaXuatBan::class,'nha_xuat_ban_id');
+    }
+
+    public function hasThuVien()
+    {
+        return $this->hasMany(ThuVien::class,'sach_id','id');
     }
 }

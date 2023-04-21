@@ -18,8 +18,8 @@ class NguoiDungSeeder extends Seeder
             NguoiDung::create([
                 'email'=>"admin{$i}@gmail.com",
                 'mat_khau'=>hash::make("adminnn{$i}"),
-                'ho'=>'Nguyen',
-                'ten'=>"Admin{$i}",
+                'ho'=>'Trần',
+                'ten'=>"A{$i}",
                 'anh_dai_dien'=>'',
                 'vai_tro'=>1,
             ]);

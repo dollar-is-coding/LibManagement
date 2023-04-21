@@ -26,28 +26,31 @@
 
 
     <!-- <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-</head>
-<!-- Meta -->
-<meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-<meta name="author" content="BootstrapDash">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-<title>Azia Responsive Bootstrap 4 Dashboard Template</title>
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="BootstrapDash">
 
-<!-- vendor css -->
-<link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-<link href="/lib/typicons.font/typicons.css" rel="stylesheet">
+    <title>Azia Responsive Bootstrap 4 Dashboard Template</title>
 
-<!-- azia CSS -->
-<link rel="stylesheet" href="/css/azia.css">
+    <!-- vendor css -->
+    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
+
+    <!-- azia CSS -->
+    <link rel="stylesheet" href="/css/azia.css">
 
 </head>
 
@@ -101,7 +104,8 @@
                 </ul>
             </div><!-- az-header-menu -->
             <div class="az-header-right">
-                <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank" class="az-header-search-link"><i class="far fa-file-alt"></i></a>
+                <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank"
+                    class="az-header-search-link"><i class="far fa-file-alt"></i></a>
                 <a href="" class="az-header-search-link"><i class="fas fa-search"></i></a>
                 <div class="az-header-message">
                     <a href="#"><i class="typcn typcn-messages"></i></a>
@@ -180,7 +184,7 @@
             <div class="az-content-body d-flex flex-column">
                 <div style="display: flex;">
                     <div style="flex-basis: 70%;margin-right: 2%;padding: 2%;" class="shadow border rounded">
-                        <form action="{{route('them-sach')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('them-sach') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div style="display: flex;">
                                 <!-- up ảnh -->
@@ -188,20 +192,22 @@
                                     <div class="upload-container border rounded">
                                         <label for="upload-file" class="upload-label" style="font-size: 130%;">Tải
                                             ảnh lên</label>
-                                        <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file" name="file_upload" accept="image/*">
+                                        <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file"
+                                            name="file_upload" accept="image/*">
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
                                     <!-- số lượng -->
                                     <div style="margin-top: 6%;" class="form-group">
                                         <label>&nbsp;&nbsp;Số lượng</label>
-                                        <input type="number" name="so_luong" class="form-control" placeholder="Số lượng" value="">
+                                        <input type="number" name="so_luong" class="form-control"
+                                            placeholder="Số lượng" value="">
                                     </div>
                                     <!-- khu vực -->
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Khu vực</label>
                                         <select id="khuVucSelect" class="form-control select2-no-search">
-                                            @foreach($khu_vuc as $item)
-                                            <option value="{{$item->id}}">{{$item->ten}}</option>
+                                            @foreach ($khu_vuc as $item)
+                                                <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -210,23 +216,26 @@
                                 <div style="flex-basis: 70%;">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tên sách</label>
-                                        <input type="text" name="ten_sach" class="form-control" placeholder="Nhập tên sách" value="">
+                                        <input type="text" name="ten_sach" class="form-control"
+                                            placeholder="Nhập tên sách" value="">
                                     </div><!-- form-group -->
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tác giả</label>
-                                        <select id="form-select" class="form-control select2-no-search">
+                                        <select id="form-select" class="form-control select2-no-search"
+                                            name="tac_gia">
                                             @foreach ($tac_gia as $item)
-                                            <option selected value="1">{{ $item->ten }}</option>
+                                                <option selected value="1">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Thể loại</label>
-                                        <select id="form-select" class="form-control select2-no-search">
+                                        <select id="form-select" class="form-control select2-no-search"
+                                            name="the_loai">
                                             @foreach ($the_loai as $item)
-                                            <option value="2">{{ $item->ten }}</option>
+                                                <option value="2">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -234,30 +243,34 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Nhà xuất bản</label>
-                                        <select id="form-select" class="form-control select2-no-search">
+                                        <select id="form-select" class="form-control select2-no-search"
+                                            name="nha_xuat_ban">
                                             @foreach ($nha_xuat_ban as $item)
-                                            <option value="2">{{ $item->ten }}</option>
+                                                <option value="2">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Năm xuất bản</label>
-                                        <input type="number" name="ten_sach" class="form-control" placeholder="Nhập tên sách" value="">
+                                        <input type="number" name="nam_xuat_ban" class="form-control"
+                                            placeholder="Nhập năm xuất bản">
                                     </div><!-- form-group -->
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tủ sách</label>
                                         <select id="tuSachSelect" class="form-control select2-no-search">
                                             <option value="" selected>-- Chọn tủ sách --</option>
-                                            @foreach($khu_vuc as $khu_vuc_item)
-                                            <optgroup label="{{$khu_vuc_item->ten}} gồm các tủ" data-khu-vuc="{{$khu_vuc_item->id}}" class="tuSachOptgroup">
-                                                @foreach($tu_sach as $tu_sach_item)
-                                                @if($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                                <option value="{{$tu_sach_item->id}}">{{$tu_sach_item->ten}}</option>
-                                                @endif
-                                                @endforeach
-                                            </optgroup>
+                                            @foreach ($khu_vuc as $khu_vuc_item)
+                                                <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ"
+                                                    data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                                    @foreach ($tu_sach as $tu_sach_item)
+                                                        @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                                            <option value="{{ $tu_sach_item->id }}">
+                                                                {{ $tu_sach_item->ten }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </optgroup>
                                             @endforeach
                                         </select>
                                     </div>
@@ -266,7 +279,7 @@
 
                             <div class="form-group">
                                 <label for="">&nbsp;&nbsp;Nội dung tóm tắt</label>
-                                <textarea rows="10" class="form-control" placeholder="Nhập tóm tắt nội dung sách"></textarea>
+                                <textarea rows="10" name="tom_tat" class="form-control" placeholder="Nhập tóm tắt nội dung sách"></textarea>
                             </div>
 
                             <div style="display: flex;justify-content: end;margin-top: 5%;">
@@ -289,57 +302,78 @@
                         <div id="author-form" class="form active">
                             <div class="mt-1 mb-1">
                                 @foreach ($tac_gia as $key => $item)
-                                <div class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
-                                    <div>{{ $key + 1 }}. {{ $item->ten }}</div>
-                                    <div>
-                                        <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $item->ten }}">
-                                            <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
-                                        <!-- modal -->
+                                    <div
+                                        class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
+                                        <div>{{ $key + 1 }}. {{ $item->ten }}</div>
+                                        <div>
+                                            <a href="#" class="btn-open-modal" data-toggle="modal"
+                                                data-target="#{{ $key + 1 }}_{{ $item->ten }}">
+                                                <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                            <!-- modal -->
 
-                                        <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Sửa tác giả</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{route('sua-tac-gia',['id'=>$item->id])}}" method="POST">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Tên tác giả</label>
-                                                                <input disabled value="{{$item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Bạn muốn sửa tên tác giả thành</label>
-                                                                <input name="tac_gia" type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên tác giả mới">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>
-                                                                <button type="submit" class="btn btn-primary rounded">Lưu thay đổi</button>
-                                                            </div>
-                                                        </form>
+                                            <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Sửa tác giả</h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('sua-tac-gia', ['id' => $item->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tên tác giả</label>
+                                                                    <input disabled value="{{ $item->ten }}"
+                                                                        type="text" class="form-control"
+                                                                        id="exampleInputEmail1"
+                                                                        aria-describedby="text" placeholder="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Bạn muốn sửa tên
+                                                                        tác giả thành</label>
+                                                                    <input name="tac_gia" type="text"
+                                                                        class="form-control"
+                                                                        id="exampleInputPassword1"
+                                                                        placeholder="Tên tác giả mới">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary rounded"
+                                                                        data-dismiss="modal">Đóng</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary rounded">Lưu thay
+                                                                        đổi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- end modal -->
-                                        &nbsp;
-                                        <a href="{{ route('xoa-tac-gia', ['id' => $item->id]) }}" class="delete-link">
-                                            <i class="fa-solid fa-xmark text-danger"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                            <!-- end modal -->
+                                            &nbsp;
+                                            <a href="{{ route('xoa-tac-gia', ['id' => $item->id]) }}"
+                                                class="delete-link">
+                                                <i class="fa-solid fa-xmark text-danger"></i>
+                                            </a>
+                                        </div>
                                 @endforeach
                             </div>
                             <form action="{{ route('them-tac-gia') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="tacgia" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm tác giả" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="tacgia" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm tác giả"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -347,53 +381,76 @@
                         <div id="publisher-form" class="form">
                             <div class="mt-1 mb-1">
                                 @foreach ($nha_xuat_ban as $key => $item)
-                                <div class="d-flex {{ $key != count($nha_xuat_ban) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
-                                    <div>{{ $key + 1 }}. {{ $item->ten }}</div>
-                                    <div>
-                                        <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $item->ten }}">
-                                            <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
-                                        <!-- modal -->
+                                    <div
+                                        class="d-flex {{ $key != count($nha_xuat_ban) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
+                                        <div>{{ $key + 1 }}. {{ $item->ten }}</div>
+                                        <div>
+                                            <a href="#" class="btn-open-modal" data-toggle="modal"
+                                                data-target="#{{ $key + 1 }}_{{ $item->ten }}">
+                                                <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                            <!-- modal -->
 
-                                        <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Sửa tên nhà xuất bản</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{route('sua-nha-xuat-ban',['id'=>$item->id])}}" method="POST">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Tên nhà xuất bản</label>
-                                                                <input disabled value="{{$item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Bạn muốn sửa tên nhà xuất bản thành</label>
-                                                                <input name="nha_xuat_ban" type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên nhà xuát bản mới">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>
-                                                                <button type="submit" class="btn btn-primary rounded">Lưu thay đổi</button>
-                                                            </div>
-                                                        </form>
+                                            <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Sửa tên nhà xuất bản</h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('sua-nha-xuat-ban', ['id' => $item->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tên nhà xuất
+                                                                        bản</label>
+                                                                    <input disabled value="{{ $item->ten }}"
+                                                                        type="text" class="form-control"
+                                                                        id="exampleInputEmail1"
+                                                                        aria-describedby="text" placeholder="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Bạn muốn sửa tên
+                                                                        nhà xuất bản thành</label>
+                                                                    <input name="nha_xuat_ban" type="text"
+                                                                        class="form-control"
+                                                                        id="exampleInputPassword1"
+                                                                        placeholder="Tên nhà xuát bản mới">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary rounded"
+                                                                        data-dismiss="modal">Đóng</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary rounded">Lưu thay
+                                                                        đổi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;
+                                            <a href="{{ route('xoa-nha-xuat-ban', ['id' => $item->id]) }}"
+                                                class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                         </div>
-                                        &nbsp;
-                                        <a href="{{ route('xoa-nha-xuat-ban', ['id' => $item->id]) }}" class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
                             <form action="{{ route('them-nha-xuat-ban') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="nhaxuatban" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm nhà xuất bản" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="nhaxuatban" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm nhà xuất bản"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -402,54 +459,77 @@
 
                             <div class="mt-1 mb-1">
                                 @foreach ($the_loai as $key => $item)
-                                <div class="d-flex {{ $key != count($the_loai) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
-                                    <div>{{ $key + 1 }}. {{ $item->ten }}</div>
-                                    <div>
-                                        <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $item->ten }}">
-                                            <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
-                                        <!-- modal -->
+                                    <div
+                                        class="d-flex {{ $key != count($the_loai) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
+                                        <div>{{ $key + 1 }}. {{ $item->ten }}</div>
+                                        <div>
+                                            <a href="#" class="btn-open-modal" data-toggle="modal"
+                                                data-target="#{{ $key + 1 }}_{{ $item->ten }}">
+                                                <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                            <!-- modal -->
 
-                                        <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Sửa tên thể loại</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{route('sua-the-loai',['id'=>$item->id])}}" method="POST">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Tên thể loại</label>
-                                                                <input disabled value="{{$item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Bạn muốn sửa tên thể loại thành</label>
-                                                                <input name="the_loai" type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên thể loại mới">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>
-                                                                <button type="submit" class="btn btn-primary rounded">Lưu thay đổi</button>
-                                                            </div>
-                                                        </form>
+                                            <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Sửa tên thể loại</h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('sua-the-loai', ['id' => $item->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tên thể
+                                                                        loại</label>
+                                                                    <input disabled value="{{ $item->ten }}"
+                                                                        type="text" class="form-control"
+                                                                        id="exampleInputEmail1"
+                                                                        aria-describedby="text" placeholder="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Bạn muốn sửa tên
+                                                                        thể loại thành</label>
+                                                                    <input name="the_loai" type="text"
+                                                                        class="form-control"
+                                                                        id="exampleInputPassword1"
+                                                                        placeholder="Tên thể loại mới">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary rounded"
+                                                                        data-dismiss="modal">Đóng</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary rounded">Lưu thay
+                                                                        đổi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;
+                                            <a href="{{ route('xoa-the-loai', ['id' => $item->id]) }}"
+                                                class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                         </div>
-                                        &nbsp;
-                                        <a href="{{ route('xoa-the-loai', ['id' => $item->id]) }}" class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
 
                             <form action="{{ route('them-the-loai') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="theloai" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm thể loại" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="theloai" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm thể loại"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -458,54 +538,76 @@
 
                             <div class="mt-1 mb-1">
                                 @foreach ($khu_vuc as $key => $item)
-                                <div class="d-flex {{ $key != count($khu_vuc) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
-                                    <div>{{ $key + 1 }}. {{ $item->ten }}</div>
-                                    <div>
-                                        <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $item->ten }}">
-                                            <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
-                                        <!-- modal -->
+                                    <div
+                                        class="d-flex {{ $key != count($khu_vuc) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
+                                        <div>{{ $key + 1 }}. {{ $item->ten }}</div>
+                                        <div>
+                                            <a href="#" class="btn-open-modal" data-toggle="modal"
+                                                data-target="#{{ $key + 1 }}_{{ $item->ten }}">
+                                                <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                            <!-- modal -->
 
-                                        <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Sửa tên khu vực</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{route('sua-khu-vuc',['id'=>$item->id])}}" method="POST">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Tên khu vực</label>
-                                                                <input disabled value="{{$item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Bạn muốn sửa tên khu vực thành</label>
-                                                                <input name="khu_vuc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên khu vực mới">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>
-                                                                <button type="submit" class="btn btn-primary rounded">Lưu thay đổi</button>
-                                                            </div>
-                                                        </form>
+                                            <div class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Sửa tên khu vực</h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('sua-khu-vuc', ['id' => $item->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tên khu vực</label>
+                                                                    <input disabled value="{{ $item->ten }}"
+                                                                        type="text" class="form-control"
+                                                                        id="exampleInputEmail1"
+                                                                        aria-describedby="text" placeholder="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Bạn muốn sửa tên
+                                                                        khu vực thành</label>
+                                                                    <input name="khu_vuc" type="text"
+                                                                        class="form-control"
+                                                                        id="exampleInputPassword1"
+                                                                        placeholder="Tên khu vực mới">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary rounded"
+                                                                        data-dismiss="modal">Đóng</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary rounded">Lưu thay
+                                                                        đổi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;
+                                            <a href="{{ route('xoa-khu-vuc', ['id' => $item->id]) }}"
+                                                class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                         </div>
-                                        &nbsp;
-                                        <a href="{{ route('xoa-khu-vuc', ['id' => $item->id]) }}" class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
 
                             <form action="{{ route('them-khu-vuc') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="khuvuc" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm khu vực" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="button-addon2">Thêm</button>
+                                    <input name="khuvuc" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm khu vực"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="submit" style="color:white"
+                                        id="button-addon2">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -517,80 +619,135 @@
                             <form id="them-tu-sach-form" action="{{ route('them-tu-sach') }}" method="post">
                                 @csrf
                                 <div id="tusach-container">
-                                    @foreach($khu_vuc as $khu_vuc_item)
-                                    <div class="tusach-group" data-khu-vuc="{{$khu_vuc_item->id}}">
-                                        @foreach($tu_sach as $tu_sach_item)
-                                        @if($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                        <div data-tusach-id="{{$tu_sach_item->id}}" class="tusach-item d-flex {{ $loop->last ? '' : 'border-bottom' }} p-2 justify-content-between">
-                                            <div>{{$tu_sach_item->ten}}</div>
-                                            <div>
-                                                <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $tu_sach_item->ten }}">
-                                                    <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
-                                                <!-- modal -->
+                                    @foreach ($khu_vuc as $khu_vuc_item)
+                                        <div class="tusach-group" data-khu-vuc="{{ $khu_vuc_item->id }}">
+                                            @foreach ($tu_sach as $tu_sach_item)
+                                                @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                                    <div data-tusach-id="{{ $tu_sach_item->id }}"
+                                                        class="tusach-item d-flex {{ $loop->last ? '' : 'border-bottom' }} p-2 justify-content-between">
+                                                        <div>{{ $tu_sach_item->ten }}</div>
+                                                        <div>
+                                                            <a href="#" class="btn-open-modal"
+                                                                data-toggle="modal"
+                                                                data-target="#{{ $key + 1 }}_{{ $tu_sach_item->ten }}">
+                                                                <i
+                                                                    class="fa-solid fa-pen-to-square text-secondary"></i></a>
+                                                            <!-- modal -->
 
-                                                <div class="modal fade" id="{{ $key + 1 }}_{{ $tu_sach_item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Sửa tên tủ sách</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{route('sua-tu-sach',['id'=>$tu_sach_item->id])}}" method="POST">
-                                                                    @csrf
-                                                                    <div style="display: flex;" class="form-group">
-                                                                        <div style="flex-basis: 48%;margin-right: 2%;">
-                                                                            <label for="exampleInputEmail1">Tên tủ sách</label>
-                                                                            <input disabled value="{{$tu_sach_item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
+                                                            <div class="modal fade"
+                                                                id="{{ $key + 1 }}_{{ $tu_sach_item->ten }}"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Sửa tên tủ sách
+                                                                            </h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
                                                                         </div>
-                                                                        <div style="flex-basis: 50%;">
-                                                                            <label for="exampleInputEmail1">Tên khu vực</label>
-                                                                            <input disabled value="{{$khu_vuc_item->ten}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="text" placeholder="">
+                                                                        <div class="modal-body">
+                                                                            <form
+                                                                                action="{{ route('sua-tu-sach', ['id' => $tu_sach_item->id]) }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <div style="display: flex;"
+                                                                                    class="form-group">
+                                                                                    <div
+                                                                                        style="flex-basis: 48%;margin-right: 2%;">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Tên
+                                                                                            tủ sách</label>
+                                                                                        <input disabled
+                                                                                            value="{{ $tu_sach_item->ten }}"
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            id="exampleInputEmail1"
+                                                                                            aria-describedby="text"
+                                                                                            placeholder="">
+                                                                                    </div>
+                                                                                    <div style="flex-basis: 50%;">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Tên
+                                                                                            khu vực</label>
+                                                                                        <input disabled
+                                                                                            value="{{ $khu_vuc_item->ten }}"
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            id="exampleInputEmail1"
+                                                                                            aria-describedby="text"
+                                                                                            placeholder="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <label for="khuVucSelect">Bạn muốn đổi
+                                                                                    thành khu vực</label>
+                                                                                <select name="khu_vuc_id"
+                                                                                    id="khuVucSelect"
+                                                                                    class="form-control select2-no-search">
+                                                                                    @foreach ($khu_vuc as $item)
+                                                                                        <option
+                                                                                            value="{{ $item->id }}">
+                                                                                            {{ $item->ten }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                <div class="form-group">
+                                                                                    <label style="margin: 5% 0 1% 0;"
+                                                                                        for="exampleInputPassword1">Bạn
+                                                                                        muốn sửa tên tủ sách
+                                                                                        thành</label>
+                                                                                    <input
+                                                                                        value="{{ $tu_sach_item->ten }}"
+                                                                                        name="tu_sach" type="text"
+                                                                                        class="form-control"
+                                                                                        id="exampleInputPassword1"
+                                                                                        placeholder="Tên tủ sách mới">
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-secondary rounded"
+                                                                                        data-dismiss="modal">Đóng</button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary rounded">Lưu
+                                                                                        thay đổi</button>
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
-                                                                    <label for="khuVucSelect">Bạn muốn đổi thành khu vực</label>
-                                                                    <select name="khu_vuc_id" id="khuVucSelect" class="form-control select2-no-search">
-                                                                        @foreach($khu_vuc as $item)
-                                                                        <option value="{{$item->id}}">{{$item->ten}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <div class="form-group">
-                                                                        <label style="margin: 5% 0 1% 0;" for="exampleInputPassword1">Bạn muốn sửa tên tủ sách thành</label>
-                                                                        <input value="{{$tu_sach_item->ten}}" name="tu_sach" type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên tủ sách mới">
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>
-                                                                        <button type="submit" class="btn btn-primary rounded">Lưu thay đổi</button>
-                                                                    </div>
-                                                                </form>
+                                                                </div>
                                                             </div>
+                                                            <!-- xoa -->
+                                                            &nbsp;
+                                                            <a href="{{ route('xoa-khu-vuc', ['id' => $item->id]) }}"
+                                                                class="delete-link"><i
+                                                                    class="fa-solid fa-xmark text-danger"></i></a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- xoa -->
-                                                &nbsp;
-                                                <a href="{{ route('xoa-khu-vuc', ['id' => $item->id]) }}" class="delete-link"><i class="fa-solid fa-xmark text-danger"></i></a>
-                                            </div>
+                                                @endif
+                                            @endforeach
                                         </div>
-                                        @endif
-                                        @endforeach
-                                    </div>
                                     @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label style="margin-top: 2%;">&nbsp;&nbsp;Chọn khu vực</label>
-                                    <select id="khuVucSelect1" name="khu_vuc_id" style="width: 100%;" class="form-control select2-no-search">
-                                        @foreach($khu_vuc as $item)
-                                        <option value="{{$item->id}}">{{$item->ten}}</option>
+                                    <select id="khuVucSelect1" name="khu_vuc_id" style="width: 100%;"
+                                        class="form-control select2-no-search">
+                                        @foreach ($khu_vuc as $item)
+                                            <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <input name="tusach" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm tủ sách" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white" id="them-tu-sach-button">Thêm</button>
+                                    <input name="tusach" type="text" class="form-control"
+                                        style="margin-right: 5%;" placeholder="Thêm tủ sách"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-success rounded" type="submit" style="color:white"
+                                        id="them-tu-sach-button">Thêm</button>
                                 </div>
                             </form>
                         </div>
@@ -644,7 +801,8 @@
         <div class="container ht-100p pd-t-0-f">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
                 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
                     templates</a> from Bootstrapdash.com</span>
         </div><!-- container -->
     </div><!-- az-footer -->
