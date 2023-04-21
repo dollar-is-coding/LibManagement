@@ -19,25 +19,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Twitter -->
-    <!-- <meta name="twitter:site" content="@bootstrapdash">
-    <meta name="twitter:creator" content="@bootstrapdash">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Azia">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png"> -->
-
-    <!-- Facebook -->
-    <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
-    <meta property="og:title" content="Azia">
-    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
-
-    <meta property="og:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:secure_url" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600"> -->
-
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
@@ -45,10 +26,17 @@
     <title>Azia Responsive Bootstrap 4 Dashboard Template</title>
 
     <!-- vendor css -->
+    <link href="../lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
+    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
@@ -60,7 +48,7 @@
     <div class="az-header">
         <div class="container">
             <div class="az-header-left">
-                <a href="index.html" class="az-logo"><span></span> azia</a>
+                <a href="index.html" class="az-logo"><span></span> library</a>
                 <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
             </div><!-- az-header-left -->
             <div class="az-header-menu">
@@ -105,6 +93,7 @@
                     </li>
                 </ul>
             </div><!-- az-header-menu -->
+
             <div class="az-header-right">
                 <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank"
                     class="az-header-search-link"><i class="far fa-file-alt"></i></a>
@@ -155,81 +144,134 @@
                     </div><!-- dropdown-menu -->
                 </div><!-- az-header-notification -->
                 <div class="dropdown az-profile-menu">
-                    <a href="" class="az-img-user"><img src="../img/faces/face1.jpg" alt=""></a>
+                    <a href="" class="az-img-user">
+                        @if (Auth::user()->anh_dai_dien == '')
+                            <img src="../img/avt/user.png" alt="">
+                        @else
+                            <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}" alt="">
+                        @endif
+                    </a>
                     <div class="dropdown-menu">
                         <div class="az-dropdown-header d-sm-none">
                             <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
                         </div>
                         <div class="az-header-profile">
                             <div class="az-img-user">
-                                <img src="../img/faces/face1.jpg" alt="">
+                                @if (Auth::user()->anh_dai_dien == '')
+                                    <img src="../img/avt/user.png" alt="">
+                                @else
+                                    <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}" alt="">
+                                @endif
                             </div><!-- az-img-user -->
-                            <h6>Aziana Pechon</h6>
-                            <span>Premium Member</span>
+                            <h6>{{ Auth::user()->ho }} {{ Auth::user()->ten }}</h6>
+                            <span>{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}</span>
                         </div><!-- az-header-profile -->
 
-                        <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My
+                        <a href="{{ route('xem-thong-tin') }}" class="dropdown-item"><i
+                                class="typcn typcn-user-outline"></i> My
                             Profile</a>
                         <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
                         <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
                         <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account
                             Settings</a>
-                        <a href="page-signin.html" class="dropdown-item"><i class="typcn typcn-power-outline"></i>
+                        <a href="{{ route('xu-ly-dang-xuat') }}" class="dropdown-item"><i
+                                class="typcn typcn-power-outline"></i>
                             Sign Out</a>
                     </div><!-- dropdown-menu -->
                 </div>
             </div><!-- az-header-right -->
+
         </div><!-- container -->
     </div><!-- az-header -->
 
-    <div class="az-content az-content-dashboard">
+    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
-                <div class="az-content-label mg-b-5">Simple Table</div>
-                <p class="mg-b-20">Using the most basic table markup.</p>
-
+                <form class="row" action="{{ route('tim-kiem') }}" method="get">
+                    <div class="col-lg">
+                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
+                            autocomplete="off">
+                    </div><!-- col -->
+                    <div class="col-lg-3">
+                        <select class="form-control select2-no-search" name="sort">
+                            <option value="asc_name" selected>A -> Z</option>
+                            <option value="desc_name">Z -> A</option>
+                            <option value="desc_year">Mới nhất</option>
+                        </select>
+                    </div><!-- col -->
+                    <div class="col-lg-2">
+                        <button class="btn btn-indigo btn-block">Search</button>
+                    </div>
+                </form>
                 <div class="table-responsive">
-                    <table class="table mg-b-0">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Sách</th>
-                                <th>Tác giả</th>
-                                <th>Vị trí</th>
-                                <th>Số lượng</th>
-                                <th>Hình ảnh</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($ds_sach as $key => $item)
+                    @if (blank($ds_sach))
+                        <div class="az-table-reference">Không tìm thấy kết quả!</div>
+                    @else
+                        <table class="table mg-b-0 az-table-reference">
+                            <thead>
                                 <tr>
-                                    <th scope="row">{{ $key }}</th>
-                                    <td>{{ $item->fkSach->ten }}</td>
-                                    <td>{{ $item->fkSach->fkTacGia->ten }}</td>
-                                    <td>{{ $item->fkTuSach }}, {{ $item->fkTuSach->fkKhuVuc->ten }}</td>
-                                    <td>{{ $item->so_luong }}</td>
-                                    <td>
-                                        <img src="/img/books/{{ $item->hinh_anh }}" alt="" srcset="">
-                                    </td>
+                                    <th>STT</th>
+                                    <th>Sách</th>
+                                    <th>Vị trí</th>
+                                    <th>Số lượng</th>
+                                    <th>Hình ảnh</th>
                                 </tr>
-                            @endforeach
+                            </thead>
+                            <tbody>
+                                @foreach ($ds_sach as $key => $item)
+                                    @foreach ($item->hasThuVien as $thu_vien)
+                                        <tr>
+                                            <th scope="row">{{ ++$key }}</th>
+                                            <td>
+                                                <style>
+                                                    /* visited link */
+                                                    a:visited {
+                                                        color: black;
+                                                    }
 
-                        </tbody>
-                    </table>
+                                                    /* mouse over link */
+                                                    a:hover {
+                                                        color: blue;
+                                                        text-decoration: underline;
+                                                    }
+                                                </style>
+                                                <a href="">{{ $thu_vien->fkSach->ten }}</a>
+                                            </td>
+                                            <td>{{ $thu_vien->fkTuSach->ten }},
+                                                {{ $thu_vien->fkTuSach->fkKhuVuc->ten }}
+                                            </td>
+                                            <td>{{ $thu_vien->so_luong }}</td>
+                                            <td>
+                                                <img src="/img/books/{{ $thu_vien->hinh_anh }}" srcset="">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+
                 </div><!-- table-responsive -->
+
+                <div class="ht-40"></div>
+
+                <div class="az-footer ht-40">
+                    <div class="container ht-100p pd-t-0-f">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                            bootstrapdash.com
+                            2020</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
+                                target="_blank">Bootstrap admin
+                                templates</a> from Bootstrapdash.com</span>
+                    </div><!-- container -->
+                </div><!-- az-footer -->
+
             </div><!-- az-content-body -->
         </div>
     </div><!-- az-content -->
 
-    <div class="az-footer ht-40">
-        <div class="container ht-100p pd-t-0-f">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
-                2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
-                    templates</a> from Bootstrapdash.com</span>
-        </div><!-- container -->
-    </div><!-- az-footer -->
+
 
 
     <script src="../lib/jquery/jquery.min.js"></script>

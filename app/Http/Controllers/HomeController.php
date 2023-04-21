@@ -9,24 +9,6 @@ use App\Models\NguoiDung;
 
 class HomeController extends Controller
 {
-    public function dangKy()
-    {
-        return view('dang_ky');
-    }
-
-    public function xuLyDangKy(Request $request)
-    {
-        NguoiDung::create([
-            'email'=>$request->email,
-            'mat_khau'=>Hash::make($request->password),
-            'ho'=>$request->ho,
-            'ten'=>$request->ten,
-            'anh_dai_dien'=>'',
-            'vai_tro'=>$request->vai_tro,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
     public function dangNhap()
     {
         return view('dang_nhap');
@@ -36,8 +18,58 @@ class HomeController extends Controller
     {
         $admin=['email'=>$request->email,'password'=>$request->password,'vai_tro'=>1];
         if(Auth::attempt($admin)) {
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('trang-chu');
         } 
         return redirect()->back()->with('error','Đăng nhập thất bại');
+    }
+
+    public function xuLyDangXuat(Request $request)
+    {
+        Auth::logout();
+        return redirect()->back();
+    }
+
+    public function xemThongTin()
+    {
+        return view('thong_tin');
+    }
+
+    public function xuLySuaThongTin(Request $request)
+    {
+        $nguoiDung=NguoiDung::where('id',Auth::id())->update([
+            'ho'=>$request->ho,
+            'ten'=>$request->ten,
+            'email'=>$request->email
+        ]);
+        $img =NguoiDung::find(Auth::id());
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->anh_dai_dien = $filename;
+        }
+        $img->save();
+        return redirect()->back();
+    }
+
+    public function doiMatKhau()
+    {
+        return view('doi_mat_khau');
+    }
+
+    public function xuLyDoiMatKhau(Request $request)
+    {
+        if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
+            NguoiDung::find(Auth::id())->update([
+                'mat_khau'=>Hash::make($request->new_pass),
+            ]);
+            return redirect()->back();
+        }
+        return redirect()->back()->with('error','Thay đổi mật khẩu thất bại!');
+    }
+
+    public function trangChu()
+    {
+        return view('trang_chu');
     }
 }

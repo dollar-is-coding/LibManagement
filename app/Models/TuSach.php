@@ -15,6 +15,6 @@ class TuSach extends Model
 
     public function fkKhuVuc()
     {
-        return $this->belongsTo(KhuVuc::class);
+        return $this->belongsTo(KhuVuc::class,'khu_vuc_id');
     }
 }
