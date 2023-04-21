@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function themTuSach(Request $request)
     {
         TuSach::create([
-            'ten' => $request->tusach,
+            'ten' => $request->tu_sach,
             'khu_vuc_id'=>$request->khu_vuc_id,
         ]);
         return redirect()->route('hien-thi-them');
@@ -145,28 +145,15 @@ class AdminController extends Controller
         ]);
         return redirect()->route('hien-thi-them');
     }
-    public function themSach(Request $request){
-        if($request->has('file_upload')){
-            $file =$request->file_upload;
-            $file_name = $file->getClientOriginalName();
-            $file->move(public_path('img/sach'), $file_name);
-        }
-        $request->merge(['hinh_anh'=>$file_name]);
-
-        $sach = Sach::create([
-            'ten' => 'Dinh',
-            'the_loai_id' => 1,
-            'tac_gia_id' => 2,
-            'nha_xuat_ban_id' => 3,
-            'nam_xuat_ban' => 2002,
-            'tom_tat' => 'Cung hay',
-            'hinh_anh' => $file_name,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
 
     public function themSachThuVien(Request $request)
     {
+        if($request->has('file_upload')){
+            $file =$request->file_upload;
+            $file_name = $file->getClientOriginalName();
+            $file->move(public_path('img/books'), $file_name);
+        }
+        $request->merge(['hinh_anh'=>$file_name]);
         Sach::create([
             'ten'=>$request->ten_sach,
             'tac_gia_id'=>$request->tac_gia,
@@ -174,7 +161,7 @@ class AdminController extends Controller
             'nha_xuat_ban_id'=>$request->nha_xuat_ban,
             'nam_xuat_ban'=>$request->nam_xuat_ban,
             'tom_tat'=>$request->tom_tat,
-            'hinh_anh'=>''
+            'hinh_anh'=>$file_name
         ]);
         ThuVien::create([
             'sach_id'=>Sach::latest()->first()->id,
@@ -201,5 +188,4 @@ class AdminController extends Controller
         ]);
         return redirect()->route('hien-thi-sach');
     }
-
 }

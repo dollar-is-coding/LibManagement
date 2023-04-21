@@ -33,7 +33,6 @@ Route::prefix('/admin')->group(function(){
     Route::post('/sua-the-loai/{id}', [AdminController::class, 'suaTheLoai'])->name('sua-the-loai')->middleware('auth');
     Route::post('/sua-khu-vuc/{id}', [AdminController::class, 'suaKhuVuc'])->name('sua-khu-vuc')->middleware('auth');
     Route::post('/sua-tu-sach/{id}', [AdminController::class, 'suaTuSach'])->name('sua-tu-sach')->middleware('auth');
-    Route::post('/them-sach', [AdminController::class, 'themSach'])->name('them-sach')->middleware('auth');
     Route::post('/them-sach-vao-thu-vien', [AdminController::class, 'themSachThuVien'])->name('xu-ly-them-sach')->middleware('auth');
     Route::get('/tim-kiem', [AdminController::class, 'dsTimKiem'])->name('tim-kiem')->middleware('auth');
     Route::get('/tao-tai-khoan',[AdminController::class, 'taoTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');

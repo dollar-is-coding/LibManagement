@@ -60,12 +60,14 @@
             <div class="az-header-left">
                 <a href="index.html" class="az-logo"><span></span> azia</a>
                 <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
-            </div><!-- az-header-left -->
+            </div>
+            <!-- az-header-left -->
             <div class="az-header-menu">
                 <div class="az-header-menu-header">
                     <a href="index.html" class="az-logo"><span></span> azia</a>
                     <a href="" class="close">&times;</a>
-                </div><!-- az-header-menu-header -->
+                </div>
+                <!-- az-header-menu-header -->
                 <ul class="nav">
                     <li class="navitem">
                         <a href="index.html" class="nav-link"><i class="typcn typcn-chart-area-outline"></i>
@@ -98,18 +100,21 @@
                                         <a href="table-basic.html" class="nav-link">Table</a>
                                     </nav>
                                 </div>
-                            </div><!-- container -->
+                            </div>
+                            <!-- container -->
                         </div>
                     </li>
                 </ul>
-            </div><!-- az-header-menu -->
+            </div>
+            <!-- az-header-menu -->
             <div class="az-header-right">
                 <a href="https://www.bootstrapdash.com/demo/azia-free/docs/documentation.html" target="_blank"
                     class="az-header-search-link"><i class="far fa-file-alt"></i></a>
                 <a href="" class="az-header-search-link"><i class="fas fa-search"></i></a>
                 <div class="az-header-message">
                     <a href="#"><i class="typcn typcn-messages"></i></a>
-                </div><!-- az-header-message -->
+                </div>
+                <!-- az-header-message -->
                 <div class="dropdown az-header-notification">
                     <a href="" class="new"><i class="typcn typcn-bell"></i></a>
                     <div class="dropdown-menu">
@@ -120,50 +125,83 @@
                         <p class="az-notification-text">You have 2 unread notification</p>
                         <div class="az-notification-list">
                             <div class="media new">
-                                <div class="az-img-user"><img src="/img/faces/face2.jpg" alt=""></div>
+                                <div class="az-img-user">
+                                    <img src="/img/faces/face2.jpg" alt="" />
+                                </div>
                                 <div class="media-body">
-                                    <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
+                                    <p>
+                                        Congratulate <strong>Socrates Itumay</strong> for work
+                                        anniversaries
+                                    </p>
                                     <span>Mar 15 12:32pm</span>
-                                </div><!-- media-body -->
-                            </div><!-- media -->
+                                </div>
+                                <!-- media-body -->
+                            </div>
+                            <!-- media -->
                             <div class="media new">
-                                <div class="az-img-user online"><img src="/img/faces/face3.jpg" alt=""></div>
+                                <div class="az-img-user online">
+                                    <img src="/img/faces/face3.jpg" alt="" />
+                                </div>
                                 <div class="media-body">
-                                    <p><strong>Joyce Chua</strong> just created a new blog post</p>
+                                    <p>
+                                        <strong>Joyce Chua</strong> just created a new blog post
+                                    </p>
                                     <span>Mar 13 04:16am</span>
-                                </div><!-- media-body -->
-                            </div><!-- media -->
+                                </div>
+                                <!-- media-body -->
+                            </div>
+                            <!-- media -->
                             <div class="media">
-                                <div class="az-img-user"><img src="/img/faces/face4.jpg" alt=""></div>
+                                <div class="az-img-user">
+                                    <img src="/img/faces/face4.jpg" alt="" />
+                                </div>
                                 <div class="media-body">
-                                    <p><strong>Althea Cabardo</strong> just created a new blog post</p>
+                                    <p>
+                                        <strong>Althea Cabardo</strong> just created a new blog post
+                                    </p>
                                     <span>Mar 13 02:56am</span>
-                                </div><!-- media-body -->
-                            </div><!-- media -->
+                                </div>
+                                <!-- media-body -->
+                            </div>
+                            <!-- media -->
                             <div class="media">
-                                <div class="az-img-user"><img src="/img/faces/face5.jpg" alt=""></div>
+                                <div class="az-img-user">
+                                    <img src="/img/faces/face5.jpg" alt="" />
+                                </div>
                                 <div class="media-body">
-                                    <p><strong>Adrian Monino</strong> added new comment on your photo</p>
+                                    <p>
+                                        <strong>Adrian Monino</strong> added new comment on your
+                                        photo
+                                    </p>
                                     <span>Mar 12 10:40pm</span>
-                                </div><!-- media-body -->
-                            </div><!-- media -->
-                        </div><!-- az-notification-list -->
-                        <div class="dropdown-footer"><a href="">View All Notifications</a></div>
-                    </div><!-- dropdown-menu -->
-                </div><!-- az-header-notification -->
+                                </div>
+                                <!-- media-body -->
+                            </div>
+                            <!-- media -->
+                        </div>
+                        <!-- az-notification-list -->
+                        <div class="dropdown-footer">
+                            <a href="">View All Notifications</a>
+                        </div>
+                    </div>
+                    <!-- dropdown-menu -->
+                </div>
+                <!-- az-header-notification -->
                 <div class="dropdown az-profile-menu">
-                    <a href="" class="az-img-user"><img src="/img/faces/face1.jpg" alt=""></a>
+                    <a href="" class="az-img-user"><img src="/img/faces/face1.jpg" alt="" /></a>
                     <div class="dropdown-menu">
                         <div class="az-dropdown-header d-sm-none">
                             <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
                         </div>
                         <div class="az-header-profile">
                             <div class="az-img-user">
-                                <img src="/img/faces/face1.jpg" alt="">
-                            </div><!-- az-img-user -->
+                                <img src="/img/faces/face1.jpg" alt="" />
+                            </div>
+                            <!-- az-img-user -->
                             <h6>Aziana Pechon</h6>
                             <span>Premium Member</span>
-                        </div><!-- az-header-profile -->
+                        </div>
+                        <!-- az-header-profile -->
 
                         <a href="" class="dropdownitem"><i class="typcn typcn-user-outline"></i> My
                             Profile</a>
@@ -173,39 +211,44 @@
                             Settings</a>
                         <a href="page-signin.html" class="dropdownitem"><i class="typcn typcn-power-outline"></i>
                             Sign Out</a>
-                    </div><!-- dropdown-menu -->
+                    </div>
+                    <!-- dropdown-menu -->
                 </div>
-            </div><!-- az-header-right -->
-        </div><!-- container -->
-    </div><!-- az-header -->
+            </div>
+            <!-- az-header-right -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- az-header -->
 
     <div class="az-content pd-y-20 pd-lg-y-30 shadow-sm">
         <div class="container">
             <div class="az-content-body d-flex flex-column">
-                <div style="display: flex;">
-                    <div style="flex-basis: 70%;margin-right: 2%;padding: 2%;" class="shadow border rounded">
-                        <form action="{{ route('them-sach') }}" method="POST" enctype="multipart/form-data">
+                <div style="display: flex">
+                    <div style="flex-basis: 70%; margin-right: 2%; padding: 2%" class="shadow border rounded">
+                        <form action="{{ route('xu-ly-them-sach') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div style="display: flex;">
+                            <div style="display: flex">
                                 <!-- up ảnh -->
-                                <div class="upload-container row" style="flex-basis: 30%;margin-right: 2%;">
+                                <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%">
                                     <div class="upload-container border rounded">
-                                        <label for="upload-file" class="upload-label" style="font-size: 130%;">Tải
-                                            ảnh lên</label>
-                                        <input style="font-size: 120px;opacity: 0;" type="file" id="upload-file"
-                                            name="file_upload" accept="image/*">
+                                        <label for="upload-file" class="upload-label" style="font-size: 130%">Tải ảnh
+                                            lên</label>
+                                        <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
+                                            name="file_upload" accept="image/*" />
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
                                     <!-- số lượng -->
-                                    <div style="margin-top: 6%;" class="form-group">
+                                    <div style="margin-top: 6%" class="form-group">
                                         <label>&nbsp;&nbsp;Số lượng</label>
                                         <input type="number" name="so_luong" class="form-control"
-                                            placeholder="Số lượng" value="">
+                                            placeholder="Số lượng" value="" />
                                     </div>
                                     <!-- khu vực -->
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Khu vực</label>
-                                        <select id="khuVucSelect" class="form-control select2-no-search">
+                                        <select id="khuVucSelect" name="khu_vuc"
+                                            class="form-control select2-no-search">
                                             @foreach ($khu_vuc as $item)
                                                 <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                             @endforeach
@@ -213,17 +256,18 @@
                                     </div>
                                 </div>
                                 <!-- form -->
-                                <div style="flex-basis: 70%;">
+                                <div style="flex-basis: 70%">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tên sách</label>
                                         <input type="text" name="ten_sach" class="form-control"
-                                            placeholder="Nhập tên sách" value="">
-                                    </div><!-- form-group -->
+                                            placeholder="Nhập tên sách" value="" />
+                                    </div>
+                                    <!-- form-group -->
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tác giả</label>
-                                        <select id="form-select" class="form-control select2-no-search"
-                                            name="tac_gia">
+                                        <select id="form-select" name="tac_gia"
+                                            class="form-control select2-no-search">
                                             @foreach ($tac_gia as $item)
                                                 <option selected value="1">{{ $item->ten }}</option>
                                             @endforeach
@@ -232,19 +276,18 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Thể loại</label>
-                                        <select id="form-select" class="form-control select2-no-search"
-                                            name="the_loai">
+                                        <select id="form-select" name="the_loai"
+                                            class="form-control select2-no-search">
                                             @foreach ($the_loai as $item)
                                                 <option value="2">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Nhà xuất bản</label>
-                                        <select id="form-select" class="form-control select2-no-search"
-                                            name="nha_xuat_ban">
+                                        <select id="form-select" name="nha_xuat_ban"
+                                            class="form-control select2-no-search">
                                             @foreach ($nha_xuat_ban as $item)
                                                 <option value="2">{{ $item->ten }}</option>
                                             @endforeach
@@ -254,12 +297,14 @@
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Năm xuất bản</label>
                                         <input type="number" name="nam_xuat_ban" class="form-control"
-                                            placeholder="Nhập năm xuất bản">
-                                    </div><!-- form-group -->
+                                            placeholder="Nhập tên sách" value="" />
+                                    </div>
+                                    <!-- form-group -->
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tủ sách</label>
-                                        <select id="tuSachSelect" class="form-control select2-no-search">
+                                        <select id="tuSachSelect" name="tu_sach"
+                                            class="form-control select2-no-search">
                                             <option value="" selected>-- Chọn tủ sách --</option>
                                             @foreach ($khu_vuc as $khu_vuc_item)
                                                 <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ"
@@ -267,7 +312,8 @@
                                                     @foreach ($tu_sach as $tu_sach_item)
                                                         @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
                                                             <option value="{{ $tu_sach_item->id }}">
-                                                                {{ $tu_sach_item->ten }}</option>
+                                                                {{ $tu_sach_item->ten }}
+                                                            </option>
                                                         @endif
                                                     @endforeach
                                                 </optgroup>
@@ -279,19 +325,20 @@
 
                             <div class="form-group">
                                 <label for="">&nbsp;&nbsp;Nội dung tóm tắt</label>
-                                <textarea rows="10" name="tom_tat" class="form-control" placeholder="Nhập tóm tắt nội dung sách"></textarea>
+                                <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"></textarea>
                             </div>
 
-                            <div style="display: flex;justify-content: end;margin-top: 5%;">
-                                <a href="" class="btn btn-danger rounded" style="margin-right: 2%;">Làm
-                                    mới</a>
+                            <div style="display: flex; justify-content: end; margin-top: 5%">
+                                <a href="" class="btn btn-danger rounded" style="margin-right: 2%">Làm mới</a>
                                 <!-- <a href="" class="btn btn-success rounded">Thêm</a> -->
-                                <button class="btn btn-success rounded" type="submit">Thêm</button>
+                                <button class="btn btn-success rounded" type="submit">
+                                    Thêm
+                                </button>
                             </div>
                         </form>
                     </div>
 
-                    <div style="flex-basis: 30%;padding: 2%;height: 40%;" class="shadow border rounded">
+                    <div style="flex-basis: 30%; padding: 2%; height: 40%" class="shadow border rounded">
                         <select id="option-select" class="form-control select2-no-search">
                             <option value="author-form">Tác giả</option>
                             <option value="publisher-form">Nhà xuất bản</option>
@@ -333,7 +380,7 @@
                                                                     <input disabled value="{{ $item->ten }}"
                                                                         type="text" class="form-control"
                                                                         id="exampleInputEmail1"
-                                                                        aria-describedby="text" placeholder="">
+                                                                        aria-describedby="text" placeholder="" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Bạn muốn sửa tên
@@ -341,15 +388,18 @@
                                                                     <input name="tac_gia" type="text"
                                                                         class="form-control"
                                                                         id="exampleInputPassword1"
-                                                                        placeholder="Tên tác giả mới">
+                                                                        placeholder="Tên tác giả mới" />
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
                                                                         class="btn btn-secondary rounded"
-                                                                        data-dismiss="modal">Đóng</button>
+                                                                        data-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
                                                                     <button type="submit"
-                                                                        class="btn btn-primary rounded">Lưu thay
-                                                                        đổi</button>
+                                                                        class="btn btn-primary rounded">
+                                                                        Lưu thay đổi
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -364,16 +414,19 @@
                                                 <i class="fa-solid fa-xmark text-danger"></i>
                                             </a>
                                         </div>
+                                    </div>
                                 @endforeach
                             </div>
                             <form action="{{ route('them-tac-gia') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input name="tacgia" type="text" class="form-control"
-                                        style="margin-right: 5%;" placeholder="Thêm tác giả"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white"
-                                        id="button-addon2">Thêm</button>
+                                        style="margin-right: 5%" placeholder="Thêm tác giả"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <button class="btn btn-success rounded" type="submit" style="color: white"
+                                        id="button-addon2">
+                                        Thêm
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -413,7 +466,7 @@
                                                                     <input disabled value="{{ $item->ten }}"
                                                                         type="text" class="form-control"
                                                                         id="exampleInputEmail1"
-                                                                        aria-describedby="text" placeholder="">
+                                                                        aria-describedby="text" placeholder="" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Bạn muốn sửa tên
@@ -421,15 +474,18 @@
                                                                     <input name="nha_xuat_ban" type="text"
                                                                         class="form-control"
                                                                         id="exampleInputPassword1"
-                                                                        placeholder="Tên nhà xuát bản mới">
+                                                                        placeholder="Tên nhà xuát bản mới" />
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
                                                                         class="btn btn-secondary rounded"
-                                                                        data-dismiss="modal">Đóng</button>
+                                                                        data-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
                                                                     <button type="submit"
-                                                                        class="btn btn-primary rounded">Lưu thay
-                                                                        đổi</button>
+                                                                        class="btn btn-primary rounded">
+                                                                        Lưu thay đổi
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -447,16 +503,17 @@
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input name="nhaxuatban" type="text" class="form-control"
-                                        style="margin-right: 5%;" placeholder="Thêm nhà xuất bản"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white"
-                                        id="button-addon2">Thêm</button>
+                                        style="margin-right: 5%" placeholder="Thêm nhà xuất bản"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <button class="btn btn-success rounded" type="submit" style="color: white"
+                                        id="button-addon2">
+                                        Thêm
+                                    </button>
                                 </div>
                             </form>
                         </div>
 
                         <div id="category-form" class="form">
-
                             <div class="mt-1 mb-1">
                                 @foreach ($the_loai as $key => $item)
                                     <div
@@ -491,7 +548,7 @@
                                                                     <input disabled value="{{ $item->ten }}"
                                                                         type="text" class="form-control"
                                                                         id="exampleInputEmail1"
-                                                                        aria-describedby="text" placeholder="">
+                                                                        aria-describedby="text" placeholder="" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Bạn muốn sửa tên
@@ -499,15 +556,18 @@
                                                                     <input name="the_loai" type="text"
                                                                         class="form-control"
                                                                         id="exampleInputPassword1"
-                                                                        placeholder="Tên thể loại mới">
+                                                                        placeholder="Tên thể loại mới" />
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
                                                                         class="btn btn-secondary rounded"
-                                                                        data-dismiss="modal">Đóng</button>
+                                                                        data-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
                                                                     <button type="submit"
-                                                                        class="btn btn-primary rounded">Lưu thay
-                                                                        đổi</button>
+                                                                        class="btn btn-primary rounded">
+                                                                        Lưu thay đổi
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -526,16 +586,17 @@
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input name="theloai" type="text" class="form-control"
-                                        style="margin-right: 5%;" placeholder="Thêm thể loại"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white"
-                                        id="button-addon2">Thêm</button>
+                                        style="margin-right: 5%" placeholder="Thêm thể loại"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <button class="btn btn-success rounded" type="submit" style="color: white"
+                                        id="button-addon2">
+                                        Thêm
+                                    </button>
                                 </div>
                             </form>
                         </div>
 
                         <div id="area-form" class="form">
-
                             <div class="mt-1 mb-1">
                                 @foreach ($khu_vuc as $key => $item)
                                     <div
@@ -569,7 +630,7 @@
                                                                     <input disabled value="{{ $item->ten }}"
                                                                         type="text" class="form-control"
                                                                         id="exampleInputEmail1"
-                                                                        aria-describedby="text" placeholder="">
+                                                                        aria-describedby="text" placeholder="" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Bạn muốn sửa tên
@@ -577,15 +638,18 @@
                                                                     <input name="khu_vuc" type="text"
                                                                         class="form-control"
                                                                         id="exampleInputPassword1"
-                                                                        placeholder="Tên khu vực mới">
+                                                                        placeholder="Tên khu vực mới" />
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
                                                                         class="btn btn-secondary rounded"
-                                                                        data-dismiss="modal">Đóng</button>
+                                                                        data-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
                                                                     <button type="submit"
-                                                                        class="btn btn-primary rounded">Lưu thay
-                                                                        đổi</button>
+                                                                        class="btn btn-primary rounded">
+                                                                        Lưu thay đổi
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -604,18 +668,20 @@
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input name="khuvuc" type="text" class="form-control"
-                                        style="margin-right: 5%;" placeholder="Thêm khu vực"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white"
-                                        id="button-addon2">Thêm</button>
+                                        style="margin-right: 5%" placeholder="Thêm khu vực"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <button class="btn btn-success rounded" type="submit" style="color: white"
+                                        id="button-addon2">
+                                        Thêm
+                                    </button>
                                 </div>
                             </form>
                         </div>
 
                         <div id="bookshelf-form" class="form">
                             <!-- <div class="mt-1 mb-1">
-                                    <div id="tu-sach-list"></div>
-                                </div> -->
+                                      <div id="tu-sach-list"></div>
+                                  </div> -->
                             <form id="them-tu-sach-form" action="{{ route('them-tu-sach') }}" method="post">
                                 @csrf
                                 <div id="tusach-container">
@@ -655,10 +721,10 @@
                                                                                 action="{{ route('sua-tu-sach', ['id' => $tu_sach_item->id]) }}"
                                                                                 method="POST">
                                                                                 @csrf
-                                                                                <div style="display: flex;"
+                                                                                <div style="display: flex"
                                                                                     class="form-group">
                                                                                     <div
-                                                                                        style="flex-basis: 48%;margin-right: 2%;">
+                                                                                        style="flex-basis: 48%; margin-right: 2%">
                                                                                         <label
                                                                                             for="exampleInputEmail1">Tên
                                                                                             tủ sách</label>
@@ -668,9 +734,9 @@
                                                                                             class="form-control"
                                                                                             id="exampleInputEmail1"
                                                                                             aria-describedby="text"
-                                                                                            placeholder="">
+                                                                                            placeholder="" />
                                                                                     </div>
-                                                                                    <div style="flex-basis: 50%;">
+                                                                                    <div style="flex-basis: 50%">
                                                                                         <label
                                                                                             for="exampleInputEmail1">Tên
                                                                                             khu vực</label>
@@ -680,7 +746,7 @@
                                                                                             class="form-control"
                                                                                             id="exampleInputEmail1"
                                                                                             aria-describedby="text"
-                                                                                            placeholder="">
+                                                                                            placeholder="" />
                                                                                     </div>
                                                                                 </div>
                                                                                 <label for="khuVucSelect">Bạn muốn đổi
@@ -696,7 +762,7 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                                 <div class="form-group">
-                                                                                    <label style="margin: 5% 0 1% 0;"
+                                                                                    <label style="margin: 5% 0 1% 0"
                                                                                         for="exampleInputPassword1">Bạn
                                                                                         muốn sửa tên tủ sách
                                                                                         thành</label>
@@ -705,15 +771,18 @@
                                                                                         name="tu_sach" type="text"
                                                                                         class="form-control"
                                                                                         id="exampleInputPassword1"
-                                                                                        placeholder="Tên tủ sách mới">
+                                                                                        placeholder="Tên tủ sách mới" />
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button"
                                                                                         class="btn btn-secondary rounded"
-                                                                                        data-dismiss="modal">Đóng</button>
+                                                                                        data-dismiss="modal">
+                                                                                        Đóng
+                                                                                    </button>
                                                                                     <button type="submit"
-                                                                                        class="btn btn-primary rounded">Lưu
-                                                                                        thay đổi</button>
+                                                                                        class="btn btn-primary rounded">
+                                                                                        Lưu thay đổi
+                                                                                    </button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
@@ -733,8 +802,8 @@
                                     @endforeach
                                 </div>
                                 <div class="form-group">
-                                    <label style="margin-top: 2%;">&nbsp;&nbsp;Chọn khu vực</label>
-                                    <select id="khuVucSelect1" name="khu_vuc_id" style="width: 100%;"
+                                    <label style="margin-top: 2%">&nbsp;&nbsp;Chọn khu vực</label>
+                                    <select id="khuVucSelect1" name="khu_vuc_id" style="width: 100%"
                                         class="form-control select2-no-search">
                                         @foreach ($khu_vuc as $item)
                                             <option value="{{ $item->id }}">{{ $item->ten }}</option>
@@ -744,10 +813,12 @@
 
                                 <div class="input-group mb-3">
                                     <input name="tusach" type="text" class="form-control"
-                                        style="margin-right: 5%;" placeholder="Thêm tủ sách"
-                                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-success rounded" type="submit" style="color:white"
-                                        id="them-tu-sach-button">Thêm</button>
+                                        style="margin-right: 5%" placeholder="Thêm tủ sách"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <button class="btn btn-success rounded" type="submit" style="color: white"
+                                        id="them-tu-sach-button">
+                                        Thêm
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -774,11 +845,11 @@
 
                             .form select,
                             /* .form input[type="text"] {
-                                width: 100%;
-                                padding: 5px;
-                                border: 1px solid #ccc;
-                                border-radius: 4px;
-                            } */
+                                  width: 100%;
+                                  padding: 5px;
+                                  border: 1px solid #ccc;
+                                  border-radius: 4px;
+                              } */
 
                             .form select {
                                 height: 32px;
@@ -788,24 +859,28 @@
                                 margin-bottom: 10px;
                             }
                         </style>
-
-
                     </div>
                 </div>
-
-            </div><!-- az-content-body -->
-        </div><!-- container -->
-    </div><!-- az-content -->
+            </div>
+            <!-- az-content-body -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- az-content -->
 
     <div class="az-footer ht-40">
         <div class="container ht-100p pd-t-0-f">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
                 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
-                    templates</a> from Bootstrapdash.com</span>
-        </div><!-- container -->
-    </div><!-- az-footer -->
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                Free
+                <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+                    templates</a>
+                from Bootstrapdash.com</span>
+        </div>
+        <!-- container -->
+    </div>
+    <!-- az-footer -->
     <style>
         .upload-container {
             position: relative;
@@ -841,94 +916,97 @@
         }
     </style>
     <script>
-        const uploadFile = document.getElementById('upload-file');
-        const previewContainer = document.getElementById('preview-container');
+        const uploadFile = document.getElementById("upload-file");
+        const previewContainer = document.getElementById("preview-container");
 
         let selectedFile = null;
 
-        uploadFile.addEventListener('change', (event) => {
+        uploadFile.addEventListener("change", (event) => {
             selectedFile = event.target.files[0];
             const reader = new FileReader();
             reader.onload = () => {
                 const image = new Image();
                 image.src = reader.result;
                 image.onload = () => {
-                    previewContainer.innerHTML = '';
+                    previewContainer.innerHTML = "";
                     previewContainer.appendChild(image);
-                    previewContainer.style.display = 'block';
-                    uploadFile.style.display = 'none';
-                    document.querySelector('.upload-label').style.display = 'none';
+                    previewContainer.style.display = "block";
+                    uploadFile.style.display = "none";
+                    document.querySelector(".upload-label").style.display = "none";
                 };
             };
             reader.readAsDataURL(selectedFile);
         });
 
-        previewContainer.addEventListener('click', () => {
+        previewContainer.addEventListener("click", () => {
             if (selectedFile) {
                 selectedFile = null;
-                previewContainer.style.display = 'none';
-                uploadFile.style.display = 'block';
-                document.querySelector('.upload-label').style.display = 'block';
-                uploadFile.value = '';
+                previewContainer.style.display = "none";
+                uploadFile.style.display = "block";
+                document.querySelector(".upload-label").style.display = "block";
+                uploadFile.value = "";
             }
         });
     </script>
 
-
     <script>
         $(document).ready(function() {
-            $('#khuVucSelect').val($('#khuVucSelect option:first').val()).trigger('change');
-            $('#khuVucSelect').change(function() {
+            $("#khuVucSelect")
+                .val($("#khuVucSelect option:first").val())
+                .trigger("change");
+            $("#khuVucSelect").change(function() {
                 var selectedVal = $(this).val();
-                $('.tuSachOptgroup').hide();
+                $(".tuSachOptgroup").hide();
                 $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
-                $('#tuSachSelect').val('');
+                $("#tuSachSelect").val("");
                 // $('.result').html('');
             });
-            $('.tuSachOptgroup').hide();
+            $(".tuSachOptgroup").hide();
 
             // lấy giá trị của khuVucSelect và cập nhật tuSachSelect tương ứng
-            var selectedVal = $('#khuVucSelect').val();
-            $('.tuSachOptgroup').hide();
+            var selectedVal = $("#khuVucSelect").val();
+            $(".tuSachOptgroup").hide();
             $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
-            $('#tuSachSelect').val('');
+            $("#tuSachSelect").val("");
             // $('.result').html('');
         });
 
         $(document).ready(function() {
-            $('.tusach-group').hide();
-            $('#khuVucSelect1').change(function() {
+            $(".tusach-group").hide();
+            $("#khuVucSelect1").change(function() {
                 var selectedVal = $(this).val();
-                $('.tusach-group').hide();
+                $(".tusach-group").hide();
                 $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
                 // $('.result').html('');
             });
         });
         $(document).ready(function() {
-            $('.tusach-group').hide();
-            $('#khuVucSelect1').change(function() {
-                var selectedVal = $(this).val();
-                $('.tusach-group').hide();
-                $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
-                // $('.result').html('');
-            }).change(); // Gọi hàm change() ở đây để khởi tạo giá trị ban đầu
+            $(".tusach-group").hide();
+            $("#khuVucSelect1")
+                .change(function() {
+                    var selectedVal = $(this).val();
+                    $(".tusach-group").hide();
+                    $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
+                    // $('.result').html('');
+                })
+                .change(); // Gọi hàm change() ở đây để khởi tạo giá trị ban đầu
         });
     </script>
 
     <script src="/lib/jquery/jquery.min.js"></script>
     <script>
-        const deleteLinks = document.querySelectorAll('.delete-link');
-        deleteLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
+        const deleteLinks = document.querySelectorAll(".delete-link");
+        deleteLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
                 event.preventDefault();
                 Swal.fire({
-                    title: 'Bạn có muốn xóa không?',
-                    imageUrl: '/img/war.png',
+                    title: "Bạn có muốn xóa không?",
+                    imageUrl: "/img/war.png",
                     showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Xóa',
-                    cancelButtonText: 'Hủy',
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy",
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = link.href;
@@ -937,34 +1015,36 @@
             });
         });
         // Lắng nghe sự kiện 'change' trên phần tử select
-        document.getElementById('option-select').addEventListener('change', function() {
-            // Lấy giá trị của tùy chọn đã chọn
-            var selectedOption = this.value;
-            // Tìm form tương ứng theo giá trị tùy chọn đã chọn
-            var selectedForm = document.getElementById(selectedOption);
-            // Thêm lớp 'active' vào form đã chọn
-            selectedForm.classList.add('active');
-            // Xóa lớp 'active' của các form khác
-            var forms = document.querySelectorAll('.form');
-            forms.forEach(function(form) {
-                if (form !== selectedForm) {
-                    form.classList.remove('active');
-                }
+        document
+            .getElementById("option-select")
+            .addEventListener("change", function() {
+                // Lấy giá trị của tùy chọn đã chọn
+                var selectedOption = this.value;
+                // Tìm form tương ứng theo giá trị tùy chọn đã chọn
+                var selectedForm = document.getElementById(selectedOption);
+                // Thêm lớp 'active' vào form đã chọn
+                selectedForm.classList.add("active");
+                // Xóa lớp 'active' của các form khác
+                var forms = document.querySelectorAll(".form");
+                forms.forEach(function(form) {
+                    if (form !== selectedForm) {
+                        form.classList.remove("active");
+                    }
+                });
             });
-        });
         //
-        $(document).on('click', '.delete-link', function(event) {
+        $(document).on("click", ".delete-link", function(event) {
             event.preventDefault();
             var link = this;
 
             Swal.fire({
-                title: 'Bạn có muốn xóa không?',
-                imageUrl: '/img/war.png',
+                title: "Bạn có muốn xóa không?",
+                imageUrl: "/img/war.png",
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy',
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Hủy",
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = link.href;
@@ -977,9 +1057,9 @@
     <script src="/lib/ionicons/ionicons.js"></script>
     <script src="/lib/chart.js/Chart.bundle.min.js"></script>
 
-
     <script src="/js/azia.js"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
 </body>
+
 
 </html>
