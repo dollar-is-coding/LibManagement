@@ -17,6 +17,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/error.css">
     <!-- Link tới jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <!-- Link tới Popper.js (Yêu cầu bởi Bootstrap) -->
@@ -222,7 +223,7 @@
             <div class="az-content-body d-flex flex-column">
                 <div style="display: flex">
                     <div style="flex-basis: 70%; margin-right: 2%; padding: 2%" class="shadow border rounded auto_form">
-                        <form action="{{ route('xu-ly-them-sach') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('xu-ly-them-sach') }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div style="display: flex">
                                 <!-- up ảnh -->
@@ -230,13 +231,13 @@
                                     <div class="upload-container border rounded">
                                         <label for="upload-file" class="upload-label" style="font-size: 130%">Tải ảnh
                                             lên</label>
-                                        <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" />
+                                        <input required style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" />
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
                                     <!-- số lượng -->
                                     <div style="margin-top: 6%" class="form-group">
                                         <label>&nbsp;&nbsp;Số lượng</label>
-                                        <input type="number" name="so_luong" class="form-control" placeholder="Số lượng" value="" />
+                                        <input required type="number" min="1" max="100" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="" />
                                     </div>
                                     <!-- khu vực -->
                                     <div class="form-group">
@@ -252,7 +253,7 @@
                                 <div style="flex-basis: 70%">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tên sách</label>
-                                        <input type="text" name="ten_sach" class="form-control" placeholder="Nhập tên sách" value="" />
+                                        <input required type="text" name="ten_sach" id="ten_sach" class="form-control" placeholder="Nhập tên sách" value="" pattern="[A-Za-z0-9\u00C0-\u017F]{3,30}" title="Tên sách phải chứa từ 3 đến 30 ký tự chữ cái hoặc số">
                                     </div>
                                     <!-- form-group -->
 
@@ -285,13 +286,13 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Năm xuất bản</label>
-                                        <input type="number" name="nam_xuat_ban" class="form-control" placeholder="Nhập tên sách" value="" />
+                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban" class="form-control" placeholder="Nhập năm xuất bản" value="" />
                                     </div>
                                     <!-- form-group -->
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tủ sách</label>
-                                        <select id="tuSachSelect" name="tu_sach" class="form-control select2-no-search">
+                                        <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search">
                                             <option value="" selected>-- Chọn tủ sách --</option>
                                             @foreach ($khu_vuc as $khu_vuc_item)
                                             <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
@@ -311,7 +312,7 @@
 
                             <div class="form-group">
                                 <label for="">&nbsp;&nbsp;Nội dung tóm tắt</label>
-                                <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"></textarea>
+                                <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách" ></textarea>
                             </div>
 
                             <div style="display: flex; justify-content: end; margin-top: 5%">
@@ -389,7 +390,7 @@
                             <form action="{{ route('them-tac-gia') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="tacgia" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm tác giả" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <input required name="tacgia" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm tác giả" aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success rounded" type="submit" style="color: white" id="button-addon2">
                                         Thêm
                                     </button>
@@ -451,7 +452,7 @@
                             <form action="{{ route('them-nha-xuat-ban') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="nhaxuatban" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm nhà xuất bản" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <input required name="nhaxuatban" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm nhà xuất bản" aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success rounded" type="submit" style="color: white" id="button-addon2">
                                         Thêm
                                     </button>
@@ -514,7 +515,7 @@
                             <form action="{{ route('them-the-loai') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="theloai" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm thể loại" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <input required name="theloai" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm thể loại" aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success rounded" type="submit" style="color: white" id="button-addon2">
                                         Thêm
                                     </button>
@@ -576,7 +577,7 @@
                             <form action="{{ route('them-khu-vuc') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input name="khuvuc" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm khu vực" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                    <input required name="khuvuc" type="text" class="form-control" style="margin-right: 5%" placeholder="Thêm khu vực" aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success rounded" type="submit" style="color: white" id="button-addon2">
                                         Thêm
                                     </button>
@@ -665,7 +666,7 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <input name="tu_sach" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm tủ sách" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <input required name="tu_sach" type="text" class="form-control" style="margin-right: 5%;" placeholder="Thêm tủ sách" aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <button class="btn btn-success rounded" type="submit" style="color:white" id="them-tu-sach-button">Thêm</button>
                                 </div>
                             </form>
@@ -764,15 +765,6 @@
         }
     </style>
     <script>
-        window.addEventListener('load', function() {
-            var autoForms = document.querySelectorAll('.auto_form');
-            autoForms.forEach(function(autoForm) {
-                var authorForm = autoForm.querySelector('.author-form');
-                var height = authorForm.getBoundingClientRect().height;
-                autoForm.style.height = height + 'px';
-            });
-        });
-
         const uploadFile = document.getElementById("upload-file");
         const previewContainer = document.getElementById("preview-container");
 
@@ -794,8 +786,6 @@
             };
             reader.readAsDataURL(selectedFile);
         });
-
-        
     </script>
 
     <script>
@@ -908,6 +898,7 @@
 
     <script src="/js/azia.js"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/js/validate.js"></script>
 </body>
 
 

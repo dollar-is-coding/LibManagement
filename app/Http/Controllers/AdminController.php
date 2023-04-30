@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\TacGia;
 use App\Models\NhaXuatBan;
@@ -148,12 +149,17 @@ class AdminController extends Controller
 
     public function themSachThuVien(Request $request)
     {
-        if($request->has('file_upload')){
-            $file =$request->file_upload;
-            $file_name = $file->getClientOriginalName();
-            $file->move(public_path('img/books'), $file_name);
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file_upload;
+            if ($file->isValid()) {
+                $file_name = $file->getClientOriginalName();
+                $file->move(public_path('img/books'), $file_name);
+                $request->merge(['hinh_anh' => $file_name]);
+            }
+        } else {
+            $file_name = "";
+            $request->merge(['hinh_anh' => $file_name]);
         }
-        $request->merge(['hinh_anh'=>$file_name]);
         Sach::create([
             'ten'=>$request->ten_sach,
             'tac_gia_id'=>$request->tac_gia,
@@ -161,7 +167,7 @@ class AdminController extends Controller
             'nha_xuat_ban_id'=>$request->nha_xuat_ban,
             'nam_xuat_ban'=>$request->nam_xuat_ban,
             'tom_tat'=>$request->tom_tat,
-            'hinh_anh'=>$file_name
+            'hinh_anh'=>$file_name,
         ]);
         ThuVien::create([
             'sach_id'=>Sach::latest()->first()->id,
