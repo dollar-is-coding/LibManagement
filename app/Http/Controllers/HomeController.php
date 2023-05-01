@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\NguoiDung;
+use App\Models\ThuVien;
 
 class HomeController extends Controller
 {
@@ -71,5 +72,11 @@ class HomeController extends Controller
     public function trangChu()
     {
         return view('trang_chu');
+    }
+
+    public function chiTietSach($id)
+    {
+        $sach=ThuVien::where('sach_id',$id)->get();
+        return view('chi_tiet_sach',['sach'=>$sach]);
     }
 }

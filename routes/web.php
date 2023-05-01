@@ -12,6 +12,7 @@ Route::post('/xu-ly-doi-thong-tin',[HomeController::class, 'xuLySuaThongTin'])->
 Route::get('/doi-mat-khau',[HomeController::class, 'doiMatKhau'])->name('doi-mat-khau')->middleware('auth');
 Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
+Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 
 
 Route::prefix('/admin')->group(function(){
@@ -37,4 +38,6 @@ Route::prefix('/admin')->group(function(){
     Route::get('/tim-kiem', [AdminController::class, 'dsTimKiem'])->name('tim-kiem')->middleware('auth');
     Route::get('/tao-tai-khoan',[AdminController::class, 'taoTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');
     Route::post('/xu-ly-tao-tai-khoan',[AdminController::class, 'xuLytaoTaiKhoan'])->name('xu-ly-tao-tai-khoan')->middleware('auth');
+    Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
+    Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
 });

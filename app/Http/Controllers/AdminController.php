@@ -188,4 +188,14 @@ class AdminController extends Controller
         ]);
         return redirect()->route('hien-thi-sach');
     }
+
+    public function quanLyTaiKhoan()
+    {
+        return view('quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::all()]);
+    }
+
+    public function timKiemTheoTacGia(Request $request)
+    {
+        return view('ds_sach',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->get()]);
+    }
 }
