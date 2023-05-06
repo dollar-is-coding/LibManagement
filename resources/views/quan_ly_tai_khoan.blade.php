@@ -37,7 +37,7 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('header', ['view' => 4])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped mg-b-0">
+                    <table class="table mg-b-0 mg-t-20 az-table-reference">
                         <thead>
                             <tr>
                                 <td>STT</td>

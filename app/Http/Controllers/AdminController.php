@@ -198,4 +198,9 @@ class AdminController extends Controller
     {
         return view('ds_sach',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->get()]);
     }
+
+    public function showCapThe()
+    {
+        return view('cap_the');
+    }
 }
