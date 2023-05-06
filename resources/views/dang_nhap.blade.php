@@ -56,12 +56,15 @@
                     </div><!-- form-group -->
                     <button class="btn btn-az-primary btn-block">Sign In</button>
                 </form>
+                @if (session('error'))
+                <div class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('error') }}</div>
+                @endif
             </div><!-- az-signin-header -->
             <div class="az-signin-footer">
-                @if ($errors->any())
+                <!-- @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
-                @endif
-                <p><a href="">Forgot password?</a></p>
+                @endif -->
+                <p><a href="#">Forgot password?</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

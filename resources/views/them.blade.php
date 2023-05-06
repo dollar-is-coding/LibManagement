@@ -70,36 +70,13 @@
                     <div style="flex-basis: 70%; margin-right: 2%; padding: 2%" class="shadow border rounded auto_form">
                         <form action="{{ route('xu-ly-them-sach') }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div style="display: flex">
-                                <!-- up ảnh -->
-                                <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%">
-                                    <div class="upload-container border rounded" style="object-fit:fill;background-image: url('/img/avt/income.jpg');">
-                                        <label for="upload-file" class="upload-label" style="font-size: 130%">Tải ảnh
-                                            lên</label>
-                                        <input required style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10"/>
-                                        <div id="preview-container" style="object-fit: contain;" class="preview-container">
-                                        </div>
-                                    </div>
-                                    <!-- số lượng -->
-                                    <div style="margin-top: 6%" class="form-group">
-                                        <label>&nbsp;&nbsp;Số lượng</label>
-                                        <input required type="number" min="1" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="" tabindex="7"/>
-                                    </div>
-                                    <!-- khu vực -->
-                                    <div class="form-group">
-                                        <label>&nbsp;&nbsp;Khu vực</label>
-                                        <select id="khuVucSelect" name="khu_vuc" class="form-control select2-no-search" tabindex="8">
-                                            @foreach ($khu_vuc as $item)
-                                            <option value="{{ $item->id }}">{{ $item->ten }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                            <div style="display: flex;flex-direction: row-reverse;	">
+
                                 <!-- form -->
                                 <div style="flex-basis: 70%">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Tên sách</label>
-                                        <input required type="text" name="ten_sach" id="ten_sach" class="form-control" placeholder="Nhập tên sách" value="" tabindex="1">
+                                        <input required type="text" name="ten_sach" id="ten_sach" class="form-control" placeholder="Nhập tên sách" value="" tabindex="1" autofocus=true >
                                     </div>
                                     <!-- form-group -->
 
@@ -114,7 +91,7 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Thể loại</label>
-                                        <select id="form-select" name="the_loai" class="form-control select2-no-search" tabindex="3">
+                                        <select required id="form-select" name="the_loai" class="form-control select2-no-search" tabindex="3">
                                             @foreach ($the_loai as $item)
                                             <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                             @endforeach
@@ -123,7 +100,7 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Nhà xuất bản</label>
-                                        <select id="form-select" name="nha_xuat_ban" class="form-control select2-no-search" tabindex="4">
+                                        <select required id="form-select" name="nha_xuat_ban" class="form-control select2-no-search" tabindex="4">
                                             @foreach ($nha_xuat_ban as $item)
                                             <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                             @endforeach
@@ -132,7 +109,7 @@
 
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;Năm xuất bản</label>
-                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban" class="form-control" placeholder="Nhập năm xuất bản" value="" tabindex="5"/>
+                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban" class="form-control" placeholder="Nhập năm xuất bản" value="" tabindex="5" />
                                     </div>
                                     <!-- form-group -->
 
@@ -150,6 +127,30 @@
                                                 @endif
                                                 @endforeach
                                             </optgroup>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- up ảnh -->
+                                <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%">
+                                    <div class="upload-container border rounded" style="object-fit:fill;background-image: url('/img/avt/income.jpg');">
+                                        <label for="upload-file" class="upload-label" style="font-size: 130%">Tải ảnh
+                                            lên</label>
+                                        <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" required />
+                                        <div id="preview-container" style="object-fit: contain;" class="preview-container">
+                                        </div>
+                                    </div>
+                                    <!-- số lượng -->
+                                    <div style="margin-top: 6%" class="form-group">
+                                        <label>&nbsp;&nbsp;Số lượng</label>
+                                        <input required type="number" min="1" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="" tabindex="7" />
+                                    </div>
+                                    <!-- khu vực -->
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;Khu vực</label>
+                                        <select required id="khuVucSelect" name="khu_vuc" class="form-control select2-no-search" tabindex="8">
+                                            @foreach ($khu_vuc as $item)
+                                            <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -756,7 +757,6 @@
 
     <script src="/js/azia.js"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="/js/validate.js"></script>
 </body>
 
 
