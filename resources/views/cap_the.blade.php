@@ -74,6 +74,18 @@
                             <label>Tên</label>
                             <input class="form-control" placeholder="Nhập tên" type="text">
                         </div><!-- col -->
+                        <!--// DATE //-->
+                        <div class="wd-250 mg-b-20">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                </div>
+                                <input type="text" value="" id="datetimepicker" class="form-control">
+                            </div>
+                        </div>
+                        <!--// END DATE //-->
                         <div class="mb-1">
                             <label class="rdiobox">
                                 <input name="rdio" type="radio" checked>
@@ -96,8 +108,7 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
                                 admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->
@@ -105,8 +116,12 @@
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
-
     <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
+
+    <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+    <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
     <script src="../lib/chart.js/Chart.bundle.min.js"></script>
@@ -114,6 +129,29 @@
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        $(function() {
+            // Datepicker
+            $('.fc-datepicker').datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true
+            });
+
+            $('#datepickerNoOfMonths').datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                numberOfMonths: 2
+            });
+
+            // AmazeUI Datetimepicker
+            $('#datetimepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true, // close the datepicker when a date is selected
+                todayHighlight: true // highlight today's date
+            });
+
+        });
+    </script>
 </body>
 
 </html>
