@@ -23,12 +23,19 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Quản lý tài khoản</title>
+    <title>libro - Sách</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
+    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
@@ -37,52 +44,51 @@
 
 <body>
 
-    @include('header', ['view' => 4])
+    @include('header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Cá nhân</label>
+                    <label>Độc giả</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('xem-thong-tin') }}" class="nav-link ">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
-                        <a href="#" class="nav-link active">Quản lý tài khoản</a>
+                        <a href="#" class="nav-link active">Cấp thẻ</a>
+                        <a href="" class="nav-link">Quản lý</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
 
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>Cá nhân</span>
-                    <span>Quản lý tài khoản</span>
+                    <span>Độc giả</span>
+                    <span>Cấp thẻ</span>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table mg-b-0 mg-t-20 az-table-reference">
-                        <thead>
-                            <tr>
-                                <td>STT</td>
-                                <th>Họ</th>
-                                <th>Tên</th>
-                                <th>Email</th>
-                                <th>Vị trí</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($ds_tai_khoan as $key => $item)
-                                <tr>
-                                    <th scope="row">{{ $key }}</th>
-                                    <td>{{ $item->ho }}</td>
-                                    <td>{{ $item->ten }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->vai_tro == 0 ? 'Thủ thư' : 'Quản trị viên' }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div><!-- bd -->
+                <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
+                    <div class="row row-sm align-items-end mg-b-20">
+                        <div class="col-lg form-group m-0">
+                            <label>Họ</label>
+                            <input class="form-control" placeholder="Nhập họ" type="text">
+                        </div><!-- col -->
+                        <div class="col-lg form-group m-0">
+                            <label>Tên</label>
+                            <input class="form-control" placeholder="Nhập tên" type="text">
+                        </div><!-- col -->
+                        <div class="mb-1">
+                            <label class="rdiobox">
+                                <input name="rdio" type="radio" checked>
+                                <span>Nam</span>
+                            </label>
+                        </div><!-- col-3 -->
+                        <div class="mb-1">
+                            <label class="rdiobox">
+                                <input name="rdio" type="radio">
+                                <span>Nữ</span>
+                            </label>
+                        </div><!-- col-3 -->
+                    </div>
+
+                </div>
 
                 <div class="ht-40"></div>
                 <div class="az-footer ht-40">

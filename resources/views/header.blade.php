@@ -22,14 +22,14 @@
                         <a href="{{ route('hien-thi-them') }}" class="nav-link">Thêm sách</a>
                     </nav>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Độc giả</a>
                     <nav class="az-menu-sub">
-                        <a href="" class="nav-link">Cấp thẻ</a>
+                        <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
                         <a href="" class="nav-link">Quản lý</a>
                     </nav>
                 </li>
-                <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
+                <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user-outline"></i>Cá nhân</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('xem-thong-tin') }}" class="nav-link">Hồ sơ</a>
@@ -40,6 +40,7 @@
             </ul>
         </div><!-- az-header-menu -->
         <div class="az-header-right">
+            <div class="text-info font-weight-bold">{{ Auth::user()->ho }} {{ Auth::user()->ten }}</div>
             <div class="dropdown az-profile-menu">
                 <a href="" class="az-img-user">
                     @if (Auth::user()->anh_dai_dien == '')
