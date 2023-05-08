@@ -13,9 +13,9 @@ Route::get('/doi-mat-khau',[HomeController::class, 'doiMatKhau'])->name('doi-mat
 Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
+Route::get('/sua-sach/{id}', [AdminController::class, 'suaSach'])->name('sua-sach')->middleware('auth');
 
-
-Route::prefix('/admin')->group(function(){
+    Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
     Route::post('/them-tac-gia', [AdminController::class, 'themTacGia'])->name('them-tac-gia')->middleware('auth');
     Route::post('/them-nha-xuat-ban', [AdminController::class, 'themNhaXuatBan'])->name('them-nha-xuat-ban')->middleware('auth');
