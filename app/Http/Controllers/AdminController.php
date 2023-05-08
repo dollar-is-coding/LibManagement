@@ -217,6 +217,6 @@ class AdminController extends Controller
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
         $tu_sach =TuSach::all();
-        return view('sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
+        return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
 }

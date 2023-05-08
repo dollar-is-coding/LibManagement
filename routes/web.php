@@ -13,7 +13,7 @@ Route::get('/doi-mat-khau',[HomeController::class, 'doiMatKhau'])->name('doi-mat
 Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
-Route::get('/sua-sach/{id}', [AdminController::class, 'suaSach'])->name('sua-sach')->middleware('auth');
+Route::get('/chinh-sua-sach/{id}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
 
 Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
@@ -41,4 +41,5 @@ Route::prefix('/admin')->group(function(){
     Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
     Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
     Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
+    
 });
