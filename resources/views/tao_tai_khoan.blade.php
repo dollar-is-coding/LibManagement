@@ -67,8 +67,9 @@
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <h4 class="az-content-label mg-b-5 ml-3">Tạo tài khoản</h4>
-                    <p class="mg-b-5 ml-3 ">Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho
-                        người khác</p>
+                    <p class="mg-b-5 ml-3 ">
+                        Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
+                    </p>
                     <hr class="hr ml-3" />
                     <form action="{{ route('xu-ly-tao-tai-khoan') }}" class="ml-3 az-signin-header" method="POST">
                         @csrf
@@ -99,32 +100,29 @@
 
                         <div class="row row-sm">
                             <div class="wd-350">
-                                <label class="m-0">Vai trò</label>
+                                <label class="m-0">&nbsp;Vai trò</label>
                                 <select class="form-control select2-no-search">
                                     <option label="Choose one"></option>
-                                    <option value="Firefox">Firefox</option>
-                                    <option value="Chrome">Chrome</option>
-                                    <option value="Safari">Safari</option>
-                                    <option value="Opera">Opera</option>
-                                    <option value="Internet Explorer">Internet Explorer</option>
+                                    <option value="1">Quản trị viên</option>
+                                    <option value="0">Thủ thư</option>
                                 </select>
                             </div><!-- col-4 -->
                             <div class="col-lg form-group">
-                                <label class="m-0">Email</label>
+                                <label class="m-0">&nbsp;Email</label>
                                 <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                     type="email" name="email" class="form-control" placeholder="Nhập email"
                                     value="">
                             </div><!-- form-group -->
                         </div>
-                        
+
                         <div class="row row-sm">
                             <div class="wd-350 form-group">
-                                <label class="m-0">Mật khẩu</label>
+                                <label class="m-0">&nbsp;Mật khẩu</label>
                                 <input required type="password" name="password" class="form-control"
                                     placeholder="Nhập mật khẩu" value="">
                             </div><!-- form-group -->
                             <div class="col-lg form-group">
-                                <label class="m-0">Xác minh mật khẩu</label>
+                                <label class="m-0">&nbsp;Xác minh mật khẩu</label>
                                 <input required type="password" name="confirm_password" class="form-control"
                                     placeholder="Nhập xác minh mật khẩu" value="">
                             </div><!-- form-group -->

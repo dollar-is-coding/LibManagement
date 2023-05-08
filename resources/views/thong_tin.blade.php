@@ -145,19 +145,19 @@
                         <div class="col-lg">
                             <div class="row">
                                 <div class="col-lg form-group">
-                                    <label class="m-0">Họ</label>
+                                    <label class="m-0">&nbsp;Họ</label>
                                     <input required type="text" name="ho" class="form-control"
                                         placeholder="Enter your email" value="{{ Auth::user()->ho }}">
                                 </div><!-- form-group -->
                                 <div class="col-lg form-group">
-                                    <label class="m-0">Tên</label>
+                                    <label class="m-0">&nbsp;Tên</label>
                                     <input required type="text" name="ten" class="form-control"
                                         placeholder="Enter your email" value="{{ Auth::user()->ten }}">
                                 </div><!-- form-group -->
                             </div>
                             <div class="row row-sm align-items-end">
                                 <div class="col-lg form-group">
-                                    <label class="m-0">Email</label>
+                                    <label class="m-0">&nbsp;Email</label>
                                     <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                         type="email" name="email" class="form-control"
                                         placeholder="Enter your email" value="{{ Auth::user()->email }}">
@@ -176,7 +176,7 @@
                                 </div><!-- col-3 -->
                             </div>
                             <div class="form-group">
-                                <label class="m-0">Vai trò</label>
+                                <label class="m-0">&nbsp;Vai trò</label>
                                 <input class="form-control"
                                     value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
                             </div><!-- form-group -->
