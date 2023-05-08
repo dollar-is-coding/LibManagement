@@ -48,7 +48,7 @@
                         <a href="#" class="nav-link active">Hồ sơ</a>
                         <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
                         <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
-                        <a href="{{route('quan-ly-tai-khoan')}}" class="nav-link">Quản lý tài khoản</a>
+                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -118,40 +118,67 @@
                     <h4 class="az-content-label mg-b-5 ml-3">Hồ Sơ Của Tôi</h4>
                     <p class="mg-b-5 ml-3 ">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
                     <hr class="hr ml-3" />
-                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST" enctype="multipart/form-data">
+                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="ongnoi col-lg-4">
                             <div class="cha">
                                 <div class="con1">
                                     @if (Auth::user()->anh_dai_dien == '')
-                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/user.png" width="200px" height="200px" style="object-fit:cover">
+                                        <img class="ca border rounded-circle" id="image" alt=""
+                                            srcset="" src="../img/avt/user.png" width="200px" height="200px"
+                                            style="object-fit:cover">
                                     @else
-                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}" width="200px" height="200px" style="object-fit:cover">
+                                        <img class="ca border rounded-circle" id="image" alt=""
+                                            srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}"
+                                            width="200px" height="200px" style="object-fit:cover">
                                     @endif
                                 </div>
 
                                 <div class="con2">
                                     <label for="file"></label>
-                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)" name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
+                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)"
+                                        name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg">
+                            <div class="row">
+                                <div class="col-lg form-group">
+                                    <label class="m-0">Họ</label>
+                                    <input required type="text" name="ho" class="form-control"
+                                        placeholder="Enter your email" value="{{ Auth::user()->ho }}">
+                                </div><!-- form-group -->
+                                <div class="col-lg form-group">
+                                    <label class="m-0">Tên</label>
+                                    <input required type="text" name="ten" class="form-control"
+                                        placeholder="Enter your email" value="{{ Auth::user()->ten }}">
+                                </div><!-- form-group -->
+                            </div>
+                            <div class="row row-sm align-items-end">
+                                <div class="col-lg form-group">
+                                    <label class="m-0">Email</label>
+                                    <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                        type="email" name="email" class="form-control"
+                                        placeholder="Enter your email" value="{{ Auth::user()->email }}">
+                                </div><!-- form-group -->
+                                <div class="mg-b-20">
+                                    <label class="rdiobox">
+                                        <input name="rdio" type="radio" checked>
+                                        <span>Nam</span>
+                                    </label>
+                                </div><!-- col-3 -->
+                                <div class="mg-b-20">
+                                    <label class="rdiobox">
+                                        <input name="rdio" type="radio">
+                                        <span>Nữ</span>
+                                    </label>
+                                </div><!-- col-3 -->
+                            </div>
                             <div class="form-group">
-                                <label>Họ</label>
-                                <input required type="text" name="ho" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->ho }}">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Tên</label>
-                                <input required type="text" name="ten" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->ten }}">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->email }}">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Vai trò</label>
-                                <input class="form-control" value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
+                                <label class="m-0">Vai trò</label>
+                                <input class="form-control"
+                                    value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
                             </div><!-- form-group -->
                             <button class="col-lg-3 btn btn-az-primary btn-block">Cập nhật</button>
                         </div>
@@ -164,7 +191,9 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
+                                target="_blank">Bootstrap admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->
                 </div><!-- az-footer -->

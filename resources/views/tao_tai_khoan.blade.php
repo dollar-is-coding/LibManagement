@@ -29,6 +29,13 @@
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
+    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
@@ -63,36 +70,68 @@
                     <p class="mg-b-5 ml-3 ">Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho
                         người khác</p>
                     <hr class="hr ml-3" />
-                    <div class="az-signin-header">
-                        <form action="{{ route('xu-ly-tao-tai-khoan') }}" class="col-lg" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label>Họ</label>
-                                <input required type="text" name="ho" class="form-control col-lg-7" placeholder="Nhập họ" value="">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Ten</label>
-                                <input required type="text" name="ten" class="form-control col-lg-7" placeholder="Nhập tên" value="">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control col-lg-7" placeholder="Nhập email" value="">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Mật khẩu</label>
-                                <input required type="password" name="password" class="form-control col-lg-7" placeholder="Nhập mật khẩu" value="">
-                            </div><!-- form-group -->
-                            <div class="form-group">
-                                <label>Vai trò</label>
-                                <select class="form-control select2-no-search col-lg-7" name='vai_tro'>
-                                    <option value="1">Quản trị viên</option>
-                                    <option value="0">Thủ thư</option>
-                                </select>
-                            </div><!-- form-group -->
+                    <form action="{{ route('xu-ly-tao-tai-khoan') }}" class="ml-3 az-signin-header" method="POST">
+                        @csrf
+                        <div class="row row-sm align-items-end mg-b-20">
+                            <div class="wd-350 form-group m-0">
+                                <label class="m-0">&nbsp;Họ</label>
+                                <input class="form-control" name="ho" placeholder="Nhập họ" type="text"
+                                    required>
+                            </div><!-- col -->
+                            <div class="col-lg form-group m-0">
+                                <label class="m-0">&nbsp;Tên</label>
+                                <input class="form-control" name="ten" placeholder="Nhập tên" type="text"
+                                    required>
+                            </div><!-- col -->
+                            <div class="mb-1">
+                                <label class="rdiobox">
+                                    <input name="rdio" type="radio" checked>
+                                    <span>Nam</span>
+                                </label>
+                            </div><!-- col-3 -->
+                            <div class="mb-1">
+                                <label class="rdiobox">
+                                    <input name="rdio" type="radio">
+                                    <span>Nữ</span>
+                                </label>
+                            </div><!-- col-3 -->
+                        </div>
 
-                            <button class="col-lg-3 btn btn-az-primary btn-block">Tạo</button>
-                        </form>
-                    </div><!-- az-signin-header -->
+                        <div class="row row-sm">
+                            <div class="wd-350">
+                                <label class="m-0">Vai trò</label>
+                                <select class="form-control select2-no-search">
+                                    <option label="Choose one"></option>
+                                    <option value="Firefox">Firefox</option>
+                                    <option value="Chrome">Chrome</option>
+                                    <option value="Safari">Safari</option>
+                                    <option value="Opera">Opera</option>
+                                    <option value="Internet Explorer">Internet Explorer</option>
+                                </select>
+                            </div><!-- col-4 -->
+                            <div class="col-lg form-group">
+                                <label class="m-0">Email</label>
+                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                    type="email" name="email" class="form-control" placeholder="Nhập email"
+                                    value="">
+                            </div><!-- form-group -->
+                        </div>
+                        
+                        <div class="row row-sm">
+                            <div class="wd-350 form-group">
+                                <label class="m-0">Mật khẩu</label>
+                                <input required type="password" name="password" class="form-control"
+                                    placeholder="Nhập mật khẩu" value="">
+                            </div><!-- form-group -->
+                            <div class="col-lg form-group">
+                                <label class="m-0">Xác minh mật khẩu</label>
+                                <input required type="password" name="confirm_password" class="form-control"
+                                    placeholder="Nhập xác minh mật khẩu" value="">
+                            </div><!-- form-group -->
+                        </div>
+
+                        <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Tạo</button>
+                    </form>
                 </div><!-- az-card-signin -->
 
                 <div class="ht-40"></div>
@@ -101,7 +140,9 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
+                                target="_blank">Bootstrap
                                 admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->
@@ -111,14 +152,32 @@
     </div><!-- az-content -->
 
     <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
+
+    <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+    <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
     <script src="../lib/chart.js/Chart.bundle.min.js"></script>
-
+    <script src="../lib/select2/js/select2.min.js"></script>
 
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Choose one',
+                searchInputPlaceholder: 'Search'
+            });
+
+            $('.select2-no-search').select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: 'Chọn vai trò'
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
             <ul class="nav">
                 <li class="nav-item {{ $view == 1 ? 'active show' : '' }}">
                     <a href="{{ $view == 1 ? '#' : route('trang-chu') }}" class="nav-link"><i
-                            class="typcn typcn-chart-area-outline"></i>
+                            class="typcn typcn-chart-area"></i>
                         Trang chủ</a>
                 </li>
                 <li class="nav-item {{ $view == 2 ? 'active show' : '' }}">
@@ -23,14 +23,14 @@
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Độc giả</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
                         <a href="" class="nav-link">Quản lý</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user-outline"></i>Cá nhân</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Cá nhân</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('xem-thong-tin') }}" class="nav-link">Hồ sơ</a>
                         <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>

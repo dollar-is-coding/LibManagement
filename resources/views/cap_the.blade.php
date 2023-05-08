@@ -65,27 +65,15 @@
                 </div>
 
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
-                    <div class="row row-sm align-items-end mg-b-20">
+                    <div class="row row-sm align-items-end mg-b-30">
                         <div class="col-lg form-group m-0">
-                            <label>Họ</label>
+                            <label class="m-0">&nbsp;Họ</label>
                             <input class="form-control" placeholder="Nhập họ" type="text">
                         </div><!-- col -->
                         <div class="col-lg form-group m-0">
-                            <label>Tên</label>
+                            <label class="m-0">&nbsp;Tên</label>
                             <input class="form-control" placeholder="Nhập tên" type="text">
                         </div><!-- col -->
-                        <!--// DATE //-->
-                        <div class="wd-250 mg-b-20">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                    </div>
-                                </div>
-                                <input type="text" value="" id="datetimepicker" class="form-control">
-                            </div>
-                        </div>
-                        <!--// END DATE //-->
                         <div class="mb-1">
                             <label class="rdiobox">
                                 <input name="rdio" type="radio" checked>
@@ -100,6 +88,58 @@
                         </div><!-- col-3 -->
                     </div>
 
+                    <div class="row row-sm mg-b-20">
+                        <div class="wd-350">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <label class="ckbox wd-16 mg-b-0">
+                                            <i class="typcn typcn-phone" style="font-size: 1.5em"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+                        <!--// DATE //-->
+                        <div class="col-lg">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                </div>
+                                <input type="text" value="" id="datetimepicker" class="form-control"
+                                    placeholder="DD/MM/YYYY">
+                            </div>
+                        </div>
+                        <!--// END DATE //-->
+                    </div>
+
+                    <div class="row row-sm mg-b-20">
+                        <div class="wd-350 form-group m-0">
+                            <label class="m-0">&nbsp;Lớp</label>
+                            <input class="form-control" placeholder="Nhập lớp" type="text">
+                        </div><!-- col -->
+                        <div class="col-lg">
+                            <label class="m-0">&nbsp;Trường</label>
+                            <select class="form-control select2">
+                                <option label="Chon truong"></option>
+                                <option value="Firefox">Firefox</option>
+                                <option value="Chrome">Chrome</option>
+                                <option value="Safari">Safari</option>
+                                <option value="Opera">Opera</option>
+                                <option value="Internet Explorer">Internet Explorer</option>
+                            </select>
+                        </div><!-- col-4 -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dia_chi" class="m-0">&nbsp;Địa chỉ</label>
+                        <input type="text" name="dia_chi" class="form-control" placeholder="Nhập địa chỉ">
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 p-0"><button class="btn btn-primary btn-block">Tạo thẻ</button></div>
                 </div>
 
                 <div class="ht-40"></div>
@@ -108,7 +148,9 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
+                                target="_blank">Bootstrap
                                 admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->
@@ -125,6 +167,7 @@
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
     <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="../lib/select2/js/select2.min.js"></script>
 
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
@@ -145,11 +188,24 @@
 
             // AmazeUI Datetimepicker
             $('#datetimepicker').datepicker({
-                format: 'yyyy-mm-dd',
+                format: 'mm-dd-yyyy',
                 autoclose: true, // close the datepicker when a date is selected
-                todayHighlight: true // highlight today's date
+                todayHighlight: true, // highlight today's date
+                dateFormat: 'dd/mm/yy'
             });
 
+        });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Chọn trường',
+                searchInputPlaceholder: 'Search'
+            });
+
+            $('.select2-no-search').select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: 'Choose one'
+            });
         });
     </script>
 </body>
