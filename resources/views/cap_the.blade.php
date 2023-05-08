@@ -9,9 +9,7 @@
         function gtag() {
             dataLayer.push(arguments);
         }
-
         gtag('js', new Date());
-
         gtag('config', 'UA-90680653-2');
     </script>
 
@@ -139,20 +137,23 @@
                         <input type="text" name="dia_chi" class="form-control" placeholder="Nhập địa chỉ">
                     </div>
 
-                    <div class="col-sm-6 col-md-3 p-0"><button class="btn btn-primary btn-block">Tạo thẻ</button></div>
+                    <div class="col-sm-6 col-md-3 p-0"><button class="btn btn-primary btn-block">Tạo thẻ</button>
+                    </div>
                 </div>
 
                 <div class="ht-40"></div>
+
                 <div class="az-footer ht-40">
                     <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
-                            bootstrapdash.com
-                            2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
-                                target="_blank">Bootstrap
-                                admin
-                                templates</a> from Bootstrapdash.com</span>
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                            Copyright © bootstrapdash.com 2020
+                        </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
+                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
+                                Bootstrap admin templates
+                            </a>
+                            from Bootstrapdash.com
+                        </span>
                     </div><!-- container -->
                 </div><!-- az-footer -->
             </div><!-- az-content-body -->

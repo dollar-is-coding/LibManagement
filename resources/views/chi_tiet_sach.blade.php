@@ -68,11 +68,6 @@
                                     style="object-fit: cover" alt="" srcset="">
                             </div>
                             <div class="ml-3">
-                                {{-- <div>Tác giả:
-                                    <a onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'"
-                                        href="{{ route('tim-kiem-theo-tac-gia', ['tac_gia' => $item->fkSach->tac_gia_id]) }}">{{ $item->fkSach->fkTacGia->ten }}</a>
-                                </div> --}}
                                 <form action="{{ route('tim-kiem-theo-tac-gia') }}" method="get"
                                     class="row align-items-center mb-0">
                                     @csrf
