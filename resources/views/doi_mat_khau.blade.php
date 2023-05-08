@@ -60,23 +60,23 @@
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <h4 class="az-content-label mg-b-5 ml-3">Đổi Mật Khẩu</h4>
-                    <p class="mg-b-5 ml-3 ">Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác</p>
+                    <p class="mg-b-5 ml-3">Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác</p>
                     <hr class="hr ml-3" />
                     <div class="az-signin-header">
                         <form action="{{ route('xu-ly-doi-mat-khau') }}" class="col-lg" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Mật Khẩu Hiện Tại</label>
+                                <label class="m-0">&nbsp;Mật Khẩu Hiện Tại</label>
                                 <input required type="password" name="old_pass" class="form-control col-lg-7"
                                     placeholder="Nhập Mật Khẩu Hiện Tại" value="">
                             </div><!-- form-group -->
                             <div class="form-group">
-                                <label>Mật Khẩu Mới</label>
+                                <label class="m-0">&nbsp;Mật Khẩu Mới</label>
                                 <input required type="password" name="new_pass" class="form-control col-lg-7"
                                     placeholder="Nhập Mật Khẩu Mới" value="">
                             </div><!-- form-group -->
                             <div class="form-group">
-                                <label>Xác Nhận Mật Khẩu</label>
+                                <label class="m-0">&nbsp;Xác Nhận Mật Khẩu</label>
                                 <input required type="password" name="confirm_pass" class="form-control col-lg-7"
                                     placeholder="Nhập Xác Nhận Mật Khẩu" value="">
                             </div><!-- form-group -->
