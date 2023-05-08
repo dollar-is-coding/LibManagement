@@ -15,7 +15,7 @@ Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middlewa
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/sua-sach/{id}', [AdminController::class, 'suaSach'])->name('sua-sach')->middleware('auth');
 
-    Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
     Route::post('/them-tac-gia', [AdminController::class, 'themTacGia'])->name('them-tac-gia')->middleware('auth');
     Route::post('/them-nha-xuat-ban', [AdminController::class, 'themNhaXuatBan'])->name('them-nha-xuat-ban')->middleware('auth');
