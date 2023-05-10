@@ -79,4 +79,7 @@ class HomeController extends Controller
         $sach=ThuVien::where('sach_id',$id)->get();
         return view('chi_tiet_sach',['sach'=>$sach]);
     }
+    public function quenMatKhau(){
+        return view('quen_mat_khau');
+    }
 }

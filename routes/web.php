@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,14 @@ Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->na
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/chinh-sua-sach/{id}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
-
+Route::get('/forgot_pass',function(){
+    // echo session()->get('verify');
+    return view('forgot_pass');
+});
+Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-mat-khau');
+Route::post('/forgot_pass', [AccountController::class, 'Forget_Password']);
+Route::get('/verify', [AccountController::class, 'Verify'])->name('xac-minh');
+Route::post('/verify', [AccountController::class, 'Xu_ly_xac_minh']);
 Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
     Route::post('/them-tac-gia', [AdminController::class, 'themTacGia'])->name('them-tac-gia')->middleware('auth');

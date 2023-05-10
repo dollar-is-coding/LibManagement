@@ -45,13 +45,13 @@
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
                     @foreach ($sach as $item)
-                        <label>{{ $item->fkSach->ten }}</label>
-                        <nav class="nav flex-column">
-                            <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link ">Chi
-                                tiết</a>
-                            <a href="#" class="nav-link">Mượn sách</a>
-                            <a href="#" class="nav-link active">Chỉnh sửa</a>
-                        </nav>
+                    <label>{{ $item->fkSach->ten }}</label>
+                    <nav class="nav flex-column">
+                        <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link ">Chi
+                            tiết</a>
+                        <a href="#" class="nav-link">Mượn sách</a>
+                        <a href="#" class="nav-link active">Chỉnh sửa</a>
+                    </nav>
                     @endforeach
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -60,7 +60,7 @@
                 <!-- đây mục trỏ-->
                 <div class="az-content-breadcrumb">
                     @foreach ($sach as $item)
-                        <span>{{ $item->fkSach->ten }}</span>
+                    <span>{{ $item->fkSach->ten }}</span>
                     @endforeach
                     <span>Sửa sách</span>
                 </div>
@@ -72,9 +72,7 @@
                             <div style="flex-basis: 70%">
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Tên sách</label>
-                                    <input required type="text" name="ten_sach" id="ten_sach" class="form-control"
-                                        placeholder="Nhập tên sách" value="{{ $item->fkSach->ten }}" tabindex="1"
-                                        autofocus=true>
+                                    <input required type="text" name="ten_sach" id="ten_sach" class="form-control" placeholder="Nhập tên sách" value="{{ $item->fkSach->ten }}" tabindex="1" autofocus=true>
                                 </div>
                                 <!-- form-group -->
 
@@ -82,39 +80,37 @@
                                     <label class="m-0">&nbsp;Tác giả</label>
                                     <select name="tac_gia" class="form-control select2-no-search" tabindex="2">
                                         @foreach ($tac_gia as $item)
-                                            @foreach ($sach as $single_author)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_author->fkSach->tac_gia_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}</option>
-                                            @endforeach
+                                        @foreach ($sach as $single_author)
+                                        <option value="{{ $item->id }}" {{ $single_author->fkSach->tac_gia_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Thể loại</label>
-                                    <select required name="the_loai" class="form-control select2-no-search"
-                                        tabindex="3">
+                                    <select required name="the_loai" class="form-control select2-no-search" tabindex="3">
                                         @foreach ($the_loai as $item)
-                                            @foreach ($sach as $single_book)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_book->fkSach->the_loai_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}</option>
-                                            @endforeach
+                                        @foreach ($sach as $single_book)
+                                        <option value="{{ $item->id }}" {{ $single_book->fkSach->the_loai_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Nhà xuất bản</label>
-                                    <select required id="form-select" name="nha_xuat_ban"
-                                        class="form-control select2-no-search" tabindex="4">
+                                    <select required id="form-select" name="nha_xuat_ban" class="form-control select2-no-search" tabindex="4">
                                         @foreach ($nha_xuat_ban as $item)
-                                            @foreach ($sach as $single_nxb)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_nxb->fkSach->nha_xuat_ban_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}</option>
-                                            @endforeach
+                                        @foreach ($sach as $single_nxb)
+                                        <option value="{{ $item->id }}" {{ $single_nxb->fkSach->nha_xuat_ban_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
@@ -122,74 +118,62 @@
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Năm xuất bản</label>
                                     @foreach ($sach as $item)
-                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban"
-                                            class="form-control" placeholder="Nhập năm xuất bản"
-                                            value="{{ $item->fkSach->nam_xuat_ban }}" tabindex="5" />
+                                    <input required type="number" min="1800" max="2024" name="nam_xuat_ban" class="form-control" placeholder="Nhập năm xuất bản" value="{{ $item->fkSach->nam_xuat_ban }}" tabindex="5" />
                                     @endforeach
                                 </div>
                                 <!-- form-group -->
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Tủ sách</label>
-                                    <select required id="tuSachSelect" name="tu_sach"
-                                        class="form-control select2-no-search" tabindex="6">
+                                    <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
                                         <option disabled value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
-                                            {{ $item->fkTuSach->ten }}</option>
+                                            {{ $item->fkTuSach->ten }}
+                                        </option>
                                         @foreach ($khu_vuc as $khu_vuc_item)
-                                            <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ"
-                                                data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
-                                                @foreach ($tu_sach as $tu_sach_item)
-                                                    @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                                        <option value="{{ $tu_sach_item->id }}">
-                                                            {{ $tu_sach_item->ten }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-                                            </optgroup>
+                                        <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                            @foreach ($tu_sach as $tu_sach_item)
+                                            @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                            <option value="{{ $tu_sach_item->id }}">
+                                                {{ $tu_sach_item->ten }}
+                                            </option>
+                                            @endif
+                                            @endforeach
+                                        </optgroup>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <!-- up ảnh -->
-                            <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%">
-                                <div class="upload-container border rounded"
-                                    style="object-fit:fill;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
-                                    <!-- <label for="upload-file" class="upload-label" style="font-size: 130%">Tải ảnh
-                                        lên</label> -->
-                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
-                                        name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10"
-                                        required />
-                                    <div id="preview-container" style="object-fit: cover;" class="preview-container">
-                                    </div>
+                            <div style="flex-basis: 30%; margin:2%" class="ml-3">
+
+                                <div class="upload-container" style="object-fit:fill;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
+                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" required />
+                                    <div id="preview-container" class="preview-container"></div>
                                 </div>
                                 <!-- số lượng -->
-                                <div style="margin-top: 6%" class="form-group">
+                                <div style="margin-top: 6%" class="form-group col-lg pl-0">
                                     <label class="m-0">&nbsp;Số lượng</label>
-                                    <input required type="number" min="1" name="so_luong" id="so_luong"
-                                        class="form-control" placeholder="Số lượng" value="{{ $item->so_luong }}"
-                                        tabindex="7" />
+                                    <input required type="number" min="1" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="{{ $item->so_luong }}" tabindex="7" />
                                 </div>
                                 <!-- khu vực -->
-                                <div class="form-group col-lg ml-2">
+                                <div class="form-group col-lg pl-0">
                                     <label class="m-0">&nbsp;Khu vực</label>
-                                    <select required id="khuVucSelect" name="khu_vuc"
-                                        class="form-control select2-no-search" tabindex="8">
+                                    <select required id="khuVucSelect" name="khu_vuc" class="form-control select2-no-search" tabindex="8">
                                         @foreach ($khu_vuc as $item)
-                                            @foreach ($sach as $single_area)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_area->fkTuSach->khu_vuc_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}</option>
-                                            @endforeach
+                                        @foreach ($sach as $single_area)
+                                        <option value="{{ $item->id }}" {{ $single_area->fkTuSach->khu_vuc_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ml-3">
                             <label for="">&nbsp;Nội dung tóm tắt</label>
                             @foreach ($sach as $item)
-                                <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
-                                    tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
+                            <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
                             @endforeach
                         </div>
 
@@ -209,9 +193,7 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
-                                target="_blank">Bootstrap
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
                                 admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->
@@ -222,12 +204,13 @@
     <style>
         .upload-container {
             position: relative;
-            width: 195px;
-            height: 316px;
+            width: 225px;
+            height: 269px;
             border: 1px border #ccc;
             display: flex;
             justify-content: center;
             align-items: center;
+
             /* cursor: pointer; */
         }
 
@@ -250,7 +233,7 @@
         .preview-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
     </style>
     <script src="../lib/jquery/jquery.min.js"></script>
@@ -264,47 +247,47 @@
 
     <script src="../lib/select2/js/select2.min.js"></script>
     <script>
-        // $(document).ready(function() {
-        //     $("#khuVucSelect")
-        //         .val($("#khuVucSelect option:first").val())
-        //         .trigger("change");
-        //     $("#khuVucSelect").change(function() {
-        //         var selectedVal = $(this).val();
-        //         $(".tuSachOptgroup").hide();
-        //         $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
-        //         $("#tuSachSelect").val("");
-        //         // $('.result').html('');
-        //     });
-        //     $(".tuSachOptgroup").hide();
+        $(document).ready(function() {
+            $("#khuVucSelect")
+                .val($("#khuVucSelect option:first").val())
+                .trigger("change");
+            $("#khuVucSelect").change(function() {
+                var selectedVal = $(this).val();
+                $(".tuSachOptgroup").hide();
+                $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
+                $("#tuSachSelect").val("");
+                // $('.result').html('');
+            });
+            $(".tuSachOptgroup").hide();
 
-        //     // lấy giá trị của khuVucSelect và cập nhật tuSachSelect tương ứng
-        //     var selectedVal = $("#khuVucSelect").val();
-        //     $(".tuSachOptgroup").hide();
-        //     $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
-        //     $("#tuSachSelect").val("");
-        //     // $('.result').html('');
-        // });
+            // lấy giá trị của khuVucSelect và cập nhật tuSachSelect tương ứng
+            var selectedVal = $("#khuVucSelect").val();
+            $(".tuSachOptgroup").hide();
+            $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
+            $("#tuSachSelect").val("");
+            // $('.result').html('');
+        });
 
-        // $(document).ready(function() {
-        //     $(".tusach-group").hide();
-        //     $("#khuVucSelect1").change(function() {
-        //         var selectedVal = $(this).val();
-        //         $(".tusach-group").hide();
-        //         $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
-        //         // $('.result').html('');
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     $(".tusach-group").hide();
-        //     $("#khuVucSelect1")
-        //         .change(function() {
-        //             var selectedVal = $(this).val();
-        //             $(".tusach-group").hide();
-        //             $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
-        //             // $('.result').html('');
-        //         })
-        //         .change(); // Gọi hàm change() ở đây để khởi tạo giá trị ban đầu
-        // });
+        $(document).ready(function() {
+            $(".tusach-group").hide();
+            $("#khuVucSelect1").change(function() {
+                var selectedVal = $(this).val();
+                $(".tusach-group").hide();
+                $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
+                // $('.result').html('');
+            });
+        });
+        $(document).ready(function() {
+            $(".tusach-group").hide();
+            $("#khuVucSelect1")
+                .change(function() {
+                    var selectedVal = $(this).val();
+                    $(".tusach-group").hide();
+                    $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
+                    // $('.result').html('');
+                })
+                .change(); // Gọi hàm change() ở đây để khởi tạo giá trị ban đầu
+        });
     </script>
     <script>
         function chooseFile(fileinput) {
@@ -333,24 +316,6 @@
                 }
             });
         }
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: 'Chọn trường',
-                searchInputPlaceholder: 'Search'
-            });
-
-            $('.select2-no-search').select2({
-                minimumResultsForSearch: Infinity,
-                placeholder: 'Choose one'
-            });
-            $('select3-no-search').select2({
-                minimumResultsForSearch: Infinity,
-                placeholder: 'Choose one'
-            });
-        });
     </script>
 </body>
 
