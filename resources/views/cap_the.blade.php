@@ -61,64 +61,45 @@
                     <span>Độc giả</span>
                     <span>Cấp thẻ</span>
                 </div>
-                {{-- {{ date('y') . date('m') . str_pad(5, 4, '0', STR_PAD_LEFT) }}
-                <p>{{ intval(str_pad(5, 4, '0', STR_PAD_LEFT)) }}</p> --}}
                 <div class="border shadow-sm rounded p-4 az-signin-header">
-                    {{-- <iframe name="votar" style="display:none;"></iframe> --}}
                     <form action="{{ route('xu-ly-cap-the') }}" class="ml-3 mr-3" method="POST">
                         @csrf
-                        <div class="row row-sm align-items-end mg-b-30">
+                        <div class="row row-sm align-items-end mg-b-20">
                             <div class="col-lg form-group m-0">
                                 <label class="m-0">&nbsp;Họ</label>
                                 <input name="ho" id="ho" class="form-control" placeholder="Nhập họ"
                                     type="text" autocomplete="off" required>
-                            </div><!-- col -->
+                            </div>
                             <div class="col-lg form-group m-0">
                                 <label class="m-0">&nbsp;Tên</label>
                                 <input name="ten" id="ten" class="form-control" placeholder="Nhập tên"
                                     type="text" autocomplete="off" required>
-                            </div><!-- col -->
+                            </div>
                             <div class="mb-1">
                                 <label class="rdiobox">
                                     <input name="gioi_tinh" type="radio" value="1" checked>
                                     <span>Nam</span>
                                 </label>
-                            </div><!-- col-3 -->
+                            </div>
                             <div class="mb-1">
                                 <label class="rdiobox">
                                     <input name="gioi_tinh" type="radio" value="0">
                                     <span>Nữ</span>
                                 </label>
-                            </div><!-- col-3 -->
+                            </div>
                         </div>
 
                         <div class="row row-sm mg-b-20">
-                            <div class="wd-350">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <label class="ckbox wd-16 mg-b-0">
-                                                <i class="typcn typcn-phone" style="font-size: 1.5em"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <input name="so_dien_thoai" type="text" class="form-control"
-                                        placeholder="Nhập số điện thoại" autocomplete="off" required>
-                                </div>
+                            <div class="wd-350 form-group m-0">
+                                <label class="m-0">&nbsp;Điện thoại</label>
+                                <input name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại"
+                                    type="text" autocomplete="off" required>
                             </div>
-                            <!--// DATE //-->
                             <div class="col-lg">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" name="ngay_sinh" id="datetimepicker" class="form-control"
-                                        placeholder="DD/MM/YYYY" autocomplete="off" required>
-                                </div>
+                                <label class="m-0">&nbsp;Ngày sinh</label>
+                                <input name="ngay_sinh" class="form-control" id="datetimepicker"
+                                    placeholder="DD/MM/YYYY" type="text" autocomplete="off" required>
                             </div>
-                            <!--// END DATE //-->
                         </div>
 
                         <div class="row row-sm mg-b-20">
@@ -126,7 +107,7 @@
                                 <label class="m-0">&nbsp;Lớp</label>
                                 <input name="lop" class="form-control" placeholder="Nhập lớp" type="text"
                                     autocomplete="off" required>
-                            </div><!-- col -->
+                            </div>
                             <div class="col-lg">
                                 <label class="m-0">&nbsp;Trường</label>
                                 <select name="truong_hoc" class="form-control select2" required>
@@ -135,7 +116,7 @@
                                         <option value="{{ $item->id }}">{{ $item->ten }}</option>
                                     @endforeach
                                 </select>
-                            </div><!-- col-4 -->
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -148,37 +129,6 @@
                             <button id="button" class="btn btn-primary btn-block">Tạo thẻ</button>
                         </div>
                     </form>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Cấp thẻ thành công</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    {{-- <div id="result"></div>
-                                    @if (isset($_POST['ho']))
-                                        <p>The input value is: {{ $_POST['ho'] }}</p>
-                                        {{ QrCode::size(300)->generate() }}
-                                    @endif
-                                    <div class="d-flex justify-content-center">
-
-                                    </div> --}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="ht-40"></div>
