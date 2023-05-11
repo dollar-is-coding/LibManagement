@@ -15,6 +15,10 @@ use App\Models\Sach;
 use App\Models\TuSach;
 use App\Models\ThuVien;
 use App\Models\nguoiDung;
+use App\Models\TruongHoc;
+use App\Models\DocGia;
+
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -207,8 +211,39 @@ class AdminController extends Controller
 
     public function showCapThe()
     {
-        return view('cap_the');
+        $ds_truong=TruongHoc::orderBy('ten','ASC')->get();
+        return view('cap_the',['ds_truong'=>$ds_truong,'date'=>Carbon::now()]);
     }
+
+    public function handleCapThe(Request $request)
+    {
+        $array=explode('/', $request->ngay_sinh);
+        if (blank(DocGia::latest()->first())) {
+            $ma_so=date('y').date('m').'0001';
+        }
+        else {
+            $latest_month_db=substr(DocGia::latest()->first()->ma_so,2,2);
+            $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
+            if ($latest_month_db==date('m')) {
+                $ma_so=date('y').date('m').str_pad($latest_people_db+1, 4, '0', STR_PAD_LEFT);
+            }  else {
+                $ma_so=date('y').date('m').'0001';
+            }
+        }
+        DocGia::create([
+            'ma_so'=>$ma_so,
+            'ho'=>$request->ho,
+            'ten'=>$request->ten,
+            'gioi_tinh'=>(int)$request->gioi_tinh,
+            'so_dien_thoai'=>$request->so_dien_thoai,
+            'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
+            'dia_chi'=>$request->dia_chi,
+            'lop'=>$request->lop,
+            'truong_hoc_id'=>$request->truong_hoc
+        ]);
+        return back();
+    }
+
     public function suaSach($id)
     {
         $sach = ThuVien::where('sach_id', $id)->get();
@@ -219,4 +254,6 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
+
+
 }

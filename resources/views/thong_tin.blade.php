@@ -126,8 +126,8 @@
                                 <div class="con1">
                                     @if (Auth::user()->anh_dai_dien == '')
                                         <img class="ca border rounded-circle" id="image" alt=""
-                                            srcset="" src="../img/avt/user.png" width="200px" height="200px"
-                                            style="object-fit:cover">
+                                            srcset="" src="../img/default/no_avatar.png" width="200px"
+                                            height="200px" style="object-fit:cover">
                                     @else
                                         <img class="ca border rounded-circle" id="image" alt=""
                                             srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}"
@@ -164,13 +164,15 @@
                                 </div><!-- form-group -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="rdio" type="radio" checked>
+                                        <input name="gioi_tinh" value="1" type="radio"
+                                            {{ Auth::user()->gioi_tinh == 1 ? 'checked' : '' }}>
                                         <span>Nam</span>
                                     </label>
                                 </div><!-- col-3 -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="rdio" type="radio">
+                                        <input name="gioi_tinh" value="0" type="radio"
+                                            {{ Auth::user()->gioi_tinh == 0 ? 'checked' : '' }}>
                                         <span>Nữ</span>
                                     </label>
                                 </div><!-- col-3 -->
@@ -180,7 +182,7 @@
                                 <input class="form-control"
                                     value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
                             </div><!-- form-group -->
-                            <button class="col-lg-3 btn btn-az-primary btn-block">Cập nhật</button>
+                            <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Cập nhật</button>
                         </div>
                     </form><!-- az-signin-header -->
                 </div><!-- az-card-signin -->
@@ -188,13 +190,15 @@
                 <div class="ht-40"></div>
                 <div class="az-footer ht-40">
                     <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
-                            bootstrapdash.com
-                            2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
-                                target="_blank">Bootstrap admin
-                                templates</a> from Bootstrapdash.com</span>
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                            Copyright © bootstrapdash.com 2020
+                        </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
+                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
+                                Bootstrap admin templates
+                            </a>
+                            from Bootstrapdash.com
+                        </span>
                     </div><!-- container -->
                 </div><!-- az-footer -->
             </div><!-- az-content-body -->

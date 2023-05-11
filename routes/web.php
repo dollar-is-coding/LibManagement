@@ -14,6 +14,8 @@ Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->na
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/chinh-sua-sach/{id}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
+Route::get('/hien-thi-muon-sach/{id}', [HomeController::class, 'showMuonSach'])->name('hien-thi-muon-sach')->middleware('auth');
+Route::post('/xu-ly-muon-sach', [HomeController::class, 'handleMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
 
 Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
@@ -41,5 +43,10 @@ Route::prefix('/admin')->group(function(){
     Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
     Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
     Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
-    
+    Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
+});
+
+Route::get('qrcode', function () {
+    // return QrCode::size(300)->generate('A basic example of QR code!');
+    return QrCode::size(300)->backgroundColor(255,55,0)->phoneNumber('0384269150');
 });
