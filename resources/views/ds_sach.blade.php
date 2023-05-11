@@ -72,18 +72,19 @@
                         <table class="table mg-b-0 az-table-reference">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th class="wd-5p">STT</th>
                                     <th>Sách</th>
                                     <th>Tác giả</th>
                                     <th>Vị trí</th>
-                                    <th>Số lượng</th>
+                                    <th class="wd-10p">Số lượng</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ds_sach as $key => $item)
                                     @foreach ($item->hasThuVien as $thu_vien)
                                         <tr>
-                                            <th scope="row">{{ ++$key }}</th>
+                                            <th scope="row">
+                                                {{ ++$key }}</th>
                                             <td>
                                                 <style>
                                                     /* mouse over link */
@@ -115,13 +116,15 @@
 
                 <div class="az-footer ht-40">
                     <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
-                            bootstrapdash.com
-                            2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-                                admin
-                                templates</a> from Bootstrapdash.com</span>
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                            Copyright © bootstrapdash.com 2020
+                        </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
+                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
+                                Bootstrap admin templates
+                            </a>
+                            from Bootstrapdash.com
+                        </span>
                     </div><!-- container -->
                 </div><!-- az-footer -->
 

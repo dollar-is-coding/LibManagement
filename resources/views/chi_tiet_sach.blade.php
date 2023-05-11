@@ -47,8 +47,10 @@
                         <label>{{ $item->fkSach->ten }}</label>
                         <nav class="nav flex-column">
                             <a href="#" class="nav-link active">Chi tiết</a>
-                            <a href="" class="nav-link">Mượn sách</a>
-                            <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">Chỉnh sửa</a>
+                            <a href="{{ route('hien-thi-muon-sach', ['id' => $item->sach_id]) }}" class="nav-link">Mượn
+                                sách</a>
+                            <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">Chỉnh
+                                sửa</a>
                         </nav>
                     @endforeach
                 </div><!-- component-item -->
@@ -65,10 +67,15 @@
                     <div class="row pl-4">
                         @foreach ($sach as $item)
                             <div class="border-right pr-4">
-                                <img src="../img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em"
-                                    style="object-fit: cover" alt="" srcset="">
+                                @if (Auth::user()->anh_dai_dien != '')
+                                    <img src="../img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em"
+                                        style="object-fit: cover">
+                                @else
+                                    <img src="../img/default/no_image_available.jpg" width="240em" height="320em"
+                                        style="object-fit: cover">
+                                @endif
                             </div>
-                            <div class="ml-3">
+                            <div class="ml-4 col-lg p-0">
                                 <form action="{{ route('tim-kiem-theo-tac-gia') }}" method="get"
                                     class="row align-items-center mb-0">
                                     @csrf
@@ -78,11 +85,14 @@
                                         onMouseUp="this.style.border = '1px solid black'"
                                         onMouseOver="this.style.textDecoration='underline',this.style.color='blue'"
                                         onMouseOut="this.style.textDecoration='none',this.style.color='#0D6EFD'"
-                                        type="submit" class="border-0 bg-white" id="myButton"
-                                        style="color:#0D6EFD">{{ $item->fkSach->fkTacGia->ten }}</button>
+                                        type="submit" class="border-0 bg-white" id="myButton" style="color:#0D6EFD">
+                                        {{ $item->fkSach->fkTacGia->ten }}
+                                    </button>
                                 </form>
                                 <div style="font-size: 26px">{{ $item->fkSach->ten }}</div>
-                                <div style="color:gray">Đã mượn (chưa làm cho mượn)</div>
+                                <div style="color:gray">
+                                    Đã mượn {{ str_pad($sl_nguoi_muon, 2, '0', STR_PAD_LEFT) }}
+                                </div>
                                 <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
                                     <div class="rounded-lg d-flex align-items-end">
                                         <div style="color: #FF424E;font-size: 32px">
@@ -115,13 +125,15 @@
                 <div class="ht-40"></div>
                 <div class="az-footer ht-40">
                     <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
-                            bootstrapdash.com
-                            2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-                                admin
-                                templates</a> from Bootstrapdash.com</span>
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                            Copyright © bootstrapdash.com 2020
+                        </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
+                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
+                                Bootstrap admin templates
+                            </a>
+                            from Bootstrapdash.com
+                        </span>
                     </div><!-- container -->
                 </div><!-- az-footer -->
             </div><!-- az-content-body -->

@@ -45,13 +45,14 @@
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
                     @foreach ($sach as $item)
-                    <label>{{ $item->fkSach->ten }}</label>
-                    <nav class="nav flex-column">
-                        <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link ">Chi
-                            tiết</a>
-                        <a href="#" class="nav-link">Mượn sách</a>
-                        <a href="#" class="nav-link active">Chỉnh sửa</a>
-                    </nav>
+                        <label>{{ $item->fkSach->ten }}</label>
+                        <nav class="nav flex-column">
+                            <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                                Chi tiết</a>
+                            <a href="{{ route('hien-thi-muon-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                                Mượn sách</a>
+                            <a href="#" class="nav-link active">Chỉnh sửa</a>
+                        </nav>
                     @endforeach
                 </div><!-- component-item -->
             </div><!-- az-content-left -->

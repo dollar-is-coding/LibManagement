@@ -44,9 +44,9 @@
             <div class="dropdown az-profile-menu">
                 <a href="" class="az-img-user">
                     @if (Auth::user()->anh_dai_dien == '')
-                        <img src="../img/avt/user.png" alt="">
+                        <img src="../img/default/no_avatar.png">
                     @else
-                        <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}" alt="">
+                        <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
                     @endif
                 </a>
                 <div class="dropdown-menu">
@@ -56,9 +56,9 @@
                     <div class="az-header-profile">
                         <div class="az-img-user">
                             @if (Auth::user()->anh_dai_dien == '')
-                                <img src="../img/avt/user.png" alt="">
+                                <img src="../img/default/no_avatar.png">
                             @else
-                                <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}" alt="">
+                                <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
                             @endif
                         </div><!-- az-img-user -->
                         <h6>{{ Auth::user()->ho }} {{ Auth::user()->ten }}</h6>

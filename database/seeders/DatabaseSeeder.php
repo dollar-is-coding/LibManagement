@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
             KhuVucSeeder::class,
             TuSachSeeder::class,
             TruongHocSeeder::class,
+            NhaXuatBanSeeder::class,
+            TacGiaSeeder::class,
+            TheLoaiSeeder::class,
+            SachSeeder::class,
+            ThuVienSeeder::class,
         ]);
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\NguoiDung;
 use App\Models\ThuVien;
+use App\Models\DocGia;
+use App\Models\PhieuMuonSach;
 
 class HomeController extends Controller
 {
@@ -40,7 +42,8 @@ class HomeController extends Controller
         $nguoiDung=NguoiDung::where('id',Auth::id())->update([
             'ho'=>$request->ho,
             'ten'=>$request->ten,
-            'email'=>$request->email
+            'gioi_tinh'=>(int)$request->gioi_tinh,
+            'email'=>$request->email,
         ]);
         $img =NguoiDung::find(Auth::id());
         if ($request->has('file')) {
@@ -77,7 +80,33 @@ class HomeController extends Controller
     public function chiTietSach($id)
     {
         $sach=ThuVien::where('sach_id',$id)->get();
-        return view('chi_tiet_sach',['sach'=>$sach]);
+        $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
+        return view('chi_tiet_sach',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
+    }
+
+    public function showMuonSach($id)
+    {
+        $sach=ThuVien::where('sach_id',$id)->get();
+        $doc_gia=DocGia::all();
+        return view('muon_sach',['sach'=>$sach,'ds_doc_gia'=>$doc_gia]);
+    }
+
+    public function handleMuonSach(Request $request)
+    {
+        $ngay_muon=explode('/', $request->ngay_muon);
+        $ngay_tra=explode('/', $request->ngay_tra);
+        
+        PhieuMuonSach::create([
+            'doc_gia_id'=>$request->ma_so,
+            'sach_id'=>$request->sach,
+            'so_luong'=>$request->so_luong,
+            'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
+            'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+        ]);
+        ThuVien::where('sach_id',$request->sach)->update([
+            'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
+        ]);
+        return redirect()->route('hien-thi-sach');
     }
     public function quenMatKhau(){
         return view('quen_mat_khau');
