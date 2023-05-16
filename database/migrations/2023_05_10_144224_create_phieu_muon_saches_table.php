@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('so_luong');
             $table->date('ngay_muon');
             $table->date('ngay_tra');
+            $table->date('thuc_tra');
             $table->timestamps();
             $table->softDeletes();
         });

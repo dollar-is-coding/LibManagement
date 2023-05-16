@@ -84,31 +84,90 @@ class HomeController extends Controller
         return view('chi_tiet_sach',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
     }
 
-    public function showMuonSach($id)
-    {
-        $sach=ThuVien::where('sach_id',$id)->get();
-        $doc_gia=DocGia::all();
-        return view('muon_sach',['sach'=>$sach,'ds_doc_gia'=>$doc_gia]);
+    // public function showMuonSach($id)
+    // {
+    //     $sach=ThuVien::where('sach_id',$id)->get();
+    //     $doc_gia=DocGia::all();
+    //     return view('muon_sach',['sach'=>$sach,'ds_doc_gia'=>$doc_gia]);
+    // }
+
+    // public function handleMuonSach(Request $request)
+    // {
+    //     $ngay_muon=explode('/', $request->ngay_muon);
+    //     $ngay_tra=explode('/', $request->ngay_tra);
+        
+    //     PhieuMuonSach::create([
+    //         'doc_gia_id'=>$request->ma_so,
+    //         'sach_id'=>$request->sach,
+    //         'so_luong'=>$request->so_luong,
+    //         'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
+    //         'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+    //     ]);
+    //     ThuVien::where('sach_id',$request->sach)->update([
+    //         'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
+    //     ]);
+    //     return redirect()->route('hien-thi-sach');
+    // }
+
+    public function quenMatKhau(){
+        return view('quen_mat_khau');
     }
 
-    public function handleMuonSach(Request $request)
+    public function showMuonSGK()
+    {
+        $doc_gia=DocGia::where('sach_khac','<',2)->get();
+        $sgk=ThuVien::where('so_luong','>',0)->get();
+        return view('muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+    }
+
+    public function handleMuonSGK(Request $request)
+    {
+        foreach ($request->sach as $key => $value) {
+            $ngay_muon=explode('/', $request->ngay_muon);
+            $ngay_tra=explode('/', $request->ngay_tra);
+            PhieuMuonSach::create([
+                'doc_gia_id'=>$request->ma_so,
+                'sach_id'=>$value,
+                'so_luong'=>1,
+                'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
+                'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+                'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
+            ]);
+            ThuVien::where('sach_id',$request->sach)->update([
+                'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-1)
+            ]);
+            DocGia::find($request->ma_so)->update([
+                'sgk'=>DocGia::find($request->ma_so)->sgk+1
+            ]);
+        }
+        return back();
+    }
+
+    public function showMuonSachKhac()
+    {
+        $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
+        $sgk=ThuVien::where('so_luong','>',0)->get();
+        return view('muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+    }
+
+    public function handleMuonSachKhac(Request $request)
     {
         $ngay_muon=explode('/', $request->ngay_muon);
         $ngay_tra=explode('/', $request->ngay_tra);
-        
         PhieuMuonSach::create([
             'doc_gia_id'=>$request->ma_so,
             'sach_id'=>$request->sach,
             'so_luong'=>$request->so_luong,
             'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
             'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+            'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
         ]);
         ThuVien::where('sach_id',$request->sach)->update([
             'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
         ]);
-        return redirect()->route('hien-thi-sach');
-    }
-    public function quenMatKhau(){
-        return view('quen_mat_khau');
+        DocGia::find($request->ma_so)->update([
+            'sach_khac'=>DocGia::find($request->ma_so)->sach_khac+$request->so_luong
+        ]);
+        return back();
     }
 }

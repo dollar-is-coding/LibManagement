@@ -26,6 +26,7 @@
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
+                        <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
                         <a href="" class="nav-link">Quản lý</a>
                     </nav>
                 </li>

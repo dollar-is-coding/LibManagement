@@ -11,7 +11,7 @@ class PhieuMuonSach extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='phieu_muon_sach';
-    protected $fillable=['doc_gia_id','sach_id','so_luong','ngay_muon','ngay_tra'];
+    protected $fillable=['doc_gia_id','sach_id','so_luong','ngay_muon','ngay_tra','thuc_tra'];
 
     public function fkDocGia()
     {

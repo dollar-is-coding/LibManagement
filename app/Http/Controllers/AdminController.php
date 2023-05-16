@@ -239,7 +239,9 @@ class AdminController extends Controller
             'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
             'dia_chi'=>$request->dia_chi,
             'lop'=>$request->lop,
-            'truong_hoc_id'=>$request->truong_hoc
+            'truong_hoc_id'=>$request->truong_hoc,
+            'sgk'=>0,
+            'sach_khac'=>0
         ]);
         return back();
     }
@@ -254,6 +256,4 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
-
-
 }

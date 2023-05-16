@@ -23,8 +23,10 @@ Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-
 Route::post('/forgot_pass', [AccountController::class, 'Forget_Password']);
 Route::get('/verify', [AccountController::class, 'Verify'])->name('xac-minh');
 Route::post('/verify', [AccountController::class, 'Xu_ly_xac_minh']);
-Route::get('/hien-thi-muon-sach/{id}', [HomeController::class, 'showMuonSach'])->name('hien-thi-muon-sach')->middleware('auth');
-Route::post('/xu-ly-muon-sach', [HomeController::class, 'handleMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
+Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');
+Route::post('/xu-ly-muon-sach-giao-khoa', [HomeController::class, 'handleMuonSGK'])->name('xu-ly-muon-sach-giao-khoa')->middleware('auth');
+Route::get('/hien-thi-muon-sach-khac', [HomeController::class, 'showMuonSachKhac'])->name('hien-thi-muon-sach-khac')->middleware('auth');
+Route::post('/xu-ly-muon-sach-khac', [HomeController::class, 'handleMuonSachKhac'])->name('xu-ly-muon-sach-khac')->middleware('auth');
 
 Route::prefix('/admin')->group(function(){
     Route::get('/hien-thi-them', [AdminController::class, 'index'])->name('hien-thi-them')->middleware('auth');
