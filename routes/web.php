@@ -15,6 +15,8 @@ Route::post('/xu-ly-doi-mat-khau',[HomeController::class, 'xuLyDoiMatKhau'])->na
 Route::get('/',[HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 Route::get('/chi-tiet-sach/{id}',[HomeController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/chinh-sua-sach/{id}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
+
+Route::get('/hien-thi-chi-tiet-doc-gia/{id}',[AdminController::class, 'showChiTietDocGia'])->name('hien-thi-chi-tiet-doc-gia')->middleware('auth');
 Route::get('/forgot_pass',function(){
     // echo session()->get('verify');
     return view('forgot_pass');
@@ -55,9 +57,5 @@ Route::prefix('/admin')->group(function(){
     Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
     Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
     Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
-});
-
-Route::get('qrcode', function () {
-    // return QrCode::size(300)->generate('A basic example of QR code!');
-    return QrCode::size(300)->backgroundColor(255,55,0)->phoneNumber('0384269150');
+    Route::get('/hien-thi-danh-sach-muon-sach',[AdminController::class, 'showMuonSachList'])->name('hien-thi-danh-sach-muon-sach')->middleware('auth');
 });

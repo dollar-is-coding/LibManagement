@@ -155,7 +155,6 @@
                             </div>
                             <!-- up ảnh -->
                             <div style="flex-basis: 30%; margin:2%" class="ml-3 mb-0">
-
                                 @if ($item->fkSach->hinh_anh == '')
                                     <div class="upload-container"
                                         style="background-size:cover;background-image: url('../img/default/no_image_available.jpg');">

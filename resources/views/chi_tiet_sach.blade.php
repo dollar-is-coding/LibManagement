@@ -93,7 +93,7 @@
                                         </form>
                                         <div style="font-size: 26px">{{ $item->fkSach->ten }}</div>
                                         <div style="color:gray">
-                                            Đã mượn {{ str_pad($sl_nguoi_muon, 2, '0', STR_PAD_LEFT) }}
+                                            Đã mượn {{ $sl_nguoi_muon }}
                                         </div>
                                     </div>
                                     <div>
