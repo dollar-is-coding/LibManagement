@@ -13,6 +13,7 @@ class TheLoaiSeeder extends Seeder
      */
     public function run(): void
     {
+        TheLoai::create(['ten'=>'Sách giáo khoa']);
         TheLoai::create(['ten'=>'Tiểu thuyết']);
         TheLoai::create(['ten'=>'Kinh dị']);
         TheLoai::create(['ten'=>'Tiểu thuyết']);

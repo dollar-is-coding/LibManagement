@@ -17,7 +17,7 @@ use App\Models\ThuVien;
 use App\Models\nguoiDung;
 use App\Models\TruongHoc;
 use App\Models\DocGia;
-
+use App\Models\PhieuMuonSach;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -212,7 +212,7 @@ class AdminController extends Controller
             $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
             if ($latest_month_db==date('m')) {
                 $ma_so=date('y').date('m').str_pad($latest_people_db+1, 4, '0', STR_PAD_LEFT);
-            }  else {
+            } else {
                 $ma_so=date('y').date('m').'0001';
             }
         }
@@ -225,7 +225,9 @@ class AdminController extends Controller
             'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
             'dia_chi'=>$request->dia_chi,
             'lop'=>$request->lop,
-            'truong_hoc_id'=>$request->truong_hoc
+            'truong_hoc_id'=>$request->truong_hoc,
+            'sgk'=>0,
+            'sach_khac'=>0
         ]);
         return back();
     }
@@ -265,5 +267,16 @@ class AdminController extends Controller
         return back();
     }
 
+    public function showMuonSachList()
+    {
+        $ds_doc_gia=DocGia::where('sgk','>',0)->orWhere('sach_khac','>',0)->get();
+        return view('quan_ly_muon_sach',['ds_doc_gia'=>$ds_doc_gia]);
+    }
 
+    public function showChiTietDocGia($id)
+    {
+        $doc_gia=DocGia::find($id);
+        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+        return view('chi_tiet_doc_gia',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    }
 }

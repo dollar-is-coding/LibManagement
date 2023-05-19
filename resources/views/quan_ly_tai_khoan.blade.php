@@ -63,7 +63,7 @@
                     <table class="table mg-b-0 mg-t-20 az-table-reference">
                         <thead>
                             <tr>
-                                <td>STT</td>
+                                <td class="wd-5p">STT</td>
                                 <th>Họ</th>
                                 <th>Tên</th>
                                 <th>Email</th>

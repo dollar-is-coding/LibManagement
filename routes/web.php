@@ -19,23 +19,29 @@ Route::post('/chinh-sua-sach/{id}', [AdminController::class, 'xuLySuaSach'])->na
 
 Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-mat-khau');
 Route::post('/dat-mat-khau', [HomeController::class, 'xuLyCapNhatMatKhau'])->name('cap-nhat-mat-khau');
-
 Route::get('/xac-minh-quen-mat-khau', [AccountController::class, 'xacMinhQuenMatKhau'])->name('nhap-mail');
 Route::post('/xac-minh-quen-mat-khau', [AccountController::class, 'taoMaXacMinh']);
 Route::get('/xac-minh', [AccountController::class, 'xacMinh'])->name('xac-minh');
 Route::post('/xac-minh', [AccountController::class, 'xulyXacMinh']);
-
 // doi email
 Route::get('/xac-minh-doi-email', [AccountController::class, 'xacMinhMail'])->name('xac-minh-email')->middleware('auth');
 Route::post('/xac-minh-doi-email', [AccountController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
-
 Route::get('/doi-email', [AccountController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [AccountController::class, 'xuLyDoiEmail'])->middleware('auth');
+Route::get('/forgot_pass',function(){
+    // echo session()->get('verify');
+    return view('forgot_pass');
+});
+Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-mat-khau');
+Route::post('/forgot_pass', [AccountController::class, 'Forget_Password']);
+Route::get('/verify', [AccountController::class, 'Verify'])->name('xac-minh');
+Route::post('/verify', [AccountController::class, 'Xu_ly_xac_minh']);
 
-
-
-Route::get('/hien-thi-muon-sach/{id}', [HomeController::class, 'showMuonSach'])->name('hien-thi-muon-sach')->middleware('auth');
-Route::post('/xu-ly-muon-sach', [HomeController::class, 'handleMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
+Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');
+Route::post('/xu-ly-muon-sach-giao-khoa', [HomeController::class, 'handleMuonSGK'])->name('xu-ly-muon-sach-giao-khoa')->middleware('auth');
+Route::get('/hien-thi-muon-sach-khac', [HomeController::class, 'showMuonSachKhac'])->name('hien-thi-muon-sach-khac')->middleware('auth');
+Route::post('/xu-ly-muon-sach-khac', [HomeController::class, 'handleMuonSachKhac'])->name('xu-ly-muon-sach-khac')->middleware('auth');
+Route::get('/hien-thi-chi-tiet-doc-gia/{id}',[AdminController::class, 'showChiTietDocGia'])->name('hien-thi-chi-tiet-doc-gia')->middleware('auth');
 
 
 Route::prefix('/admin')->group(function () {
@@ -59,15 +65,11 @@ Route::prefix('/admin')->group(function () {
     Route::post('/sua-tu-sach/{id}', [AdminController::class, 'suaTuSach'])->name('sua-tu-sach')->middleware('auth');
     Route::post('/them-sach-vao-thu-vien', [AdminController::class, 'themSachThuVien'])->name('xu-ly-them-sach')->middleware('auth');
     Route::get('/tim-kiem', [AdminController::class, 'dsTimKiem'])->name('tim-kiem')->middleware('auth');
-    Route::get('/tao-tai-khoan', [AdminController::class, 'taoTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');
-    Route::post('/xu-ly-tao-tai-khoan', [AccountController::class, 'xuLytaoTaiKhoan'])->name('xu-ly-tao-tai-khoan')->middleware('auth');
-    Route::get('/quan-ly-tai-khoan', [AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
-    Route::get('/tim-kiem-theo-tac-gia', [AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
-    Route::get('/cap-the-doc-gia', [AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
-    Route::post('/xu-ly-cap-the', [AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
+    Route::get('/tao-tai-khoan',[AdminController::class, 'taoTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');
+    Route::post('/xu-ly-tao-tai-khoan',[AdminController::class, 'xuLytaoTaiKhoan'])->name('xu-ly-tao-tai-khoan')->middleware('auth');
+    Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
+    Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
+    Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
+    Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
+    Route::get('/hien-thi-danh-sach-muon-sach',[AdminController::class, 'showMuonSachList'])->name('hien-thi-danh-sach-muon-sach')->middleware('auth');
 });
-
-// Route::get('qrcode', function () {
-//     // return QrCode::size(300)->generate('A basic example of QR code!');
-//     return QrCode::size(300)->backgroundColor(255,55,0)->phoneNumber('0384269150');
-// });

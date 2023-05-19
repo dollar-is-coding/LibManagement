@@ -44,14 +44,12 @@
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
                     @foreach ($sach as $item)
-                    <label>{{ $item->fkSach->ten }}</label>
-                    <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Chi tiết</a>
-                        <a href="{{ route('hien-thi-muon-sach', ['id' => $item->sach_id]) }}" class="nav-link">Mượn
-                            sách</a>
-                        <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">Chỉnh
-                            sửa</a>
-                    </nav>
+                        <label>{{ $item->fkSach->ten }}</label>
+                        <nav class="nav flex-column">
+                            <a href="#" class="nav-link active">Chi tiết</a>
+                            <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">Chỉnh
+                                sửa</a>
+                        </nav>
                     @endforeach
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -86,10 +84,57 @@
                             <div style="color:gray">
                                 Đã mượn {{ str_pad($sl_nguoi_muon, 2, '0', STR_PAD_LEFT) }}
                             </div>
-                            <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
-                                <div class="rounded-lg d-flex align-items-end">
-                                    <div style="color: #FF424E;font-size: 32px">
-                                        {{ $item->so_luong }}
+                            <div class="ml-4 col-lg p-0">
+                                <div class="row row-sm">
+                                    <div class="col-lg">
+                                        <form action="{{ route('tim-kiem-theo-tac-gia') }}" method="get"
+                                            class="row align-items-center mb-0">
+                                            @csrf
+                                            <div class="ml-3">Tác giả: </div>
+                                            <input type="hidden" name="tac_gia_id"
+                                                value="{{ $item->fkSach->tac_gia_id }}">
+                                            <button onMouseDown="this.style.border = 'none'"
+                                                onMouseUp="this.style.border = '1px solid black'"
+                                                onMouseOver="this.style.textDecoration='underline',this.style.color='blue'"
+                                                onMouseOut="this.style.textDecoration='none',this.style.color='#0D6EFD'"
+                                                type="submit" class="border-0 bg-white" id="myButton"
+                                                style="color:#0D6EFD">
+                                                {{ $item->fkSach->fkTacGia->ten }}
+                                            </button>
+                                        </form>
+                                        <div style="font-size: 26px">{{ $item->fkSach->ten }}</div>
+                                        <div style="color:gray">
+                                            Đã mượn {{ $sl_nguoi_muon }}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {!! QrCode::size(80)->generate(
+                                            '(sach) ' .
+                                                Str::ascii($item->fkSach->ten) .
+                                                ' | (tacgia) ' .
+                                                Str::ascii($item->fkSach->fkTacGia->ten) .
+                                                ' | (nhaxuatban) ' .
+                                                Str::ascii($item->fkSach->FKNhaXuatBan->ten) .
+                                                ' | (namxuatban) ' .
+                                                Str::ascii($item->fkSach->nam_xuat_ban) .
+                                                ' | (tusach) ' .
+                                                Str::ascii($item->fkTuSach->ten) .
+                                                ' | (khuvuc) ' .
+                                                Str::ascii($item->fkTuSach->fkKhuVuc->ten),
+                                        ) !!}
+                                    </div>
+                                </div>
+                                <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
+                                    <div class="rounded-lg d-flex align-items-end">
+                                        <div style="color: #FF424E;font-size: 32px">
+                                            {{ $item->so_luong }}
+                                        </div>
+                                        <div class="pb-2" style="color:gray">&nbsp;(số lượng)</div>
+                                    </div>
+                                    <div class="rounded-lg p-1 pl-2 pr-2 mb-2"
+                                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid;color: #402DA1;">
+                                        <i class="typcn typcn-location" style="font-size:18px"></i>
+                                        {{ $item->fkTuSach->ten }} - {{ $item->fkTusach->fkKhuVuc->ten }}
                                     </div>
                                     <div class="pb-2" style="color:gray">&nbsp;(số lượng)</div>
                                 </div>

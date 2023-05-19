@@ -12,7 +12,14 @@ class NguoiDung extends Authenticatable
     use HasFactory;
     use SoftDeletes;
     protected $table='nguoi_dung';
-    protected $fillable=['email','mat_khau','ho','ten','gioi_tinh','anh_dai_dien','vai_tro'];
+    protected $fillable=[
+        'email',
+        'mat_khau',
+        'ho','ten',
+        'gioi_tinh',
+        'anh_dai_dien',
+        'vai_tro'
+    ];
 
     public function getPasswordAttribute()
     {

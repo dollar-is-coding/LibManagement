@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('dia_chi');
             $table->string('lop');
             $table->integer('truong_hoc_id');
+            $table->integer('sgk');
+            $table->integer('sach_khac');
             $table->timestamps();
             $table->softDeletes();
         });

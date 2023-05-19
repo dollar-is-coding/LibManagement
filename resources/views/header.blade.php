@@ -11,9 +11,10 @@
             </div><!-- az-header-menu-header -->
             <ul class="nav">
                 <li class="nav-item {{ $view == 1 ? 'active show' : '' }}">
-                    <a href="{{ $view == 1 ? '#' : route('trang-chu') }}" class="nav-link"><i
-                            class="typcn typcn-chart-area"></i>
-                        Trang chủ</a>
+                    <a href="{{ $view == 1 ? '#' : route('trang-chu') }}" class="nav-link">
+                        <i class="typcn typcn-chart-area"></i>
+                        Trang chủ
+                    </a>
                 </li>
                 <li class="nav-item {{ $view == 2 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Sách</a>
@@ -26,7 +27,8 @@
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
-                        <a href="" class="nav-link">Quản lý</a>
+                        <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
+                        <a href="{{ route('hien-thi-danh-sach-muon-sach') }}" class="nav-link">Quản lý</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">

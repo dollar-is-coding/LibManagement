@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,7 +10,6 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'UA-90680653-2');
     </script>
 
@@ -23,7 +21,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Tra cứu</title>
+    <title>libro - Sách</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -44,67 +42,72 @@
 
 <body>
 
-    @include('header', ['view' => 2])
+    @include('header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-body">
-                <form class="row az-signin-header" action="{{ route('tim-kiem') }}" method="get">
-                    <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
-                            autocomplete="off" autofocus=true>
-                    </div><!-- col -->
-                    <div class="col-lg-3">
-                        <select class="form-control select2-no-search" name="sort">
-                            <option value="asc_name" selected>A -> Z</option>
-                            <option value="desc_name">Z -> A</option>
-                            <option value="desc_year">Mới nhất</option>
-                        </select>
-                    </div><!-- col -->
-                    <div class="col-lg-2">
-                        <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
-                    </div>
-                </form>
-                <div class="table-responsive">
-                    @if (blank($ds_sach))
-                        <div class="az-table-reference">Không tìm thấy kết quả!</div>
-                    @else
-                        <table class="table mg-b-0 az-table-reference">
-                            <thead>
-                                <tr>
-                                    <th class="wd-5p">STT</th>
-                                    <th>Sách</th>
-                                    <th>Tác giả</th>
-                                    <th>Vị trí</th>
-                                    <th class="wd-10p">Số lượng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($ds_sach as $key => $item)
-                                    @foreach ($item->hasThuVien as $thu_vien)
-                                        <tr>
-                                            <th scope="row">
-                                                {{ ++$key }}</th>
-                                            <td>
-                                                <a style="color: black"
-                                                    onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
-                                                    onMouseOut="this.style.color='black',this.style.textDecoration='none'"
-                                                    href="{{ route('chi-tiet-sach', ['id' => $thu_vien]) }}">{{ $thu_vien->fkSach->ten }}
-                                                </a>
-                                            </td>
-                                            <td>{{ $thu_vien->fkSach->fkTacGia->ten }}</td>
-                                            <td>{{ $thu_vien->fkTuSach->ten }},
-                                                {{ $thu_vien->fkTuSach->fkKhuVuc->ten }}
-                                            </td>
-                                            <td>{{ $thu_vien->so_luong }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
+            <div class="az-content-left az-content-left-components">
+                <div class="component-item">
+                    <label>Độc giả</label>
+                    <nav class="nav flex-column">
+                        <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
+                        <a href="" class="nav-link">Quản lý</a>
+                    </nav>
+                    <label>Mượn sách</label>
+                    <nav class="nav flex-column">
+                        <a href="#" class="nav-link active">Sách giáo khoa</a>
+                        <a href="{{ route('hien-thi-muon-sach-khac') }}" class="nav-link">Sách khác</a>
+                    </nav>
+                </div><!-- component-item -->
+            </div><!-- az-content-left -->
 
-                </div><!-- table-responsive -->
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+                <div class="az-content-breadcrumb">
+                    <span>Độc giả</span>
+                    <span>Mượn SGK</span>
+                </div>
+                <div class="border shadow-sm rounded p-4 az-signin-header">
+                    <form action="{{ route('xu-ly-muon-sach-giao-khoa') }}" class="ml-3 mr-3" method="POST">
+                        @csrf
+                        <div class="row mg-b-20">
+                            <div class="col-lg">
+                                <label class="m-0">&nbsp;Mã số</label>
+                                <select name="ma_so" class="form-control ma-so" required>
+                                    <option label="Chon truong"></option>
+                                    @foreach ($ds_doc_gia as $item)
+                                        <option value="{{ $item->id }}">{{ $item->ma_so }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg"></div>
+                        </div>
+                        <div class="form-group mg-b-20">
+                            <label class="m-0">&nbsp;Sách</label>
+                            <select class="form-control ds-sach" name="sach[]" multiple="multiple">
+                                @foreach ($sgk as $item)
+                                    @if ($item->fkSach->the_loai_id == 1)
+                                        <option value="{{ $item->id }}">{{ $item->fkSach->ten }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row mg-b-30">
+                            <div class="col-lg">
+                                <label class="m-0">&nbsp;Ngày mượn</label>
+                                <input type="text" name="ngay_muon" value="{{ date('d/m/Y') }}"
+                                    placeholder="DD/MM/YYYY" class="form-control" readonly>
+                            </div>
+                            <div class="col-lg">
+                                <label class="m-0">&nbsp;Ngày trả</label>
+                                <input type="text" name="ngay_tra" id="datetimepicker" placeholder="DD/MM/YYYY"
+                                    class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 p-0">
+                            <button id="button" class="btn btn-primary btn-block">Mượn</button>
+                        </div>
+                    </form>
+                </div>
 
                 <div class="ht-40"></div>
 
@@ -121,11 +124,9 @@
                         </span>
                     </div><!-- container -->
                 </div><!-- az-footer -->
-
             </div><!-- az-content-body -->
-        </div>
+        </div><!-- container -->
     </div><!-- az-content -->
-
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
@@ -165,8 +166,13 @@
         });
 
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: 'Chọn trường',
+            $('.ma-so').select2({
+                placeholder: 'Chọn mã số',
+                searchInputPlaceholder: 'Search'
+            });
+
+            $('.ds-sach').select2({
+                placeholder: 'Chọn sách',
                 searchInputPlaceholder: 'Search'
             });
 
@@ -174,6 +180,15 @@
                 minimumResultsForSearch: Infinity,
                 placeholder: 'Choose one'
             });
+        });
+
+        var ho = document.getElementById('ho');
+        var ten = document.getElementById('ten');
+        var button = document.getElementById('button');
+        var result = document.getElementById('result');
+
+        button.addEventListener('click', function() {
+            result.innerText = ho.value + ' ' + ten.value;
         });
     </script>
 </body>

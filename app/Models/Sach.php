@@ -11,7 +11,15 @@ class Sach extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='sach';
-    protected $fillable=['ten','the_loai_id','tac_gia_id','nha_xuat_ban_id','nam_xuat_ban','tom_tat','hinh_anh'];
+    protected $fillable=[
+        'ten',
+        'the_loai_id',
+        'tac_gia_id',
+        'nha_xuat_ban_id',
+        'nam_xuat_ban',
+        'tom_tat',
+        'hinh_anh'
+    ];
     
     public function fkTheLoai()
     {
