@@ -9,17 +9,12 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMailForgotPass extends Mailable
+class SendMailCreateUser extends Mailable
 {
     use Queueable, SerializesModels;
-
-protected $mailData;
+    protected $mailData;
     /**
      * Create a new message instance.
-     *
-     * @param array $mailData The data to use for the email message
-     *
-     * @return void
      */
     public function __construct(array $mailData)
     {
@@ -28,35 +23,19 @@ protected $mailData;
     public function build()
     {
         $title = $this->mailData['title'];
-        $verify = $this->mailData['verify'];
-        $body =$this->mailData['body'];
+        $body = $this->mailData['body'];
+        $name = $this->mailData['name'];
+        $email = $this->mailData['email'];
+        $mat_khau = $this->mailData['mat_khau'];
         return $this->subject($title)
             // ->from($fromEmail, $nameAdmin)
-            ->view('xac_thuc_email.hien_ma_xac_thuc', [
-                'verify' =>  $verify,
-                'body' => $body
+            ->view('xac_thuc_email.tao_tai_khoan', [
+                'body' => $body,
+                'name' => $name,
+                'email' => $email,
+                'mat_khau' => $mat_khau,
             ]);
     }
-    /**
-     * Get the message envelope.
-     */
-    // public function envelope(): Envelope
-    // {
-    //     return new Envelope(
-    //         subject: 'Send Mail Forgot Pass',
-    //     );
-    // }
-
-    // /**
-    //  * Get the message content definition.
-    //  */
-    // public function content(): Content
-    // {
-    //     return new Content(
-    //         view: 'view.name',
-    //     );
-    // }
-
     /**
      * Get the attachments for the message.
      *

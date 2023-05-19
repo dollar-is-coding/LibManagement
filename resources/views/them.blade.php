@@ -152,7 +152,7 @@
                                         style="object-fit:fill;background-image: url('/img/avt/income.jpg');">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
                                             name="file_upload" accept="image/*" onchange="chooseFile(this)"
-                                            tabindex="10" required />
+                                            tabindex="10" />
                                         <div id="preview-container" style="object-fit: contain;"
                                             class="preview-container">
                                         </div>

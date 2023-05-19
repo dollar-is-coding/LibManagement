@@ -185,20 +185,6 @@ class AdminController extends Controller
     {
         return view('tao_tai_khoan');
     }
-
-    public function xuLytaoTaiKhoan(Request $request)
-    {
-        NguoiDung::create([
-            'email'=>$request->email,
-            'mat_khau'=>Hash::make($request->password),
-            'ho'=>$request->ho,
-            'ten'=>$request->ten,
-            'anh_dai_dien'=>'',
-            'vai_tro'=>$request->vai_tro,
-        ]);
-        return redirect()->route('hien-thi-sach');
-    }
-
     public function quanLyTaiKhoan()
     {
         return view('quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::all()]);
@@ -253,6 +239,30 @@ class AdminController extends Controller
         $khu_vuc = KhuVuc::all();
         $tu_sach =TuSach::all();
         return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
+    }
+    public function xuLySuaSach($id, Request $request){
+        Sach::find($id)->update([
+            'ten' => $request->ten_sach,
+            'tac_gia_id' => $request->tac_gia,
+            'the_loai_id' =>$request->the_loai,
+            'nha_xuat_ban_id' =>$request->nha_xuat_ban,
+            'nam_xuat_ban' => $request->nam_xuat_ban,
+            'tom_tat' => $request->tom_tat,
+        ]);
+        $img = Sach::find($id);
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/books'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        $img->save();
+        ThuVien::find($id)->update([
+            'tu_sach_id' => $request->tu_sach,
+            'so_luong' => $request->so_luong,
+        ]);
+
+        return back();
     }
 
 

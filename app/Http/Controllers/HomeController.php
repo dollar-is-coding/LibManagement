@@ -21,6 +21,7 @@ class HomeController extends Controller
     {
         $admin=['email'=>$request->email,'password'=>$request->password,'vai_tro'=>1];
         if(Auth::attempt($admin)) {
+            session()->put('email_user',$admin['email']);
             return redirect()->route('trang-chu');
         } 
         return redirect()->back()->with('error','Đăng nhập thất bại');
@@ -110,5 +111,16 @@ class HomeController extends Controller
     }
     public function quenMatKhau(){
         return view('quen_mat_khau');
+    }
+    public function xuLyCapNhatMatKhau(Request $request)
+    {
+        $email =session()->get('emailTo');
+        if ($request->password == $request->again_password) {
+            NguoiDung::where('email',$email)->update([
+                'mat_khau' => Hash::make($request->password),
+            ]);
+            return redirect()->route('dang-nhap');
+        }
+        return redirect()->back()->with('error', 'Mật khẩu không trùng nhau!');
     }
 }

@@ -9,11 +9,11 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMailForgotPass extends Mailable
+class SendChangeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-protected $mailData;
+    protected $mailData;
     /**
      * Create a new message instance.
      *
@@ -29,10 +29,10 @@ protected $mailData;
     {
         $title = $this->mailData['title'];
         $verify = $this->mailData['verify'];
-        $body =$this->mailData['body'];
+        $body = $this->mailData['body'];
         return $this->subject($title)
             // ->from($fromEmail, $nameAdmin)
-            ->view('xac_thuc_email.hien_ma_xac_thuc', [
+            ->view('xac_thuc_email.hien_ma_xac_thuc_doi_mail', [
                 'verify' =>  $verify,
                 'body' => $body
             ]);

@@ -23,7 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Quên mật khẩu</title>
+    <title>libro - Đăng nhập</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -41,20 +41,14 @@
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
             <div class="az-signin-header">
-                <h2>Quên mật khẩu</h2>
-                <!-- <h4>Please sign in to continue</h4> -->
-
-                <form action="{{route('cap-nhat-mat-khau')}}" method="POST">
+                <h2>Xác minh email</h2>
+                <!-- <h4>Xác minh email</h4> -->
+                <form action="" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Pasword</label>
-                        <input required type="password" name="password" class="form-control" placeholder="Enter your password" value="">
+                        <input required type="text" name="verify" class="verify form-control" placeholder="Nhập mã xác thực" />
                     </div><!-- form-group -->
-                    <div class="form-group">
-                        <label>Re-enter Password</label>
-                        <input required type="password" name="again_password" class="form-control" placeholder="Re-enter password" value="">
-                    </div><!-- form-group -->
-                    <button class="btn btn-az-primary btn-block">Save</button>
+                    <button type="submit" class="btn btn-az-primary btn-block">Xác minh</button>
                 </form>
                 @if (session('error'))
                 <div class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('error') }}</div>
@@ -64,7 +58,6 @@
                 <!-- @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
                 @endif -->
-                <p><a href="{{route('dang-nhap')}}">Trở về đăng nhập</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

@@ -45,14 +45,14 @@
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
                     @foreach ($sach as $item)
-                        <label>{{ $item->fkSach->ten }}</label>
-                        <nav class="nav flex-column">
-                            <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
-                                Chi tiết</a>
-                            <a href="{{ route('hien-thi-muon-sach', ['id' => $item->sach_id]) }}" class="nav-link">
-                                Mượn sách</a>
-                            <a href="#" class="nav-link active">Chỉnh sửa</a>
-                        </nav>
+                    <label>{{ $item->fkSach->ten }}</label>
+                    <nav class="nav flex-column">
+                        <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                            Chi tiết</a>
+                        <a href="{{ route('hien-thi-muon-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                            Mượn sách</a>
+                        <a href="#" class="nav-link active">Chỉnh sửa</a>
+                    </nav>
                     @endforeach
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -61,21 +61,19 @@
                 <!-- đây mục trỏ-->
                 <div class="az-content-breadcrumb">
                     @foreach ($sach as $item)
-                        <span>{{ $item->fkSach->ten }}</span>
+                    <span>{{ $item->fkSach->ten }}</span>
                     @endforeach
                     <span>Sửa sách</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
-                    <form action="" id="form_them_sach" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('xu-ly-sua-sach',['id' => $item->sach_id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div style="display: flex;flex-direction: row-reverse;">
                             <!-- form -->
                             <div style="flex-basis: 70%" class="mb-0">
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Tên sách</label>
-                                    <input required type="text" name="ten_sach" id="ten_sach" class="form-control"
-                                        placeholder="Nhập tên sách" value="{{ $item->fkSach->ten }}" tabindex="1"
-                                        autofocus=true>
+                                    <input required type="text" name="ten_sach" id="ten_sach" class="form-control" placeholder="Nhập tên sách" value="{{ $item->fkSach->ten }}" tabindex="1" autofocus=true>
                                 </div>
                                 <!-- form-group -->
 
@@ -83,42 +81,37 @@
                                     <label class="m-0">&nbsp;Tác giả</label>
                                     <select name="tac_gia" class="form-control select2-no-search" tabindex="2">
                                         @foreach ($tac_gia as $item)
-                                            @foreach ($sach as $single_author)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_author->fkSach->tac_gia_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}
-                                                </option>
-                                            @endforeach
+                                        @foreach ($sach as $single_author)
+                                        <option value="{{ $item->id }}" {{ $single_author->fkSach->tac_gia_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Thể loại</label>
-                                    <select required name="the_loai" class="form-control select2-no-search"
-                                        tabindex="3">
+                                    <select required name="the_loai" class="form-control select2-no-search" tabindex="3">
                                         @foreach ($the_loai as $item)
-                                            @foreach ($sach as $single_book)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_book->fkSach->the_loai_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}
-                                                </option>
-                                            @endforeach
+                                        @foreach ($sach as $single_book)
+                                        <option value="{{ $item->id }}" {{ $single_book->fkSach->the_loai_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Nhà xuất bản</label>
-                                    <select required id="form-select" name="nha_xuat_ban"
-                                        class="form-control select2-no-search" tabindex="4">
+                                    <select required id="form-select" name="nha_xuat_ban" class="form-control select2-no-search" tabindex="4">
                                         @foreach ($nha_xuat_ban as $item)
-                                            @foreach ($sach as $single_nxb)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_nxb->fkSach->nha_xuat_ban_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}
-                                                </option>
-                                            @endforeach
+                                        @foreach ($sach as $single_nxb)
+                                        <option value="{{ $item->id }}" {{ $single_nxb->fkSach->nha_xuat_ban_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
@@ -126,74 +119,59 @@
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Năm xuất bản</label>
                                     @foreach ($sach as $item)
-                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban"
-                                            class="form-control" placeholder="Nhập năm xuất bản"
-                                            value="{{ $item->fkSach->nam_xuat_ban }}" tabindex="5" />
+                                    <input required type="number" min="1800" max="2024" name="nam_xuat_ban" class="form-control" placeholder="Nhập năm xuất bản" value="{{ $item->fkSach->nam_xuat_ban }}" tabindex="5" />
                                     @endforeach
                                 </div>
                                 <!-- form-group -->
 
                                 <div class="form-group">
                                     <label class="m-0">&nbsp;Tủ sách</label>
-                                    <select required id="tuSachSelect" name="tu_sach"
-                                        class="form-control select2-no-search" tabindex="6">
+                                    <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
                                         <option disabled value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
                                             {{ $item->fkTuSach->ten }}
                                         </option>
                                         @foreach ($khu_vuc as $khu_vuc_item)
-                                            <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ"
-                                                data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
-                                                @foreach ($tu_sach as $tu_sach_item)
-                                                    @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                                        <option value="{{ $tu_sach_item->id }}">
-                                                            {{ $tu_sach_item->ten }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-                                            </optgroup>
+                                        <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                            @foreach ($tu_sach as $tu_sach_item)
+                                            @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                            <option value="{{ $tu_sach_item->id }}">
+                                                {{ $tu_sach_item->ten }}
+                                            </option>
+                                            @endif
+                                            @endforeach
+                                        </optgroup>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <!-- up ảnh -->
                             <div style="flex-basis: 30%; margin:2%" class="ml-3 mb-0">
-
                                 @if ($item->fkSach->hinh_anh == '')
-                                    <div class="upload-container"
-                                        style="background-size:cover;background-image: url('../img/default/no_image_available.jpg');">
-                                        <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
-                                            name="file_upload" accept="image/*" onchange="chooseFile(this)"
-                                            tabindex="10" required />
-                                        <div id="preview-container" class="preview-container"></div>
-                                    </div>
+                                <div class="upload-container" style="background-size:cover;background-image: url('../img/default/no_image_available.jpg');">
+                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" required />
+                                    <div id="preview-container" class="preview-container"></div>
+                                </div>
                                 @else
-                                    <div class="upload-container"
-                                        style="background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
-                                        <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
-                                            name="file_upload" accept="image/*" onchange="chooseFile(this)"
-                                            tabindex="10" required />
-                                        <div id="preview-container" class="preview-container"></div>
-                                    </div>
+                                <div class="upload-container" style="background-size:cover;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
+                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                                    <div id="preview-container" class="preview-container"></div>
+                                </div>
                                 @endif
                                 <!-- số lượng -->
                                 <div style="margin-top: 6%" class="form-group col-lg pl-0">
                                     <label class="m-0">&nbsp;Số lượng</label>
-                                    <input required type="number" min="1" name="so_luong" id="so_luong"
-                                        class="form-control" placeholder="Số lượng" value="{{ $item->so_luong }}"
-                                        tabindex="7" />
+                                    <input required type="number" min="1" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="{{ $item->so_luong }}" tabindex="7" />
                                 </div>
                                 <!-- khu vực -->
                                 <div class="form-group col-lg pl-0">
                                     <label class="m-0">&nbsp;Khu vực</label>
-                                    <select required id="khuVucSelect" name="khu_vuc"
-                                        class="form-control select2-no-search" tabindex="8">
+                                    <select required id="khuVucSelect" name="khu_vuc" class="form-control select2-no-search" tabindex="8">
                                         @foreach ($khu_vuc as $item)
-                                            @foreach ($sach as $single_area)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $single_area->fkTuSach->khu_vuc_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->ten }}
-                                                </option>
-                                            @endforeach
+                                        @foreach ($sach as $single_area)
+                                        <option value="{{ $item->id }}" {{ $single_area->fkTuSach->khu_vuc_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
@@ -203,13 +181,12 @@
                         <div class="form-group ml-3">
                             <label class="m-0">&nbsp;Nội dung tóm tắt</label>
                             @foreach ($sach as $item)
-                                <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
-                                    tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
+                            <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
                             @endforeach
                         </div>
 
                         <div style="display: flex; justify-content: end;">
-                            <a href="" class="btn btn-danger" style="margin-right: 2%">Hủy</a>
+                            <a href="#" class="btn btn-danger" style="margin-right: 2%">Hủy</a>
                             <!-- <a href="" class="btn btn-success rounded">Thêm</a> -->
                             <button class="btn btn-success" type="submit">
                                 Sửa
@@ -224,9 +201,7 @@
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             bootstrapdash.com
                             2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/"
-                                target="_blank">Bootstrap
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
                                 admin
                                 templates</a> from Bootstrapdash.com</span>
                     </div><!-- container -->

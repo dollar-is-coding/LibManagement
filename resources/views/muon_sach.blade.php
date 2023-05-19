@@ -51,14 +51,14 @@
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
                     @foreach ($sach as $item)
-                        <label>{{ $item->fkSach->ten }}</label>
-                        <nav class="nav flex-column">
-                            <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
-                                Chi tiết</a>
-                            <a href="#" class="nav-link active">Mượn sách</a>
-                            <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">
-                                Chỉnh sửa</a>
-                        </nav>
+                    <label>{{ $item->fkSach->ten }}</label>
+                    <nav class="nav flex-column">
+                        <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                            Chi tiết</a>
+                        <a href="#" class="nav-link active">Mượn sách</a>
+                        <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id]) }}" class="nav-link">
+                            Chỉnh sửa</a>
+                    </nav>
                     @endforeach
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -66,93 +66,85 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     @foreach ($sach as $item)
-                        <span>{{ $item->fkSach->ten }}</span>
+                    <span>{{ $item->fkSach->ten }}</span>
                     @endforeach
                     <span>Mượn sách</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <div class="row pl-4 az-signin-header">
                         @foreach ($sach as $item)
-                            <div class="border-right pr-4">
-                                @if (Auth::user()->anh_dai_dien != '')
-                                    <img src="../img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em"
-                                        style="object-fit: cover">
-                                @else
-                                    <img src="../img/default/no_image_available.jpg" width="240em" height="320em"
-                                        style="object-fit: cover">
-                                @endif
-                            </div>
-                            <div class="ml-4 col-lg p-0">
-                                <form action="{{route('xu-ly-muon-sach')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="sach" value="{{$item->id}}">
-                                    <div class="d-flex mg-b-10">
-                                        <div class="border rounded-pill p-1 pr-4 pl-4 mr-2"
-                                            style="background-color: #FAFAFA">
-                                            {{ $item->fkSach->fkTacGia->ten }}</div>
-                                        <div class="border rounded-pill p-1 pr-4 pl-4 mr-2"
-                                            style="background-color: #FAFAFA">
-                                            {{ $item->fkSach->fkTheLoai->ten }}</div>
-                                        <div class="border rounded-pill p-1 pr-4 pl-4"
-                                            style="background-color: #FAFAFA">
-                                            {{ $item->fkSach->fkNhaXuatBan->ten }}</div>
+                        <div class="border-right pr-4">
+                            @if($item->hinh_anh == '')
+                            <img src="../img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em" style="object-fit: cover">
+                            @else
+                            <img src="../img/default/no_image_available.jpg" width="240em" height="320em" style="object-fit: cover">
+                            @endif
+                        </div>
+                        <div class="ml-4 col-lg p-0">
+                            <form action="{{route('xu-ly-muon-sach')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="sach" value="{{$item->id}}">
+                                <div class="d-flex mg-b-10">
+                                    <div class="border rounded-pill p-1 pr-4 pl-4 mr-2" style="background-color: #FAFAFA">
+                                        {{ $item->fkSach->fkTacGia->ten }}
                                     </div>
-                                    <div class="form-group">
-                                        <label class="m-0">&nbsp;Mã số</label>
-                                        <select name="ma_so" class="form-control select2" required>
-                                            <option label="Chọn mã số"></option>
-                                            @foreach ($ds_doc_gia as $doc_gia)
-                                                <option value="{{ $doc_gia->id }}">{{ $doc_gia->ma_so }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div><!-- col-4 -->
-                                    <div class="row row-sm">
-                                        <div class="form-group col-lg">
-                                            <label class="m-0">&nbsp;Ngày mượn</label>
-                                            <input type="text" name="ngay_muon" class="form-control"
-                                                placeholder="DD/MM/YYYY" autocomplete="off"
-                                                value="{{ date('d/m/yy') }}" readonly>
-                                        </div>
-                                        <div class="form-group col-lg">
-                                            <label class="m-0">&nbsp;Ngày trả</label>
-                                            <input type="text" name="ngay_tra" id="datetimepicker"
-                                                class="form-control" placeholder="DD/MM/YYYY" autocomplete="off"
-                                                required>
-                                        </div>
+                                    <div class="border rounded-pill p-1 pr-4 pl-4 mr-2" style="background-color: #FAFAFA">
+                                        {{ $item->fkSach->fkTheLoai->ten }}
                                     </div>
-                                    <div class="row row-sm">
-                                        <div class="col-lg flex-column mg-b-20">
-                                            <div class="form-group">
-                                                <label class="m-0">&nbsp;Số lượng</label>
-                                                <input type="number" min="1" name="so_luong"
-                                                    class="form-control" placeholder="Nhập số lượng" value="1"
-                                                    required>
-                                            </div>
-                                            <div class="col-lg-6 pl-0">
-                                                <button class="btn btn-az-primary btn-block">
-                                                    Cho mượn
-                                                </button>
-                                            </div>
+                                    <div class="border rounded-pill p-1 pr-4 pl-4" style="background-color: #FAFAFA">
+                                        {{ $item->fkSach->fkNhaXuatBan->ten }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="m-0">&nbsp;Mã số</label>
+                                    <select name="ma_so" class="form-control select2" required>
+                                        <option label="Chọn mã số"></option>
+                                        @foreach ($ds_doc_gia as $doc_gia)
+                                        <option value="{{ $doc_gia->id }}">{{ $doc_gia->ma_so }}</option>
+                                        @endforeach
+                                    </select>
+                                </div><!-- col-4 -->
+                                <div class="row row-sm">
+                                    <div class="form-group col-lg">
+                                        <label class="m-0">&nbsp;Ngày mượn</label>
+                                        <input type="text" name="ngay_muon" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" value="{{ date('d/m/yy') }}" readonly>
+                                    </div>
+                                    <div class="form-group col-lg">
+                                        <label class="m-0">&nbsp;Ngày trả</label>
+                                        <input type="text" name="ngay_tra" id="datetimepicker" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" required>
+                                    </div>
+                                </div>
+                                <div class="row row-sm">
+                                    <div class="col-lg flex-column mg-b-20">
+                                        <div class="form-group">
+                                            <label class="m-0">&nbsp;Số lượng</label>
+                                            <input type="number" min="1" name="so_luong" class="form-control" placeholder="Nhập số lượng" value="1" required>
                                         </div>
-                                        <div>
-                                            {!! QrCode::size(120)->generate(
-                                                '(sach) ' .
-                                                    Str::ascii($item->fkSach->ten) .
-                                                    ' | (tacgia) ' .
-                                                    Str::ascii($item->fkSach->fkTacGia->ten) .
-                                                    ' | (nhaxuatban) ' .
-                                                    Str::ascii($item->fkSach->FKNhaXuatBan->ten) .
-                                                    ' | (namxuatban) ' .
-                                                    Str::ascii($item->fkSach->nam_xuat_ban) .
-                                                    ' | (tusach) ' .
-                                                    Str::ascii($item->fkTuSach->ten) .
-                                                    ' | (khuvuc) ' .
-                                                    Str::ascii($item->fkTuSach->fkKhuVuc->ten),
-                                            ) !!}
+                                        <div class="col-lg-6 pl-0">
+                                            <button class="btn btn-az-primary btn-block">
+                                                Cho mượn
+                                            </button>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div>
+                                        {!! QrCode::size(120)->generate(
+                                        '(sach) ' .
+                                        Str::ascii($item->fkSach->ten) .
+                                        ' | (tacgia) ' .
+                                        Str::ascii($item->fkSach->fkTacGia->ten) .
+                                        ' | (nhaxuatban) ' .
+                                        Str::ascii($item->fkSach->FKNhaXuatBan->ten) .
+                                        ' | (namxuatban) ' .
+                                        Str::ascii($item->fkSach->nam_xuat_ban) .
+                                        ' | (tusach) ' .
+                                        Str::ascii($item->fkTuSach->ten) .
+                                        ' | (khuvuc) ' .
+                                        Str::ascii($item->fkTuSach->fkKhuVuc->ten),
+                                        ) !!}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         @endforeach
                     </div>
                 </div><!-- az-card-signin -->

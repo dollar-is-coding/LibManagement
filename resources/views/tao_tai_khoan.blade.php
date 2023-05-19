@@ -76,23 +76,21 @@
                         <div class="row row-sm align-items-end mg-b-20">
                             <div class="wd-350 form-group m-0">
                                 <label class="m-0">&nbsp;Họ</label>
-                                <input class="form-control" name="ho" placeholder="Nhập họ" type="text"
-                                    required>
+                                <input class="form-control" name="ho" placeholder="Nhập họ" type="text" required>
                             </div><!-- col -->
                             <div class="col-lg form-group m-0">
                                 <label class="m-0">&nbsp;Tên</label>
-                                <input class="form-control" name="ten" placeholder="Nhập tên" type="text"
-                                    required>
+                                <input class="form-control" name="ten" placeholder="Nhập tên" type="text" required>
                             </div><!-- col -->
                             <div class="mb-1">
                                 <label class="rdiobox">
-                                    <input name="rdio" type="radio" checked>
+                                    <input name="gioi_tinh" value="1" type="radio" checked>
                                     <span>Nam</span>
                                 </label>
                             </div><!-- col-3 -->
                             <div class="mb-1">
                                 <label class="rdiobox">
-                                    <input name="rdio" type="radio">
+                                    <input name="gioi_tinh" value="2" type="radio">
                                     <span>Nữ</span>
                                 </label>
                             </div><!-- col-3 -->
@@ -101,7 +99,7 @@
                         <div class="row row-sm">
                             <div class="wd-350">
                                 <label class="m-0">&nbsp;Vai trò</label>
-                                <select class="form-control select2-no-search">
+                                <select name="vai_tro" class="form-control select2-no-search">
                                     <option label="Choose one"></option>
                                     <option value="1">Quản trị viên</option>
                                     <option value="0">Thủ thư</option>
@@ -109,23 +107,19 @@
                             </div><!-- col-4 -->
                             <div class="col-lg form-group">
                                 <label class="m-0">&nbsp;Email</label>
-                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                    type="email" name="email" class="form-control" placeholder="Nhập email"
-                                    value="">
+                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Nhập email" value="">
+                                @if (session('errorMail'))
+                                <i class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('errorMail') }}</i>
+                                @endif
                             </div><!-- form-group -->
                         </div>
 
                         <div class="row row-sm">
                             <div class="wd-350 form-group">
                                 <label class="m-0">&nbsp;Mật khẩu</label>
-                                <input required type="password" name="password" class="form-control"
-                                    placeholder="Nhập mật khẩu" value="">
+                                <input required type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="">
                             </div><!-- form-group -->
-                            <div class="col-lg form-group">
-                                <label class="m-0">&nbsp;Xác minh mật khẩu</label>
-                                <input required type="password" name="confirm_password" class="form-control"
-                                    placeholder="Nhập xác minh mật khẩu" value="">
-                            </div><!-- form-group -->
+                           
                         </div>
 
                         <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Tạo</button>
