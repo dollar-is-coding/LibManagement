@@ -36,7 +36,7 @@ class AccountController extends Controller
     }
     public function xacMinhQuenMatKhau(){
 
-        return view('xac-minh-quen-mat-khau');
+        return view('xac_min_quen_mat_khau');
     }
     public function xacMinh(){
         return view('xac_thuc_email.nhap_ma_xac_thuc');
