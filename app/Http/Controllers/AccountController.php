@@ -34,13 +34,15 @@ class AccountController extends Controller
             return redirect()->back()->with('error', 'Email không tồn tại');   
         }
     }
+    
     public function xacMinhQuenMatKhau(){
-
-        return view('xac_min_quen_mat_khau');
+        return view('xac_minh_quen_mat_khau');
     }
+
     public function xacMinh(){
         return view('xac_thuc_email.nhap_ma_xac_thuc');
     }
+
     public function xulyXacMinh(Request $request){
         $verify = session()->get('verify');
         $verify_nguoidung = $request->verify;
@@ -50,6 +52,7 @@ class AccountController extends Controller
             return redirect()->back()->with('error', 'Mã không hợp lệ');   
         }
     }
+
     public function xuLytaoTaiKhoan(Request $request)
     {
         $user = NguoiDung::where('email', $request->email)->first();
@@ -70,6 +73,7 @@ class AccountController extends Controller
             return redirect()->back()->with('errorMail', 'Email đã tồn tại');
         }
     }
+
     public function taoTaiKhoan($user)
     {
         $mailData = [
@@ -84,6 +88,7 @@ class AccountController extends Controller
         Mail::to($user['email'])->send($mailable);
         return redirect()->route('tao-tai-khoan');
     }
+
     public function xacMinhMail()
     {
         $emailTo = session()->get('email_user');
@@ -99,6 +104,7 @@ class AccountController extends Controller
         Mail::to($emailTo)->send($mailable);
         return view('xac_thuc_email.nhap_ma_xac_thuc_doi_email');
     }
+
     public function xulyXacMinhEmail(Request $request)
     {
         $verify = session()->get('verify');
@@ -109,9 +115,11 @@ class AccountController extends Controller
             return redirect()->back()->with('error', 'Mã không hợp lệ');
         }
     }
+
     public function doiEmail(){
         return view('doi_email');
     }
+
     public function xuLyDoiEmail(Request $request){
         $email = session()->get('email_user');
         $emaildata = NguoiDung::where('email', $request->email)->get();  
@@ -123,7 +131,6 @@ class AccountController extends Controller
             NguoiDung::where('email', $email)->update([
                 'email' => $request->email,
             ]);
-          
             return redirect()->route('xem-thong-tin');
         }
         return redirect()->back()->with('error','Email mới không được trùng với email hiện tại' );
