@@ -118,21 +118,27 @@
                     <h4 class="az-content-label mg-b-5 ml-3">Hồ Sơ Của Tôi</h4>
                     <p class="mg-b-5 ml-3 ">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
                     <hr class="hr ml-3" />
-                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST" enctype="multipart/form-data">
+                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="ongnoi col-lg-4">
                             <div class="cha">
                                 <div class="con1">
                                     @if (Auth::user()->anh_dai_dien == '')
-                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/default/no_avatar.png" width="200px" height="200px" style="object-fit:cover">
+                                        <img class="ca border rounded-circle" id="image" alt=""
+                                            srcset="" src="../img/default/no_avatar.png" width="200px"
+                                            height="200px" style="object-fit:cover">
                                     @else
-                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}" width="200px" height="200px" style="object-fit:cover">
+                                        <img class="ca border rounded-circle" id="image" alt=""
+                                            srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}"
+                                            width="200px" height="200px" style="object-fit:cover">
                                     @endif
                                 </div>
 
                                 <div class="con2">
                                     <label for="file"></label>
-                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)" name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
+                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)"
+                                        name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
                                 </div>
                             </div>
                         </div>
@@ -140,35 +146,46 @@
                             <div class="row">
                                 <div class="col-lg form-group">
                                     <label class="m-0">&nbsp;Họ</label>
-                                    <input required type="text" name="ho" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->ho }}">
+                                    <input required type="text" name="ho" class="form-control"
+                                        placeholder="Enter your email" value="{{ Auth::user()->ho }}">
                                 </div><!-- form-group -->
                                 <div class="col-lg form-group">
                                     <label class="m-0">&nbsp;Tên</label>
-                                    <input required type="text" name="ten" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->ten }}">
+                                    <input required type="text" name="ten" class="form-control"
+                                        placeholder="Enter your email" value="{{ Auth::user()->ten }}">
                                 </div><!-- form-group -->
                             </div>
                             <div class="row row-sm align-items-end">
                                 <div class="col-lg form-group">
-                                    <label class="m-0">&nbsp;Email</label>
-                                    <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Enter your email" value="{{ Auth::user()->email }}">
+                                    <div class="row row-sm justify-content-between ml-0 mr-0">
+                                        <label class="m-0">&nbsp;Email</label>
+                                        <a style="text-decoration: underline" class=""
+                                            href="{{ route('xac-minh-email') }}">Thay đổi</a>
+                                    </div>
+                                    <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                        type="email" name="email" class="form-control" readonly
+                                        placeholder="Enter your email" value="{{ Auth::user()->email }}">
                                 </div><!-- form-group -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="gioi_tinh" value="1" type="radio" {{ Auth::user()->gioi_tinh == 1 ? 'checked' : '' }}>
+                                        <input name="gioi_tinh" value="1" type="radio"
+                                            {{ Auth::user()->gioi_tinh == 1 ? 'checked' : '' }}>
                                         <span>Nam</span>
                                     </label>
                                 </div><!-- col-3 -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="gioi_tinh" value="0" type="radio" {{ Auth::user()->gioi_tinh == 0 ? 'checked' : '' }}>
+                                        <input name="gioi_tinh" value="0" type="radio"
+                                            {{ Auth::user()->gioi_tinh == 0 ? 'checked' : '' }}>
                                         <span>Nữ</span>
                                     </label>
                                 </div><!-- col-3 -->
                             </div>
-                            <a class="col-lg-3 btn btn-az-primary btn-block m-0 mb-2 border" href="{{route('xac-minh-email')}}">Đổi Email</a>
+
                             <div class="form-group">
                                 <label class="m-0">&nbsp;Vai trò</label>
-                                <input class="form-control" value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
+                                <input class="form-control"
+                                    value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
                             </div><!-- form-group -->
                             <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Cập nhật</button>
                         </div>

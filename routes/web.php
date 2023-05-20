@@ -28,14 +28,7 @@ Route::get('/xac-minh-doi-email', [AccountController::class, 'xacMinhMail'])->na
 Route::post('/xac-minh-doi-email', [AccountController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
 Route::get('/doi-email', [AccountController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [AccountController::class, 'xuLyDoiEmail'])->middleware('auth');
-Route::get('/forgot_pass',function(){
-    // echo session()->get('verify');
-    return view('forgot_pass');
-});
-Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-mat-khau');
-Route::post('/forgot_pass', [AccountController::class, 'Forget_Password']);
-Route::get('/verify', [AccountController::class, 'Verify'])->name('xac-minh');
-Route::post('/verify', [AccountController::class, 'Xu_ly_xac_minh']);
+
 
 Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');
 Route::post('/xu-ly-muon-sach-giao-khoa', [HomeController::class, 'handleMuonSGK'])->name('xu-ly-muon-sach-giao-khoa')->middleware('auth');

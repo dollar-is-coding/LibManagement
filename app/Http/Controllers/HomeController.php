@@ -146,6 +146,7 @@ class HomeController extends Controller
         ]);
         return back();
     }
+
     public function xuLyCapNhatMatKhau(Request $request)
     {
         $email =session()->get('emailTo');

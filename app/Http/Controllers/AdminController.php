@@ -242,6 +242,7 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
+
     public function xuLySuaSach($id, Request $request){
         Sach::find($id)->update([
             'ten' => $request->ten_sach,
@@ -263,7 +264,6 @@ class AdminController extends Controller
             'tu_sach_id' => $request->tu_sach,
             'so_luong' => $request->so_luong,
         ]);
-
         return back();
     }
 

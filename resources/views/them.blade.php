@@ -149,12 +149,11 @@
                                 <!-- up ảnh -->
                                 <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%;">
                                     <div class="upload-container border rounded"
-                                        style="object-fit:fill;background-image: url('/img/avt/income.jpg');">
+                                        style="background-image: url('/img/avt/income.jpg');">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
                                             name="file_upload" accept="image/*" onchange="chooseFile(this)"
                                             tabindex="10" />
-                                        <div id="preview-container" style="object-fit: contain;"
-                                            class="preview-container">
+                                        <div id="preview-container" class="preview-container">
                                         </div>
                                     </div>
                                     <!-- số lượng -->
