@@ -26,17 +26,16 @@
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
                     <nav class="az-menu-sub">
+                        <a href="{{ route('hien-thi-danh-sach-muon-sach') }}" class="nav-link">Tra cứu</a>
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
                         <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
-                        <a href="{{ route('hien-thi-danh-sach-muon-sach') }}" class="nav-link">Quản lý</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Cá nhân</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Quản trị viên</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('xem-thong-tin') }}" class="nav-link">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
                         <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
+                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </li>
             </ul>
@@ -67,11 +66,12 @@
                         <span>{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}</span>
                     </div><!-- az-header-profile -->
 
-                    <a href="{{ route('xem-thong-tin') }}" class="dropdown-item"><i
-                            class="typcn typcn-user-outline"></i>Hồ sơ</a>
-                    <a href="{{ route('xu-ly-dang-xuat') }}" class="dropdown-item"><i
-                            class="typcn typcn-power-outline"></i>
-                        Đăng xuất</a>
+                    <a href="{{ route('xem-thong-tin') }}" class="dropdown-item">
+                        <i class="typcn typcn-user-outline"></i>Cá nhân
+                    </a>
+                    <a href="{{ route('xu-ly-dang-xuat') }}" class="dropdown-item">
+                        <i class="typcn typcn-power-outline"></i>Đăng xuất
+                    </a>
                 </div><!-- dropdown-menu -->
             </div>
         </div><!-- az-header-right -->

@@ -30,7 +30,7 @@ class AdminController extends Controller
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
         $tu_sach =TuSach::all();
-        return view('them', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
+        return view('sach.create', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
     }
 
     public function themTacGia(Request $request)
@@ -98,18 +98,18 @@ class AdminController extends Controller
 
     public function dsSach()
     {
-        return view('ds_sach',['ds_sach'=>Sach::orderBy('ten','asc')->get()]);
+        return view('sach.index',['ds_sach'=>Sach::orderBy('ten','asc')->get()]);
     }
 
     public function dsTimKiem(Request $request)
     {
         if ($request->sort=='desc_name') {
-            return view('ds_sach',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->get()]);
+            return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->get()]);
         }
         if ($request->sort=='desc_year') {
-            return view('ds_sach',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->get()]);
+            return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->get()]);
         }
-        return view('ds_sach',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->get()]);
+        return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->get()]);
     }
 
     public function suaTacgia($id, Request $request)
@@ -184,21 +184,21 @@ class AdminController extends Controller
 
     public function taoTaiKhoan()
     {
-        return view('tao_tai_khoan');
+        return view('quan_tri_vien.tao_tai_khoan');
     }
     public function quanLyTaiKhoan()
     {
-        return view('quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::all()]);
+        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::all()]);
     }
 
     public function timKiemTheoTacGia(Request $request)
     {
-        return view('ds_sach',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->get()]);
+        return view('sach.index',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->get()]);
     }
 
     public function showCapThe()
     {
-        return view('cap_the',['date'=>Carbon::now()]);
+        return view('doc_gia.create',['date'=>Carbon::now()]);
     }
 
     public function handleCapThe(Request $request)
@@ -208,8 +208,7 @@ class AdminController extends Controller
             $array=explode('/', $request->ngay_sinh);
             if (blank(DocGia::latest()->first())) {
                 $ma_so=date('y').date('m').'0001';
-            }
-            else {
+            } else {
                 $latest_month_db=substr(DocGia::latest()->first()->ma_so,2,2);
                 $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
                 if ($latest_month_db==date('m')) {
@@ -257,7 +256,7 @@ class AdminController extends Controller
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
         $tu_sach =TuSach::all();
-        return view('chinh_sua_sach', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
+        return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
 
     public function xuLySuaSach($id, Request $request){
@@ -287,14 +286,14 @@ class AdminController extends Controller
     public function showMuonSachList()
     {
         $ds_doc_gia=DocGia::where('sgk','>',0)->orWhere('sach_khac','>',0)->get();
-        return view('quan_ly_muon_sach',['ds_doc_gia'=>$ds_doc_gia]);
+        return view('doc_gia.index',['ds_doc_gia'=>$ds_doc_gia]);
     }
 
     public function showChiTietDocGia($id)
     {
         $doc_gia=DocGia::find($id);
         $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-        return view('chi_tiet_doc_gia',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+        return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
     }
 
     public function showReaderCard()

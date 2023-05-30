@@ -47,8 +47,6 @@
                     <nav class="nav flex-column">
                         <a href="#" class="nav-link active">Hồ sơ</a>
                         <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
-                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->

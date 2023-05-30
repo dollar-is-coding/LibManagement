@@ -50,10 +50,8 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Cá nhân</label>
+                    <label>Quản trị viên</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('xem-thong-tin') }}" class="nav-link ">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
                         <a href="#" class="nav-link active">Tạo tài khoản</a>
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link ">Quản lý tài khoản</a>
                     </nav>

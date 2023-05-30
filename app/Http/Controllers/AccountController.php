@@ -34,7 +34,7 @@ class AccountController extends Controller
             return redirect()->back()->with('error', 'Email không tồn tại');   
         }
     }
-    
+
     public function xacMinhQuenMatKhau(){
         return view('xac_minh_quen_mat_khau');
     }
@@ -48,7 +48,7 @@ class AccountController extends Controller
         $verify_nguoidung = $request->verify;
         if($verify == $verify_nguoidung){
             return redirect()->route('quen-mat-khau');
-        }else{ 
+        } else { 
             return redirect()->back()->with('error', 'Mã không hợp lệ');   
         }
     }
@@ -117,14 +117,14 @@ class AccountController extends Controller
     }
 
     public function doiEmail(){
-        return view('doi_email');
+        return view('ca_nhan.doi_email');
     }
 
     public function xuLyDoiEmail(Request $request){
         $email = session()->get('email_user');
         $emaildata = NguoiDung::where('email', $request->email)->get();  
         foreach ($emaildata as $emaildatas) {
-                    $emaildata = $emaildatas->email;
+            $emaildata = $emaildatas->email;
         }
         if ($request->email != $emaildata) {
             session(['email_user' => $request->email]);

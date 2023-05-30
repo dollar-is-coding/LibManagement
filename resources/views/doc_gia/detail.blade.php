@@ -43,7 +43,7 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>{{ $doc_gia->ma_so }}</label>
+                    <label>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</label>
                     <nav class="nav flex-column">
                         <a href="#" class="nav-link active">Chi tiết</a>
                         <a href="#" class="nav-link">Trả sách</a>
@@ -53,7 +53,7 @@
 
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>{{ $doc_gia->ma_so }}</span>
+                    <span>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</span>
                     <span>Chi tiết</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">

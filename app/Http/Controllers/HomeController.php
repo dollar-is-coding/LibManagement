@@ -35,7 +35,7 @@ class HomeController extends Controller
 
     public function xemThongTin()
     {
-        return view('thong_tin');
+        return view('ca_nhan.ho_so');
     }
 
     public function xuLySuaThongTin(Request $request)
@@ -59,7 +59,7 @@ class HomeController extends Controller
 
     public function doiMatKhau()
     {
-        return view('doi_mat_khau');
+        return view('ca_nhan.doi_mat_khau');
     }
 
     public function xuLyDoiMatKhau(Request $request)
@@ -82,7 +82,7 @@ class HomeController extends Controller
     {
         $sach=ThuVien::where('sach_id',$id)->get();
         $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
-        return view('chi_tiet_sach',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
+        return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
     }
 
     public function quenMatKhau(){
@@ -93,7 +93,7 @@ class HomeController extends Controller
     {
         $doc_gia=DocGia::where('sach_khac','<',2)->get();
         $sgk=ThuVien::where('so_luong','>',0)->get();
-        return view('muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+        return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
 
     public function handleMuonSGK(Request $request)
@@ -123,7 +123,7 @@ class HomeController extends Controller
     {
         $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
         $sgk=ThuVien::where('so_luong','>',0)->get();
-        return view('muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+        return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
 
     public function handleMuonSachKhac(Request $request)
