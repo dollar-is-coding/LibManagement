@@ -34,7 +34,7 @@
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Quản trị viên</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
+                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </li>

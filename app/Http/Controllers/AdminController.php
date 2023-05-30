@@ -184,7 +184,7 @@ class AdminController extends Controller
 
     public function taoTaiKhoan()
     {
-        return view('quan_tri_vien.tao_tai_khoan');
+        return view('quan_tri_vien.cap_tai_khoan');
     }
     public function quanLyTaiKhoan()
     {

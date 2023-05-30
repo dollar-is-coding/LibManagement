@@ -38,7 +38,7 @@
 
 <body>
 
-    @include('header', ['view' => 1])
+    @include('../common/header', ['view' => 1])
 
     <div class="az-content az-content-dashboard">
         <div class="container">

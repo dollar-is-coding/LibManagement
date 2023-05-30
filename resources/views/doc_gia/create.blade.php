@@ -42,7 +42,7 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('../common/header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -138,19 +138,8 @@
 
                 <div class="ht-40"></div>
 
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+                @include('../common/footer')
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
