@@ -28,7 +28,7 @@ Route::get('/xac-minh-doi-email', [AccountController::class, 'xacMinhMail'])->na
 Route::post('/xac-minh-doi-email', [AccountController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
 Route::get('/doi-email', [AccountController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [AccountController::class, 'xuLyDoiEmail'])->middleware('auth');
-
+Route::get('/show-reader-card', [AdminController::class, 'showReaderCard'])->middleware('auth');
 
 Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');
 Route::post('/xu-ly-muon-sach-giao-khoa', [HomeController::class, 'handleMuonSGK'])->name('xu-ly-muon-sach-giao-khoa')->middleware('auth');

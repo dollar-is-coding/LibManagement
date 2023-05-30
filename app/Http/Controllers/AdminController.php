@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCreateReaderCardMail;
 use App\Models\TacGia;
 use App\Models\NhaXuatBan;
 use App\Models\TheLoai;
@@ -197,39 +198,55 @@ class AdminController extends Controller
 
     public function showCapThe()
     {
-        $ds_truong=TruongHoc::orderBy('ten','ASC')->get();
-        return view('cap_the',['ds_truong'=>$ds_truong,'date'=>Carbon::now()]);
+        return view('cap_the',['date'=>Carbon::now()]);
     }
 
     public function handleCapThe(Request $request)
     {
-        $array=explode('/', $request->ngay_sinh);
-        if (blank(DocGia::latest()->first())) {
-            $ma_so=date('y').date('m').'0001';
-        }
-        else {
-            $latest_month_db=substr(DocGia::latest()->first()->ma_so,2,2);
-            $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
-            if ($latest_month_db==date('m')) {
-                $ma_so=date('y').date('m').str_pad($latest_people_db+1, 4, '0', STR_PAD_LEFT);
-            } else {
+        $existed_reader=DocGia::where('email',$request->email)->orWhere('so_dien_thoai',$request->so_dien_thoai)->first();
+        if (!$existed_reader) {
+            $array=explode('/', $request->ngay_sinh);
+            if (blank(DocGia::latest()->first())) {
                 $ma_so=date('y').date('m').'0001';
             }
+            else {
+                $latest_month_db=substr(DocGia::latest()->first()->ma_so,2,2);
+                $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
+                if ($latest_month_db==date('m')) {
+                    $ma_so=date('y').date('m').str_pad($latest_people_db+1, 4, '0', STR_PAD_LEFT);
+                } else {
+                    $ma_so=date('y').date('m').'0001';
+                }
+            }
+            DocGia::create([
+                'ma_so'=>$ma_so,
+                'ho'=>$request->ho,
+                'ten'=>$request->ten,
+                'gioi_tinh'=>(int)$request->gioi_tinh,
+                'so_dien_thoai'=>$request->so_dien_thoai,
+                'email'=>$request->email,
+                'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
+                'dia_chi'=>$request->dia_chi,
+                'lop'=>$request->lop,
+                'sgk'=>0,
+                'sach_khac'=>0
+            ]);
+            $mailData=[
+                'title' => 'Chào mừng bạn đến với Libro',
+                'ma_so'=>$ma_so,
+                'ho'=>$request->ho,
+                'ten'=>$request->ten,
+                'gioi_tinh'=>(int)$request->gioi_tinh,
+                'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
+                'lop'=>$request->lop,
+                'dia_chi'=>$request->dia_chi
+            ];
+            $mailable=new SendCreateReaderCardMail($mailData);
+            Mail::to($request->email)->send($mailable);
+            return redirect()->route('cap-the-doc-gia');
+        } else {
+            return back()->with('error','Số điện thoại hoặc email đã được sử dụng');
         }
-        DocGia::create([
-            'ma_so'=>$ma_so,
-            'ho'=>$request->ho,
-            'ten'=>$request->ten,
-            'gioi_tinh'=>(int)$request->gioi_tinh,
-            'so_dien_thoai'=>$request->so_dien_thoai,
-            'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
-            'dia_chi'=>$request->dia_chi,
-            'lop'=>$request->lop,
-            'truong_hoc_id'=>$request->truong_hoc,
-            'sgk'=>0,
-            'sach_khac'=>0
-        ]);
-        return back();
     }
 
     public function suaSach($id)
@@ -278,5 +295,10 @@ class AdminController extends Controller
         $doc_gia=DocGia::find($id);
         $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
         return view('chi_tiet_doc_gia',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    }
+
+    public function showReaderCard()
+    {
+        return view('xac_thuc_email.reader_card');
     }
 }

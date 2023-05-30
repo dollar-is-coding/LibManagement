@@ -16,11 +16,11 @@ class DocGia extends Model
         'ho',
         'ten',
         'so_dien_thoai',
+        'email',
         'ngay_sinh',
         'gioi_tinh',
         'dia_chi',
         'lop',
-        'truong_hoc_id',
         'sgk',
         'sach_khac'
     ];

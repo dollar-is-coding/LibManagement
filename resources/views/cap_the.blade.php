@@ -96,9 +96,9 @@
 
                         <div class="row row-sm mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Điện thoại</label>
-                                <input name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại"
-                                    type="text" autocomplete="off" required>
+                                <label class="m-0">&nbsp;Lớp</label>
+                                <input name="lop" class="form-control" placeholder="Nhập lớp" type="text"
+                                    autocomplete="off" required>
                             </div>
                             <div class="col-lg">
                                 <label class="m-0">&nbsp;Ngày sinh</label>
@@ -109,18 +109,14 @@
 
                         <div class="row row-sm mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Lớp</label>
-                                <input name="lop" class="form-control" placeholder="Nhập lớp" type="text"
-                                    autocomplete="off" required>
+                                <label class="m-0">&nbsp;Điện thoại</label>
+                                <input name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại"
+                                    type="text" autocomplete="off" required>
                             </div>
                             <div class="col-lg">
-                                <label class="m-0">&nbsp;Trường</label>
-                                <select name="truong_hoc" class="form-control select2" required>
-                                    <option label="Chon truong"></option>
-                                    @foreach ($ds_truong as $item)
-                                        <option value="{{ $item->id }}">{{ $item->ten }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="m-0">&nbsp;Email</label>
+                                <input name="email" class="form-control" type="email" autocomplete="off"
+                                    placeholder="Nhập email" required>
                             </div>
                         </div>
 
@@ -133,6 +129,10 @@
                         <div class="col-sm-6 col-md-3 p-0">
                             <button id="button" class="btn btn-primary btn-block">Tạo thẻ</button>
                         </div>
+
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
                     </form>
                 </div>
 
