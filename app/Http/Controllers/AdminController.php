@@ -23,7 +23,8 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-    public function index()
+    // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
+    public function showThemSach()
     {
         $tac_gia = TacGia::all();
         $nha_xuat_ban = NhaXuatBan::all();
@@ -32,132 +33,6 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('sach.create', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
     }
-
-    public function themTacGia(Request $request)
-    {
-        TacGia::create(['ten' => $request->tacgia]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function themNhaXuatBan(Request $request)
-    {
-        NhaXuatBan::create(['ten' => $request->nhaxuatban]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function themTheLoai(Request $request)
-    {
-        TheLoai::create(['ten' => $request->theloai]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function themKhuVuc(Request $request)
-    {
-        KhuVuc::create(['ten' => $request->khuvuc]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function themTuSach(Request $request)
-    {
-        TuSach::create([
-            'ten' => $request->tu_sach,
-            'khu_vuc_id'=>$request->khu_vuc_id,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function xoaTacGia($id)
-    {
-        TacGia::find($id)->delete();
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function xoaNhaXuatBan($id)
-    {
-        NhaXuatBan::find($id)->delete();
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function xoaTheLoai($id)
-    {
-        TheLoai::find($id)->delete();
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function xoaKhuVuc($id)
-    {
-        KhuVuc::find($id)->delete();
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function xoaTuSach($id)
-    {
-        TuSach::find($id)->delete();
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function dsSach()
-    {
-        return view('sach.index',['ds_sach'=>Sach::orderBy('ten','asc')->paginate(10)]);
-    }
-
-    public function dsTimKiem(Request $request)
-    {
-        if ($request->sort=='desc_name') {
-            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->paginate(10);
-        }
-        if ($request->sort=='desc_year') {
-            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->paginate(10);
-        }
-        $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->paginate(10);
-        return view('sach.index',['ds_sach'=>$ds_sach]);
-    }
-
-    public function timKiemTheoTacGia(Request $request)
-    {
-        return view('sach.index',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10)]);
-    }
-
-    public function suaTacgia($id, Request $request)
-    {
-        TacGia::find($id)->update([
-            'ten' => $request->tac_gia,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function suaNhaXuatBan($id, Request $request)
-    {
-        NhaXuatBan::find($id)->update([
-            'ten' => $request->nha_xuat_ban,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function suaTheLoai($id, Request $request)
-    {
-        TheLoai::find($id)->update([
-            'ten' => $request->the_loai,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
-    public function suaKhuVuc($id, Request $request)
-    {
-        KhuVuc::find($id)->update([
-            'ten' => $request->khu_vuc,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-    public function suaTuSach($id, Request $request)
-    {
-        TuSach::find($id)->update([
-            'ten' => $request->tu_sach,
-            'khu_vuc_id' => $request->khu_vuc_id,
-        ]);
-        return redirect()->route('hien-thi-them');
-    }
-
     public function themSachThuVien(Request $request)
     {
         if ($request->hasFile('file_upload')) {
@@ -187,21 +62,174 @@ class AdminController extends Controller
         ]);
         return redirect()->route('hien-thi-sach');
     }
-
-    public function taoTaiKhoan()
+    public function themTacGia(Request $request)
     {
-        return view('quan_tri_vien.cap_tai_khoan');
+        TacGia::create(['ten' => $request->tacgia]);
+        return redirect()->route('hien-thi-them');
     }
-    public function quanLyTaiKhoan()
+    public function themNhaXuatBan(Request $request)
     {
-        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::paginate(1)]);
+        NhaXuatBan::create(['ten' => $request->nhaxuatban]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function themTheLoai(Request $request)
+    {
+        TheLoai::create(['ten' => $request->theloai]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function themKhuVuc(Request $request)
+    {
+        KhuVuc::create(['ten' => $request->khuvuc]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function themTuSach(Request $request)
+    {
+        TuSach::create([
+            'ten' => $request->tu_sach,
+            'khu_vuc_id'=>$request->khu_vuc_id,
+        ]);
+        return redirect()->route('hien-thi-them');
     }
 
+
+    // CHỈNH SỬA tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
+    public function suaTacgia($id, Request $request)
+    {
+        TacGia::find($id)->update([
+            'ten' => $request->tac_gia,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function suaNhaXuatBan($id, Request $request)
+    {
+        NhaXuatBan::find($id)->update([
+            'ten' => $request->nha_xuat_ban,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function suaTheLoai($id, Request $request)
+    {
+        TheLoai::find($id)->update([
+            'ten' => $request->the_loai,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function suaKhuVuc($id, Request $request)
+    {
+        KhuVuc::find($id)->update([
+            'ten' => $request->khu_vuc,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+    public function suaTuSach($id, Request $request)
+    {
+        TuSach::find($id)->update([
+            'ten' => $request->tu_sach,
+            'khu_vuc_id' => $request->khu_vuc_id,
+        ]);
+        return redirect()->route('hien-thi-them');
+    }
+
+
+    // CHỈNH SỬA sách
+    public function suaSach($id)
+    {
+        $sach = ThuVien::where('sach_id', $id)->get();
+        $tac_gia = TacGia::all();
+        $nha_xuat_ban = NhaXuatBan::all();
+        $the_loai = TheLoai::all();
+        $khu_vuc = KhuVuc::all();
+        $tu_sach =TuSach::all();
+        return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
+    }
+    public function xuLySuaSach($id, Request $request){
+        Sach::find($id)->update([
+            'ten' => $request->ten_sach,
+            'tac_gia_id' => $request->tac_gia,
+            'the_loai_id' =>$request->the_loai,
+            'nha_xuat_ban_id' =>$request->nha_xuat_ban,
+            'nam_xuat_ban' => $request->nam_xuat_ban,
+            'tom_tat' => $request->tom_tat,
+        ]);
+        $img = Sach::find($id);
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/books'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        $img->save();
+        ThuVien::find($id)->update([
+            'tu_sach_id' => $request->tu_sach,
+            'so_luong' => $request->so_luong,
+        ]);
+        return back();
+    }
+
+
+    // XÓA tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
+    public function xoaTacGia($id)
+    {
+        TacGia::find($id)->delete();
+        return redirect()->route('hien-thi-them');
+    }
+    public function xoaNhaXuatBan($id)
+    {
+        NhaXuatBan::find($id)->delete();
+        return redirect()->route('hien-thi-them');
+    }
+    public function xoaTheLoai($id)
+    {
+        TheLoai::find($id)->delete();
+        return redirect()->route('hien-thi-them');
+    }
+    public function xoaKhuVuc($id)
+    {
+        KhuVuc::find($id)->delete();
+        return redirect()->route('hien-thi-them');
+    }
+    public function xoaTuSach($id)
+    {
+        TuSach::find($id)->delete();
+        return redirect()->route('hien-thi-them');
+    }
+
+
+    // XEM, TÌM KIẾM & CHI TIẾT sách
+    public function dsSach()
+    {
+        $sach=Sach::orderBy('ten','asc')->paginate(10);
+        return view('sach.index',['ds_sach'=>$sach,'selected'=>'asc_name','search'=>'']);
+    }
+    public function dsTimKiem(Request $request)
+    {
+        $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->paginate(10);
+        if ($request->sort=='desc_name') {
+            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->paginate(10);
+        }
+        if ($request->sort=='desc_year') {
+            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->paginate(10);
+        }
+        return view('sach.index',['ds_sach'=>$ds_sach,'search'=>$request->tim_kiem,'selected'=>$request->sort]);
+    }
+    public function timKiemTheoTacGia(Request $request)
+    {
+        $sach=Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10);
+        return view('sach.index',['ds_sach'=>$sach,'search'=>'','selected'=>'asc_name']);
+    }
+    public function chiTietSach($id)
+    {
+        $sach=ThuVien::where('sach_id',$id)->get();
+        $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
+        return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
+    }
+
+
+    // CẤP THẺ độc giả
     public function showCapThe()
     {
         return view('doc_gia.create',['date'=>Carbon::now()]);
     }
-
     public function handleCapThe(Request $request)
     {
         $existed_reader=DocGia::where('email',$request->email)->orWhere('so_dien_thoai',$request->so_dien_thoai)->first();
@@ -249,56 +277,47 @@ class AdminController extends Controller
         }
     }
 
-    public function suaSach($id)
-    {
-        $sach = ThuVien::where('sach_id', $id)->get();
-        $tac_gia = TacGia::all();
-        $nha_xuat_ban = NhaXuatBan::all();
-        $the_loai = TheLoai::all();
-        $khu_vuc = KhuVuc::all();
-        $tu_sach =TuSach::all();
-        return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
-    }
 
-    public function xuLySuaSach($id, Request $request){
-        Sach::find($id)->update([
-            'ten' => $request->ten_sach,
-            'tac_gia_id' => $request->tac_gia,
-            'the_loai_id' =>$request->the_loai,
-            'nha_xuat_ban_id' =>$request->nha_xuat_ban,
-            'nam_xuat_ban' => $request->nam_xuat_ban,
-            'tom_tat' => $request->tom_tat,
-        ]);
-        $img = Sach::find($id);
-        if ($request->has('file')) {
-            $file = $request->file;
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/books'), $filename);
-            $img->hinh_anh = $filename;
+    // XEM, TÌM KIẾM & CHI TIẾT độc giả
+    public function showDocGiaList()
+    {
+        $ds_doc_gia=DocGia::paginate(10);
+        return view('doc_gia.index',['ds_doc_gia'=>$ds_doc_gia,'tim_kiem'=>'','sap_xep'=>'all']);
+    }
+    public function handleDocGiaSearch(Request $request)
+    {
+        $doc_gia=DocGia::where('ma_so','like','%'.$request->tim_kiem.'%')
+            ->orderBy('ma_so','asc')
+            ->paginate(10);
+        if ($request->sap_xep=='borrowing') {
+            $doc_gia=DocGia::where([['ma_so','like','%'.$request->tim_kiem.'%'],['sach_khac','>',0]])
+                ->orWhere([['ma_so','like','%'.$request->tim_kiem.'%'],['sgk','>',0]])
+                ->paginate(10);
         }
-        $img->save();
-        ThuVien::find($id)->update([
-            'tu_sach_id' => $request->tu_sach,
-            'so_luong' => $request->so_luong,
-        ]);
-        return back();
+        return view('doc_gia.index',
+            ['ds_doc_gia'=>$doc_gia,'tim_kiem'=>$request->tim_kiem,'sap_xep'=>$request->sap_xep]);
     }
-
-    public function showMuonSachList()
-    {
-        $ds_doc_gia=DocGia::where('sgk','>',0)->orWhere('sach_khac','>',0)->paginate(10);
-        return view('doc_gia.index',['ds_doc_gia'=>$ds_doc_gia]);
-    }
-
     public function showChiTietDocGia($id)
     {
         $doc_gia=DocGia::find($id);
         $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
         return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+        return back()->redirect('hien-thi-doc-gia');
     }
 
-    public function showReaderCard()
+
+
+
+
+
+    // Phần thừa
+    public function capTaiKhoan()
     {
-        return view('xac_thuc_email.reader_card');
+        return view('quan_tri_vien.cap_tai_khoan');
+    }
+
+    public function quanLyTaiKhoan()
+    {
+        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
     }
 }

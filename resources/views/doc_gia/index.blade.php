@@ -49,10 +49,17 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
-                <form class="row az-signin-header" action="{{ route('tim-kiem') }}" method="get">
+                <form class="row az-signin-header" action="{{ route('tim-kiem-doc-gia') }}" method="get">
                     <div class="col-lg">
                         <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
-                            autocomplete="off" autofocus=true>
+                            value="{{ $tim_kiem }}" autocomplete="off">
+                    </div><!-- col -->
+                    <div class="col-lg-3">
+                        <select class="form-control select2-no-search" name="sap_xep">
+                            <option value="all" {{ $sap_xep == 'all' ? 'selected' : '' }}>Tất cả</option>
+                            <option value="borrowing" {{ $sap_xep == 'borrowing' ? 'selected' : '' }}>Đang mượn sách</option>
+                            <option value="used_to" {{ $sap_xep == 'used_to' ? 'selected' : '' }}>Từng mượn sách</option>
+                        </select>
                     </div><!-- col -->
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>

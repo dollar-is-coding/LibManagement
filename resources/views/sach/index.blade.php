@@ -52,13 +52,13 @@
                 <form class="row az-signin-header" action="{{ route('tim-kiem') }}" method="get">
                     <div class="col-lg">
                         <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
-                            autocomplete="off" autofocus=true>
+                            value="{{ $search }}" autocomplete="off">
                     </div><!-- col -->
                     <div class="col-lg-3">
                         <select class="form-control select2-no-search" name="sort">
-                            <option value="asc_name" selected>A -> Z</option>
-                            <option value="desc_name">Z -> A</option>
-                            <option value="desc_year">Mới nhất</option>
+                            <option value="asc_name" {{ $selected == 'asc_name' ? 'selected' : '' }}>A -> Z</option>
+                            <option value="desc_name" {{ $selected == 'desc_name' ? 'selected' : '' }}>Z -> A</option>
+                            <option value="desc_year" {{ $selected == 'desc_year' ? 'selected' : '' }}>Mới nhất</option>
                         </select>
                     </div><!-- col -->
                     <div class="col-lg-2">

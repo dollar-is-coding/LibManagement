@@ -12,11 +12,17 @@ use App\Models\PhieuMuonSach;
 
 class HomeController extends Controller
 {
+    public function trangChu()
+    {
+        return view('trang_chu');
+    }
+
+
+    // ĐĂNG NHẬP & ĐĂNG XUẤT
     public function dangNhap()
     {
         return view('dang_nhap');
     }
-
     public function xuLyDangNhap(Request $request)
     {
         $admin=['email'=>$request->email,'password'=>$request->password,'vai_tro'=>1];
@@ -26,18 +32,18 @@ class HomeController extends Controller
         } 
         return redirect()->back()->with('error','Đăng nhập thất bại');
     }
-
     public function xuLyDangXuat(Request $request)
     {
         Auth::logout();
         return redirect()->back();
     }
 
+
+    // Cá nhân
     public function xemThongTin()
     {
         return view('ca_nhan.ho_so');
     }
-
     public function xuLySuaThongTin(Request $request)
     {
         $nguoiDung=NguoiDung::where('id',Auth::id())->update([
@@ -56,12 +62,10 @@ class HomeController extends Controller
         $img->save();
         return redirect()->back();
     }
-
     public function doiMatKhau()
     {
         return view('ca_nhan.doi_mat_khau');
     }
-
     public function xuLyDoiMatKhau(Request $request)
     {
         if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
@@ -73,29 +77,15 @@ class HomeController extends Controller
         return redirect()->back()->with('error','Thay đổi mật khẩu thất bại!');
     }
 
-    public function trangChu()
-    {
-        return view('trang_chu');
-    }
 
-    public function chiTietSach($id)
-    {
-        $sach=ThuVien::where('sach_id',$id)->get();
-        $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
-        return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
-    }
 
-    public function quenMatKhau(){
-        return view('quen_mat_khau');
-    }
-
+    // Mượn sách
     public function showMuonSGK()
     {
         $doc_gia=DocGia::where('sach_khac','<',2)->get();
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-
     public function handleMuonSGK(Request $request)
     {
         foreach ($request->sach as $key => $value) {
@@ -118,14 +108,12 @@ class HomeController extends Controller
         }
         return back();
     }
-
     public function showMuonSachKhac()
     {
         $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-
     public function handleMuonSachKhac(Request $request)
     {
         $ngay_muon=explode('/', $request->ngay_muon);
@@ -147,6 +135,15 @@ class HomeController extends Controller
         return back();
     }
 
+
+
+
+
+
+    // Phần thừa
+    public function quenMatKhau(){
+        return view('quen_mat_khau');
+    }
     public function xuLyCapNhatMatKhau(Request $request)
     {
         $email =session()->get('emailTo');

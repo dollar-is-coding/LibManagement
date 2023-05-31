@@ -20,13 +20,13 @@
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Sách</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('hien-thi-sach') }}" class="nav-link">Tra cứu</a>
-                        <a href="{{ route('hien-thi-them') }}" class="nav-link">Thêm sách</a>
+                        <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">Thêm sách</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('hien-thi-danh-sach-muon-sach') }}" class="nav-link">Tra cứu</a>
+                        <a href="{{ route('hien-thi-doc-gia') }}" class="nav-link">Tra cứu</a>
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
                         <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
                     </nav>
