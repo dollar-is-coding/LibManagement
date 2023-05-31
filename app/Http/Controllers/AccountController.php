@@ -25,7 +25,6 @@ class AccountController extends Controller
             'body' => 'Vui lòng không chia sẻ bất kì ai mã này'
         ];
         $mailable = new SendMailForgotPass($mailData);
-
         $user = NguoiDung::where('email', $emailTo)->first();
         if ($user) {
             Mail::to($emailTo)->send($mailable);

@@ -78,7 +78,6 @@ class HomeController extends Controller
     }
 
 
-
     // Mượn sách
     public function showMuonSGK()
     {
@@ -141,7 +140,8 @@ class HomeController extends Controller
 
 
     // Phần thừa
-    public function quenMatKhau(){
+    public function quenMatKhau()
+    {
         return view('quen_mat_khau');
     }
     public function xuLyCapNhatMatKhau(Request $request)

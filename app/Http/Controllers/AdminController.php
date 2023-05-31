@@ -95,30 +95,22 @@ class AdminController extends Controller
     // CHỈNH SỬA tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function suaTacgia($id, Request $request)
     {
-        TacGia::find($id)->update([
-            'ten' => $request->tac_gia,
-        ]);
+        TacGia::find($id)->update(['ten' => $request->tac_gia]);
         return redirect()->route('hien-thi-them');
     }
     public function suaNhaXuatBan($id, Request $request)
     {
-        NhaXuatBan::find($id)->update([
-            'ten' => $request->nha_xuat_ban,
-        ]);
+        NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
         return redirect()->route('hien-thi-them');
     }
     public function suaTheLoai($id, Request $request)
     {
-        TheLoai::find($id)->update([
-            'ten' => $request->the_loai,
-        ]);
+        TheLoai::find($id)->update(['ten' => $request->the_loai]);
         return redirect()->route('hien-thi-them');
     }
     public function suaKhuVuc($id, Request $request)
     {
-        KhuVuc::find($id)->update([
-            'ten' => $request->khu_vuc,
-        ]);
+        KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
         return redirect()->route('hien-thi-them');
     }
     public function suaTuSach($id, Request $request)
@@ -259,7 +251,7 @@ class AdminController extends Controller
                 'sgk'=>0,
                 'sach_khac'=>0
             ]);
-            $mailData=[
+            $mailData = [
                 'title' => 'Chào mừng bạn đến với Libro',
                 'ma_so'=>$ma_so,
                 'ho'=>$request->ho,
@@ -315,7 +307,6 @@ class AdminController extends Controller
     {
         return view('quan_tri_vien.cap_tai_khoan');
     }
-
     public function quanLyTaiKhoan()
     {
         return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::paginate(10)]);

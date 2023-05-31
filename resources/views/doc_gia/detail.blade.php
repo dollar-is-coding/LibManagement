@@ -111,39 +111,41 @@
                                 {{ $doc_gia->sgk }} SGK - {{ $doc_gia->sach_khac }} sách khác
                             </div>
                         </div>
-                        <hr>
-                        <div class="az-content-label">&nbsp;Sách đang mượn</div>
-                        <table class="mt-0 table az-table-reference">
-                            <thead>
-                                <tr>
-                                    <th class="wd-5p"></th>
-                                    <th>Sách</th>
-                                    <th>Thời gian mượn</th>
-                                    <th>Dự kiến trả</th>
-                                    <th>Trạng thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($sach as $key => $item)
+                        @if (!blank($sach))
+                            <hr>
+                            <div class="az-content-label">&nbsp;Sách đang mượn</div>
+                            <table class="mt-0 table az-table-reference">
+                                <thead>
                                     <tr>
-                                        <td>{{ ++$key }}</td>
-                                        <td><a style="color: black"
-                                                onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
-                                                onMouseOut="this.style.color='black',this.style.textDecoration='none'"
-                                                href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}">
-                                                {{ $item->fkSach->ten }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $item->created_at->format('d/m/Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') }}</td>
-                                        <td
-                                            class="{{ \Carbon\Carbon::now()->format('d/m/Y') <= \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') ? '' : 'text-danger' }}">
-                                            {{ \Carbon\Carbon::now()->format('d/m/Y') <= \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') ? 'Còn hạn' : 'Hết hạn' }}
-                                        </td>
+                                        <th class="wd-5p"></th>
+                                        <th>Sách</th>
+                                        <th>Thời gian mượn</th>
+                                        <th>Dự kiến trả</th>
+                                        <th>Trạng thái</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($sach as $key => $item)
+                                        <tr>
+                                            <td>{{ ++$key }}</td>
+                                            <td><a style="color: black"
+                                                    onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
+                                                    onMouseOut="this.style.color='black',this.style.textDecoration='none'"
+                                                    href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}">
+                                                    {{ $item->fkSach->ten }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') }}</td>
+                                            <td
+                                                class="{{ \Carbon\Carbon::now()->format('d/m/Y') <= \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') ? '' : 'text-danger' }}">
+                                                {{ \Carbon\Carbon::now()->format('d/m/Y') <= \Carbon\Carbon::parse($item->ngay_tra)->format('d/m/Y') ? 'Còn hạn' : 'Hết hạn' }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                 </div><!-- az-card-signin -->
 
