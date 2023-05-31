@@ -51,7 +51,7 @@
     </div>
     <div class="container">
         <div class="header">
-            <h1>Thay đổi email</h1>
+            <h1>Xác minh email</h1>
             <p>Xin chào! Đây là mã xác minh của bạn</p>
             <h2>{{$verify}}</h2>
             <i>{{$body}}</i>

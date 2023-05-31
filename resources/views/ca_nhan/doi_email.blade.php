@@ -23,7 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Quên mật khẩu</title>
+    <title>libro - Đổi email</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">

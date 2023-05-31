@@ -3,18 +3,8 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QRcode;
 use Illuminate\Support\Facades\Route;
-
-
-Route::get('/dat-mat-khau', [HomeController::class, 'quenMatKhau'])->name('quen-mat-khau');
-Route::post('/dat-mat-khau', [HomeController::class, 'xuLyCapNhatMatKhau'])->name('cap-nhat-mat-khau');
-Route::get('/xac-minh-quen-mat-khau', [AccountController::class, 'xacMinhQuenMatKhau'])->name('nhap-mail');
-Route::post('/xac-minh-quen-mat-khau', [AccountController::class, 'taoMaXacMinh']);
-Route::get('/xac-minh', [AccountController::class, 'xacMinh'])->name('xac-minh');
-Route::post('/xac-minh', [AccountController::class, 'xulyXacMinh']);
-Route::get('/lay-danh-sach-khu-vuc', [AdminController::class, 'layKhuVuc'])->name('lay-khu-vuc')->middleware('auth');
-
-
 
 
 // DASHBOARD
@@ -24,6 +14,14 @@ Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middlew
 Route::get('/dang-nhap', [HomeController::class, 'dangNhap'])->name('dang-nhap')->middleware('guest');
 Route::post('/xu-ly-dang-nhap', [HomeController::class, 'xuLyDangNhap'])->name('xu-ly-dang-nhap')->middleware('guest');
 Route::get('/dang-xuat', [HomeController::class, 'xuLyDangXuat'])->name('xu-ly-dang-xuat')->middleware('auth');
+
+// Nhập mã xác minh, đặt lại mật khẩu
+Route::get('/dat-lai-mat-khau', [HomeController::class, 'datLaiMatKhau'])->name('dat-lai-mat-khau');
+Route::post('/dat-lai-mat-khau', [HomeController::class, 'xuLyDatLaiMatKhau'])->name('xu-ly-dat-lai-mat-khau');
+Route::get('/xac-minh-quen-mat-khau', [HomeController::class, 'hienThiNhapMailQuenMatKhau'])->name('nhap-mail-quen-mat-khau');
+Route::post('/xac-minh-quen-mat-khau', [HomeController::class, 'xuLyNhapMailQuenMatKhau'])->name('xu-ly-nhap-mail-quen-mat-khau');
+Route::get('/xac-minh', [HomeController::class, 'nhapMaXacMinh'])->name('nhap-ma-xac-minh');
+Route::post('/xac-minh', [HomeController::class, 'XuLyNhapMaXacMinh']);
 
 // XEM, TÌM KIẾM & CHI TIẾT SÁCH
 Route::get('/danh-sach-cac-cuon-sach', [AdminController::class, 'dsSach'])->name('hien-thi-sach')->middleware('auth');
@@ -79,7 +77,7 @@ Route::get('/xem-thong-tin', [HomeController::class, 'xemThongTin'])->name('xem-
 Route::post('/xu-ly-doi-thong-tin', [HomeController::class, 'xuLySuaThongTin'])->name('xu-ly-doi-thong-tin')->middleware('auth');
 Route::get('/doi-mat-khau', [HomeController::class, 'doiMatKhau'])->name('doi-mat-khau')->middleware('auth');
 Route::post('/xu-ly-doi-mat-khau', [HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
-Route::get('/doi-email', [AccountController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
-Route::post('/doi-email', [AccountController::class, 'xuLyDoiEmail'])->middleware('auth');
-Route::get('/xac-minh-doi-email', [AccountController::class, 'xacMinhMail'])->name('xac-minh-email')->middleware('auth');
-Route::post('/xac-minh-doi-email', [AccountController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
+Route::get('/xac-minh-doi-email', [HomeController::class, 'xacMinhMail'])->name('xac-minh-email')->middleware('auth');
+Route::post('/xac-minh-doi-email', [HomeController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
+Route::get('/doi-email', [HomeController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
+Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('auth');

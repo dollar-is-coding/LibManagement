@@ -29,7 +29,7 @@ class SendMailCreateUser extends Mailable
         $mat_khau = $this->mailData['mat_khau'];
         return $this->subject($title)
             // ->from($fromEmail, $nameAdmin)
-            ->view('xac_thuc_email.tao_tai_khoan', [
+            ->view('send_mail.tao_tai_khoan', [
                 'body' => $body,
                 'name' => $name,
                 'email' => $email,

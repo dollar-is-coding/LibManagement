@@ -32,7 +32,7 @@ protected $mailData;
         $body =$this->mailData['body'];
         return $this->subject($title)
             // ->from($fromEmail, $nameAdmin)
-            ->view('xac_thuc_email.hien_ma_xac_thuc', [
+            ->view('send_mail.hien_ma_xac_thuc', [
                 'verify' =>  $verify,
                 'body' => $body
             ]);

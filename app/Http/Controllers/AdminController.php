@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendCreateReaderCardMail;
+use App\Mail\SendMailCreateUser;
 use App\Models\TacGia;
 use App\Models\NhaXuatBan;
 use App\Models\TheLoai;
@@ -298,14 +299,44 @@ class AdminController extends Controller
     }
 
 
-
-
-
-
-    // Phần thừa
+    // Cấp tài khoản - quản lý tài khoản
     public function capTaiKhoan()
     {
         return view('quan_tri_vien.cap_tai_khoan');
+    }
+    public function xuLyTaoTaiKhoan(Request $request)
+    {
+        $user = NguoiDung::where('email', $request->email)->first();
+        if (!$user) {
+            session()->put('mat_khau', $request->password);
+            $user = NguoiDung::create([
+                'email' => $request->email,
+                'mat_khau' => Hash::make($request->password),
+                'ho' => $request->ho,
+                'ten' => $request->ten,
+                'anh_dai_dien' => '',
+                'vai_tro' => $request->vai_tro,
+                'gioi_tinh' => $request->gioi_tinh,
+            ]);
+            $this->taoTaiKhoan($user);
+            return redirect()->route('tao-tai-khoan');
+        } else {
+            return redirect()->back()->with('errorMail', 'Email đã tồn tại');
+        }
+    }
+    public function taoTaiKhoan($user)
+    {
+        $mailData = [
+                'title' => 'Chào mừng bạn đến với Libro',
+                'body' => 'Vui lòng không chia sẻ tài khoản này với ai',
+                'name' => $user['ten'],
+                'email' => $user['email'],
+                'mat_khau' => session()->get('mat_khau'),
+            ];
+        session()->forget('mat_khau');
+        $mailable = new SendMailCreateUser($mailData);
+        Mail::to($user['email'])->send($mailable);
+        return redirect()->route('tao-tai-khoan');
     }
     public function quanLyTaiKhoan()
     {

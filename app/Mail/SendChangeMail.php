@@ -32,7 +32,7 @@ class SendChangeMail extends Mailable
         $body = $this->mailData['body'];
         return $this->subject($title)
             // ->from($fromEmail, $nameAdmin)
-            ->view('xac_thuc_email.hien_ma_xac_thuc_doi_mail', [
+            ->view('send_mail.hien_ma_xac_thuc_doi_mail', [
                 'verify' =>  $verify,
                 'body' => $body
             ]);

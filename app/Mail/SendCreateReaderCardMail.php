@@ -31,7 +31,7 @@ class SendCreateReaderCardMail extends Mailable
         $gioi_tinh=$this->mailData['gioi_tinh'];
         $dia_chi=$this->mailData['dia_chi'];
         return $this->subject($title)
-        ->view('xac_thuc_email.reader_card',[
+        ->view('send_mail.the_doc_gia',[
             'ho_ten'=>$ho_ten,
             'ma_so'=>$id,
             'lop'=>$lop,

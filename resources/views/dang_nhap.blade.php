@@ -64,7 +64,7 @@
                 <!-- @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
                 @endif -->
-                <p><a href="{{route('nhap-mail')}}">Forgot password?</a></p>
+                <p><a href="{{route('nhap-mail-quen-mat-khau')}}">Forgot password?</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

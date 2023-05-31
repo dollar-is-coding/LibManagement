@@ -41,10 +41,10 @@
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
             <div class="az-signin-header">
-                <h2>Quên mật khẩu</h2>
+                <h2>Đặt lại mật khẩu</h2>
                 <!-- <h4>Please sign in to continue</h4> -->
 
-                <form action="{{route('cap-nhat-mat-khau')}}" method="POST">
+                <form action="{{route('xu-ly-dat-lai-mat-khau')}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>Pasword</label>
