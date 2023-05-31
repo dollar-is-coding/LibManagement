@@ -37,13 +37,13 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('../common/header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>{{ $doc_gia->ma_so }}</label>
+                    <label>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</label>
                     <nav class="nav flex-column">
                         <a href="#" class="nav-link active">Chi tiết</a>
                         <a href="#" class="nav-link">Trả sách</a>
@@ -53,7 +53,7 @@
 
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>{{ $doc_gia->ma_so }}</span>
+                    <span>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</span>
                     <span>Chi tiết</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
@@ -148,19 +148,9 @@
                 </div><!-- az-card-signin -->
 
                 <div class="ht-40"></div>
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+
+                @include('../common/footer')
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->

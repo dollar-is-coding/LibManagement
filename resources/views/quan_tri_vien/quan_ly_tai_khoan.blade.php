@@ -37,17 +37,15 @@
 
 <body>
 
-    @include('header', ['view' => 4])
+    @include('../common/header', ['view' => 4])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Cá nhân</label>
+                    <label>Quản trị viên</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('xem-thong-tin') }}" class="nav-link ">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
+                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
                         <a href="#" class="nav-link active">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
@@ -73,7 +71,7 @@
                         <tbody>
                             @foreach ($ds_tai_khoan as $key => $item)
                                 <tr>
-                                    <th scope="row">{{ $key }}</th>
+                                    <th scope="row">{{ ++$key }}</th>
                                     <td>{{ $item->ho }}</td>
                                     <td>{{ $item->ten }}</td>
                                     <td>{{ $item->email }}</td>
@@ -82,23 +80,15 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-5 d-flex justify-content-center">
+                        <div>
+                            {{ $ds_tai_khoan->links() }}
+                        </div>
+                    </div>
                 </div><!-- bd -->
 
-                <div class="ht-40"></div>
+                @include('../common/footer')
 
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->

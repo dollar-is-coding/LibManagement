@@ -42,7 +42,7 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('../common/header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -55,8 +55,8 @@
                     </nav>
                     <label>Mượn sách</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Sách giáo khoa</a>
-                        <a href="#" class="nav-link active">Sách khác</a>
+                        <a href="#" class="nav-link active">Sách giáo khoa</a>
+                        <a href="{{ route('hien-thi-muon-sach-khac') }}" class="nav-link">Sách khác</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -64,10 +64,10 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     <span>Độc giả</span>
-                    <span>Mượn sách khác</span>
+                    <span>Mượn SGK</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 az-signin-header">
-                    <form action="{{ route('xu-ly-muon-sach-khac') }}" class="ml-3 mr-3" method="POST">
+                    <form action="{{ route('xu-ly-muon-sach-giao-khoa') }}" class="ml-3 mr-3" method="POST">
                         @csrf
                         <div class="row mg-b-20">
                             <div class="col-lg">
@@ -81,18 +81,16 @@
                             </div>
                             <div class="col-lg"></div>
                         </div>
-                        <input type="text" name="so_luong" value="1" hidden>
                         <div class="form-group mg-b-20">
                             <label class="m-0">&nbsp;Sách</label>
-                            <select name="sach" class="form-control select2-no-search">
-                                <option label="Choose one"></option>
+                            <select class="form-control ds-sach" name="sach[]" multiple="multiple">
                                 @foreach ($sgk as $item)
-                                    @if ($item->fkSach->the_loai_id != 1)
+                                    @if ($item->fkSach->the_loai_id == 1)
                                         <option value="{{ $item->id }}">{{ $item->fkSach->ten }}</option>
                                     @endif
                                 @endforeach
                             </select>
-                        </div><!-- col -->
+                        </div>
                         <div class="row mg-b-30">
                             <div class="col-lg">
                                 <label class="m-0">&nbsp;Ngày mượn</label>
@@ -101,9 +99,8 @@
                             </div>
                             <div class="col-lg">
                                 <label class="m-0">&nbsp;Ngày trả</label>
-                                <input type="text" name="ngay_tra"
-                                    value="{{ date('d/m/Y', strtotime(date('m/d/y') . ' + 14 days')) }}"
-                                    placeholder="DD/MM/YYYY" class="form-control" readonly>
+                                <input type="text" name="ngay_tra" id="datetimepicker" placeholder="DD/MM/YYYY"
+                                    class="form-control" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 p-0">
@@ -114,19 +111,8 @@
 
                 <div class="ht-40"></div>
 
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+                @include('../common/footer')
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
@@ -181,7 +167,7 @@
 
             $('.select2-no-search').select2({
                 minimumResultsForSearch: Infinity,
-                placeholder: 'Chọn sách'
+                placeholder: 'Choose one'
             });
         });
 

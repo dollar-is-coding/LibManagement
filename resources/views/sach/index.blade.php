@@ -44,7 +44,7 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('../common/header', ['view' => 2])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -52,66 +52,65 @@
                 <form class="row az-signin-header" action="{{ route('tim-kiem') }}" method="get">
                     <div class="col-lg">
                         <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
-                            autocomplete="off" autofocus=true>
+                            value="{{ $search }}" autocomplete="off">
+                    </div><!-- col -->
+                    <div class="col-lg-3">
+                        <select class="form-control select2-no-search" name="sort">
+                            <option value="asc_name" {{ $selected == 'asc_name' ? 'selected' : '' }}>A -> Z</option>
+                            <option value="desc_name" {{ $selected == 'desc_name' ? 'selected' : '' }}>Z -> A</option>
+                            <option value="desc_year" {{ $selected == 'desc_year' ? 'selected' : '' }}>Mới nhất</option>
+                        </select>
                     </div><!-- col -->
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
                 <div class="table-responsive">
-                    @if (blank($ds_doc_gia))
+                    @if (blank($ds_sach))
                         <div class="az-table-reference">Không tìm thấy kết quả!</div>
                     @else
                         <table class="table mg-b-0 az-table-reference">
                             <thead>
                                 <tr>
-                                    <th class="wd-0p"></th>
-                                    <th>Mã số</th>
-                                    <th>Họ tên</th>
-                                    <th>Số sách mượn</th>
-                                    <th>Điện thoại</th>
-                                    <th>Lớp</th>
-                                    <th>Địa chỉ</th>
-                                    <th class="wd-5p">QR</th>
+                                    <th class="wd-5p">STT</th>
+                                    <th>Sách</th>
+                                    <th>Tác giả</th>
+                                    <th>Vị trí</th>
+                                    <th class="wd-10p">Số lượng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($ds_doc_gia as $key => $item)
-                                    <tr>
-                                        <td>{{ ++$key }}</td>
-                                        <td><a style="color: black"
-                                                onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
-                                                onMouseOut="this.style.color='black',this.style.textDecoration='none'"
-                                                href="{{ route('hien-thi-chi-tiet-doc-gia', ['id' => $item->id]) }}">{{ $item->ma_so }}</a>
-                                        </td>
-                                        <td>{{ $item->ho }} {{ $item->ten }}</td>
-                                        <td>{{ $item->sgk + $item->sach_khac }}</td>
-                                        <td>{{ $item->so_dien_thoai }}</td>
-                                        <td>{{ $item->lop }}</td>
-                                        <td>{{ $item->dia_chi }}</td>
-                                        <td>{!! QrCode::size(60)->generate(Str::ascii($item->ma_so)) !!}</td>
-                                    </tr>
+                                @foreach ($ds_sach as $key => $item)
+                                    @foreach ($item->hasThuVien as $thu_vien)
+                                        <tr>
+                                            <th scope="row">
+                                                {{ ++$key }}</th>
+                                            <td>
+                                                <a style="color: black"
+                                                    onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
+                                                    onMouseOut="this.style.color='black',this.style.textDecoration='none'"
+                                                    href="{{ route('chi-tiet-sach', ['id' => $thu_vien]) }}">{{ $thu_vien->fkSach->ten }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $thu_vien->fkSach->fkTacGia->ten }}</td>
+                                            <td>{{ $thu_vien->fkTuSach->ten }},
+                                                {{ $thu_vien->fkTuSach->fkKhuVuc->ten }}
+                                            </td>
+                                            <td>{{ $thu_vien->so_luong }}</td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-5 d-flex justify-content-center">
+                            <div>
+                                {{ $ds_sach->links() }}
+                            </div>
+                        </div>
                     @endif
                 </div><!-- table-responsive -->
 
-                <div class="ht-40"></div>
-
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+                @include('../common/footer')
 
             </div><!-- az-content-body -->
         </div>

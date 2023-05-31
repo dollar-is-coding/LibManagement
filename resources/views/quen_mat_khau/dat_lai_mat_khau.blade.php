@@ -41,14 +41,18 @@
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
             <div class="az-signin-header">
-                <h2>Đổi Email</h2>
+                <h2>Đặt lại mật khẩu</h2>
                 <!-- <h4>Please sign in to continue</h4> -->
 
-                <form method="POST">
+                <form action="{{route('xu-ly-dat-lai-mat-khau')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Email mới</label>
-                        <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Enter your email" value="">
+                        <label>Pasword</label>
+                        <input required type="password" name="password" class="form-control" placeholder="Enter your password" value="">
+                    </div><!-- form-group -->
+                    <div class="form-group">
+                        <label>Re-enter Password</label>
+                        <input required type="password" name="again_password" class="form-control" placeholder="Re-enter password" value="">
                     </div><!-- form-group -->
                     <button class="btn btn-az-primary btn-block">Save</button>
                 </form>
@@ -60,7 +64,7 @@
                 <!-- @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
                 @endif -->
-                <p><a href="{{route('trang-chu')}}">Trở về trang chủ</a></p>
+                <p><a href="{{route('dang-nhap')}}">Trở về đăng nhập</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

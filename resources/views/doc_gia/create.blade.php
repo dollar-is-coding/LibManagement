@@ -42,7 +42,7 @@
 
 <body>
 
-    @include('header', ['view' => 3])
+    @include('../common/header', ['view' => 3])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -50,12 +50,12 @@
                 <div class="component-item">
                     <label>Độc giả</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
+                        <a href="#" class="nav-link active">Cấp thẻ</a>
                         <a href="" class="nav-link">Quản lý</a>
                     </nav>
                     <label>Mượn sách</label>
                     <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Sách giáo khoa</a>
+                        <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Sách giáo khoa</a>
                         <a href="{{ route('hien-thi-muon-sach-khac') }}" class="nav-link">Sách khác</a>
                     </nav>
                 </div><!-- component-item -->
@@ -64,66 +64,82 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     <span>Độc giả</span>
-                    <span>Mượn SGK</span>
+                    <span>Cấp thẻ</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 az-signin-header">
-                    <form action="{{ route('xu-ly-muon-sach-giao-khoa') }}" class="ml-3 mr-3" method="POST">
+                    <form action="{{ route('xu-ly-cap-the') }}" class="ml-3 mr-3" method="POST">
                         @csrf
-                        <div class="row mg-b-20">
-                            <div class="col-lg">
-                                <label class="m-0">&nbsp;Mã số</label>
-                                <select name="ma_so" class="form-control ma-so" required>
-                                    <option label="Chon truong"></option>
-                                    @foreach ($ds_doc_gia as $item)
-                                        <option value="{{ $item->id }}">{{ $item->ma_so }}</option>
-                                    @endforeach
-                                </select>
+                        <div class="row row-sm align-items-end mg-b-20">
+                            <div class="wd-350 form-group m-0">
+                                <label class="m-0">&nbsp;Họ</label>
+                                <input name="ho" id="ho" class="form-control" placeholder="Nhập họ"
+                                    type="text" autocomplete="off" required>
                             </div>
-                            <div class="col-lg"></div>
-                        </div>
-                        <div class="form-group mg-b-20">
-                            <label class="m-0">&nbsp;Sách</label>
-                            <select class="form-control ds-sach" name="sach[]" multiple="multiple">
-                                @foreach ($sgk as $item)
-                                    @if ($item->fkSach->the_loai_id == 1)
-                                        <option value="{{ $item->id }}">{{ $item->fkSach->ten }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="row mg-b-30">
-                            <div class="col-lg">
-                                <label class="m-0">&nbsp;Ngày mượn</label>
-                                <input type="text" name="ngay_muon" value="{{ date('d/m/Y') }}"
-                                    placeholder="DD/MM/YYYY" class="form-control" readonly>
+                            <div class="col-lg form-group m-0">
+                                <label class="m-0">&nbsp;Tên</label>
+                                <input name="ten" id="ten" class="form-control" placeholder="Nhập tên"
+                                    type="text" autocomplete="off" required>
                             </div>
-                            <div class="col-lg">
-                                <label class="m-0">&nbsp;Ngày trả</label>
-                                <input type="text" name="ngay_tra" id="datetimepicker" placeholder="DD/MM/YYYY"
-                                    class="form-control" autocomplete="off" required>
+                            <div class="mb-1">
+                                <label class="rdiobox">
+                                    <input name="gioi_tinh" type="radio" value="1" checked>
+                                    <span>Nam</span>
+                                </label>
+                            </div>
+                            <div class="mb-1">
+                                <label class="rdiobox">
+                                    <input name="gioi_tinh" type="radio" value="0">
+                                    <span>Nữ</span>
+                                </label>
                             </div>
                         </div>
+
+                        <div class="row row-sm mg-b-20">
+                            <div class="wd-350 form-group m-0">
+                                <label class="m-0">&nbsp;Lớp</label>
+                                <input name="lop" class="form-control" placeholder="Nhập lớp" type="text"
+                                    autocomplete="off" required>
+                            </div>
+                            <div class="col-lg">
+                                <label class="m-0">&nbsp;Ngày sinh</label>
+                                <input name="ngay_sinh" class="form-control" id="datetimepicker"
+                                    placeholder="DD/MM/YYYY" type="text" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm mg-b-20">
+                            <div class="wd-350 form-group m-0">
+                                <label class="m-0">&nbsp;Điện thoại</label>
+                                <input name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại"
+                                    type="text" autocomplete="off" required>
+                            </div>
+                            <div class="col-lg">
+                                <label class="m-0">&nbsp;Email</label>
+                                <input name="email" class="form-control" type="email" autocomplete="off"
+                                    placeholder="Nhập email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dia_chi" class="m-0">&nbsp;Địa chỉ</label>
+                            <input type="text" name="dia_chi" class="form-control" placeholder="Nhập địa chỉ"
+                                autocomplete="off" required>
+                        </div>
+
                         <div class="col-sm-6 col-md-3 p-0">
-                            <button id="button" class="btn btn-primary btn-block">Mượn</button>
+                            <button id="button" class="btn btn-primary btn-block">Tạo thẻ</button>
                         </div>
+
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
                     </form>
                 </div>
 
                 <div class="ht-40"></div>
 
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+                @include('../common/footer')
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
@@ -166,13 +182,8 @@
         });
 
         $(document).ready(function() {
-            $('.ma-so').select2({
-                placeholder: 'Chọn mã số',
-                searchInputPlaceholder: 'Search'
-            });
-
-            $('.ds-sach').select2({
-                placeholder: 'Chọn sách',
+            $('.select2').select2({
+                placeholder: 'Chọn trường',
                 searchInputPlaceholder: 'Search'
             });
 

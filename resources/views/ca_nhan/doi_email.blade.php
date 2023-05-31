@@ -23,7 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Đăng nhập</title>
+    <title>libro - Đổi email</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -41,14 +41,16 @@
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
             <div class="az-signin-header">
-                <h2>Xác minh email</h2>
-                <!-- <h4>Xác minh email</h4> -->
-                <form action="" method="POST">
+                <h2>Đổi Email</h2>
+                <!-- <h4>Please sign in to continue</h4> -->
+
+                <form method="POST">
                     @csrf
                     <div class="form-group">
-                        <input required type="text" name="verify" class="verify form-control" placeholder="Nhập mã xác thực" />
+                        <label>Email mới</label>
+                        <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Enter your email" value="">
                     </div><!-- form-group -->
-                    <button type="submit" class="btn btn-az-primary btn-block">Xác minh</button>
+                    <button class="btn btn-az-primary btn-block">Save</button>
                 </form>
                 @if (session('error'))
                 <div class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('error') }}</div>
@@ -58,6 +60,7 @@
                 <!-- @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
                 @endif -->
+                <p><a href="{{route('trang-chu')}}">Trở về trang chủ</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

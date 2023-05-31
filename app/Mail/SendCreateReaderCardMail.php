@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMailCreateUser extends Mailable
+class SendCreateReaderCardMail extends Mailable
 {
     use Queueable, SerializesModels;
     protected $mailData;
@@ -20,22 +20,27 @@ class SendMailCreateUser extends Mailable
     {
         $this->mailData = $mailData;
     }
+
     public function build()
     {
-        $title = $this->mailData['title'];
-        $body = $this->mailData['body'];
-        $name = $this->mailData['name'];
-        $email = $this->mailData['email'];
-        $mat_khau = $this->mailData['mat_khau'];
+        $title=$this->mailData['title'];
+        $ho_ten=$this->mailData['ho'].' '.$this->mailData['ten'];
+        $dob=$this->mailData['ngay_sinh'];
+        $lop=$this->mailData['lop'];
+        $id=$this->mailData['ma_so'];
+        $gioi_tinh=$this->mailData['gioi_tinh'];
+        $dia_chi=$this->mailData['dia_chi'];
         return $this->subject($title)
-            // ->from($fromEmail, $nameAdmin)
-            ->view('send_mail.tao_tai_khoan', [
-                'body' => $body,
-                'name' => $name,
-                'email' => $email,
-                'mat_khau' => $mat_khau,
-            ]);
+        ->view('send_mail.the_doc_gia',[
+            'ho_ten'=>$ho_ten,
+            'ma_so'=>$id,
+            'lop'=>$lop,
+            'dob'=>$dob,
+            'gioi_tinh'=>$gioi_tinh,
+            'dia_chi'=>$dia_chi,
+        ]);
     }
+
     /**
      * Get the attachments for the message.
      *

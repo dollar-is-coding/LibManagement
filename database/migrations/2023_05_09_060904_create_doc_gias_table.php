@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('ten');
             $table->boolean('gioi_tinh');
             $table->string('so_dien_thoai');
+            $table->string('email');
             $table->date('ngay_sinh');
             $table->string('dia_chi');
             $table->string('lop');
-            $table->integer('truong_hoc_id');
             $table->integer('sgk');
             $table->integer('sach_khac');
             $table->timestamps();

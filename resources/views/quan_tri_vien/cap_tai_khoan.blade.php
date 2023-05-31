@@ -44,17 +44,15 @@
 
 <body>
 
-    @include('header', ['view' => 4])
+    @include('../common/header', ['view' => 4])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Cá nhân</label>
+                    <label>Quản trị viên</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('xem-thong-tin') }}" class="nav-link ">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
-                        <a href="#" class="nav-link active">Tạo tài khoản</a>
+                        <a href="#" class="nav-link active">Cấp tài khoản</a>
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link ">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
@@ -63,10 +61,10 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     <span>Cá nhân</span>
-                    <span>Tạo tài khoản</span>
+                    <span>Cấp tài khoản</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
-                    <h4 class="az-content-label mg-b-5 ml-3">Tạo tài khoản</h4>
+                    <h4 class="az-content-label mg-b-5 ml-3">Cấp tài khoản</h4>
                     <p class="mg-b-5 ml-3 ">
                         Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
                     </p>
@@ -128,19 +126,8 @@
 
                 <div class="ht-40"></div>
 
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+                @include('../common/footer')
+                
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->

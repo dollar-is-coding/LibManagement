@@ -37,7 +37,7 @@
 
 <body>
 
-    @include('header', ['view' => 4])
+    @include('../common/header', ['view' => 4])
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -47,8 +47,6 @@
                     <nav class="nav flex-column">
                         <a href="{{ route('xem-thong-tin') }}" class="nav-link ">Hồ sơ</a>
                         <a href="#" class="nav-link active">Đổi mật khẩu</a>
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Tạo tài khoản</a>
-                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -80,28 +78,19 @@
                                 <input required type="password" name="confirm_pass" class="form-control col-lg-7"
                                     placeholder="Nhập Xác Nhận Mật Khẩu" value="">
                             </div><!-- form-group -->
-                            @if (session('error'))
-                                <div class="text-danger">{{ session('error') }}</div>
-                            @endif
-                            <button class="col-lg-3 btn btn-az-primary btn-block">Cập nhật</button>
+                            <div class="az-signin-footer mt-4">&nbsp;
+                                <a href="" onMouseOver="this.style.textDecoration='underline'"
+                                    onMouseOut="this.style.textDecoration='none'">Quên mật khẩu?</a>
+                            </div>
+                            <button class="col-lg-3 btn btn-az-primary btn-block mt-2">Cập nhật</button>
                         </form>
                     </div><!-- az-signin-header -->
                 </div><!-- az-card-signin -->
 
                 <div class="ht-40"></div>
-                <div class="az-footer ht-40">
-                    <div class="container ht-100p pd-t-0-f">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                            Copyright © bootstrapdash.com 2020
-                        </span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Bootstrap admin templates
-                            </a>
-                            from Bootstrapdash.com
-                        </span>
-                    </div><!-- container -->
-                </div><!-- az-footer -->
+
+                @include('../common/footer')
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
