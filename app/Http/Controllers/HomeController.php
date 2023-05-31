@@ -19,7 +19,7 @@ class HomeController extends Controller
 
     public function xuLyDangNhap(Request $request)
     {
-        $admin=['email'=>$request->email,'password'=>$request->password,'vai_tro'=>1];
+        $admin=['email'=>$request->email,'password'=>$request->password];
         if(Auth::attempt($admin)) {
             session()->put('email_user',$admin['email']);
             return redirect()->route('trang-chu');

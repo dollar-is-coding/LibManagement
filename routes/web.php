@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QRcode;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dang-nhap', [HomeController::class, 'dangNhap'])->name('dang-nhap')->middleware('guest');
@@ -59,10 +60,12 @@ Route::prefix('/admin')->group(function () {
     Route::post('/them-sach-vao-thu-vien', [AdminController::class, 'themSachThuVien'])->name('xu-ly-them-sach')->middleware('auth');
     Route::get('/tim-kiem', [AdminController::class, 'dsTimKiem'])->name('tim-kiem')->middleware('auth');
     Route::get('/tao-tai-khoan',[AdminController::class, 'taoTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');
-    Route::post('/xu-ly-tao-tai-khoan',[AdminController::class, 'xuLytaoTaiKhoan'])->name('xu-ly-tao-tai-khoan')->middleware('auth');
+    Route::post('/xu-ly-tao-tai-khoan',[AccountController::class, 'xuLyTaoTaiKhoan'])->name('xu-ly-tao-tai-khoan')->middleware('auth');
     Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->name('quan-ly-tai-khoan')->middleware('auth');
     Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
     Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
     Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
     Route::get('/hien-thi-danh-sach-muon-sach',[AdminController::class, 'showMuonSachList'])->name('hien-thi-danh-sach-muon-sach')->middleware('auth');
 });
+
+

@@ -53,7 +53,7 @@ class AccountController extends Controller
         }
     }
 
-    public function xuLytaoTaiKhoan(Request $request)
+    public function xuLyTaoTaiKhoan(Request $request)
     {
         $user = NguoiDung::where('email', $request->email)->first();
         if (!$user) {
