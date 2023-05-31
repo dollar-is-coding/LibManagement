@@ -102,11 +102,13 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-5 d-flex justify-content-center">
+                            <div>
+                                {{ $ds_sach->links() }}
+                            </div>
+                        </div>
                     @endif
-
                 </div><!-- table-responsive -->
-
-                <div class="ht-40"></div>
 
                 @include('../common/footer')
 

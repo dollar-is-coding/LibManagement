@@ -71,7 +71,7 @@
                         <tbody>
                             @foreach ($ds_tai_khoan as $key => $item)
                                 <tr>
-                                    <th scope="row">{{ $key }}</th>
+                                    <th scope="row">{{ ++$key }}</th>
                                     <td>{{ $item->ho }}</td>
                                     <td>{{ $item->ten }}</td>
                                     <td>{{ $item->email }}</td>
@@ -80,9 +80,12 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-5 d-flex justify-content-center">
+                        <div>
+                            {{ $ds_tai_khoan->links() }}
+                        </div>
+                    </div>
                 </div><!-- bd -->
-
-                <div class="ht-40"></div>
 
                 @include('../common/footer')
 

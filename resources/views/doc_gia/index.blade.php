@@ -62,7 +62,7 @@
                     @if (blank($ds_doc_gia))
                         <div class="az-table-reference">Không tìm thấy kết quả!</div>
                     @else
-                        <table class="table mg-b-0 az-table-reference">
+                        <table class="table mg-b-0 az-table-reference mb-3">
                             <thead>
                                 <tr>
                                     <th class="wd-0p"></th>
@@ -94,10 +94,13 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-5 d-flex justify-content-center">
+                            <div>
+                                {{ $ds_doc_gia->links() }}
+                            </div>
+                        </div>
                     @endif
-                </div><!-- table-responsive -->
-
-                <div class="ht-40"></div>
+                </div>
 
                 @include('../common/footer')
 

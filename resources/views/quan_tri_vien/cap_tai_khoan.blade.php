@@ -61,10 +61,10 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     <span>Cá nhân</span>
-                    <span>Tạo tài khoản</span>
+                    <span>Cấp tài khoản</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
-                    <h4 class="az-content-label mg-b-5 ml-3">Tạo tài khoản</h4>
+                    <h4 class="az-content-label mg-b-5 ml-3">Cấp tài khoản</h4>
                     <p class="mg-b-5 ml-3 ">
                         Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
                     </p>

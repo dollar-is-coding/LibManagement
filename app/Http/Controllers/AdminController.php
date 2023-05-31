@@ -98,18 +98,24 @@ class AdminController extends Controller
 
     public function dsSach()
     {
-        return view('sach.index',['ds_sach'=>Sach::orderBy('ten','asc')->get()]);
+        return view('sach.index',['ds_sach'=>Sach::orderBy('ten','asc')->paginate(10)]);
     }
 
     public function dsTimKiem(Request $request)
     {
         if ($request->sort=='desc_name') {
-            return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->get()]);
+            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->paginate(10);
         }
         if ($request->sort=='desc_year') {
-            return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->get()]);
+            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->paginate(10);
         }
-        return view('sach.index',['ds_sach'=>Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->get()]);
+        $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->paginate(10);
+        return view('sach.index',['ds_sach'=>$ds_sach]);
+    }
+
+    public function timKiemTheoTacGia(Request $request)
+    {
+        return view('sach.index',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10)]);
     }
 
     public function suaTacgia($id, Request $request)
@@ -188,12 +194,7 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::all()]);
-    }
-
-    public function timKiemTheoTacGia(Request $request)
-    {
-        return view('sach.index',['ds_sach'=>Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->get()]);
+        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::paginate(1)]);
     }
 
     public function showCapThe()
@@ -285,7 +286,7 @@ class AdminController extends Controller
 
     public function showMuonSachList()
     {
-        $ds_doc_gia=DocGia::where('sgk','>',0)->orWhere('sach_khac','>',0)->get();
+        $ds_doc_gia=DocGia::where('sgk','>',0)->orWhere('sach_khac','>',0)->paginate(10);
         return view('doc_gia.index',['ds_doc_gia'=>$ds_doc_gia]);
     }
 
