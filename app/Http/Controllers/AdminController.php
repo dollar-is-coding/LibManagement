@@ -340,12 +340,26 @@ class AdminController extends Controller
     }
     public function xuLyTaoTaiKhoan(Request $request)
     {
+        //random 4 so va 4 chữ 
+        $numbers = '0123456789';
+        $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < 8; $i++) {
+            if ($i < 4
+            ) {
+                $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
+            } else {
+                $randomString .= $letters[rand(0, strlen($letters) - 1)];
+            }
+        }
+        //random pas chu and so
         $user = NguoiDung::where('email', $request->email)->first();
         if (!$user) {
-            session()->put('mat_khau', $request->password);
+            session()->put('mat_khau', $randomString);
             $user = NguoiDung::create([
                 'email' => $request->email,
-                'mat_khau' => Hash::make($request->password),
+                'mat_khau' => Hash::make($randomString),
                 'ho' => $request->ho,
                 'ten' => $request->ten,
                 'anh_dai_dien' => '',
