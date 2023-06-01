@@ -112,13 +112,13 @@
                             </div><!-- form-group -->
                         </div>
 
-                        <div class="row row-sm">
+                        <!-- <div class="row row-sm">
                             <div class="wd-350 form-group">
                                 <label class="m-0">&nbsp;Mật khẩu</label>
                                 <input required type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="">
-                            </div><!-- form-group -->
+                            </div>
                            
-                        </div>
+                        </div> -->
 
                         <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Tạo</button>
                     </form>
