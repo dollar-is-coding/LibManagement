@@ -143,14 +143,26 @@
                         <div class="col-lg">
                             <div class="row">
                                 <div class="col-lg form-group">
-                                    <label class="m-0">&nbsp;Họ</label>
-                                    <input required type="text" name="ho" class="form-control"
-                                        placeholder="Enter your email" value="{{ Auth::user()->ho }}">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="m-0">&nbsp;Họ</label>
+                                        @error('ho')
+                                            <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <input type="text" name="ho" class="form-control" placeholder="Nhập họ"
+                                        value="{{ Auth::user()->ho }}">
                                 </div><!-- form-group -->
                                 <div class="col-lg form-group">
-                                    <label class="m-0">&nbsp;Tên</label>
-                                    <input required type="text" name="ten" class="form-control"
-                                        placeholder="Enter your email" value="{{ Auth::user()->ten }}">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="m-0">&nbsp;Tên</label>
+                                        @error('ten')
+                                            <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <input type="text" name="ten" class="form-control" placeholder="Nhập tên"
+                                        value="{{ Auth::user()->ten }}">
                                 </div><!-- form-group -->
                             </div>
                             <div class="row row-sm align-items-end">
@@ -160,9 +172,8 @@
                                         <a style="text-decoration: underline" class=""
                                             href="{{ route('xac-minh-email') }}">Thay đổi</a>
                                     </div>
-                                    <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                        type="email" name="email" class="form-control" readonly
-                                        placeholder="Enter your email" value="{{ Auth::user()->email }}">
+                                    <input type="email" name="email" class="form-control" readonly
+                                        value="{{ Auth::user()->email }}">
                                 </div><!-- form-group -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">

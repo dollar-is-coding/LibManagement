@@ -21,6 +21,8 @@ use App\Models\TruongHoc;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
 use Carbon\Carbon;
+use App\Http\Requests\CapTheRequest;
+use App\Http\Requests\SachRequest;
 
 class AdminController extends Controller
 {
@@ -34,7 +36,7 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('sach.create', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
     }
-    public function themSachThuVien(Request $request)
+    public function themSachThuVien(SachRequest $request)
     {
         if ($request->hasFile('file_upload')) {
             $file = $request->file_upload;
@@ -47,6 +49,15 @@ class AdminController extends Controller
             $file_name = "";
             $request->merge(['hinh_anh' => $file_name]);
         }
+        $ten_sach=$request->old('ten_sach');
+        $tac_gia=$request->old('tac_gia');
+        $the_loai=$request->old('the_loai');
+        $nha_xuat_ban=$request->old('nha_xuat_ban');
+        $so_luong=$request->old('so_luong');
+        $nam_xuat_ban=$request->old('nam_xuat_ban');
+        $khu_vuc=$request->old('khu_vuc');
+        $tu_sach=$request->old('tu_sach');
+        $tom_tat=$request->old('tom_tat');
         Sach::create([
             'ten'=>$request->ten_sach,
             'tac_gia_id'=>$request->tac_gia,
@@ -65,31 +76,46 @@ class AdminController extends Controller
     }
     public function themTacGia(Request $request)
     {
-        TacGia::create(['ten' => $request->tacgia]);
-        return redirect()->route('hien-thi-them');
+        if ($request->tac_gia!='') {
+            TacGia::create(['ten' => $request->tac_gia]);
+            return redirect()->route('hien-thi-them');
+        }
+        return back()->with('error','Tác giả không được bỏ trống');
     }
     public function themNhaXuatBan(Request $request)
     {
-        NhaXuatBan::create(['ten' => $request->nhaxuatban]);
-        return redirect()->route('hien-thi-them');
+        if ($request->nha_xuat_ban!='') {
+            NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
+            return redirect()->route('hien-thi-them');
+        }
+        return back()->with('error','Nhà xuất bản không được bỏ trống');
     }
     public function themTheLoai(Request $request)
     {
-        TheLoai::create(['ten' => $request->theloai]);
-        return redirect()->route('hien-thi-them');
+        if ($request->the_loai!='') {
+            TheLoai::create(['ten' => $request->the_loai]);
+            return redirect()->route('hien-thi-them');
+        }
+        return back()->with('error','Thể loại không được bỏ trống');
     }
     public function themKhuVuc(Request $request)
     {
-        KhuVuc::create(['ten' => $request->khuvuc]);
-        return redirect()->route('hien-thi-them');
+        if ($request->khu_vuc!='') {
+            KhuVuc::create(['ten' => $request->khu_vuc]);
+            return redirect()->route('hien-thi-them');
+        }
+        return back()->with('error','Khu vực không được bỏ trống');
     }
     public function themTuSach(Request $request)
     {
-        TuSach::create([
-            'ten' => $request->tu_sach,
-            'khu_vuc_id'=>$request->khu_vuc_id,
-        ]);
-        return redirect()->route('hien-thi-them');
+        if ($request->tu_sach!='') {
+            TuSach::create([
+                'ten' => $request->tu_sach,
+                'khu_vuc_id'=>$request->khu_vuc_id,
+            ]);
+            return redirect()->route('hien-thi-them');
+        }
+        return back()->with('error','Tủ sách không được bỏ trống');
     }
 
 
@@ -223,9 +249,16 @@ class AdminController extends Controller
     {
         return view('doc_gia.create',['date'=>Carbon::now()]);
     }
-    public function handleCapThe(Request $request)
+    public function handleCapThe(CapTheRequest $request)
     {
         $existed_reader=DocGia::where('email',$request->email)->orWhere('so_dien_thoai',$request->so_dien_thoai)->first();
+        $ho=$request->old('ho');
+        $ten=$request->old('ten');
+        $lop=$request->old('lop');
+        $so_dien_thoai=$request->old('so_dien_thoai');
+        $ngay_sinh=$request->old('ngay_sinh');
+        $dia_chi=$request->old('dia_chi');
+        $email=$request->old('email');
         if (!$existed_reader) {
             $array=explode('/', $request->ngay_sinh);
             if (blank(DocGia::latest()->first())) {
@@ -239,7 +272,7 @@ class AdminController extends Controller
                     $ma_so=date('y').date('m').'0001';
                 }
             }
-            DocGia::create([
+            $validate=DocGia::create([
                 'ma_so'=>$ma_so,
                 'ho'=>$request->ho,
                 'ten'=>$request->ten,
@@ -252,6 +285,7 @@ class AdminController extends Controller
                 'sgk'=>0,
                 'sach_khac'=>0
             ]);
+            
             $mailData = [
                 'title' => 'Chào mừng bạn đến với Libro',
                 'ma_so'=>$ma_so,

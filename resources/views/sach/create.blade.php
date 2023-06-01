@@ -75,60 +75,107 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div style="display: flex;flex-direction: row-reverse;">
-
                                 <!-- form -->
                                 <div style="flex-basis: 70%">
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Tên sách</label>
-                                        <input required type="text" name="ten_sach" id="ten_sach"
-                                            class="form-control" placeholder="Nhập tên sách" value=""
-                                            tabindex="1" autofocus=true>
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Tên sách</label>
+                                            @error('ten_sach')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <input type="text" name="ten_sach" id="ten_sach" class="form-control"
+                                            placeholder="Nhập tên sách" value="{{ old('ten_sach') }}" tabindex="1">
                                     </div>
                                     <!-- form-group -->
 
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Tác giả</label>
-                                        <select required id="form-select" name="tac_gia"
-                                            class="form-control select2-no-search" tabindex="2">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Tác giả</label>
+                                            @error('tac_gia')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <select id="form-select" name="tac_gia" class="form-control select2-no-search"
+                                            tabindex="2">
                                             <option value="">Chọn tác giả</option>
                                             @foreach ($tac_gia as $item)
-                                                <option value="{{ $item->id }}">{{ $item->ten }}</option>
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('tac_gia') ? 'selected' : '' }}>
+                                                    {{ $item->ten }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Thể loại</label>
-                                        <select required id="form-select" name="the_loai"
-                                            class="form-control select2-no-search" tabindex="3">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Thể loại</label>
+                                            @error('the_loai')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <select id="form-select" name="the_loai" class="form-control select2-no-search"
+                                            tabindex="3">
                                             <option value="">Chọn thể loại</option>
                                             @foreach ($the_loai as $item)
-                                                <option value="{{ $item->id }}">{{ $item->ten }}</option>
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('the_loai') ? 'selected' : '' }}>
+                                                    {{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Nhà xuất bản</label>
-                                        <select required id="form-select" name="nha_xuat_ban"
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Nhà xuất bản</label>
+                                            @error('nha_xuat_ban')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <select id="form-select" name="nha_xuat_ban"
                                             class="form-control select2-no-search" tabindex="4">
                                             <option value="">Chọn nhà xuất bản</option>
                                             @foreach ($nha_xuat_ban as $item)
-                                                <option value="{{ $item->id }}">{{ $item->ten }}</option>
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('nha_xuat_ban') ? 'selected' : '' }}>
+                                                    {{ $item->ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Năm xuất bản</label>
-                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban"
-                                            class="form-control" placeholder="Nhập năm xuất bản" value=""
-                                            tabindex="5" />
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Năm xuất bản</label>
+                                            @error('nam_xuat_ban')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <input type="number" min="1800" max="2024" name="nam_xuat_ban"
+                                            class="form-control" placeholder="Nhập năm xuất bản"
+                                            value="{{ old('nam_xuat_ban') }}" tabindex="5" />
                                     </div>
                                     <!-- form-group -->
 
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Tủ sách</label>
-                                        <select required id="tuSachSelect" name="tu_sach"
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Tủ sách</label>
+                                            @error('tu_sach')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <select id="tuSachSelect" name="tu_sach"
                                             class="form-control select2-no-search" tabindex="6">
                                             <option value="" selected>Chọn tủ sách</option>
                                             @foreach ($khu_vuc as $khu_vuc_item)
@@ -136,7 +183,8 @@
                                                     data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
                                                     @foreach ($tu_sach as $tu_sach_item)
                                                         @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                                            <option value="{{ $tu_sach_item->id }}">
+                                                            <option value="{{ $tu_sach_item->id }}"
+                                                                {{ $tu_sach_item->id == old('tu_sach') ? 'selected' : '' }}>
                                                                 {{ $tu_sach_item->ten }}
                                                             </option>
                                                         @endif
@@ -158,19 +206,36 @@
                                     </div>
                                     <!-- số lượng -->
                                     <div style="margin-top: 6%" class="form-group">
-                                        <label class="m-0">&nbsp;Số lượng</label>
-                                        <input required type="number" min="1" name="so_luong" id="so_luong"
-                                            class="form-control" placeholder="Số lượng" value=""
-                                            tabindex="7" />
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Số lượng</label>
+                                            @error('so_luong')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    &nbsp;{{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <input type="number" min="1" name="so_luong" id="so_luong"
+                                            class="form-control" placeholder="Số lượng"
+                                            value="{{ old('so_luong') }}" tabindex="7" />
                                     </div>
                                     <!-- khu vực -->
                                     <div class="form-group">
-                                        <label class="m-0">&nbsp;Khu vực</label>
-                                        <select required id="khuVucSelect" name="khu_vuc"
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Khu vực</label>
+                                            @error('khu_vuc')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    &nbsp;{{ $message }} *&nbsp;
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <select id="khuVucSelect" name="khu_vuc"
                                             class="form-control select2-no-search" tabindex="8">
                                             <option value="">Chọn khu vực</option>
                                             @foreach ($khu_vuc as $item)
-                                                <option value="{{ $item->id }}">{{ $item->ten }}</option>
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('khu_vuc') ? 'selected' : '' }}>
+                                                    {{ $item->ten }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -179,8 +244,8 @@
 
                             <div class="form-group">
                                 <label for="">&nbsp;Nội dung tóm tắt</label>
-                                <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
-                                    tabindex="9"></textarea>
+                                <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
+                                    tabindex="9">{{ old('tom_tat') }}</textarea>
                             </div>
 
                             <div style="display: flex; justify-content: end;">
@@ -276,8 +341,8 @@
                             </div>
                             <form action="{{ route('them-tac-gia') }}" method="post">
                                 @csrf
-                                <div class="input-group mb-3">
-                                    <input required name="tacgia" type="text" class="form-control"
+                                <div class="input-group mb-2">
+                                    <input name="tac_gia" type="text" class="form-control"
                                         style="margin-right: 5%" placeholder="Thêm tác giả"
                                         aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success m-0" type="submit" style="color: white"
@@ -285,6 +350,13 @@
                                         Thêm
                                     </button>
                                 </div>
+                                @if (session('error'))
+                                    <div class="rounded-lg p-1 pl-2 pr-2 shadow-sm"
+                                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                        <span class="text-danger">{{ session('error') }}</span>
+                                    </div>
+                                @endif
                             </form>
                         </div>
 
@@ -299,7 +371,6 @@
                                                 data-target="#{{ $key + 1 }}_{{ $item->ten }}">
                                                 <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
                                             <!-- modal -->
-
                                             <div style="margin-top: 170px;" class="modal fade"
                                                 id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="exampleModalLabel"
@@ -360,13 +431,14 @@
                             <form action="{{ route('them-nha-xuat-ban') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input required name="nhaxuatban" type="text" class="form-control"
+                                    <input name="nha_xuat_ban" type="text" class="form-control"
                                         style="margin-right: 5%" placeholder="Thêm nhà xuất bản"
                                         aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success m-0" type="submit" style="color: white"
                                         id="button-addon2">
                                         Thêm
                                     </button>
+
                                 </div>
                             </form>
                         </div>
@@ -444,13 +516,14 @@
                             <form action="{{ route('them-the-loai') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input required name="theloai" type="text" class="form-control"
+                                    <input name="the_loai" type="text" class="form-control"
                                         style="margin-right: 5%" placeholder="Thêm thể loại"
                                         aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success m-0" type="submit" style="color: white"
                                         id="button-addon2">
                                         Thêm
                                     </button>
+
                                 </div>
                             </form>
                         </div>
@@ -527,7 +600,7 @@
                             <form action="{{ route('them-khu-vuc') }}" method="post">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input required name="khuvuc" type="text" class="form-control"
+                                    <input required name="khu_vuc" type="text" class="form-control"
                                         style="margin-right: 5%" placeholder="Thêm khu vực"
                                         aria-label="Recipient's username" aria-describedby="button-addon2" />
                                     <button class="btn btn-success m-0" type="submit" style="color: white"

@@ -13,6 +13,7 @@ use App\Models\ThuVien;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\TaiKhoanRequest;
 
 class HomeController extends Controller
 {
@@ -48,13 +49,14 @@ class HomeController extends Controller
     {
         return view('ca_nhan.ho_so');
     }
-    public function xuLySuaThongTin(Request $request)
+    public function xuLySuaThongTin(TaiKhoanRequest $request)
     {
+        $ho=$request->old('ho');
+        $ten=$request->old('ten');
         $nguoiDung=NguoiDung::where('id',Auth::id())->update([
             'ho'=>$request->ho,
             'ten'=>$request->ten,
             'gioi_tinh'=>(int)$request->gioi_tinh,
-            'email'=>$request->email,
         ]);
         $img =NguoiDung::find(Auth::id());
         if ($request->has('file')) {

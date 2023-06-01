@@ -5,7 +5,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -71,14 +70,27 @@
                         @csrf
                         <div class="row row-sm align-items-end mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Họ</label>
-                                <input name="ho" id="ho" class="form-control" placeholder="Nhập họ"
-                                    type="text" autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Họ</label>
+                                    @error('ho')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="ho" id="ho" class="form-control" value="{{ old('ho') }}"
+                                    placeholder="Nhập họ" type="text" autocomplete="off">
                             </div>
+
                             <div class="col-lg form-group m-0">
-                                <label class="m-0">&nbsp;Tên</label>
-                                <input name="ten" id="ten" class="form-control" placeholder="Nhập tên"
-                                    type="text" autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Tên</label>
+                                    @error('ten')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="ten" id="ten" value="{{ old('ten') }}" class="form-control"
+                                    placeholder="Nhập tên" type="text" autocomplete="off">
                             </div>
                             <div class="mb-1">
                                 <label class="rdiobox">
@@ -96,43 +108,75 @@
 
                         <div class="row row-sm mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Lớp</label>
-                                <input name="lop" class="form-control" placeholder="Nhập lớp" type="text"
-                                    autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Lớp</label>
+                                    @error('lop')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="lop" class="form-control" value="{{ old('lop') }}"
+                                    placeholder="Nhập lớp" type="text" autocomplete="off">
                             </div>
                             <div class="col-lg">
-                                <label class="m-0">&nbsp;Ngày sinh</label>
-                                <input name="ngay_sinh" class="form-control" id="datetimepicker"
-                                    placeholder="DD/MM/YYYY" type="text" autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Ngày sinh</label>
+                                    @error('ngay_sinh')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="ngay_sinh" class="form-control" value="{{ old('ngay_sinh') }}"
+                                    id="datetimepicker" placeholder="DD/MM/YYYY" type="text" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="row row-sm mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Điện thoại</label>
-                                <input name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại"
-                                    type="text" autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Số điện thoại</label>
+                                    @error('so_dien_thoai')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="so_dien_thoai" class="form-control" value="{{ old('so_dien_thoai') }}"
+                                    placeholder="Nhập số điện thoại" type="text" autocomplete="off">
                             </div>
                             <div class="col-lg">
-                                <label class="m-0">&nbsp;Email</label>
-                                <input name="email" class="form-control" type="email" autocomplete="off"
-                                    placeholder="Nhập email" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Email</label>
+                                    @error('email')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input name="email" class="form-control" value="{{ old('email') }}"
+                                    type="text" autocomplete="off" placeholder="Nhập email">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="dia_chi" class="m-0">&nbsp;Địa chỉ</label>
-                            <input type="text" name="dia_chi" class="form-control" placeholder="Nhập địa chỉ"
-                                autocomplete="off" required>
+                        <div class="form-group mg-b-20">
+                            <div class="d-flex justify-content-between">
+                                <label class="m-0">&nbsp;Địa chỉ</label>
+                                @error('dia_chi')
+                                    <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                    </div>
+                                @enderror
+                            </div>
+                            <input type="text" name="dia_chi" class="form-control" value="{{ old('dia_chi') }}"
+                                placeholder="Nhập địa chỉ" autocomplete="off">
                         </div>
-
+                        @if (session('error'))
+                            <span class="rounded-lg p-2"
+                                style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                <span class="text-danger">{{ session('error') }} *&nbsp;</span>
+                            </span>
+                        @endif
                         <div class="col-sm-6 col-md-3 p-0">
                             <button id="button" class="btn btn-primary btn-block">Tạo thẻ</button>
                         </div>
-
-                        @if (session('error'))
-                            <p>{{ session('error') }}</p>
-                        @endif
                     </form>
                 </div>
 
