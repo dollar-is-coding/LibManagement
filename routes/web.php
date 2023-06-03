@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\QRcode;
 use Illuminate\Support\Facades\Route;
 
+use LaravelQRCode\Facades\QRCode as qrcodea;
 
 // DASHBOARD
 Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');

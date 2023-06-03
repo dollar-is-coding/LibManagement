@@ -30,6 +30,8 @@ class SendCreateReaderCardMail extends Mailable
         $id=$this->mailData['ma_so'];
         $gioi_tinh=$this->mailData['gioi_tinh'];
         $dia_chi=$this->mailData['dia_chi'];
+        $qrcode = $this->mailData['qrcode'];
+
         return $this->subject($title)
         ->view('send_mail.the_doc_gia',[
             'ho_ten'=>$ho_ten,
@@ -38,6 +40,7 @@ class SendCreateReaderCardMail extends Mailable
             'dob'=>$dob,
             'gioi_tinh'=>$gioi_tinh,
             'dia_chi'=>$dia_chi,
+            'qrcode' =>     $qrcode 
         ]);
     }
 

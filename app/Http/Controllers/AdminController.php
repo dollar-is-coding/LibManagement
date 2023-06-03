@@ -21,6 +21,8 @@ use App\Models\TruongHoc;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
 use Carbon\Carbon;
+use LaravelQRCode\Facades\QRCode;
+use LaravelQRCode\QRCodeFactory;
 
 class AdminController extends Controller
 {
@@ -239,6 +241,31 @@ class AdminController extends Controller
                     $ma_so=date('y').date('m').'0001';
                 }
             }
+            $path = 'img/qr/';
+            $file = $path . 'qr.png';
+            QRCode::text($ma_so)
+                ->setErrorCorrectionLevel('H')
+                ->setSize(4)
+                ->setMargin(2)
+                ->setOutfile($file)
+                ->png();
+            $path = $file;
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            switch ($type) {
+                case 'png':
+                    $ctype = 'image/png';
+                    break;
+                case 'jpeg':
+                case 'jpg':
+                    $ctype = 'image/jpeg';
+                    break;
+                default:
+                    $ctype = 'application/octet-stream';
+            }
+
+            $data = file_get_contents($path);
+            $base64 = 'data:' . $ctype . ';base64,' . base64_encode($data);
+            
             DocGia::create([
                 'ma_so'=>$ma_so,
                 'ho'=>$request->ho,
@@ -260,7 +287,8 @@ class AdminController extends Controller
                 'gioi_tinh'=>(int)$request->gioi_tinh,
                 'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
                 'lop'=>$request->lop,
-                'dia_chi'=>$request->dia_chi
+                'dia_chi'=>$request->dia_chi,
+                'qrcode'=> $base64
             ];
             $mailable=new SendCreateReaderCardMail($mailData);
             Mail::to($request->email)->send($mailable);

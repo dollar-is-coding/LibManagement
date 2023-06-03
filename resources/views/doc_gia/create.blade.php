@@ -131,7 +131,7 @@
                         </div>
 
                         @if (session('error'))
-                            <p>{{ session('error') }}</p>
+                            <p style="color: red;">{{ session('error') }}</p>
                         @endif
                     </form>
                 </div>
