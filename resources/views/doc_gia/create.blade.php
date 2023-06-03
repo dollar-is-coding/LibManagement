@@ -5,6 +5,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -50,7 +51,6 @@
                     <label>Độc giả</label>
                     <nav class="nav flex-column">
                         <a href="#" class="nav-link active">Cấp thẻ</a>
-                        <a href="" class="nav-link">Quản lý</a>
                     </nav>
                     <label>Mượn sách</label>
                     <nav class="nav flex-column">
@@ -100,7 +100,8 @@
                             </div>
                             <div class="mb-1">
                                 <label class="rdiobox">
-                                    <input name="gioi_tinh" type="radio" value="0">
+                                    <input name="gioi_tinh" type="radio" value="2"
+                                        {{ old('gioi_tinh') == 2 ? 'checked' : '' }}>
                                     <span>Nữ</span>
                                 </label>
                             </div>
@@ -122,7 +123,7 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="m-0">&nbsp;Ngày sinh</label>
                                     @error('ngay_sinh')
-                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }}
                                         </div>
                                     @enderror
                                 </div>
@@ -167,16 +168,24 @@
                             <input type="text" name="dia_chi" class="form-control" value="{{ old('dia_chi') }}"
                                 placeholder="Nhập địa chỉ" autocomplete="off">
                         </div>
-                        @if (session('error'))
-                            <span class="rounded-lg p-2"
+                        @if (session('success'))
+                            <span class="rounded-lg p-2 pl-3 pr-4 shadow-sm"
                                 style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                                <span class="text-danger">{{ session('error') }} *&nbsp;</span>
+                                <i class="typcn typcn-input-checked h-4" style="font-size:18px;color:#402DA1"></i>
+                                <span class="ml-1">{{ session('success') }}</span>
                             </span>
+                        @else
+                            @if (session('error'))
+                                <span class="rounded-lg p-2 pl-3 pr-4 shadow" style="border: #dbd7fa 1px solid">
+                                    <i class="typcn typcn-warning h-4" style="font-size:18px;color:red"></i>
+                                    <span class="ml-1">{{ session('error') }}</span>
+                                </span>
+                            @endif
                         @endif
                         <div class="col-sm-6 col-md-3 p-0">
-                            <button id="button" class="btn btn-primary btn-block">Tạo thẻ</button>
+                            <button id="button" class="btn btn-primary btn-block">Tạo thẻ mới</button>
                         </div>
+
                     </form>
                 </div>
 

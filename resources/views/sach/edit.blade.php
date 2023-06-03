@@ -71,8 +71,15 @@
                             <!-- form -->
                             <div style="flex-basis: 70%" class="mb-0">
                                 <div class="form-group">
-                                    <label class="m-0">&nbsp;Tên sách</label>
-                                    <input required type="text" name="ten_sach" id="ten_sach" class="form-control"
+                                    <div class="d-flex justify-content-between">
+                                        <label class="m-0">&nbsp;Tên sách</label>
+                                        @error('ten_sach')
+                                            <div style="font-style: italic;" class="text-danger">
+                                                {{ $message }} *&nbsp;
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <input type="text" name="ten_sach" id="ten_sach" class="form-control"
                                         placeholder="Nhập tên sách" value="{{ $item->fkSach->ten }}" tabindex="1"
                                         autofocus=true>
                                 </div>
@@ -123,9 +130,16 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="m-0">&nbsp;Năm xuất bản</label>
+                                    <div class="d-flex justify-content-between">
+                                        <label class="m-0">&nbsp;Năm xuất bản</label>
+                                        @error('nam_xuat_ban')
+                                            <div style="font-style: italic;" class="text-danger">
+                                                {{ $message }} *&nbsp;
+                                            </div>
+                                        @enderror
+                                    </div>
                                     @foreach ($sach as $item)
-                                        <input required type="number" min="1800" max="2024" name="nam_xuat_ban"
+                                        <input type="number" min="1800" max="2024" name="nam_xuat_ban"
                                             class="form-control" placeholder="Nhập năm xuất bản"
                                             value="{{ $item->fkSach->nam_xuat_ban }}" tabindex="5" />
                                     @endforeach
@@ -160,8 +174,8 @@
                                     <div class="upload-container"
                                         style="background-size:cover;background-image: url('../img/default/no_image_available.jpg');">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
-                                            name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10"
-                                            required />
+                                            name="file" accept="image/*" onchange="chooseFile(this)"
+                                            tabindex="10" />
                                         <div id="preview-container" class="preview-container"></div>
                                     </div>
                                 @else
@@ -175,8 +189,15 @@
                                 @endif
                                 <!-- số lượng -->
                                 <div style="margin-top: 6%" class="form-group col-lg pl-0">
-                                    <label class="m-0">&nbsp;Số lượng</label>
-                                    <input required type="number" min="1" name="so_luong" id="so_luong"
+                                    <div class="d-flex justify-content-between">
+                                        <label class="m-0">&nbsp;Số lượng</label>
+                                        @error('so_luong')
+                                            <div style="font-style: italic;" class="text-danger">{{ $message }}
+                                                *&nbsp;
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <input type="number" min="1" name="so_luong" id="so_luong"
                                         class="form-control" placeholder="Số lượng" value="{{ $item->so_luong }}"
                                         tabindex="7" />
                                 </div>
@@ -201,7 +222,7 @@
                         <div class="form-group ml-3">
                             <label class="m-0">&nbsp;Nội dung tóm tắt</label>
                             @foreach ($sach as $item)
-                                <textarea required rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
+                                <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách"
                                     tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
                             @endforeach
                         </div>

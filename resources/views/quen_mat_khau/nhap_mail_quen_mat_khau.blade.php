@@ -41,26 +41,32 @@
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
             <div class="az-signin-header">
-                <h2>Xác minh tài khoản</h2>
+                <h2>Xác thực email</h2>
                 <!-- <h4>Xác minh tài khoản</h4> -->
-
                 <form action="" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Email</label>
-                        <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Nhập email của bạn" value="">
+                        <label>&nbsp;Email</label>
+                        <input type="text" name="email" class="form-control" placeholder="Nhập email của bạn">
                     </div><!-- form-group -->
-                    <button type="submit" class="btn btn-az-primary btn-block">Send</button>
+                    <button type="submit" class="btn btn-az-primary btn-block mb-2">Gửi</button>
+                    @if (session('error'))
+                        <div class="row justify-content-center">
+                            <span class="rounded-lg p-1 pl-2 pr-2"
+                                style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                <span class="text-danger">{{ session('error') }}</span>
+                            </span>
+                        </div>
+                    @endif
                 </form>
-                @if (session('error'))
-                <div class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('error') }}</div>
-                @endif
+
             </div><!-- az-signin-header -->
             <div class="az-signin-footer">
                 <!-- @if ($errors->any())
-                {{ implode('', $errors->all('<div>:message</div>')) }}
-                @endif -->
-                <p><a href="{{route('dang-nhap')}}">Quay lại</a></p>
+{{ implode('', $errors->all('<div>:message</div>')) }}
+@endif -->
+                <p><a href="{{ route('dang-nhap') }}">Quay lại</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->

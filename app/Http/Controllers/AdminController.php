@@ -23,6 +23,7 @@ use App\Models\PhieuMuonSach;
 use Carbon\Carbon;
 use App\Http\Requests\CapTheRequest;
 use App\Http\Requests\SachRequest;
+use App\Http\Requests\CapTaiKhoanRequest;
 
 class AdminController extends Controller
 {
@@ -161,7 +162,8 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
-    public function xuLySuaSach($id, Request $request){
+    public function xuLySuaSach($id, SachRequest $request)
+    {
         Sach::find($id)->update([
             'ten' => $request->ten_sach,
             'tac_gia_id' => $request->tac_gia,
@@ -259,6 +261,7 @@ class AdminController extends Controller
         $ngay_sinh=$request->old('ngay_sinh');
         $dia_chi=$request->old('dia_chi');
         $email=$request->old('email');
+        $gioi_tinh=$request->old('gioi_tinh');
         if (!$existed_reader) {
             $array=explode('/', $request->ngay_sinh);
             if (blank(DocGia::latest()->first())) {
@@ -285,7 +288,6 @@ class AdminController extends Controller
                 'sgk'=>0,
                 'sach_khac'=>0
             ]);
-            
             $mailData = [
                 'title' => 'Chào mừng bạn đến với Libro',
                 'ma_so'=>$ma_so,
@@ -298,7 +300,7 @@ class AdminController extends Controller
             ];
             $mailable=new SendCreateReaderCardMail($mailData);
             Mail::to($request->email)->send($mailable);
-            return redirect()->route('cap-the-doc-gia');
+            return back()->with('success','Tạo thẻ mới thành công');
         } else {
             return back()->with('error','Số điện thoại hoặc email đã được sử dụng');
         }
@@ -329,16 +331,22 @@ class AdminController extends Controller
         $doc_gia=DocGia::find($id);
         $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
         return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-        return back()->redirect('hien-thi-doc-gia');
+    }
+
+    public function return($id)
+    {
+        $doc_gia=DocGia::find($id);
+        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+        return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
     }
 
 
     // Cấp tài khoản - quản lý tài khoản
     public function capTaiKhoan()
     {
-        return view('quan_tri_vien.cap_tai_khoan');
+        return view('tai_khoan.create');
     }
-    public function xuLyTaoTaiKhoan(Request $request)
+    public function xuLyTaoTaiKhoan(CapTaiKhoanRequest $request)
     {
         //random 4 so va 4 chữ 
         $numbers = '0123456789';
@@ -353,6 +361,11 @@ class AdminController extends Controller
                 $randomString .= $letters[rand(0, strlen($letters) - 1)];
             }
         }
+        $ho=$request->old('ho');
+        $ten=$request->old('ten');
+        $vai_tro=$request->old('vai_tro');
+        $email=$request->old('email');
+        $gioi_tinh=$request->old('gioi_tinh');
         //random pas chu and so
         $user = NguoiDung::where('email', $request->email)->first();
         if (!$user) {
@@ -369,7 +382,7 @@ class AdminController extends Controller
             $this->taoTaiKhoan($user);
             return redirect()->route('tao-tai-khoan');
         } else {
-            return redirect()->back()->with('errorMail', 'Email đã tồn tại');
+            return back()->with('errorMail', 'Không thể tạo tài khoản do email đã tồn tại');
         }
     }
     public function taoTaiKhoan($user)
@@ -388,6 +401,6 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        return view('quan_tri_vien.quan_ly_tai_khoan',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
+        return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
     }
 }

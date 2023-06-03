@@ -177,15 +177,14 @@
                                 </div><!-- form-group -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="gioi_tinh" value="1" type="radio"
-                                            {{ Auth::user()->gioi_tinh == 1 ? 'checked' : '' }}>
+                                        <input name="gioi_tinh" value="1" type="radio" checked>
                                         <span>Nam</span>
                                     </label>
                                 </div><!-- col-3 -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="gioi_tinh" value="0" type="radio"
-                                            {{ Auth::user()->gioi_tinh == 0 ? 'checked' : '' }}>
+                                        <input name="gioi_tinh" value="2" type="radio"
+                                            {{ Auth::user()->gioi_tinh == 2 ? 'checked' : '' }}>
                                         <span>Nữ</span>
                                     </label>
                                 </div><!-- col-3 -->

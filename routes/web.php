@@ -60,6 +60,7 @@ Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu
 Route::get('/hien-thi-doc-gia',[AdminController::class, 'showDocGiaList'])->name('hien-thi-doc-gia')->middleware('auth');
 Route::get('/tim-kiem-doc-gia',[AdminController::class, 'HandleDocGiaSearch'])->name('tim-kiem-doc-gia')->middleware('auth');
 Route::get('/hien-thi-chi-tiet-doc-gia/{id}',[AdminController::class, 'showChiTietDocGia'])->name('hien-thi-chi-tiet-doc-gia')->middleware('auth');
+Route::get('/tra-sach/{id}',[AdminController::class, 'return'])->name('tra-sach')->middleware('auth');
 
 // MƯỢN SÁCH
 Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');

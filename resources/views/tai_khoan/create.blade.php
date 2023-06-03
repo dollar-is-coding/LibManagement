@@ -73,12 +73,28 @@
                         @csrf
                         <div class="row row-sm align-items-end mg-b-20">
                             <div class="wd-350 form-group m-0">
-                                <label class="m-0">&nbsp;Họ</label>
-                                <input class="form-control" name="ho" placeholder="Nhập họ" type="text" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Họ</label>
+                                    @error('ho')
+                                        <div style="font-style: italic;" class="text-danger">
+                                            {{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input class="form-control" name="ho" value="{{ old('ho') }}"
+                                    placeholder="Nhập họ" type="text" autocomplete="off">
                             </div><!-- col -->
                             <div class="col-lg form-group m-0">
-                                <label class="m-0">&nbsp;Tên</label>
-                                <input class="form-control" name="ten" placeholder="Nhập tên" type="text" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Tên</label>
+                                    @error('ten')
+                                        <div style="font-style: italic;" class="text-danger">
+                                            {{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input class="form-control" name="ten" value="{{ old('ten') }}"
+                                    placeholder="Nhập tên" type="text" autocomplete="off">
                             </div><!-- col -->
                             <div class="mb-1">
                                 <label class="rdiobox">
@@ -88,7 +104,8 @@
                             </div><!-- col-3 -->
                             <div class="mb-1">
                                 <label class="rdiobox">
-                                    <input name="gioi_tinh" value="2" type="radio">
+                                    <input name="gioi_tinh" value="2" type="radio"
+                                        {{ old('gioi_tinh') == 2 ? 'checked' : '' }}>
                                     <span>Nữ</span>
                                 </label>
                             </div><!-- col-3 -->
@@ -96,38 +113,53 @@
 
                         <div class="row row-sm">
                             <div class="wd-350">
-                                <label class="m-0">&nbsp;Vai trò</label>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Vai trò</label>
+                                    @error('vai_tro')
+                                        <div style="font-style: italic;" class="text-danger">
+                                            {{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
                                 <select name="vai_tro" class="form-control select2-no-search">
-                                    <option label="Choose one"></option>
-                                    <option value="1">Quản trị viên</option>
-                                    <option value="0">Thủ thư</option>
+                                    <option value="" selected></option>
+                                    <option value="1" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên
+                                    </option>
+                                    <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
                                 </select>
                             </div><!-- col-4 -->
                             <div class="col-lg form-group">
-                                <label class="m-0">&nbsp;Email</label>
-                                <input required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" type="email" name="email" class="form-control" placeholder="Nhập email" value="">
-                                @if (session('errorMail'))
-                                <i class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('errorMail') }}</i>
-                                @endif
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Email</label>
+                                    @error('email')
+                                        <div style="font-style: italic;" class="text-danger">
+                                            {{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input type="text" name="email" class="form-control" placeholder="Nhập email"
+                                    value="{{ old('email') }}" autocomplete="off">
                             </div><!-- form-group -->
                         </div>
 
-                        <!-- <div class="row row-sm">
-                            <div class="wd-350 form-group">
-                                <label class="m-0">&nbsp;Mật khẩu</label>
-                                <input required type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="">
-                            </div>
-                           
-                        </div> -->
+                        @if (session('errorMail'))
+                            <span class="rounded-lg p-2"
+                                style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                <span class="text-danger">{{ session('errorMail') }}</span>
+                            </span>
+                        @endif
 
-                        <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Tạo</button>
+                        <div class="col-sm-6 col-md-3 p-0">
+                            <button id="button" class="btn btn-primary btn-block">Tạo tài khoản mới</button>
+                        </div>
                     </form>
                 </div><!-- az-card-signin -->
 
                 <div class="ht-40"></div>
 
                 @include('../common/footer')
-                
+
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->

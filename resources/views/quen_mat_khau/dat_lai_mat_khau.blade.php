@@ -44,27 +44,45 @@
                 <h2>Đặt lại mật khẩu</h2>
                 <!-- <h4>Please sign in to continue</h4> -->
 
-                <form action="{{route('xu-ly-dat-lai-mat-khau')}}" method="POST">
+                <form action="{{ route('xu-ly-dat-lai-mat-khau') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Pasword</label>
-                        <input required type="password" name="password" class="form-control" placeholder="Enter your password" value="">
+                        <div class="d-flex justify-content-between">
+                            <label class="m-0">&nbsp;Mật khẩu mới</label>
+                            {{-- @error('new_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                            @enderror --}}
+                        </div>
+                        <input type="password" name="new_pass" class="form-control" placeholder="Nhập mật khẩu mới">
                     </div><!-- form-group -->
                     <div class="form-group">
-                        <label>Re-enter Password</label>
-                        <input required type="password" name="again_password" class="form-control" placeholder="Re-enter password" value="">
+                        <div class="d-flex justify-content-between">
+                            <label class="m-0">&nbsp;Xác minh mật khẩu</label>
+                            {{-- @error('confirm_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                            @enderror --}}
+                        </div>
+                        <input type="password" name="confirm_pass" class="form-control"
+                            placeholder="Nhập xác minh mật khẩu">
                     </div><!-- form-group -->
-                    <button class="btn btn-az-primary btn-block">Save</button>
+                    <button class="btn btn-az-primary btn-block">Lưu</button>
                 </form>
                 @if (session('error'))
-                <div class="text-center text-danger fst-italic" style="margin-top: 10px;">{{ session('error') }}</div>
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2"
+                            style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('error') }}</span>
+                        </span>
+                    </div>
                 @endif
             </div><!-- az-signin-header -->
             <div class="az-signin-footer">
-                <!-- @if ($errors->any())
-                {{ implode('', $errors->all('<div>:message</div>')) }}
-                @endif -->
-                <p><a href="{{route('dang-nhap')}}">Trở về đăng nhập</a></p>
+                <p><a href="{{ route('dang-nhap') }}">Trở về đăng nhập</a></p>
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->
