@@ -64,25 +64,39 @@
                         <form action="{{ route('xu-ly-doi-mat-khau') }}" class="col-lg" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label class="m-0">&nbsp;Mật Khẩu Hiện Tại</label>
-                                <input required type="password" name="old_pass" class="form-control col-lg-7"
-                                    placeholder="Nhập Mật Khẩu Hiện Tại" value="">
+                                <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
+                                    <label class="m-0">&nbsp;Mật khẩu hiện tại</label>
+                                </div>
+                                <input type="password" name="old_pass" class="form-control col-lg-7"
+                                    placeholder="Nhập Mật Khẩu Hiện Tại">
                             </div><!-- form-group -->
                             <div class="form-group">
-                                <label class="m-0">&nbsp;Mật Khẩu Mới</label>
-                                <input required type="password" name="new_pass" class="form-control col-lg-7"
-                                    placeholder="Nhập Mật Khẩu Mới" value="">
+                                <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
+                                    <label class="m-0">&nbsp;Mật khẩu mới</label>
+                                </div>
+                                <input type="password" name="new_pass" class="form-control col-lg-7"
+                                    placeholder="Nhập Mật Khẩu Mới">
                             </div><!-- form-group -->
                             <div class="form-group">
-                                <label class="m-0">&nbsp;Xác Nhận Mật Khẩu</label>
-                                <input required type="password" name="confirm_pass" class="form-control col-lg-7"
-                                    placeholder="Nhập Xác Nhận Mật Khẩu" value="">
+                                <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
+                                    <label class="m-0">&nbsp;Xác minh mật khẩu</label>
+                                </div>
+                                <input type="password" name="confirm_pass" class="form-control col-lg-7"
+                                    placeholder="Nhập Xác Nhận Mật Khẩu">
                             </div><!-- form-group -->
-                            <div class="az-signin-footer mt-4">&nbsp;
-                                <a href="" onMouseOver="this.style.textDecoration='underline'"
+                            <div class="az-signin-footer row align-items-center ml-0 pl-0 col-lg-7">
+                                <a href="" class="p-2 pl-1" onMouseOver="this.style.textDecoration='underline'"
                                     onMouseOut="this.style.textDecoration='none'">Quên mật khẩu?</a>
+                                @if (session('error'))
+                                    <span class="rounded-lg p-1 pl-2 pr-2 shadow-sm col-lg"
+                                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                        <span class="text-danger">{{ session('error') }}</span>
+                                    </span>
+                                @endif
                             </div>
-                            <button class="col-lg-3 btn btn-az-primary btn-block mt-2">Cập nhật</button>
+                            <button class="col-lg-3 btn btn-az-primary btn-block mt-2 mb-3">Cập nhật</button>
+
                         </form>
                     </div><!-- az-signin-header -->
                 </div><!-- az-card-signin -->

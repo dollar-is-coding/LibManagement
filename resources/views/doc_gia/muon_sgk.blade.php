@@ -51,7 +51,6 @@
                     <label>Độc giả</label>
                     <nav class="nav flex-column">
                         <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
-                        <a href="" class="nav-link">Quản lý</a>
                     </nav>
                     <label>Mượn sách</label>
                     <nav class="nav flex-column">
@@ -71,22 +70,38 @@
                         @csrf
                         <div class="row mg-b-20">
                             <div class="col-lg">
-                                <label class="m-0">&nbsp;Mã số</label>
-                                <select name="ma_so" class="form-control ma-so" required>
-                                    <option label="Chon truong"></option>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Mã số</label>
+                                    @error('ma_so')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <select name="ma_so" class="form-control ma-so">
+                                    <option label=""></option>
                                     @foreach ($ds_doc_gia as $item)
-                                        <option value="{{ $item->id }}">{{ $item->ma_so }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ old('ma_so') == $item->id ? 'selected' : '' }}>
+                                            {{ $item->ma_so }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg"></div>
                         </div>
                         <div class="form-group mg-b-20">
-                            <label class="m-0">&nbsp;Sách</label>
+                            <div class="d-flex justify-content-between">
+                                <label class="m-0">&nbsp;Sách</label>
+                                @error('sach')
+                                    <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                    </div>
+                                @enderror
+                            </div>
                             <select class="form-control ds-sach" name="sach[]" multiple="multiple">
                                 @foreach ($sgk as $item)
                                     @if ($item->fkSach->the_loai_id == 1)
-                                        <option value="{{ $item->id }}">{{ $item->fkSach->ten }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ collect(old('sach'))->contains($item->id) ? 'selected' : '' }}>
+                                            {{ $item->fkSach->ten }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -98,9 +113,15 @@
                                     placeholder="DD/MM/YYYY" class="form-control" readonly>
                             </div>
                             <div class="col-lg">
-                                <label class="m-0">&nbsp;Ngày trả</label>
-                                <input type="text" name="ngay_tra" id="datetimepicker" placeholder="DD/MM/YYYY"
-                                    class="form-control" autocomplete="off" required>
+                                <div class="d-flex justify-content-between">
+                                    <label class="m-0">&nbsp;Ngày trả</label>
+                                    @error('ngay_tra')
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
+                                    @enderror
+                                </div>
+                                <input type="text" value="{{ old('ngay_tra') }}" name="ngay_tra" id="datetimepicker"
+                                    placeholder="DD/MM/YYYY" class="form-control" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 p-0">

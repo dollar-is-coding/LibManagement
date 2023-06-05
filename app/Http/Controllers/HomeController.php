@@ -13,6 +13,10 @@ use App\Models\ThuVien;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\TaiKhoanRequest;
+use App\Http\Requests\MatKhauRequest;
+use App\Http\Requests\DangNhapRequest;
+use App\Http\Requests\MuonSachRequest;
 
 class HomeController extends Controller
 {
@@ -27,8 +31,10 @@ class HomeController extends Controller
     {
         return view('dang_nhap');
     }
-    public function xuLyDangNhap(Request $request)
+    public function xuLyDangNhap(DangNhapRequest $request)
     {
+        $email=$request->old('email');
+        $password=$request->old('password');
         $admin=['email'=>$request->email,'password'=>$request->password];
         if(Auth::attempt($admin)) {
             session()->put('email_user',$admin['email']);
@@ -48,13 +54,14 @@ class HomeController extends Controller
     {
         return view('ca_nhan.ho_so');
     }
-    public function xuLySuaThongTin(Request $request)
+    public function xuLySuaThongTin(TaiKhoanRequest $request)
     {
+        $ho=$request->old('ho');
+        $ten=$request->old('ten');
         $nguoiDung=NguoiDung::where('id',Auth::id())->update([
             'ho'=>$request->ho,
             'ten'=>$request->ten,
             'gioi_tinh'=>(int)$request->gioi_tinh,
-            'email'=>$request->email,
         ]);
         $img =NguoiDung::find(Auth::id());
         if ($request->has('file')) {
@@ -78,7 +85,7 @@ class HomeController extends Controller
             ]);
             return redirect()->back();
         }
-        return redirect()->back()->with('error','Thay đổi mật khẩu thất bại!');
+        return back()->with('error','Thay đổi mật khẩu thất bại');
     }
 
 
@@ -89,8 +96,11 @@ class HomeController extends Controller
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-    public function handleMuonSGK(Request $request)
+    public function handleMuonSGK(MuonSachRequest $request)
     {
+        $ma_so=$request->old('ma_so');
+        $sach=$request->old('sach');
+        $ngay_tra=$request->old('ngay_tra');
         foreach ($request->sach as $key => $value) {
             $ngay_muon=explode('/', $request->ngay_muon);
             $ngay_tra=explode('/', $request->ngay_tra);
@@ -117,8 +127,10 @@ class HomeController extends Controller
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-    public function handleMuonSachKhac(Request $request)
+    public function handleMuonSachKhac(MuonSachRequest $request)
     {
+        $ma_so=$request->old('ma_so');
+        $sach=$request->old('sach');
         $ngay_muon=explode('/', $request->ngay_muon);
         $ngay_tra=explode('/', $request->ngay_tra);
         PhieuMuonSach::create([
@@ -161,7 +173,7 @@ class HomeController extends Controller
             Mail::to($emailTo)->send($mailable);
             return redirect()->route('nhap-ma-xac-minh');
         } else {
-            return redirect()->back()->with('error', 'Email không tồn tại');
+            return back()->with('error', 'Email không tồn tại');
         }
     }
     public function nhapMaXacMinh()
@@ -175,7 +187,7 @@ class HomeController extends Controller
         if ($verify == $verify_nguoidung) {
             return redirect()->route('dat-lai-mat-khau');
         } else {
-            return redirect()->back()->with('error', 'Mã không hợp lệ');
+            return back()->with('error', 'Mã không hợp lệ');
         }
     }
     public function datLaiMatKhau(){
@@ -183,14 +195,14 @@ class HomeController extends Controller
     }
     public function xuLyDatLaiMatKhau(Request $request)
     {
-        $email =session()->get('emailTo');
-        if ($request->password == $request->again_password) {
+        $email=session()->get('emailTo');
+        if ($request->new_pass == $request->confirm_pass) {
             NguoiDung::where('email',$email)->update([
-                'mat_khau' => Hash::make($request->password),
+                'mat_khau' => Hash::make($request->new_pass),
             ]);
             return redirect()->route('dang-nhap');
         }
-        return redirect()->back()->with('error', 'Mật khẩu không trùng nhau!');
+        return back()->with('error', 'Mật khẩu không trùng nhau!');
     }
 
 
@@ -217,7 +229,7 @@ class HomeController extends Controller
         if ($verify == $verify_nguoidung) {
             return redirect()->route('doi-email');
         } else {
-            return redirect()->back()->with('error', 'Mã không hợp lệ');
+            return back()->with('error', 'Mã không hợp lệ');
         }
     }
     public function doiEmail()
@@ -238,6 +250,6 @@ class HomeController extends Controller
             ]);
             return redirect()->route('xem-thong-tin');
         }
-        return redirect()->back()->with('error', 'Email mới không được trùng với email hiện tại');
+        return back()->with('error', 'Email mới không được trùng với email hiện tại');
     }
 }

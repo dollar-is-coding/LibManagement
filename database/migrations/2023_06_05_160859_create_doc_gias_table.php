@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('doc_gia', function (Blueprint $table) {
             $table->id();
-            $table->string('ma_so');
+            $table->string('ma_doc_gia');
+            $table->string('mat_khau');
             $table->string('ho');
             $table->string('ten');
-            $table->boolean('gioi_tinh');
-            $table->string('so_dien_thoai');
             $table->string('email');
+            $table->string('dien_thoai');
+            $table->tinyInteger('gioi_tinh');
             $table->date('ngay_sinh');
             $table->string('dia_chi');
-            $table->string('lop');
-            $table->integer('sgk');
-            $table->integer('sach_khac');
+            $table->integer('dang_muon');
+            $table->integer('da_muon');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -45,8 +45,10 @@
                 <div class="component-item">
                     <label>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</label>
                     <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Chi tiết</a>
-                        <a href="#" class="nav-link">Trả sách</a>
+                        <a class="nav-link active">Chi tiết</a>
+                        @if ($doc_gia->sgk > 0 || $doc_gia->sach_khac > 0)
+                            <a href="{{ route('tra-sach', ['id' => $doc_gia->id]) }}" class="nav-link">Trả sách</a>
+                        @endif
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -107,7 +109,7 @@
                             </div>
                             <div class="rounded-lg p-1 pl-2 pr-2 mb-2"
                                 style="background-color: #F2F0FE; border:#C6BCF8 1px solid;color: #402DA1;">
-                                <i class="typcn typcn-input-checked" style="font-size:18px"></i>
+                                <i class="typcn typcn-shopping-cart" style="font-size:18px"></i>
                                 {{ $doc_gia->sgk }} SGK - {{ $doc_gia->sach_khac }} sách khác
                             </div>
                         </div>

@@ -11,17 +11,5 @@ class DocGia extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='doc_gia';
-    protected $fillable=[
-        'ma_so',
-        'ho',
-        'ten',
-        'so_dien_thoai',
-        'email',
-        'ngay_sinh',
-        'gioi_tinh',
-        'dia_chi',
-        'lop',
-        'sgk',
-        'sach_khac'
-    ];
+    protected $fillable=['ma_doc_gia','ho','ten','mat_khau','email','ngay_sinh','dien_thoai','gioi_tinh','dia_chi','dang_muon','da_muon'];
 }
