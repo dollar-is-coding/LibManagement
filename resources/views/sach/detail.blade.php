@@ -133,7 +133,6 @@
                                             {{ $item->fkTuSach->ten }} - {{ $item->fkTusach->fkKhuVuc->ten }}
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="d-flex">

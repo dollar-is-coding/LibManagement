@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sach', function (Blueprint $table) {
+        Schema::create('thu_vien', function (Blueprint $table) {
             $table->id();
-            $table->string('ten');
-            $table->integer('the_loai_id');
-            $table->integer('tac_gia_id');
-            $table->integer('nha_xuat_ban_id');
-            $table->integer('nam_xuat_ban');
-            $table->string('tom_tat');
-            $table->string('hinh_anh');
+            $table->integer('sach_id');
+            $table->ingeter('tu_sach_id');
+            $table->integer('khu_vuc_id');
+            $table->integer('dang_muon');
+            $table->integer('da_muon');
+            $table->integer('sl_con_lai');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saches');
+        Schema::dropIfExists('thu_vien');
     }
 };

@@ -81,7 +81,7 @@
                         </div>
                         <div class="mt-2">
                             @foreach ($sach as $key => $item)
-                                <div class="rounded border p-3 mb-2 row"
+                                <div class="rounded border p-3 mb-2 ml-0 mr-0 row"
                                     style="background-color: #f9f9fc; border:#C6BCF8 1px solid">
                                     <div>
                                         <label class="ckbox">
@@ -98,7 +98,6 @@
                                                     {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($item->ngay_tra)) }}
                                                     ngày
                                                 @endif
-
                                             </div>
                                         </div>
                                         <div class="row row-sm mt-2">

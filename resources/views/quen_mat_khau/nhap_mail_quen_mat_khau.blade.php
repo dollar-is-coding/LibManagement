@@ -46,7 +46,7 @@
                 <form action="" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>&nbsp;Email</label>
+                        <label class="mb-0">&nbsp;Email</label>
                         <input type="text" name="email" class="form-control" placeholder="Nhập email của bạn">
                     </div><!-- form-group -->
                     <button type="submit" class="btn btn-az-primary btn-block mb-2">Gửi</button>
