@@ -26,9 +26,20 @@ use App\Http\Requests\CapTheRequest;
 use App\Http\Requests\SachRequest;
 use App\Http\Requests\CapTaiKhoanRequest;
 use App\Models\NhanVien;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Imports\ExcelImport;
 
 class AdminController extends Controller
 {
+
+    public function import_csv(Request $request)
+    {
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new ExcelImport, $path);
+        return back();
+    }
+
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
     {
@@ -61,7 +72,10 @@ class AdminController extends Controller
         $khu_vuc=$request->old('khu_vuc');
         $tu_sach=$request->old('tu_sach');
         $tom_tat=$request->old('tom_tat');
+        $randomDateTime = Carbon::now()->addDays(random_int(0, 30));
+        $randomTime = $randomDateTime->format('YmdHis');
         Sach::create([
+            'ma_sach'=> $randomTime,
             'ten'=>$request->ten_sach,
             'tac_gia_id'=>$request->tac_gia,
             'the_loai_id'=>$request->the_loai,
@@ -73,7 +87,8 @@ class AdminController extends Controller
         ThuVien::create([
             'sach_id'=>Sach::latest()->first()->id,
             'tu_sach_id'=>$request->tu_sach,
-            'so_luong'=>$request->so_luong
+            'khu_vuc_id' => $request->khu_vuc,
+            'sl_con_lai'=>$request->so_luong,
         ]);
         return redirect()->route('hien-thi-sach');
     }
@@ -81,7 +96,7 @@ class AdminController extends Controller
     {
         if ($request->tac_gia!='') {
             TacGia::create(['ten' => $request->tac_gia]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Tác giả không được bỏ trống');
     }
@@ -89,7 +104,7 @@ class AdminController extends Controller
     {
         if ($request->nha_xuat_ban!='') {
             NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Nhà xuất bản không được bỏ trống');
     }
@@ -97,7 +112,7 @@ class AdminController extends Controller
     {
         if ($request->the_loai!='') {
             TheLoai::create(['ten' => $request->the_loai]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Thể loại không được bỏ trống');
     }
@@ -105,7 +120,7 @@ class AdminController extends Controller
     {
         if ($request->khu_vuc!='') {
             KhuVuc::create(['ten' => $request->khu_vuc]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Khu vực không được bỏ trống');
     }
@@ -116,7 +131,7 @@ class AdminController extends Controller
                 'ten' => $request->tu_sach,
                 'khu_vuc_id'=>$request->khu_vuc_id,
             ]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Tủ sách không được bỏ trống');
     }
@@ -126,22 +141,22 @@ class AdminController extends Controller
     public function suaTacgia($id, Request $request)
     {
         TacGia::find($id)->update(['ten' => $request->tac_gia]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaNhaXuatBan($id, Request $request)
     {
         NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaTheLoai($id, Request $request)
     {
         TheLoai::find($id)->update(['ten' => $request->the_loai]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaKhuVuc($id, Request $request)
     {
         KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaTuSach($id, Request $request)
     {
@@ -149,7 +164,7 @@ class AdminController extends Controller
             'ten' => $request->tu_sach,
             'khu_vuc_id' => $request->khu_vuc_id,
         ]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
 
 
@@ -194,27 +209,27 @@ class AdminController extends Controller
     public function xoaTacGia($id)
     {
         TacGia::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaNhaXuatBan($id)
     {
         NhaXuatBan::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTheLoai($id)
     {
         TheLoai::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaKhuVuc($id)
     {
         KhuVuc::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTuSach($id)
     {
         TuSach::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
 
 

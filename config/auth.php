@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\NguoiDung::class,
+            'model' => App\Models\NhanVien::class,
         ],
 
         // 'users' => [
