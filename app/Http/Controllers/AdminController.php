@@ -16,7 +16,6 @@ use App\Models\KhuVuc;
 use App\Models\Sach;
 use App\Models\TuSach;
 use App\Models\ThuVien;
-use App\Models\nguoiDung;
 use App\Models\TruongHoc;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
@@ -26,6 +25,7 @@ use LaravelQRCode\QRCodeFactory;
 use App\Http\Requests\CapTheRequest;
 use App\Http\Requests\SachRequest;
 use App\Http\Requests\CapTaiKhoanRequest;
+use App\Models\NhanVien;
 
 class AdminController extends Controller
 {
@@ -240,12 +240,12 @@ class AdminController extends Controller
         $sach=Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10);
         return view('sach.index',['ds_sach'=>$sach,'search'=>'','selected'=>'asc_name']);
     }
-    public function chiTietSach($id)
-    {
-        $sach=ThuVien::where('sach_id',$id)->get();
-        $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
-        return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
-    }
+    // public function chiTietSach($id)
+    // {
+    //     $sach=ThuVien::where('sach_id',$id)->get();
+    //     $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
+    //     return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
+    // }
 
 
     // CẤP THẺ độc giả
@@ -298,11 +298,8 @@ class AdminController extends Controller
                 default:
                     $ctype = 'application/octet-stream';
             }
-
             $data = file_get_contents($path);
             $base64 = 'data:' . $ctype . ';base64,' . base64_encode($data);
-            
-            DocGia::create([
             $validate=DocGia::create([
                 'ma_so'=>$ma_so,
                 'ho'=>$request->ho,
@@ -355,19 +352,19 @@ class AdminController extends Controller
         return view('doc_gia.index',
             ['ds_doc_gia'=>$doc_gia,'tim_kiem'=>$request->tim_kiem,'sap_xep'=>$request->sap_xep]);
     }
-    public function showChiTietDocGia($id)
-    {
-        $doc_gia=DocGia::find($id);
-        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-        return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    }
+    // public function showChiTietDocGia($id)
+    // {
+    //     $doc_gia=DocGia::find($id);
+    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+    //     return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    // }
 
-    public function return($id)
-    {
-        $doc_gia=DocGia::find($id);
-        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-        return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    }
+    // public function return($id)
+    // {
+    //     $doc_gia=DocGia::find($id);
+    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+    //     return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    // }
 
 
     // Cấp tài khoản - quản lý tài khoản
@@ -396,10 +393,10 @@ class AdminController extends Controller
         $email=$request->old('email');
         $gioi_tinh=$request->old('gioi_tinh');
         //random pas chu and so
-        $user = NguoiDung::where('email', $request->email)->first();
+        $user = NhanVien::where('email', $request->email)->first();
         if (!$user) {
             session()->put('mat_khau', $randomString);
-            $user = NguoiDung::create([
+            $user = NhanVien::create([
                 'email' => $request->email,
                 'mat_khau' => Hash::make($randomString),
                 'ho' => $request->ho,
@@ -430,6 +427,6 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
+        return view('tai_khoan.index',['ds_tai_khoan'=>NhanVien::paginate(10)]);
     }
 }
