@@ -13,6 +13,7 @@ class TacGiaSeeder extends Seeder
      */
     public function run(): void
     {
+        TacGia::create(['ten'=>'Nhiều tác giả']);
         TacGia::create(['ten'=>'Đặng Hoàng Giang']);
         TacGia::create(['ten'=>'Chi Nguyễn']);
         TacGia::create(['ten'=>'Nguyễn Phi Vân']);

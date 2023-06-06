@@ -14,12 +14,12 @@ class SachSeeder extends Seeder
     public function run(): void
     {
         Sach::create([
-            'ten'=>'Bắt đầu với câu hỏi vì sao',
-            'the_loai_id'=>4,
-            'tac_gia_id'=>4,
-            'nha_xuat_ban_id'=>3,
-            'nam_xuat_ban'=>2018,
-            'tom_tat'=>'Sách về phát triển bản thân',
+            'ten'=>'Tiếng anh 10',
+            'ma_sach'=>'TA10',
+            'tac_gia_id'=>1,
+            'nha_xuat_ban_id'=>1,
+            'the_loai_id'=>'1',
+            'nam_xuat_ban'=>2012,
             'hinh_anh'=>''
         ]);
     }

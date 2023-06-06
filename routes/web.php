@@ -86,3 +86,4 @@ Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('
 
 //Client
 Route::get('/index', [ClientController::class, 'index'])->name('client')->middleware('guest');
+Route::get('/list', [ClientController::class, 'list'])->name('list')->middleware('guest');

@@ -15,8 +15,5 @@ class KhuVucSeeder extends Seeder
     {
         KhuVuc::create(['ten'=>'Khu A']);
         KhuVuc::create(['ten'=>'Khu B']);
-        KhuVuc::create(['ten'=>'Khu C']);
-        KhuVuc::create(['ten'=>'Khu D']);
-        KhuVuc::create(['ten'=>'Khu E']);
     }
 }

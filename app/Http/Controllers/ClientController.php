@@ -10,4 +10,9 @@ class ClientController extends Controller
     {
         return view('client.index');
     }
+
+    public function list()
+    {
+        return view('client.listing-page');
+    }
 }

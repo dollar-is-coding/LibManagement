@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('luot_xem')->default('0');
             $table->integer('luot_thich')->default('0');
             $table->integer('luot_binh_luan')->default('0');
+            $table->string('hinh_anh');
             $table->timestamps();
             $table->softDeletes();
         });

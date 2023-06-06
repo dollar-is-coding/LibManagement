@@ -15,6 +15,6 @@ class TuSachSeeder extends Seeder
     {
         TuSach::create(['ten'=>'Tủ A','khu_vuc_id'=>1]);
         TuSach::create(['ten'=>'Tủ B','khu_vuc_id'=>2]);
-        TuSach::create(['ten'=>'Tủ C','khu_vuc_id'=>2]);
+        TuSach::create(['ten'=>'Tủ B','khu_vuc_id'=>2]);
     }
 }
