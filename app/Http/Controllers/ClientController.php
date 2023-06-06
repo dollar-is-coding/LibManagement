@@ -11,8 +11,8 @@ class ClientController extends Controller
         return view('client.index');
     }
 
-    public function list()
+    public function danhMucSach()
     {
-        return view('client.listing-page');
+        return view('client.danh_muc_sach');
     }
 }
