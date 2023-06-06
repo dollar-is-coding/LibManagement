@@ -8,7 +8,7 @@ use App\Mail\SendChangeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\NguoiDung;
+use App\Models\NhanVien;
 use App\Models\ThuVien;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
@@ -17,6 +17,7 @@ use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\MuonSachRequest;
+
 
 class HomeController extends Controller
 {
@@ -58,12 +59,12 @@ class HomeController extends Controller
     {
         $ho=$request->old('ho');
         $ten=$request->old('ten');
-        $nguoiDung=NguoiDung::where('id',Auth::id())->update([
+        $nguoiDung=NhanVien::where('id',Auth::id())->update([
             'ho'=>$request->ho,
             'ten'=>$request->ten,
             'gioi_tinh'=>(int)$request->gioi_tinh,
         ]);
-        $img =NguoiDung::find(Auth::id());
+        $img =NhanVien::find(Auth::id());
         if ($request->has('file')) {
             $file = $request->file;
             $filename = $file->getClientOriginalName();
@@ -80,7 +81,7 @@ class HomeController extends Controller
     public function xuLyDoiMatKhau(Request $request)
     {
         if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
-            NguoiDung::find(Auth::id())->update([
+            NhanVien::find(Auth::id())->update([
                 'mat_khau'=>Hash::make($request->new_pass),
             ]);
             return redirect()->back();
@@ -96,59 +97,59 @@ class HomeController extends Controller
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-    public function handleMuonSGK(MuonSachRequest $request)
-    {
-        $ma_so=$request->old('ma_so');
-        $sach=$request->old('sach');
-        $ngay_tra=$request->old('ngay_tra');
-        foreach ($request->sach as $key => $value) {
-            $ngay_muon=explode('/', $request->ngay_muon);
-            $ngay_tra=explode('/', $request->ngay_tra);
-            PhieuMuonSach::create([
-                'doc_gia_id'=>$request->ma_so,
-                'sach_id'=>$value,
-                'so_luong'=>1,
-                'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
-                'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
-                'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
-            ]);
-            ThuVien::where('sach_id',$request->sach)->update([
-                'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-1)
-            ]);
-            DocGia::find($request->ma_so)->update([
-                'sgk'=>DocGia::find($request->ma_so)->sgk+1
-            ]);
-        }
-        return back();
-    }
+    // public function handleMuonSGK(MuonSachRequest $request)
+    // {
+    //     $ma_so=$request->old('ma_so');
+    //     $sach=$request->old('sach');
+    //     $ngay_tra=$request->old('ngay_tra');
+    //     foreach ($request->sach as $key => $value) {
+    //         $ngay_muon=explode('/', $request->ngay_muon);
+    //         $ngay_tra=explode('/', $request->ngay_tra);
+    //         PhieuMuonSach::create([
+    //             'doc_gia_id'=>$request->ma_so,
+    //             'sach_id'=>$value,
+    //             'so_luong'=>1,
+    //             'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
+    //             'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+    //             'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
+    //         ]);
+    //         ThuVien::where('sach_id',$request->sach)->update([
+    //             'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-1)
+    //         ]);
+    //         DocGia::find($request->ma_so)->update([
+    //             'sgk'=>DocGia::find($request->ma_so)->sgk+1
+    //         ]);
+    //     }
+    //     return back();
+    // }
     public function showMuonSachKhac()
     {
         $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
         $sgk=ThuVien::where('so_luong','>',0)->get();
         return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
     }
-    public function handleMuonSachKhac(MuonSachRequest $request)
-    {
-        $ma_so=$request->old('ma_so');
-        $sach=$request->old('sach');
-        $ngay_muon=explode('/', $request->ngay_muon);
-        $ngay_tra=explode('/', $request->ngay_tra);
-        PhieuMuonSach::create([
-            'doc_gia_id'=>$request->ma_so,
-            'sach_id'=>$request->sach,
-            'so_luong'=>$request->so_luong,
-            'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
-            'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
-            'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
-        ]);
-        ThuVien::where('sach_id',$request->sach)->update([
-            'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
-        ]);
-        DocGia::find($request->ma_so)->update([
-            'sach_khac'=>DocGia::find($request->ma_so)->sach_khac+$request->so_luong
-        ]);
-        return back();
-    }
+    // public function handleMuonSachKhac(MuonSachRequest $request)
+    // {
+    //     $ma_so=$request->old('ma_so');
+    //     $sach=$request->old('sach');
+    //     $ngay_muon=explode('/', $request->ngay_muon);
+    //     $ngay_tra=explode('/', $request->ngay_tra);
+    //     PhieuMuonSach::create([
+    //         'doc_gia_id'=>$request->ma_so,
+    //         'sach_id'=>$request->sach,
+    //         'so_luong'=>$request->so_luong,
+    //         'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
+    //         'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
+    //         'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
+    //     ]);
+    //     ThuVien::where('sach_id',$request->sach)->update([
+    //         'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
+    //     ]);
+    //     DocGia::find($request->ma_so)->update([
+    //         'sach_khac'=>DocGia::find($request->ma_so)->sach_khac+$request->so_luong
+    //     ]);
+    //     return back();
+    // }
 
 
     // Quên mật khẩu ( nhập mail, nhập mã xác minh, đặt lại mật khẩu)
@@ -168,7 +169,7 @@ class HomeController extends Controller
             'body' => 'Vui lòng không chia sẻ bất kì ai mã này'
         ];
         $mailable = new SendMailForgotPass($mailData);
-        $user = NguoiDung::where('email', $emailTo)->first();
+        $user = NhanVien::where('email', $emailTo)->first();
         if ($user) {
             Mail::to($emailTo)->send($mailable);
             return redirect()->route('nhap-ma-xac-minh');
@@ -197,7 +198,7 @@ class HomeController extends Controller
     {
         $email=session()->get('emailTo');
         if ($request->new_pass == $request->confirm_pass) {
-            NguoiDung::where('email',$email)->update([
+            NhanVien::where('email',$email)->update([
                 'mat_khau' => Hash::make($request->new_pass),
             ]);
             return redirect()->route('dang-nhap');
@@ -239,13 +240,13 @@ class HomeController extends Controller
     public function xuLyDoiEmail(Request $request)
     {
         $email = session()->get('email_user');
-        $emaildata = NguoiDung::where('email', $request->email)->get();
+        $emaildata = NhanVien::where('email', $request->email)->get();
         foreach ($emaildata as $emaildatas) {
             $emaildata = $emaildatas->email;
         }
         if ($request->email != $emaildata) {
             session(['email_user' => $request->email]);
-            NguoiDung::where('email', $email)->update([
+            NhanVien::where('email', $email)->update([
                 'email' => $request->email,
             ]);
             return redirect()->route('xem-thong-tin');

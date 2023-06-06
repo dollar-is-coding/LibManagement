@@ -172,7 +172,7 @@
                             <div style="flex-basis: 30%; margin:2%" class="ml-3 mb-0">
                                 @if ($item->fkSach->hinh_anh == '')
                                     <div class="upload-container"
-                                        style="background-size:cover;background-image: url('../img/default/no_image_available.jpg');">
+                                        style="background-size:contain;background-image: url('../img/default/no_image_available.jpg');">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
                                             name="file" accept="image/*" onchange="chooseFile(this)"
                                             tabindex="10" />
@@ -180,7 +180,7 @@
                                     </div>
                                 @else
                                     <div class="upload-container"
-                                        style="background-size:cover;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
+                                        style="background-size:contain;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
                                             name="file" accept="image/*" onchange="chooseFile(this)"
                                             tabindex="10" />
@@ -344,6 +344,7 @@
                     image.onload = function() {
                         previewContainer.innerHTML = "";
                         previewContainer.appendChild(image);
+                        image.style.objectFit = "cover";
                         previewContainer.style.display = "block";
                     };
                 }

@@ -16,17 +16,30 @@ use App\Models\KhuVuc;
 use App\Models\Sach;
 use App\Models\TuSach;
 use App\Models\ThuVien;
-use App\Models\nguoiDung;
 use App\Models\TruongHoc;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
 use Carbon\Carbon;
+use LaravelQRCode\Facades\QRCode;
+use LaravelQRCode\QRCodeFactory;
 use App\Http\Requests\CapTheRequest;
 use App\Http\Requests\SachRequest;
 use App\Http\Requests\CapTaiKhoanRequest;
+use App\Models\NhanVien;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Imports\ExcelImport;
 
 class AdminController extends Controller
 {
+
+    public function import_csv(Request $request)
+    {
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new ExcelImport, $path);
+        return back();
+    }
+
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
     {
@@ -59,7 +72,10 @@ class AdminController extends Controller
         $khu_vuc=$request->old('khu_vuc');
         $tu_sach=$request->old('tu_sach');
         $tom_tat=$request->old('tom_tat');
+        $randomDateTime = Carbon::now()->addDays(random_int(0, 30));
+        $randomTime = $randomDateTime->format('YmdHis');
         Sach::create([
+            'ma_sach'=> $randomTime,
             'ten'=>$request->ten_sach,
             'tac_gia_id'=>$request->tac_gia,
             'the_loai_id'=>$request->the_loai,
@@ -71,7 +87,8 @@ class AdminController extends Controller
         ThuVien::create([
             'sach_id'=>Sach::latest()->first()->id,
             'tu_sach_id'=>$request->tu_sach,
-            'so_luong'=>$request->so_luong
+            'khu_vuc_id' => $request->khu_vuc,
+            'sl_con_lai'=>$request->so_luong,
         ]);
         return redirect()->route('hien-thi-sach');
     }
@@ -79,7 +96,7 @@ class AdminController extends Controller
     {
         if ($request->tac_gia!='') {
             TacGia::create(['ten' => $request->tac_gia]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Tác giả không được bỏ trống');
     }
@@ -87,7 +104,7 @@ class AdminController extends Controller
     {
         if ($request->nha_xuat_ban!='') {
             NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Nhà xuất bản không được bỏ trống');
     }
@@ -95,7 +112,7 @@ class AdminController extends Controller
     {
         if ($request->the_loai!='') {
             TheLoai::create(['ten' => $request->the_loai]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Thể loại không được bỏ trống');
     }
@@ -103,7 +120,7 @@ class AdminController extends Controller
     {
         if ($request->khu_vuc!='') {
             KhuVuc::create(['ten' => $request->khu_vuc]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Khu vực không được bỏ trống');
     }
@@ -114,7 +131,7 @@ class AdminController extends Controller
                 'ten' => $request->tu_sach,
                 'khu_vuc_id'=>$request->khu_vuc_id,
             ]);
-            return redirect()->route('hien-thi-them');
+            return redirect()->route('hien-thi-them-sach');
         }
         return back()->with('error','Tủ sách không được bỏ trống');
     }
@@ -124,22 +141,22 @@ class AdminController extends Controller
     public function suaTacgia($id, Request $request)
     {
         TacGia::find($id)->update(['ten' => $request->tac_gia]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaNhaXuatBan($id, Request $request)
     {
         NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaTheLoai($id, Request $request)
     {
         TheLoai::find($id)->update(['ten' => $request->the_loai]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaKhuVuc($id, Request $request)
     {
         KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function suaTuSach($id, Request $request)
     {
@@ -147,7 +164,7 @@ class AdminController extends Controller
             'ten' => $request->tu_sach,
             'khu_vuc_id' => $request->khu_vuc_id,
         ]);
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
 
 
@@ -192,27 +209,27 @@ class AdminController extends Controller
     public function xoaTacGia($id)
     {
         TacGia::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaNhaXuatBan($id)
     {
         NhaXuatBan::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTheLoai($id)
     {
         TheLoai::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaKhuVuc($id)
     {
         KhuVuc::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTuSach($id)
     {
         TuSach::find($id)->delete();
-        return redirect()->route('hien-thi-them');
+        return redirect()->route('hien-thi-them-sach');
     }
 
 
@@ -238,12 +255,12 @@ class AdminController extends Controller
         $sach=Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10);
         return view('sach.index',['ds_sach'=>$sach,'search'=>'','selected'=>'asc_name']);
     }
-    public function chiTietSach($id)
-    {
-        $sach=ThuVien::where('sach_id',$id)->get();
-        $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
-        return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
-    }
+    // public function chiTietSach($id)
+    // {
+    //     $sach=ThuVien::where('sach_id',$id)->get();
+    //     $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
+    //     return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
+    // }
 
 
     // CẤP THẺ độc giả
@@ -275,6 +292,29 @@ class AdminController extends Controller
                     $ma_so=date('y').date('m').'0001';
                 }
             }
+            $path = 'img/qr/';
+            $file = $path . 'qr.png';
+            QRCode::text($ma_so)
+                ->setErrorCorrectionLevel('H')
+                ->setSize(4)
+                ->setMargin(2)
+                ->setOutfile($file)
+                ->png();
+            $path = $file;
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            switch ($type) {
+                case 'png':
+                    $ctype = 'image/png';
+                    break;
+                case 'jpeg':
+                case 'jpg':
+                    $ctype = 'image/jpeg';
+                    break;
+                default:
+                    $ctype = 'application/octet-stream';
+            }
+            $data = file_get_contents($path);
+            $base64 = 'data:' . $ctype . ';base64,' . base64_encode($data);
             $validate=DocGia::create([
                 'ma_so'=>$ma_so,
                 'ho'=>$request->ho,
@@ -296,7 +336,8 @@ class AdminController extends Controller
                 'gioi_tinh'=>(int)$request->gioi_tinh,
                 'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
                 'lop'=>$request->lop,
-                'dia_chi'=>$request->dia_chi
+                'dia_chi'=>$request->dia_chi,
+                'qrcode'=> $base64
             ];
             $mailable=new SendCreateReaderCardMail($mailData);
             Mail::to($request->email)->send($mailable);
@@ -326,19 +367,19 @@ class AdminController extends Controller
         return view('doc_gia.index',
             ['ds_doc_gia'=>$doc_gia,'tim_kiem'=>$request->tim_kiem,'sap_xep'=>$request->sap_xep]);
     }
-    public function showChiTietDocGia($id)
-    {
-        $doc_gia=DocGia::find($id);
-        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-        return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    }
+    // public function showChiTietDocGia($id)
+    // {
+    //     $doc_gia=DocGia::find($id);
+    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+    //     return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    // }
 
-    public function return($id)
-    {
-        $doc_gia=DocGia::find($id);
-        $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-        return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    }
+    // public function return($id)
+    // {
+    //     $doc_gia=DocGia::find($id);
+    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
+    //     return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
+    // }
 
 
     // Cấp tài khoản - quản lý tài khoản
@@ -367,10 +408,10 @@ class AdminController extends Controller
         $email=$request->old('email');
         $gioi_tinh=$request->old('gioi_tinh');
         //random pas chu and so
-        $user = NguoiDung::where('email', $request->email)->first();
+        $user = NhanVien::where('email', $request->email)->first();
         if (!$user) {
             session()->put('mat_khau', $randomString);
-            $user = NguoiDung::create([
+            $user = NhanVien::create([
                 'email' => $request->email,
                 'mat_khau' => Hash::make($randomString),
                 'ho' => $request->ho,
@@ -401,6 +442,6 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
+        return view('tai_khoan.index',['ds_tai_khoan'=>NhanVien::paginate(10)]);
     }
 }

@@ -14,7 +14,7 @@
         }
 
         .header {
-            background-color: blueviolet;
+            background-color: #0D49FF;
             font-size: 150%;
             color: white;
             font-weight: bold;
@@ -27,7 +27,7 @@
 
         .row {
             display: flex;
-            background-color: cyan;
+            background-color: white;
             background-size: cover;
             height: 10vw;
             border-end-end-radius: 25px;
@@ -78,7 +78,7 @@
         <div class="header">L i b r o</div>
         <div class="row">
             <div>
-                <div class="nameCard">Nguyễn Văn Đô</div>
+                <div class="nameCard">{{$ho_ten}}</div>
                 <div class="info">
                     <div>
                         <div class="label">Card no :</div>
@@ -86,13 +86,15 @@
                         <div class="label">Add :</div>
                     </div>
                     <div class="mainContent">
-                        <div class="mainInfo">#12345678</div>
-                        <div class="mainInfo">12/23/2023</div>
-                        <div class="mainInfo">An Giang</div>
+                        <div class="mainInfo">{{$ma_so}}</div>
+                        <div class="mainInfo">{{$dob}}</div>
+                        <div class="mainInfo">{{$dia_chi}}</div>
                     </div>
                 </div>
             </div>
-            {{ QrCode::size(100)->generate('code') }}
+
+            <img src={{$qrcode}} />
+
         </div>
     </div>
 </body>
