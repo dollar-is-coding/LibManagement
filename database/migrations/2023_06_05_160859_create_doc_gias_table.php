@@ -22,8 +22,8 @@ return new class extends Migration
             $table->tinyInteger('gioi_tinh');
             $table->date('ngay_sinh');
             $table->string('dia_chi');
-            $table->integer('dang_muon');
-            $table->integer('da_muon');
+            $table->integer('dang_muon')->default('0');
+            $table->integer('da_muon')->default('0');
             $table->timestamps();
             $table->softDeletes();
         });

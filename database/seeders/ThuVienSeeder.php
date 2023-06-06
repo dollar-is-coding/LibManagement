@@ -15,8 +15,9 @@ class ThuVienSeeder extends Seeder
     {
         ThuVien::create([
             'sach_id'=>1,
-            'tu_sach_id'=>2,
-            'so_luong'=>50
+            'tu_sach_id'=>1,
+            'khu_vuc_id'=>1,
+            'sl_con_lai'=>20
         ]);
     }
 }

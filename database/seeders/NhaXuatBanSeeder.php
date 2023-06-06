@@ -13,6 +13,7 @@ class NhaXuatBanSeeder extends Seeder
      */
     public function run(): void
     {
+        NhaXuatBan::create(['ten'=>'Nhà xuất bản Giáo dục Việt Nam']);
         NhaXuatBan::create(['ten'=>'Nhà xuất bản Kim Đồng']);
         NhaXuatBan::create(['ten'=>'Nhà xuất bản Công Thương']);
         NhaXuatBan::create(['ten'=>'Nhà xuất bản Dân Trí']);

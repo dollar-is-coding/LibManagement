@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\QRcode;
 use Illuminate\Support\Facades\Route;
 
@@ -83,3 +84,7 @@ Route::get('/xac-minh-doi-email', [HomeController::class, 'xacMinhMail'])->name(
 Route::post('/xac-minh-doi-email', [HomeController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
 Route::get('/doi-email', [HomeController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('auth');
+
+//Client
+Route::get('/index', [ClientController::class, 'index'])->name('client')->middleware('guest');
+Route::get('/list', [ClientController::class, 'list'])->name('list')->middleware('guest');

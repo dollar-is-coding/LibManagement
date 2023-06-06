@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('thu_vien', function (Blueprint $table) {
             $table->id();
             $table->integer('sach_id');
-            $table->ingeter('tu_sach_id');
+            $table->integer('tu_sach_id');
             $table->integer('khu_vuc_id');
-            $table->integer('dang_muon');
-            $table->integer('da_muon');
+            $table->integer('dang_muon')->default('0');
+            $table->integer('da_muon')->default('0');
             $table->integer('sl_con_lai');
             $table->timestamps();
             $table->softDeletes();
