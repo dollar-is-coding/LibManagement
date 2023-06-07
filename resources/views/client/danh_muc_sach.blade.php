@@ -50,7 +50,6 @@ https://templatemo.com/tm-584-pod-talk
                 </div>
             </div>
         </header>
-
         <section class="latest-podcast-section section-padding" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
@@ -59,301 +58,80 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Sách giáo khoa</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Chọn mượn </a>
-                                </div>
-                            </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">15</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Đặt trước </a>
+                    @foreach ($sgk as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($single_book->fkSach->hinh_anh != '')
+                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">đang hết</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 1]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
                         </nav>
                     </div>
-
-
-                    {{-- Navigate --}}
-                    {{-- <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> --}}
-
-
                 </div>
             </div>
         </section>
@@ -366,323 +144,75 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Sách tham khảo</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn">Subscribe</a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        50 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">15</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Modern Vintage </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>120k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>50k</span>
-                                    </a>
+                    @foreach ($tham_khao as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($single_book->fkSach->hinh_anh != '')
+                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 2]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -700,323 +230,75 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Sách khoa học</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn">Subscribe</a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        50 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">15</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Modern Vintage </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>120k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>50k</span>
-                                    </a>
+                    @foreach ($khoa_hoc as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($single_book->fkSach->hinh_anh != '')
+                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 5]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -1034,323 +316,75 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Sách văn học</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn">Subscribe</a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        50 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">15</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Modern Vintage </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>120k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>50k</span>
-                                    </a>
+                    @foreach ($van_hoc as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($single_book->fkSach->hinh_anh != '')
+                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
+                                                class="profile-block-image img-fluid" alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 6]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -1368,323 +402,70 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Sách phát triển kỹ năng sống</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn">Subscribe</a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        50 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">15</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Modern Vintage </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>120k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>50k</span>
-                                    </a>
+                    @foreach ($phat_trien as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                    class="custom-block-image img-fluid" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 3]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -1702,323 +483,70 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Báo, tạp chí</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn">Subscribe</a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        50 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">15</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Modern Vintage </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>120k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>50k</span>
-                                    </a>
+                    @foreach ($tap_chi as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                    class="custom-block-image img-fluid" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/12577967_02.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-
-                                        <a href="#" class="custom-block-icon">
-                                            <i class="bi-play-fill"></i>
-                                        </a>
-                                    </a>
-                                </div>
-
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Subscribe </a>
-                                </div>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        15 Minutes
-                                    </small>
-
-                                    <small>Episode <span class="badge">45</span></small>
-                                </div>
-
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>140k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>22.4k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>16k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-download">
-                                        <span>62k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 4]) }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -2036,7 +564,6 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Đã xem gần đây</h4>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                         <div class="custom-block custom-block-full">
                             <div class="custom-block-image-wrap">
@@ -2244,8 +771,7 @@ https://templatemo.com/tm-584-pod-talk
                     <div class="site-footer-thumb mb-4 pb-2">
                         <div class="d-flex flex-wrap">
                             <a href="#">
-                                <img src="images/app-store.png" class="me-3 mb-2 mb-lg-0 img-fluid"
-                                    alt="" />
+                                <img src="images/app-store.png" class="me-3 mb-2 mb-lg-0 img-fluid" alt="" />
                             </a>
 
                             <a href="#">
@@ -2277,8 +803,7 @@ https://templatemo.com/tm-584-pod-talk
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-3 col-12">
                     <a class="navbar-brand" href="index.html">
-                        <img src="images/pod-talk-logo.png" class="logo-image img-fluid"
-                            alt="templatemo pod talk" />
+                        <img src="images/pod-talk-logo.png" class="logo-image img-fluid" alt="templatemo pod talk" />
                     </a>
                 </div>
 

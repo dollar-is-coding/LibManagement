@@ -90,7 +90,7 @@ class AdminController extends Controller
             'khu_vuc_id' => $request->khu_vuc,
             'sl_con_lai'=>$request->so_luong,
         ]);
-        return redirect()->route('hien-thi-sach');
+        return redirect()->route('hien-thi-them-sach');
     }
     public function themTacGia(Request $request)
     {

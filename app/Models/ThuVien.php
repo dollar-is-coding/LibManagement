@@ -12,4 +12,19 @@ class ThuVien extends Model
     use SoftDeletes;
     protected $table='thu_vien';
     protected $fillable=['sach_id','tu_sach_id','khu_vuc_id','dang_muon','da_muon','sl_con_lai'];
+
+    public function fkSach()
+    {
+        return $this->belongsTo(Sach::class,'sach_id');
+    }
+
+    public function fkTuSach()
+    {
+        return $this->belongsTo(TuSach::class,'tu_sach_id');
+    }
+
+    public function fkKhuVuc()
+    {
+        return $this->belongsTo(KhuVuc::class,'khu_vuc_id');
+    }
 }

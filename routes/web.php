@@ -88,5 +88,8 @@ Route::get('/doi-email', [HomeController::class, 'doiEmail'])->name('doi-email')
 Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('auth');
 
 //Client
-Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu')->middleware('guest');
+Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client')->middleware('guest');
 Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach')->middleware('guest');
+Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client')->middleware('guest');
+Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->name('chi-tiet-danh-muc')->middleware('guest');
+Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client')->middleware('guest');
