@@ -38,6 +38,13 @@
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </li>
+                <li class="nav-item {{ $view == 5 ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>Tin tức</a>
+                    <nav class="az-menu-sub">
+                        <a href="{{route('them-tin-tuc')}}" class="nav-link">Thêm tin tức</a>
+                        <a href="" class="nav-link">Quản lý tin tức</a>
+                    </nav>
+                </li>
             </ul>
         </div><!-- az-header-menu -->
         <div class="az-header-right">
@@ -45,9 +52,9 @@
             <div class="dropdown az-profile-menu">
                 <a href="" class="az-img-user">
                     @if (Auth::user()->anh_dai_dien == '')
-                        <img src="../img/default/no_avatar.png">
+                    <img src="../img/default/no_avatar.png">
                     @else
-                        <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
+                    <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
                     @endif
                 </a>
                 <div class="dropdown-menu">
@@ -57,9 +64,9 @@
                     <div class="az-header-profile">
                         <div class="az-img-user">
                             @if (Auth::user()->anh_dai_dien == '')
-                                <img src="../img/default/no_avatar.png">
+                            <img src="../img/default/no_avatar.png">
                             @else
-                                <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
+                            <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
                             @endif
                         </div><!-- az-img-user -->
                         <h6>{{ Auth::user()->ho }} {{ Auth::user()->ten }}</h6>

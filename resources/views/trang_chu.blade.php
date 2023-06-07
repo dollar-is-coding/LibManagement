@@ -86,7 +86,31 @@
                         <a class="nav-link" href="#"><i class="fas fa-ellipsis-h"></i></a>
                     </nav>
                 </div>
-
+                <!-- thong ke -->
+                <div style="display: flex;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng độc giả</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng sách</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng nhân viên</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end thong ke -->
                 <div class="row row-sm mg-b-20">
                     <div class="col-lg-7 ht-lg-100p">
                         <div class="card card-dashboard-one">
@@ -256,8 +280,7 @@
                                             <span>1,320 <span>(25%)</span></span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-purple wd-25p" role="progressbar"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-purple wd-25p" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div><!-- progress -->
                                     </div>
                                     <div class="az-traffic-detail-item">
@@ -266,8 +289,7 @@
                                             <span>987 <span>(20%)</span></span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-primary wd-20p" role="progressbar"
-                                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-primary wd-20p" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div><!-- progress -->
                                     </div>
                                     <div class="az-traffic-detail-item">
@@ -276,8 +298,7 @@
                                             <span>2,010 <span>(30%)</span></span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-info wd-30p" role="progressbar"
-                                                aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-info wd-30p" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div><!-- progress -->
                                     </div>
                                     <div class="az-traffic-detail-item">
@@ -286,8 +307,7 @@
                                             <span>654 <span>(15%)</span></span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-teal wd-15p" role="progressbar"
-                                                aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-teal wd-15p" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div><!-- progress -->
                                     </div>
                                     <div class="az-traffic-detail-item">
@@ -296,8 +316,7 @@
                                             <span>400 <span>(10%)</span></span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-gray-500 wd-10p" role="progressbar"
-                                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-gray-500 wd-10p" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div><!-- progress -->
                                     </div>
                                 </div><!-- col -->
@@ -319,8 +338,7 @@
                                     <div class="card-body row row-sm">
                                         <div class="col-6 d-sm-flex align-items-center">
                                             <div class="card-chart bg-primary">
-                                                <span class="peity-bar"
-                                                    data-peity='{"fill": ["#fff"], "width": 20, "height": 20 }'>6,4,7,5,7</span>
+                                                <span class="peity-bar" data-peity='{"fill": ["#fff"], "width": 20, "height": 20 }'>6,4,7,5,7</span>
                                             </div>
                                             <div>
                                                 <label>Bounce Rate</label>
@@ -329,8 +347,7 @@
                                         </div><!-- col -->
                                         <div class="col-6 d-sm-flex align-items-center">
                                             <div class="card-chart bg-purple">
-                                                <span class="peity-bar"
-                                                    data-peity='{"fill": ["#fff"], "width": 21, "height": 20 }'>7,4,5,7,2</span>
+                                                <span class="peity-bar" data-peity='{"fill": ["#fff"], "width": 21, "height": 20 }'>7,4,5,7,2</span>
                                             </div>
                                             <div>
                                                 <label>Sessions</label>
@@ -350,8 +367,7 @@
                                     <div class="card-body row row-sm">
                                         <div class="col-6 d-sm-flex align-items-center">
                                             <div class="mg-b-10 mg-sm-b-0 mg-sm-r-10">
-                                                <span class="peity-donut"
-                                                    data-peity='{ "fill": ["#007bff", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>4/7</span>
+                                                <span class="peity-donut" data-peity='{ "fill": ["#007bff", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>4/7</span>
                                             </div>
                                             <div>
                                                 <label>% New Sessions</label>
@@ -360,8 +376,7 @@
                                         </div><!-- col -->
                                         <div class="col-6 d-sm-flex align-items-center">
                                             <div class="mg-b-10 mg-sm-b-0 mg-sm-r-10">
-                                                <span class="peity-donut"
-                                                    data-peity='{ "fill": ["#00cccc", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>2/7</span>
+                                                <span class="peity-donut" data-peity='{ "fill": ["#00cccc", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>2/7</span>
                                             </div>
                                             <div>
                                                 <label>Pages/Session</label>
@@ -447,8 +462,7 @@
         <div class="container ht-100p pd-t-0-f">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
                 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
                     templates</a> from Bootstrapdash.com</span>
         </div><!-- container -->
     </div><!-- az-footer -->

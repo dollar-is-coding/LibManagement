@@ -50,36 +50,61 @@
                         <div class="d-flex justify-content-between">
                             <label class="m-0">&nbsp;Email</label>
                             @error('email')
-                                <div style="font-style: italic;" class="text-danger">
-                                    {{ $message }} *&nbsp;
-                                </div>
+                            <div style="font-style: italic;" class="text-danger">
+                                {{ $message }} *&nbsp;
+                            </div>
                             @enderror
                         </div>
-                        <input type="text" name="email" class="form-control" placeholder="Nhập email"
-                            value="{{ old('email') }}">
+                        <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{ old('email') }}">
                     </div><!-- form-group -->
                     <div class="form-group">
                         <div class="d-flex justify-content-between">
                             <label class="m-0">&nbsp;Mật khẩu</label>
                             @error('password')
-                                <div style="font-style: italic;" class="text-danger">
-                                    {{ $message }} *&nbsp;
-                                </div>
+                            <div style="font-style: italic;" class="text-danger">
+                                {{ $message }} *&nbsp;
+                            </div>
                             @enderror
                         </div>
-                        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
-                            value="{{ old('password') }}">
+                        <!-- <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="{{ old('password') }}"> -->
+                        <style>
+                            .password-container {
+                                position: relative;
+                            }
+
+                            .password-toggle {
+                                position: absolute;
+                                top: 50%;
+                                right: 10px;
+                                transform: translateY(-50%);
+                                cursor: pointer;
+                            }
+                        </style>
+                        <div class="password-container">
+                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="{{ old('password') }}">
+                            <i class="password-toggle far fa-eye"></i>
+                        </div>
+                        <script>
+                            document.querySelector('.password-toggle').addEventListener('click', function() {
+                                var passwordInput = document.querySelector('input[name="password"]');
+                                var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                                passwordInput.setAttribute('type', type);
+
+                                // Thay đổi biểu tượng mắt khi chế độ hiển thị mật khẩu thay đổi
+                                this.classList.toggle('fa-eye');
+                                this.classList.toggle('fa-eye-slash');
+                            });
+                        </script>
                     </div><!-- form-group -->
                     <button class="btn btn-az-primary btn-block mb-2">Đăng nhập</button>
                 </form>
                 @if (session('error'))
-                    <div class="row justify-content-center">
-                        <span class="rounded-lg p-1 pl-2 pr-2"
-                            style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                            <span class="text-danger">{{ session('error') }}</span>
-                        </span>
-                    </div>
+                <div class="row justify-content-center">
+                    <span class="rounded-lg p-1 pl-2 pr-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                        <span class="text-danger">{{ session('error') }}</span>
+                    </span>
+                </div>
                 @endif
             </div><!-- az-signin-header -->
             <div class="az-signin-footer">

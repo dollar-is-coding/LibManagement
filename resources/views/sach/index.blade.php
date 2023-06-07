@@ -49,123 +49,119 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
-                <form class="row az-signin-header" action="{{ route('tim-kiem') }}" method="get">
+                <form class="row az-signin-header" action="{{route('tim-kiem-theo-tac-gia')}}" method="get">
                     <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
-                            value="{{ $search }}" autocomplete="off">
-                    </div><!-- col -->
-                    <div class="col-lg-3">
-                        <select class="form-control select2-no-search" name="sort">
-                            <option value="asc_name" {{ $selected == 'asc_name' ? 'selected' : '' }}>A -> Z</option>
-                            <option value="desc_name" {{ $selected == 'desc_name' ? 'selected' : '' }}>Z -> A</option>
-                            <option value="desc_year" {{ $selected == 'desc_year' ? 'selected' : '' }}>Mới nhất</option>
-                        </select>
-                    </div><!-- col -->
+                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
+                    </div>
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
-                <div class="table-responsive">
-                    @if (blank($ds_sach))
-                        <div class="az-table-reference">Không tìm thấy kết quả!</div>
-                    @else
-                        <table class="table mg-b-0 az-table-reference">
-                            <thead>
-                                <tr>
-                                    <th class="wd-5p">STT</th>
-                                    <th>Sách</th>
-                                    <th>Tác giả</th>
-                                    <th>Vị trí</th>
-                                    <th class="wd-10p">Số lượng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($ds_sach as $key => $item)
-                                    @foreach ($item->hasThuVien as $thu_vien)
-                                        <tr>
-                                            <th scope="row">
-                                                {{ ++$key }}</th>
-                                            <td>
-                                                <a style="color: black"
-                                                    onMouseOver="this.style.color='blue',this.style.textDecoration='underline'"
-                                                    onMouseOut="this.style.color='black',this.style.textDecoration='none'"
-                                                    href="{{ route('chi-tiet-sach', ['id' => $thu_vien]) }}">{{ $thu_vien->fkSach->ten }}
-                                                </a>
-                                            </td>
-                                            <td>{{ $thu_vien->fkSach->fkTacGia->ten }}</td>
-                                            <td>{{ $thu_vien->fkTuSach->ten }},
-                                                {{ $thu_vien->fkTuSach->fkKhuVuc->ten }}
-                                            </td>
-                                            <td>{{ $thu_vien->so_luong }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <div class="mt-5 d-flex justify-content-center">
-                            <div>
-                                {{ $ds_sach->links() }}
-                            </div>
+                <!-- @if (session('error_r'))
+                <div id="error-message" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                    <span class="text-danger">{{ session('error_r') }}</span>
+                </div>
+                @endif -->
+                <div class="table-responsive" style="display: flex">
+                    @foreach($sach as $item)
+                    <div class="card" style="margin: 10px;">
+                        @if($item->hinh_anh == '')
+                        <img src="/img/avt/income.jpg" class="card-img-top">
+                        @elseif($item->hinh_anh != '')
+                        <img src="/img/avt/{{$item->hinh_anh}}" class="card-img-top">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{$item->ten}}</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
-                    @endif
-                </div><!-- table-responsive -->
-
+                    </div>
+                    @endforeach
+                </div><!-- az-content-body -->
+                <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>
                 @include('../common/footer')
+            </div>
 
-            </div><!-- az-content-body -->
-        </div>
-    </div><!-- az-content -->
+        </div><!-- az-content -->
 
-    <script src="../lib/jquery/jquery.min.js"></script>
-    <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
-    <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-    <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+        <script src="../lib/jquery/jquery.min.js"></script>
+        <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
-    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/ionicons/ionicons.js"></script>
-    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
-    <script src="../lib/select2/js/select2.min.js"></script>
+        <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+        <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-    <script src="../js/azia.js"></script>
-    <script src="../js/chart.chartjs.js"></script>
-    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-    <script>
-        $(function() {
-            // Datepicker
-            $('.fc-datepicker').datepicker({
-                showOtherMonths: true,
-                selectOtherMonths: true
+        <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../lib/ionicons/ionicons.js"></script>
+        <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="../lib/select2/js/select2.min.js"></script>
+
+        <script src="../js/azia.js"></script>
+        <script src="../js/chart.chartjs.js"></script>
+        <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+        <script>
+            $(document).on('click', '.pagination a', function(event) {
+                event.preventDefault();
+
+                var page = $(this).attr('href').split('page=')[1];
+
+                fetch_data(page);
             });
 
-            $('#datepickerNoOfMonths').datepicker({
-                showOtherMonths: true,
-                selectOtherMonths: true,
-                numberOfMonths: 2
+            function fetch_data(page) {
+                $.ajax({
+                    url: '/danh-sach-cac-cuon-sach?page=' + page,
+                    success: function(data) {
+                        $('.table-responsive').html($(data).find('.table-responsive').html());
+                        $('.pagination').html($(data).find('.pagination').html());
+                    }
+                });
+            }
+
+
+
+
+
+
+
+
+
+            $(function() {
+                // Datepicker
+                $('.fc-datepicker').datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true
+                });
+
+                $('#datepickerNoOfMonths').datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true,
+                    numberOfMonths: 2
+                });
+
+                // AmazeUI Datetimepicker
+                $('#datetimepicker').datepicker({
+                    format: 'mm-dd-yyyy',
+                    autoclose: true, // close the datepicker when a date is selected
+                    todayHighlight: true, // highlight today's date
+                    dateFormat: 'dd/mm/yy'
+                });
+
             });
 
-            // AmazeUI Datetimepicker
-            $('#datetimepicker').datepicker({
-                format: 'mm-dd-yyyy',
-                autoclose: true, // close the datepicker when a date is selected
-                todayHighlight: true, // highlight today's date
-                dateFormat: 'dd/mm/yy'
-            });
+            $(document).ready(function() {
+                $('.select2').select2({
+                    placeholder: 'Chọn trường',
+                    searchInputPlaceholder: 'Search'
+                });
 
-        });
-
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: 'Chọn trường',
-                searchInputPlaceholder: 'Search'
+                $('.select2-no-search').select2({
+                    minimumResultsForSearch: Infinity,
+                    placeholder: 'Choose one'
+                });
             });
-
-            $('.select2-no-search').select2({
-                minimumResultsForSearch: Infinity,
-                placeholder: 'Choose one'
-            });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

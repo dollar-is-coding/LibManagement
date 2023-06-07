@@ -351,6 +351,12 @@
                                         Thêm
                                     </button>
                                 </div>
+                                @if (session('error_r'))
+                                <div id="error-message" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                    <span class="text-danger">{{ session('error_r') }}</span>
+                                </div>
+                                @endif
                                 @if (session('error'))
                                 <div class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
@@ -853,7 +859,6 @@
                 }
             });
         });
-        //
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>

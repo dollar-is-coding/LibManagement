@@ -29,6 +29,7 @@ use App\Models\NhanVien;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\ExcelImport;
+use App\Imports\ExcelImportThuVien;
 
 class AdminController extends Controller
 {
@@ -37,6 +38,7 @@ class AdminController extends Controller
     {
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
+        Excel::import(new ExcelImportThuVien,$path);
         return back();
     }
 
@@ -94,44 +96,71 @@ class AdminController extends Controller
     }
     public function themTacGia(Request $request)
     {
-        if ($request->tac_gia!='') {
-            TacGia::create(['ten' => $request->tac_gia]);
-            return redirect()->route('hien-thi-them-sach');
+        if ($request->tac_gia != '') {
+            $tacgia = TacGia::where('ten', $request->tac_gia)->first();
+            if (!$tacgia) {
+                TacGia::create(['ten' => $request->tac_gia]);
+                return redirect()->route('hien-thi-them-sach');
+            } else {
+                return back()->with('error_r', 'Tên tác giả đã tồn tại');
+            }
         }
-        return back()->with('error','Tác giả không được bỏ trống');
+        return back()->with('error', 'Tác giả không được bỏ trống');
     }
+
     public function themNhaXuatBan(Request $request)
     {
         if ($request->nha_xuat_ban!='') {
-            NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
-            return redirect()->route('hien-thi-them-sach');
+            $nxb = NhaXuatBan::where('ten',$request->nha_xuat_ban)->first();
+            if(!$nxb){
+                NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
+                return redirect()->route('hien-thi-them-sach');
+            }else{
+                return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
+            }
         }
         return back()->with('error','Nhà xuất bản không được bỏ trống');
     }
     public function themTheLoai(Request $request)
     {
         if ($request->the_loai!='') {
-            TheLoai::create(['ten' => $request->the_loai]);
-            return redirect()->route('hien-thi-them-sach');
+            $theloai = TheLoai::where('ten', $request->the_loai)->first();
+           if(!$theloai){
+                TheLoai::create(['ten' => $request->the_loai]);
+                return redirect()->route('hien-thi-them-sach');
+           }else{
+                return back()->with('error_r', 'Tên thể loại đã tồn tại');
+           }
         }
         return back()->with('error','Thể loại không được bỏ trống');
     }
     public function themKhuVuc(Request $request)
     {
         if ($request->khu_vuc!='') {
-            KhuVuc::create(['ten' => $request->khu_vuc]);
-            return redirect()->route('hien-thi-them-sach');
+            $khuvuc = KhuVuc::where('ten',$request->khu_vuc)->first();
+            if(!$khuvuc){
+                KhuVuc::create(['ten' => $request->khu_vuc]);
+                return redirect()->route('hien-thi-them-sach');
+            }else{
+                return back()->with('error_r', 'Tên khu vực đã tồn tại');
+            }
         }
         return back()->with('error','Khu vực không được bỏ trống');
     }
     public function themTuSach(Request $request)
     {
         if ($request->tu_sach!='') {
-            TuSach::create([
-                'ten' => $request->tu_sach,
-                'khu_vuc_id'=>$request->khu_vuc_id,
-            ]);
-            return redirect()->route('hien-thi-them-sach');
+            $tusach = TuSach::where('ten', $request->tu_sach)->where('khu_vuc_id', $request->khu_vuc_id)->first();
+            if(!$tusach){
+                TuSach::create([
+                    'ten' => $request->tu_sach,
+                    'khu_vuc_id' => $request->khu_vuc_id,
+                ]);
+                return redirect()->route('hien-thi-them-sach');
+            }else {
+                return back()->with('error_r', 'Tủ sách đã tồn tại');
+            }
+            
         }
         return back()->with('error','Tủ sách không được bỏ trống');
     }
@@ -140,30 +169,61 @@ class AdminController extends Controller
     // CHỈNH SỬA tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function suaTacgia($id, Request $request)
     {
-        TacGia::find($id)->update(['ten' => $request->tac_gia]);
-        return redirect()->route('hien-thi-them-sach');
+        $tacgia = TacGia::where('ten', $request->tac_gia)->first();
+        if(!$tacgia){
+            TacGia::find($id)->update(['ten' => $request->tac_gia]);
+            return redirect()->route('hien-thi-them-sach');
+        }
+        else{
+            return back()->with('error_r', 'Tên tác giả đã tồn tại');
+        }
+        
     }
     public function suaNhaXuatBan($id, Request $request)
     {
-        NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
-        return redirect()->route('hien-thi-them-sach');
+        $nxb = NhaXuatBan::where('ten', $request->nha_xuat_ban)->first();
+        if(!$nxb){
+            NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
+            return redirect()->route('hien-thi-them-sach');
+        }else{
+            return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
+        }
+       
     }
     public function suaTheLoai($id, Request $request)
     {
-        TheLoai::find($id)->update(['ten' => $request->the_loai]);
-        return redirect()->route('hien-thi-them-sach');
+        $theloai = TheLoai::where('ten', $request->the_loai)->first();
+        if(!$theloai){
+            TheLoai::find($id)->update(['ten' => $request->the_loai]);
+            return redirect()->route('hien-thi-them-sach');
+        }else{
+            return back()->with('error_r', 'Tên thể loại đã tồn tại');
+        }
+        
     }
     public function suaKhuVuc($id, Request $request)
     {
-        KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
-        return redirect()->route('hien-thi-them-sach');
+        $khuvuc = KhuVuc::where('ten', $request->khu_vuc)->first();
+        if(!$khuvuc){
+            KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
+            return redirect()->route('hien-thi-them-sach');
+        }else{
+            return back()->with('error_r', 'Tên khu vực đã tồn tại');
+        }
+        
     }
     public function suaTuSach($id, Request $request)
     {
-        TuSach::find($id)->update([
-            'ten' => $request->tu_sach,
-            'khu_vuc_id' => $request->khu_vuc_id,
-        ]);
+        $tusach = TuSach::where('ten', $request->tu_sach)->where('khu_vuc_id', $request->khu_vuc_id)->first();
+        if(!$tusach){
+            TuSach::find($id)->update([
+                'ten' => $request->tu_sach,
+                'khu_vuc_id' => $request->khu_vuc_id,
+            ]);
+        }else{
+            return back()->with('error_r', 'Tên tủ sách đã tồn tại');
+        }
+        
         return redirect()->route('hien-thi-them-sach');
     }
 
@@ -234,11 +294,23 @@ class AdminController extends Controller
 
 
     // XEM, TÌM KIẾM & CHI TIẾT sách
-    public function dsSach()
+    // public function dsSach()
+    // {
+    //     $sach = Sach::orderBy('ten', 'asc')->paginate(4);
+    //     return view('sach.index', ['sach' => $sach]);
+
+    // }
+    public function dsSach(Request $request)
     {
-        $sach=Sach::orderBy('ten','asc')->paginate(10);
-        return view('sach.index',['ds_sach'=>$sach,'selected'=>'asc_name','search'=>'']);
+        $sach = Sach::orderBy('ten', 'asc')->paginate(4);
+
+        if ($request->ajax()) {
+            return view('sach.index', ['sach' => $sach]);
+        }
+
+        return view('sach.index', ['sach' => $sach]);
     }
+
     public function dsTimKiem(Request $request)
     {
         $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->paginate(10);
@@ -250,11 +322,21 @@ class AdminController extends Controller
         }
         return view('sach.index',['ds_sach'=>$ds_sach,'search'=>$request->tim_kiem,'selected'=>$request->sort]);
     }
+
     public function timKiemTheoTacGia(Request $request)
     {
-        $sach=Sach::where('tac_gia_id',$request->tac_gia_id)->orderBy('ten','asc')->paginate(10);
-        return view('sach.index',['ds_sach'=>$sach,'search'=>'','selected'=>'asc_name']);
+        $timKiem = $request->tim_kiem;
+        $sach = Sach::where('ten', 'like', "%$timKiem%")
+        ->orderBy('ten', 'asc')
+            ->paginate(4);
+        return view('sach.index', [
+            'sach' => $sach,
+            'search' => '',
+            'selected' => 'asc_name'
+        ]);
     }
+
+
     // public function chiTietSach($id)
     // {
     //     $sach=ThuVien::where('sach_id',$id)->get();
@@ -443,5 +525,8 @@ class AdminController extends Controller
     public function quanLyTaiKhoan()
     {
         return view('tai_khoan.index',['ds_tai_khoan'=>NhanVien::paginate(10)]);
+    }
+    public function themTinTuc(){
+        return view('tin_tuc.them_tin_tuc');
     }
 }

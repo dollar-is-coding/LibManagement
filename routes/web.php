@@ -87,6 +87,10 @@ Route::post('/xac-minh-doi-email', [HomeController::class, 'xulyXacMinhEmail'])-
 Route::get('/doi-email', [HomeController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('auth');
 
+// TIN tức
+Route::get('/them-tin-tuc', [AdminController::class, 'themTinTuc'])->name('them-tin-tuc')->middleware('auth');
+
+
 //Client
 Route::get('/index', [ClientController::class, 'index'])->name('client')->middleware('guest');
 Route::get('/list', [ClientController::class, 'list'])->name('list')->middleware('guest');
