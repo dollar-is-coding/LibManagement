@@ -92,5 +92,8 @@ Route::get('/them-tin-tuc', [AdminController::class, 'themTinTuc'])->name('them-
 
 
 //Client
-Route::get('/index', [ClientController::class, 'index'])->name('client')->middleware('guest');
-Route::get('/list', [ClientController::class, 'list'])->name('list')->middleware('guest');
+Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client')->middleware('guest');
+Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach')->middleware('guest');
+Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client')->middleware('guest');
+Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->name('chi-tiet-danh-muc')->middleware('guest');
+Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client')->middleware('guest');
