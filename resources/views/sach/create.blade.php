@@ -73,7 +73,7 @@
                                 <form action="{{route('import-sach')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <label class="custom-file-upload">
-                                        <input type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
+                                        <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
                                         <span id="file-name">Chọn tệp</span>
                                     </label>
 
@@ -112,7 +112,45 @@
                                 </form>
                             </div> -->
                         </div>
-
+                        @if(Session::has('success'))
+                        <script>
+                            setTimeout(function() {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công',
+                                    text: `{{ Session::get('success') }}`,
+                                    showConfirmButton: false,
+                                    timer: 1000 // Hiển thị trong 5 giây
+                                });
+                            }, 100);
+                        </script>
+                        @endif
+                        @if(Session::has('error_s'))
+                        <script>
+                            setTimeout(function() {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thất bại',
+                                    text: `{{ Session::get('error_s') }}`,
+                                    showConfirmButton: true,
+                                    timer: 3000 // Hiển thị trong 5 giây
+                                });
+                            }, 100);
+                        </script>
+                        @endif
+                        @if(Session::has('error_ex'))
+                        <script>
+                            setTimeout(function() {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thất bại',
+                                    text: `{{ Session::get('error_ex') }}`,
+                                    showConfirmButton: true,
+                                    timer: 3000 // Hiển thị trong 5 giây
+                                });
+                            }, 100);
+                        </script>
+                        @endif
                         <form action="{{ route('xu-ly-them-sach') }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div style="display: flex;flex-direction: row-reverse;">
@@ -356,12 +394,32 @@
                                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                                     <span class="text-danger">{{ session('error_r') }}</span>
                                 </div>
+                                <script>
+                                    setTimeout(function() {
+                                        var errorMessage = document.getElementById('error-message');
+
+                                        if (errorMessage !== null) {
+                                            errorMessage.style.display = 'none';
+                                        }
+
+                                    }, 3000);
+                                </script>
                                 @endif
                                 @if (session('error'))
-                                <div class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                                     <span class="text-danger">{{ session('error') }}</span>
                                 </div>
+                                <script>
+                                    setTimeout(function() {
+                                        var errorMessage = document.getElementById('error_ms');
+
+                                        if (errorMessage !== null) {
+                                            errorMessage.style.display = 'none';
+                                        }
+
+                                    }, 3000);
+                                </script>
                                 @endif
                             </form>
                         </div>

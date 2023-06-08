@@ -110,6 +110,31 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- two -->
+                <div style="display: flex;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng độc giả</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng sách</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Số lượng nhân viên</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
                 <!-- end thong ke -->
                 <div class="row row-sm mg-b-20">
                     <div class="col-lg-7 ht-lg-100p">

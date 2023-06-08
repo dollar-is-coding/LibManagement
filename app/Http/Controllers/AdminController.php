@@ -30,6 +30,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\ExcelImport;
 use App\Imports\ExcelImportThuVien;
+use App\Models\TinTuc;
+use Illuminate\Contracts\Session\Session;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Validators\ValidationException;
+
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class AdminController extends Controller
 {
@@ -39,6 +45,7 @@ class AdminController extends Controller
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
         Excel::import(new ExcelImportThuVien,$path);
+        FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
 
@@ -54,45 +61,57 @@ class AdminController extends Controller
     }
     public function themSachThuVien(SachRequest $request)
     {
-        if ($request->hasFile('file_upload')) {
-            $file = $request->file_upload;
-            if ($file->isValid()) {
-                $file_name = $file->getClientOriginalName();
-                $file->move(public_path('img/books'), $file_name);
-                $request->merge(['hinh_anh' => $file_name]);
-            }
-        } else {
-            $file_name = "";
-            $request->merge(['hinh_anh' => $file_name]);
-        }
-        $ten_sach=$request->old('ten_sach');
-        $tac_gia=$request->old('tac_gia');
-        $the_loai=$request->old('the_loai');
-        $nha_xuat_ban=$request->old('nha_xuat_ban');
-        $so_luong=$request->old('so_luong');
-        $nam_xuat_ban=$request->old('nam_xuat_ban');
-        $khu_vuc=$request->old('khu_vuc');
-        $tu_sach=$request->old('tu_sach');
-        $tom_tat=$request->old('tom_tat');
+        $tangsl = Sach::where('ten',$request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
         $randomDateTime = Carbon::now()->addDays(random_int(0, 30));
         $randomTime = $randomDateTime->format('YmdHis');
-        Sach::create([
-            'ma_sach'=> $randomTime,
-            'ten'=>$request->ten_sach,
-            'tac_gia_id'=>$request->tac_gia,
-            'the_loai_id'=>$request->the_loai,
-            'nha_xuat_ban_id'=>$request->nha_xuat_ban,
-            'nam_xuat_ban'=>$request->nam_xuat_ban,
-            'tom_tat'=>$request->tom_tat,
-            'hinh_anh'=>$file_name,
-        ]);
-        ThuVien::create([
-            'sach_id'=>Sach::latest()->first()->id,
-            'tu_sach_id'=>$request->tu_sach,
-            'khu_vuc_id' => $request->khu_vuc,
-            'sl_con_lai'=>$request->so_luong,
-        ]);
-        return redirect()->route('hien-thi-them-sach');
+        if(!$tangsl){
+            if ($request->hasFile('file_upload')) {
+                $file = $request->file_upload;
+                if ($file->isValid()) {
+                    $file_name = $file->getClientOriginalName();
+                    $file->move(public_path('img/books'), $file_name);
+                    $request->merge(['hinh_anh' => $file_name]);
+                }
+            } else {
+                $file_name = "";
+                $request->merge(['hinh_anh' => $file_name]);
+            }
+            $ten_sach = $request->old('ten_sach');
+            $tac_gia = $request->old('tac_gia');
+            $the_loai = $request->old('the_loai');
+            $nha_xuat_ban = $request->old('nha_xuat_ban');
+            $so_luong = $request->old('so_luong');
+            $nam_xuat_ban = $request->old('nam_xuat_ban');
+            $khu_vuc = $request->old('khu_vuc');
+            $tu_sach = $request->old('tu_sach');
+            $tom_tat = $request->old('tom_tat');
+           
+            Sach::create([
+                'ma_sach' => $randomTime,
+                'ten' => $request->ten_sach,
+                'tac_gia_id' => $request->tac_gia,
+                'the_loai_id' => $request->the_loai,
+                'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                'nam_xuat_ban' => $request->nam_xuat_ban,
+                'tom_tat' => $request->tom_tat,
+                'hinh_anh' => $file_name,
+            ]);
+            ThuVien::create([
+                'sach_id' =>Sach::latest()->first()->id,
+                'tu_sach_id' => $request->tu_sach,
+                'khu_vuc_id' => $request->khu_vuc,
+                'sl_con_lai' => $request->so_luong,
+            ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return redirect()->route('hien-thi-them-sach');
+        }else{
+            $soluongbandau = ThuVien::where('sach_id', $tangsl->id)->first();
+            ThuVien::where('sach_id', $tangsl->id)->update([
+                 'sl_con_lai'=>($soluongbandau->sl_con_lai + $request->so_luong)
+             ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return redirect()->route('hien-thi-them-sach');
+        }
     }
     public function themTacGia(Request $request)
     {
@@ -100,6 +119,7 @@ class AdminController extends Controller
             $tacgia = TacGia::where('ten', $request->tac_gia)->first();
             if (!$tacgia) {
                 TacGia::create(['ten' => $request->tac_gia]);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
             } else {
                 return back()->with('error_r', 'Tên tác giả đã tồn tại');
@@ -114,6 +134,7 @@ class AdminController extends Controller
             $nxb = NhaXuatBan::where('ten',$request->nha_xuat_ban)->first();
             if(!$nxb){
                 NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
             }else{
                 return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
@@ -127,6 +148,7 @@ class AdminController extends Controller
             $theloai = TheLoai::where('ten', $request->the_loai)->first();
            if(!$theloai){
                 TheLoai::create(['ten' => $request->the_loai]);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
            }else{
                 return back()->with('error_r', 'Tên thể loại đã tồn tại');
@@ -140,6 +162,7 @@ class AdminController extends Controller
             $khuvuc = KhuVuc::where('ten',$request->khu_vuc)->first();
             if(!$khuvuc){
                 KhuVuc::create(['ten' => $request->khu_vuc]);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
             }else{
                 return back()->with('error_r', 'Tên khu vực đã tồn tại');
@@ -156,6 +179,7 @@ class AdminController extends Controller
                     'ten' => $request->tu_sach,
                     'khu_vuc_id' => $request->khu_vuc_id,
                 ]);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
             }else {
                 return back()->with('error_r', 'Tủ sách đã tồn tại');
@@ -172,6 +196,7 @@ class AdminController extends Controller
         $tacgia = TacGia::where('ten', $request->tac_gia)->first();
         if(!$tacgia){
             TacGia::find($id)->update(['ten' => $request->tac_gia]);
+            FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
         }
         else{
@@ -184,6 +209,7 @@ class AdminController extends Controller
         $nxb = NhaXuatBan::where('ten', $request->nha_xuat_ban)->first();
         if(!$nxb){
             NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
+            FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
         }else{
             return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
@@ -195,6 +221,7 @@ class AdminController extends Controller
         $theloai = TheLoai::where('ten', $request->the_loai)->first();
         if(!$theloai){
             TheLoai::find($id)->update(['ten' => $request->the_loai]);
+            FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
         }else{
             return back()->with('error_r', 'Tên thể loại đã tồn tại');
@@ -206,6 +233,7 @@ class AdminController extends Controller
         $khuvuc = KhuVuc::where('ten', $request->khu_vuc)->first();
         if(!$khuvuc){
             KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
+            FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
         }else{
             return back()->with('error_r', 'Tên khu vực đã tồn tại');
@@ -220,6 +248,8 @@ class AdminController extends Controller
                 'ten' => $request->tu_sach,
                 'khu_vuc_id' => $request->khu_vuc_id,
             ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return redirect()->route('hien-thi-them-sach');
         }else{
             return back()->with('error_r', 'Tên tủ sách đã tồn tại');
         }
@@ -241,27 +271,67 @@ class AdminController extends Controller
     }
     public function xuLySuaSach($id, SachRequest $request)
     {
-        Sach::find($id)->update([
-            'ten' => $request->ten_sach,
-            'tac_gia_id' => $request->tac_gia,
-            'the_loai_id' =>$request->the_loai,
-            'nha_xuat_ban_id' =>$request->nha_xuat_ban,
-            'nam_xuat_ban' => $request->nam_xuat_ban,
-            'tom_tat' => $request->tom_tat,
-        ]);
-        $img = Sach::find($id);
-        if ($request->has('file')) {
-            $file = $request->file;
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/books'), $filename);
-            $img->hinh_anh = $filename;
+        $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
+        if($tangsl){
+            if (strval($tangsl->id) === $request->id_sach) {
+                Sach::find($id)->update([
+                    'ten' => $request->ten_sach,
+                    'tac_gia_id' => $request->tac_gia,
+                    'the_loai_id' => $request->the_loai,
+                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                    'nam_xuat_ban' => $request->nam_xuat_ban,
+                    'tom_tat' => $request->tom_tat,
+                ]);
+                $img = Sach::find($id);
+                if ($request->has('file')) {
+                    $file = $request->file;
+                    $filename = $file->getClientOriginalName();
+                    $file->move(public_path('img/books'), $filename);
+                    $img->hinh_anh = $filename;
+                }
+                $img->save();
+                ThuVien::find($id)->update([
+                    'tu_sach_id' => $request->tu_sach,
+                    'sl_con_lai' => $request->so_luong,
+                ]);
+                FacadesSession::flash('success', 'Xử lý thành công');
+                return back();
+            } else{
+                $soluongbandau = ThuVien::where('sach_id', $tangsl->id)->first();
+                ThuVien::where('sach_id', $tangsl->id)->update([
+                    'sl_con_lai' => ($soluongbandau->sl_con_lai + $request->so_luong),
+                    'sach_id' => $tangsl->id
+                ]);
+                Sach::find($id)->delete();
+                ThuVien::find($id)->delete();
+                FacadesSession::flash('success', 'Xử lý thành công');
+                return redirect()->route('hien-thi-sach');
+            }
+        }else{
+            Sach::find($id)->update([
+                'ten' => $request->ten_sach,
+                'tac_gia_id' => $request->tac_gia,
+                'the_loai_id' => $request->the_loai,
+                'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                'nam_xuat_ban' => $request->nam_xuat_ban,
+                'tom_tat' => $request->tom_tat,
+            ]);
+            $img = Sach::find($id);
+            if ($request->has('file')) {
+                $file = $request->file;
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('img/books'), $filename);
+                $img->hinh_anh = $filename;
+            }
+            $img->save();
+            ThuVien::find($id)->update([
+                'tu_sach_id' => $request->tu_sach,
+                'sl_con_lai' => $request->so_luong,
+            ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return back();
         }
-        $img->save();
-        ThuVien::find($id)->update([
-            'tu_sach_id' => $request->tu_sach,
-            'so_luong' => $request->so_luong,
-        ]);
-        return back();
+       
     }
 
 
@@ -269,45 +339,39 @@ class AdminController extends Controller
     public function xoaTacGia($id)
     {
         TacGia::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-them-sach');
     }
     public function xoaNhaXuatBan($id)
     {
         NhaXuatBan::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTheLoai($id)
     {
         TheLoai::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-them-sach');
     }
     public function xoaKhuVuc($id)
     {
         KhuVuc::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-them-sach');
     }
     public function xoaTuSach($id)
     {
         TuSach::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-them-sach');
     }
 
 
     // XEM, TÌM KIẾM & CHI TIẾT sách
-    // public function dsSach()
-    // {
-    //     $sach = Sach::orderBy('ten', 'asc')->paginate(4);
-    //     return view('sach.index', ['sach' => $sach]);
-
-    // }
     public function dsSach(Request $request)
     {
-        $sach = Sach::orderBy('ten', 'asc')->paginate(4);
-
-        if ($request->ajax()) {
-            return view('sach.index', ['sach' => $sach]);
-        }
-
+        $sach = Sach::orderBy('ten', 'asc')->paginate(20);
         return view('sach.index', ['sach' => $sach]);
     }
 
@@ -328,21 +392,26 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $sach = Sach::where('ten', 'like', "%$timKiem%")
         ->orderBy('ten', 'asc')
-            ->paginate(4);
-        return view('sach.index', [
-            'sach' => $sach,
-            'search' => '',
-            'selected' => 'asc_name'
-        ]);
+            ->paginate(20);
+
+        if($sach->count()===0){
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        }else{
+            return view('sach.index', [
+                'sach' => $sach,
+                'search' => '',
+                'selected' => 'asc_name'
+            ]);
+        }
+        
     }
 
 
-    // public function chiTietSach($id)
-    // {
-    //     $sach=ThuVien::where('sach_id',$id)->get();
-    //     $sl_nguoi_muon=PhieuMuonSach::where('sach_id',$id)->get()->count();
-    //     return view('sach.detail',['sach'=>$sach,'sl_nguoi_muon'=>$sl_nguoi_muon]);
-    // }
+    public function chiTietSach($id)
+    {
+        $sach=ThuVien::where('sach_id',$id)->get();
+        return view('sach.detail',['sach'=>$sach]);
+    }
 
 
     // CẤP THẺ độc giả
@@ -528,5 +597,33 @@ class AdminController extends Controller
     }
     public function themTinTuc(){
         return view('tin_tuc.them_tin_tuc');
+    }
+    public function xuLyThemTinTuc(Request $request){
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file_upload;
+            if ($file->isValid()) {
+                $file_name = $file->getClientOriginalName();
+                $file->move(public_path('img/books'), $file_name);
+                $request->merge(['hinh_anh' => $file_name]);
+            }
+        } else {
+            $file_name = "";
+            $request->merge(['hinh_anh' => $file_name]);
+        }
+        if ($request->tieu_de != '') {
+                TinTuc::create([
+                    'ten' => $request->tieu_de,
+                    'noi_dung' =>$request->noi_dung,
+                    'luot_xem' => 0,
+                    'luot_thich' => 0,
+                    'luot_binh_luan' => 0,
+                    'anh_bia' => $file_name
+                ]);
+                FacadesSession::flash('success', 'Xử lý thành công');
+                return redirect()->route('them-tin-tuc');
+        }else{
+            return back()->with('error', 'Tiêu đề không được bỏ trống');
+        }
+       
     }
 }

@@ -57,26 +57,28 @@
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
-                <!-- @if (session('error_r'))
-                <div id="error-message" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                @if (session('error'))
+                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                    <span class="text-danger">{{ session('error_r') }}</span>
+                    <span class="text-danger">{{ session('error') }}</span>
                 </div>
-                @endif -->
-                <div class="table-responsive" style="display: flex">
+                @endif
+                <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach($sach as $item)
+                    @foreach($item->hasThuVien as $book)
                     <div class="card" style="margin: 10px;">
-                        @if($item->hinh_anh == '')
+                        @if($book->fkSach->hinh_anh == '')
                         <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->hinh_anh != '')
+                        @elseif($book->fkSach->hinh_anh != '')
                         <img src="/img/avt/{{$item->hinh_anh}}" class="card-img-top">
                         @endif
                         <div class="card-body">
-                            <h5 class="card-title">{{$item->ten}}</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h5 style="height: 50px;" class="card-title">{{$book->fkSach->ten}}</h5>
+                            <p class="card-text">so luong {{$book->sl_con_lai}}</p>
+                            <a href="{{route('chi-tiet-sach',['id' => $book->fkSach->id])}}" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
+                    @endforeach
                     @endforeach
                 </div><!-- az-content-body -->
                 <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>
@@ -101,32 +103,6 @@
         <script src="../js/chart.chartjs.js"></script>
         <script src="../js/jquery.cookie.js" type="text/javascript"></script>
         <script>
-            $(document).on('click', '.pagination a', function(event) {
-                event.preventDefault();
-
-                var page = $(this).attr('href').split('page=')[1];
-
-                fetch_data(page);
-            });
-
-            function fetch_data(page) {
-                $.ajax({
-                    url: '/danh-sach-cac-cuon-sach?page=' + page,
-                    success: function(data) {
-                        $('.table-responsive').html($(data).find('.table-responsive').html());
-                        $('.pagination').html($(data).find('.pagination').html());
-                    }
-                });
-            }
-
-
-
-
-
-
-
-
-
             $(function() {
                 // Datepicker
                 $('.fc-datepicker').datepicker({

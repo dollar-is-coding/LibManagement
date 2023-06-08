@@ -14,7 +14,7 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,7 +45,19 @@
 <body>
 
     @include('../common/header', ['view' => 5])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
+    @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
@@ -58,27 +70,41 @@
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
 
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column border">
                 <div class="az-content-breadcrumb">
                     <span>Tin tức</span>
                     <span>Thêm tin tức</span>
                 </div>
                 <h3>Thêm tin tức</h3>
-                <div style="display: flex;">
-                    <div style="flex-basis: 30%;">
-                        <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
-                            <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
-                            <div id="preview-container" class="preview-container">
+                <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div style="display: flex;">
+                        <div style="flex-basis: 30%;">
+                            <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
+                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                                <div id="preview-container" class="preview-container">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="flex-basis: 70%;">
+                            <label for="">Tiêu đề</label>
+                            <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
+                            <label class="pt-3" for="">Nội dung</label>
+                            <!-- <textarea id="sample"></textarea> -->
+                            <div class="form-floating">
+                                <textarea style="height: 200px;" required name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div style="flex-basis: 70%;">
-                        <label for="">Tiêu đề</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
+                    <div style="display: flex; justify-content: end;" class="mt-3 mr-2">
+                        <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
+
+                        <button class="btn btn-success" type="submit">
+                            Thêm
+                        </button>
                     </div>
-                </div>
-                <label class="pt-3" for="">Nội dung</label>
-                <textarea id="sample"></textarea>
+                </form>
+
                 <style>
                     .upload-container {
                         position: relative;
@@ -113,19 +139,16 @@
                         object-fit: cover;
                     }
                 </style>
-                <div class="ht-40"></div>
+
 
                 @include('../common/footer')
-
             </div><!-- az-content-body -->
+
         </div><!-- container -->
     </div><!-- az-content -->
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
-    <!-- languages (Basic Language: English/en) -->
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+
 
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
@@ -145,12 +168,29 @@
 
 
     <script>
-        const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
-            // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
-            // Insert options
-            // Language global object (default: en)
-            lang: SUNEDITOR_LANG['ko']
+        // const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
+
+        //     lang: SUNEDITOR_LANG['ko']
+        // });
+        const editor = SUNEDITOR.create('sample', {
+            buttonList: [
+                ['undo', 'redo'],
+                ['font', 'fontSize', 'formatBlock'],
+                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                ['fontColor', 'hiliteColor', 'textStyle'],
+                ['removeFormat'],
+                '/',
+                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                ['table', 'link', 'image', 'video'],
+                ['fullScreen', 'showBlocks', 'codeView'],
+                ['preview'],
+            ],
+            width: '100%',
+            height: '400px',
+            placeholder: 'Nhập nội dung ở đây...'
         });
+
+
 
         function chooseFile(fileinput) {
             const previewContainer = document.getElementById("preview-container");

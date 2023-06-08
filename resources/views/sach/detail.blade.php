@@ -69,7 +69,7 @@
                                     <img src="../img/default/no_image_available.jpg" width="240em" height="320em"
                                         style="object-fit: cover">
                                 @else
-                                    <img src="../img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em"
+                                    <img src="../img/avt/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em"
                                         style="object-fit: cover">
                                 @endif
                             </div>
@@ -93,15 +93,7 @@
                                                 </button>
                                             </form>
                                             <div style="font-size: 26px">{{ $item->fkSach->ten }}</div>
-                                            <div class="row row-sm">
-                                                <div style="color:gray;" class="pr-2 ml-2">
-                                                    Đã mượn {{ $sl_nguoi_muon }}
-                                                </div>
-                                                <div style="color:gray;" class="p-0">|</div>
-                                                <div class="pl-2" style="color:gray; ">
-                                                    Đang mượn 25
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                         <div>
                                             {!! QrCode::size(80)->generate(
@@ -123,7 +115,7 @@
                                     <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
                                         <div class="rounded-lg d-flex align-items-end">
                                             <div style="color: #FF424E;font-size: 32px">
-                                                {{ $item->so_luong }}
+                                                {{ $item->sl_con_lai }}
                                             </div>
                                             <div class="pb-2" style="color:gray">&nbsp;(số lượng)</div>
                                         </div>
