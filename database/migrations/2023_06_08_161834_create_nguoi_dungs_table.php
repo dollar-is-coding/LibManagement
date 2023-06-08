@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nhan_vien', function (Blueprint $table) {
+        Schema::create('nguoi_dung', function (Blueprint $table) {
             $table->id();
             $table->string('ho');
             $table->string('ten');
-            $table->string('mat_khau');
+            $table->date('ngay_sinh');
+            $table->tinyInteger('gioi_tinh');
             $table->string('email');
             $table->string('dien_thoai');
-            $table->tinyInteger('gioi_tinh');
+            $table->string('mat_khau');
             $table->tinyInteger('vai_tro');
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nhan_vien');
+        Schema::dropIfExists('nguoi_dung');
     }
 };

@@ -29,20 +29,13 @@
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
 
-    <!--
-
-TemplateMo 584 Pod Talk
-
-https://templatemo.com/tm-584-pod-talk
-
--->
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
 <body>
     <main>
 
         @include('client.header', ['view' => 1])
-
         <section class="hero-section">
             <div class="container">
                 <div class="row">
@@ -202,215 +195,79 @@ https://templatemo.com/tm-584-pod-talk
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách mới</h4>
+                            <h4 class="section-title">Sách mới hàng tuần</h4>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Chọn mượn </a>
-                                </div>
-                            </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">15</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                    @foreach ($sach_moi as $key => $item)
+                        @foreach ($item->hasThuVien as $single_book)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($single_book->fkSach->hinh_anh != '')
+                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
+                                                {{ $single_book->fkSach->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
+                                            <p>
+                                                Tác giả
+                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                            </a>
+                                            <div class="me-1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">15</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Chọn mượn </a>
-                                </div>
-                            </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">15</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 mb-4 mb-lg-0 mt-4">
-                        <div class="custom-block d-flex">
-                            <div class="">
-                                <div class="custom-block-icon-wrap">
-                                    <div class="section-overlay"></div>
-                                    <a href="detail-page.html" class="custom-block-image-wrap">
-                                        <img src="images/podcast/11683425_4790593.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    </a>
-                                </div>
-                                <div class="mt-2">
-                                    <a href="#" class="btn custom-btn"> Chọn mượn </a>
-                                </div>
-                            </div>
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="me-4">
-                                        <i class="bi-clock-fill custom-icon"></i>
-                                        2020
-                                    </small>
-                                    <small class="me-4">Mã sách <span class="badge">#23345615</span></small>
-                                    <small>Số lượng <span class="badge">15</span></small>
-                                </div>
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Chuyện con mèo dạy Hải Âu bay </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-                                    <p>
-                                        Tác giả
-                                        <strong>Đặng Hoàng Giang</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>11k</span>
-                                    </a>
-                                    <div class="me-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                        @endforeach
+                    @endforeach
                     <div class="col-lg-4 col-12 mx-auto">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg justify-content-center mt-5">
                                 <h4>
-                                    <a onMouseOver="this.style.textDecoration='underline'"
+                                    <a href="{{ route('sach-moi-hang-tuan') }}"
+                                        onMouseOver="this.style.textDecoration='underline'"
                                         onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                                 </h4>
                             </ul>
@@ -429,116 +286,49 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Thể loại</h4>
                         </div>
                     </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/physician-consulting-his-patient-clinic.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Sách giáo khoa
-                                    </a>
-                                </h5>
-
-                                <p class="badge mb-0">50 Episodes</p>
+                    @foreach ($the_loai as $item)
+                        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+                            <div class="custom-block custom-block-overlay">
+                                <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->id]) }}"
+                                    class="custom-block-image-wrap">
+                                    @if ($item->id == 1)
+                                        <img src="../img/default/bia_sach_giao_khoa.jpg"
+                                            class="custom-block-image img-fluid" alt="" />
+                                    @endif
+                                    @if ($item->id == 2)
+                                        <img src="../img/default/bia_tham_khao.jpg"
+                                            class="custom-block-image img-fluid" alt="" />
+                                    @endif
+                                    @if ($item->id == 3)
+                                        <img src="../img/default/bia_phat_trien.jpg"
+                                            class="custom-block-image img-fluid" alt="" />
+                                    @endif
+                                    @if ($item->id == 4)
+                                        <img src="../img/default/bia_tap_chi.jpg" class="custom-block-image img-fluid"
+                                            alt="" />
+                                    @endif
+                                    @if ($item->id == 5)
+                                        <img src="../img/default/bia_khoa_hoc.jpg"
+                                            class="custom-block-image img-fluid" alt="" />
+                                    @endif
+                                    @if ($item->id == 6)
+                                        <img src="../img/default/bia_van_hoc.jpg" class="custom-block-image img-fluid"
+                                            alt="" />
+                                    @endif
+                                </a>
+                                <div class="custom-block-info custom-block-overlay-info">
+                                    <h5 class="mb-1">
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->id]) }}">
+                                            {{ $item->ten }}
+                                        </a>
+                                    </h5>
+                                    <p class="badge mb-0">
+                                        {{ Carbon\Carbon::now()->startOfWeek()->format('d/m/Y') <= $item->created_at? 'True': 'False' }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/repairman-doing-air-conditioner-service.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Sách tham khảo
-                                    </a>
-                                </h5>
-
-                                <p class="badge mb-0">12 Episodes</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/woman-practicing-yoga-mat-home.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Sách khoa học
-                                    </a>
-                                </h5>
-
-                                <p class="badge mb-0">35 Episodes</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/woman-practicing-yoga-mat-home.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Sách văn học
-                                    </a>
-                                </h5>
-
-                                <p class="badge mb-0">35 Episodes</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/delicious-meal-with-sambal-arrangement.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Sách phát triển kỹ năng sống
-                                    </a>
-                                </h5>
-                                <p class="badge mb-0">12 Episodes</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-overlay">
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="images/topics/delicious-meal-with-sambal-arrangement.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-                            <div class="custom-block-info custom-block-overlay-info">
-                                <h5 class="mb-1">
-                                    <a href="listing-page.html">
-                                        Báo, tạp chí
-                                    </a>
-                                </h5>
-                                <p class="badge mb-0">12 Episodes</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

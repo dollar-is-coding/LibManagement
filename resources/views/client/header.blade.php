@@ -25,63 +25,10 @@
                 <li class="nav-item">
                     <a class="nav-link {{ $view == 1 ? 'active' : '' }}" href="{{ route('trang-chu-client') }}">Trang chủ</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('danh-muc-sach') }}">
-                        Danh mục sách</a>
+                        Thể loại sách</a>
                 </li>
-
-                <!-- <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            id="navbarLightDropdownMenuLink"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            >Thể loại</a
-                        >
-
-                        <ul
-                            class="dropdown-menu dropdown-menu-light"
-                            aria-labelledby="navbarLightDropdownMenuLink"
-                        >
-                            <li>
-                                <a
-                                    class="dropdown-item"
-                                    href="listing-page.html"
-                                    >Tất cả</a
-                                >
-                            </li>
-
-                            <li>
-                                <a
-                                    class="dropdown-item"
-                                    href="detail-page.html"
-                                >
-                                    Sách giáo khoa
-                                </a>
-                            </li>
-
-                            <li>
-                                <a
-                                    class="dropdown-item"
-                                    href="detail-page.html"
-                                >
-                                    Sách tham khảo
-                                </a>
-                            </li>
-
-                            <li>
-                                <a
-                                    class="dropdown-item"
-                                    href="detail-page.html"
-                                >
-                                    Sách khác
-                                </a>
-                            </li>
-                        </ul>
-                    </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">Tin tức</a>
                 </li>

@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Sach;
 use App\Models\TacGia;
+use App\Models\TheLoai;
 
 class ClientController extends Controller
 {
     public function index()
     {
-        return view('client.index');
+        $start_of_week=Carbon::now()->startOfWeek();
+        $end_of_week=Carbon::now()->endOfWeek();
+        $the_loai=TheLoai::all();
+        $sach_moi=Sach::where([['updated_at','>=',$start_of_week],['updated_at','<=',$end_of_week]])->take(4)->get();
+        return view('client.index',['the_loai'=>$the_loai,'sach_moi'=>$sach_moi]);
     }
 
     public function danhMucSach()
@@ -35,14 +41,30 @@ class ClientController extends Controller
     {
         $id=request()->input('id');
         $sach=Sach::where('the_loai_id',$id)->paginate('10');
-        return view('client.chi_tiet_danh_muc',['sach'=>$sach,'the_loai_id'=>$id]);
+        $so_luong=Sach::where('the_loai_id',$id)->get();
+        return view('client.chi_tiet_danh_muc',['sach'=>$sach,'so_luong'=>$so_luong->count(),'the_loai_id'=>$id]);
     }
 
     public function timKiemSach()
     {
         $id=request()->input('tac_gia');
         $sach=Sach::where('tac_gia_id',$id)->paginate('10');
+        $so_luong=Sach::where('tac_gia_id',$id)->get();
         $tac_gia=TacGia::find($id);
-        return view('client.tim_kiem',['sach'=>$sach,'tac_gia'=>$tac_gia]);
+        return view('client.tim_kiem',['sach'=>$sach,'so_luong'=>$so_luong->count(),'tac_gia'=>$tac_gia]);
+    }
+
+    public function sachHangTuan()
+    {
+        $start_of_week=Carbon::now()->startOfWeek();
+        $end_of_week=Carbon::now()->endOfWeek();
+        $sach_moi=Sach::where([['updated_at','>=',$start_of_week],['updated_at','<=',$end_of_week]])->paginate('10');
+        $so_luong=Sach::where([['updated_at','>=',$start_of_week],['updated_at','<=',$end_of_week]])->get();
+        return view('client.sach_moi_hang_tuan',['sach_moi'=>$sach_moi,'so_luong'=>$so_luong->count(),'bat_dau'=>$start_of_week,'ket_thuc'=>$end_of_week]);
+    }
+
+    public function themSachVaoGio()
+    {
+        # code...
     }
 }

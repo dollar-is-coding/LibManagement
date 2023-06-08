@@ -45,12 +45,12 @@ https://templatemo.com/tm-584-pod-talk
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Danh mục sách</h2>
+                        <h2 class="mb-0">Thể loại sách</h2>
                     </div>
                 </div>
             </div>
         </header>
-        <section class="latest-podcast-section section-padding" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -136,7 +136,7 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -222,7 +222,7 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -308,7 +308,7 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -394,7 +394,7 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -475,7 +475,7 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
