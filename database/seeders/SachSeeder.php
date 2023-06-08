@@ -24,7 +24,8 @@ class SachSeeder extends Seeder
                 'nha_xuat_ban_id' => 1,
                 'the_loai_id' => '1',
                 'nam_xuat_ban' => 2012,
-                'hinh_anh' => ''
+                'hinh_anh' => '',
+                'mo_ta'=>'Sách hay lắm đó nhen'
             ]);
         }
         

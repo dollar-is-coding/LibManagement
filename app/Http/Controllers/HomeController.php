@@ -8,7 +8,7 @@ use App\Mail\SendChangeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\NhanVien;
+use App\Models\NguoiDung;
 use App\Models\ThuVien;
 use App\Models\DocGia;
 use App\Models\PhieuMuonSach;
@@ -17,7 +17,6 @@ use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\MuonSachRequest;
-
 
 class HomeController extends Controller
 {
@@ -34,16 +33,43 @@ class HomeController extends Controller
     }
     public function xuLyDangNhap(DangNhapRequest $request)
     {
-        $email=$request->old('email');
-        $password=$request->old('password');
-        $admin=['email'=>$request->email,'password'=>$request->password];
-        if(Auth::attempt($admin)) {
-            session()->put('email_user',$admin['email']);
+        // $admin=['email'=>$request->email,'password'=>$request->password];
+        // if(Auth::attempt($admin)) {
+        //     session()->put('email_user',$admin['email']);
+        //     return redirect()->route('trang-chu');
+        // } 
+        // return redirect()->back()->with('error','Đăng nhập thất bại');
+        //start 
+        $admin = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'vai_tro' => 1,
+        ];
+        $thuthu = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'vai_tro' => 2,
+        ];
+        $docgia = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'vai_tro' => 3,
+        ];
+        
+        if (Auth::attempt($admin)) {
+            session()->put('email_user', $admin['email']);
             return redirect()->route('trang-chu');
-        } 
-        return redirect()->back()->with('error','Đăng nhập thất bại');
+        }else if (Auth::attempt($thuthu)) {
+            session()->put('email_user', $thuthu['email']);
+            return redirect()->route('trang-chu');
+        }else if(Auth::attempt($docgia)){
+            session()->put('email_user', $docgia['email']);
+            return redirect()->route('trang-chu-client');
+        }
+        return back()->with('error', 'Đăng nhập thất bại');
+
     }
-    public function xuLyDangXuat(Request $request)
+    public function xuLyDangXuat()
     {
         Auth::logout();
         return redirect()->back();
@@ -59,12 +85,12 @@ class HomeController extends Controller
     {
         $ho=$request->old('ho');
         $ten=$request->old('ten');
-        $nguoiDung=NhanVien::where('id',Auth::id())->update([
+        $nguoiDung=NguoiDung::where('id',Auth::id())->update([
             'ho'=>$request->ho,
             'ten'=>$request->ten,
             'gioi_tinh'=>(int)$request->gioi_tinh,
         ]);
-        $img =NhanVien::find(Auth::id());
+        $img =NguoiDung::find(Auth::id());
         if ($request->has('file')) {
             $file = $request->file;
             $filename = $file->getClientOriginalName();
@@ -81,7 +107,7 @@ class HomeController extends Controller
     public function xuLyDoiMatKhau(Request $request)
     {
         if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
-            NhanVien::find(Auth::id())->update([
+            NguoiDung::find(Auth::id())->update([
                 'mat_khau'=>Hash::make($request->new_pass),
             ]);
             return redirect()->back();
@@ -91,12 +117,13 @@ class HomeController extends Controller
 
 
     // Mượn sách
-    public function showMuonSGK()
-    {
-        $doc_gia=DocGia::where('sach_khac','<',2)->get();
-        $sgk=ThuVien::where('so_luong','>',0)->get();
-        return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
-    }
+    // public function showMuonSGK()
+    // {
+    //     $doc_gia=DocGia::where('sach_khac','<',2)->get();
+    //     $sgk=ThuVien::where('so_luong','>',0)->get();
+    //     return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+    // }
+
     // public function handleMuonSGK(MuonSachRequest $request)
     // {
     //     $ma_so=$request->old('ma_so');
@@ -122,12 +149,14 @@ class HomeController extends Controller
     //     }
     //     return back();
     // }
-    public function showMuonSachKhac()
-    {
-        $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
-        $sgk=ThuVien::where('so_luong','>',0)->get();
-        return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
-    }
+
+    // public function showMuonSachKhac()
+    // {
+    //     $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
+    //     $sgk=ThuVien::where('so_luong','>',0)->get();
+    //     return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
+    // }
+
     // public function handleMuonSachKhac(MuonSachRequest $request)
     // {
     //     $ma_so=$request->old('ma_so');
@@ -169,7 +198,7 @@ class HomeController extends Controller
             'body' => 'Vui lòng không chia sẻ bất kì ai mã này'
         ];
         $mailable = new SendMailForgotPass($mailData);
-        $user = NhanVien::where('email', $emailTo)->first();
+        $user = NguoiDung::where('email', $emailTo)->first();
         if ($user) {
             Mail::to($emailTo)->send($mailable);
             return redirect()->route('nhap-ma-xac-minh');
@@ -198,7 +227,7 @@ class HomeController extends Controller
     {
         $email=session()->get('emailTo');
         if ($request->new_pass == $request->confirm_pass) {
-            NhanVien::where('email',$email)->update([
+            NguoiDung::where('email',$email)->update([
                 'mat_khau' => Hash::make($request->new_pass),
             ]);
             return redirect()->route('dang-nhap');
@@ -240,13 +269,13 @@ class HomeController extends Controller
     public function xuLyDoiEmail(Request $request)
     {
         $email = session()->get('email_user');
-        $emaildata = NhanVien::where('email', $request->email)->get();
+        $emaildata = NguoiDung::where('email', $request->email)->get();
         foreach ($emaildata as $emaildatas) {
             $emaildata = $emaildatas->email;
         }
         if ($request->email != $emaildata) {
             session(['email_user' => $request->email]);
-            NhanVien::where('email', $email)->update([
+            NguoiDung::where('email', $email)->update([
                 'email' => $request->email,
             ]);
             return redirect()->route('xem-thong-tin');

@@ -93,9 +93,9 @@ Route::post('/them-tin-tuc', [AdminController::class, 'xuLyThemTinTuc'])->name('
 
 
 //Client
-Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client')->middleware('guest');
-Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach')->middleware('guest');
-Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client')->middleware('guest');
-Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->name('chi-tiet-danh-muc')->middleware('guest');
-Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client')->middleware('guest');
-Route::get('/sach-moi-hang-tuan', [ClientController::class, 'sachHangTuan'])->name('sach-moi-hang-tuan')->middleware('guest');
+Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client')->middleware('auth');
+Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach')->middleware('auth');
+Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client')->middleware('auth');
+Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->name('chi-tiet-danh-muc')->middleware('auth');
+Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client')->middleware('auth');
+Route::get('/sach-moi-hang-tuan', [ClientController::class, 'sachHangTuan'])->name('sach-moi-hang-tuan')->middleware('auth');

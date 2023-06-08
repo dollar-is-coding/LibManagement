@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('hien-thi-them');
+                return redirect()->route('trang-chu');
             }
         }
 
