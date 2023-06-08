@@ -56,12 +56,12 @@ https://templatemo.com/tm-584-pod-talk
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Tất cả</h4>
+                            <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
                         </div>
                     </div>
                     @foreach ($sach as $key => $item)
