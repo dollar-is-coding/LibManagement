@@ -17,12 +17,20 @@ use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\MuonSachRequest;
+use App\Models\Sach;
+use App\Models\TinTuc;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class HomeController extends Controller
 {
     public function trangChu()
     {
-        return view('trang_chu');
+        $ten = Auth::user()->ten;
+        $slsach = Sach::all()->count();
+        $sldocgia = NguoiDung::where('vai_tro', 3)->count();
+        $slthuthu = NguoiDung::where('vai_tro', 2)->count();
+        $sltintuc = TinTuc::all()->count();
+        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten]);
     }
 
 
@@ -96,7 +104,9 @@ class HomeController extends Controller
             $file->move(public_path('img/avt'), $filename);
             $img->anh_dai_dien = $filename;
         }
+        FacadesSession::flash('success', 'Xử lý thành công');
         $img->save();
+        
         return redirect()->back();
     }
     public function doiMatKhau()
@@ -111,6 +121,7 @@ class HomeController extends Controller
             ]);
             return redirect()->back();
         }
+        FacadesSession::flash('success', 'Xử lý thành công');
         return back()->with('error','Thay đổi mật khẩu thất bại');
     }
 

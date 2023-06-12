@@ -65,7 +65,7 @@
                     <label>Tin tức</label>
                     <nav class="nav flex-column">
                         <a href="{{route('them-tin-tuc')}}" class="nav-link ">Thêm tin tức</a>
-                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link active">Quản lý tin tức</a>
+                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -75,31 +75,37 @@
                     <span>Tin tức</span>
                     <span>Quản lý tin tức</span>
                 </div>
-                <h3>Quản lý tin tức</h3>
-                <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto;">
-                    @foreach ($tintuc as $key => $item)
-                    <div class="card" style="width: 18rem;margin: 10px;">
-                        @if($item->anh_bia == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->anh_bia != '')
-                        <img src="/img/avt/{{$item->anh_bia}}" class="card-img-top">
+                <!-- viet tai day -->
+                @foreach($tintuc as $item)
+                <h3 style="text-align: center;" class="mb-3">{{$item->ten}}</h3>
+                <div style="display: flex;">
+                    <div style="flex-basis: 30%;">
+                        @if ($item->anh_bia)
+                        <img src="../img/default/no_image_available.jpg" width="240em" height="320em" style="object-fit: cover">
+                        @else
+                        <img src="../img/avt/{{ $item->anh_bia }}" width="240em" height="320em" style="object-fit: cover">
                         @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{$item->ten}}</h5>
-                            <a href="{{route('chi-tiet-tin-tuc',['id'=>$item->id])}}" class="btn btn-primary">Chi tiết</a>
-                            <a href="{{route('xoa-tin-tuc',['id'=>$item->id])}}" class="btn btn-danger delete-link">Xóa</a>
-                            <a href="{{route('sua-tin-tuc',['id'=>$item->id])}}" class="btn btn-success">Sửa</a>
-                        </div>
                     </div>
-                    @endforeach
+                    <div style="flex-basis: 70%;" class="pr-3">
+                        <p>{{$item->noi_dung}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                <div style="display: flex;" class="pt-3">
+                    <p style="width: 33%;">Lượt xem</p>
+                    <p style="width: 33%;">Lượt thích</p>
+                    <p style="width: 33%;">Lượt bình luận</p>
+                </div>
+                @endforeach
 
-                @include('../common/footer')
-            </div><!-- az-content-body -->
+
+
+            </div>
+
 
         </div><!-- container -->
+        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+            @include('../common/footer')
+        </div><!-- az-content-body -->
     </div><!-- az-content -->
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
@@ -119,26 +125,6 @@
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-    <script>
-        $(document).on("click", ".delete-link", function(event) {
-            event.preventDefault();
-            var link = this;
-
-            Swal.fire({
-                title: "Bạn có muốn xóa không?",
-                imageUrl: "/img/war.png",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link.href;
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

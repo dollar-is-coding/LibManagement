@@ -1,12 +1,14 @@
 <div class="az-header">
     <div class="container">
         <div class="az-header-left">
-            <a href="{{ route('trang-chu') }}" class="az-logo"><span></span>libro</a>
+            <a href="{{ route('trang-chu') }}" class="az-logo"><span></span>
+                <img style="width: 60px;height: 60px;" src="/img/LIBRO.png" alt="">
+            </a>
             <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
         </div><!-- az-header-left -->
         <div class="az-header-menu">
             <div class="az-header-menu-header">
-                <a href="" class="az-logo"><span></span>libro</a>
+                <a href="{{ route('trang-chu') }}" class="az-logo"><span></span>libro</a>
                 <a href="" class="close">&times;</a>
             </div><!-- az-header-menu-header -->
             <ul class="nav">
@@ -31,6 +33,7 @@
                         <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
                     </nav>
                 </li>
+                @if(Auth::user()->vai_tro == 1)
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Quản trị viên</a>
                     <nav class="az-menu-sub">
@@ -38,11 +41,12 @@
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
                     </nav>
                 </li>
+                @endif
                 <li class="nav-item {{ $view == 5 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>Tin tức</a>
                     <nav class="az-menu-sub">
                         <a href="{{route('them-tin-tuc')}}" class="nav-link">Thêm tin tức</a>
-                        <a href="" class="nav-link">Quản lý tin tức</a>
+                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
                     </nav>
                 </li>
             </ul>

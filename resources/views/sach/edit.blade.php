@@ -83,7 +83,7 @@
 
                             <!-- id sách ẩn -->
                             <input type="hidden" name="id_sach" value="{{ $item->fkSach->id }}">
-                            
+
                             <div style="flex-basis: 70%" class="mb-0">
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between">
@@ -216,7 +216,7 @@
                         <div class="form-group ml-3">
                             <label class="m-0">&nbsp;Nội dung tóm tắt</label>
                             @foreach ($sach as $item)
-                            <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->tom_tat }}</textarea>
+                            <textarea rows="10" class="form-control" name="mo_ta" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->mo_ta }}</textarea>
                             @endforeach
                         </div>
 

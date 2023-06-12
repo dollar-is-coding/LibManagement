@@ -14,7 +14,7 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,7 +38,19 @@
 <body>
 
     @include('../common/header', ['view' => 4])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
+    @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
@@ -116,27 +128,21 @@
                     <h4 class="az-content-label mg-b-5 ml-3">Hồ Sơ Của Tôi</h4>
                     <p class="mg-b-5 ml-3 ">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
                     <hr class="hr ml-3" />
-                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form class="az-signin-header row" action="{{ route('xu-ly-doi-thong-tin') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="ongnoi col-lg-4">
                             <div class="cha">
                                 <div class="con1">
                                     @if (Auth::user()->anh_dai_dien == '')
-                                        <img class="ca border rounded-circle" id="image" alt=""
-                                            srcset="" src="../img/default/no_avatar.png" width="200px"
-                                            height="200px" style="object-fit:cover">
+                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/default/no_avatar.png" width="200px" height="200px" style="object-fit:cover">
                                     @else
-                                        <img class="ca border rounded-circle" id="image" alt=""
-                                            srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}"
-                                            width="200px" height="200px" style="object-fit:cover">
+                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}" width="200px" height="200px" style="object-fit:cover">
                                     @endif
                                 </div>
 
                                 <div class="con2">
                                     <label for="file"></label>
-                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)"
-                                        name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
+                                    <input class="chau1" type="file" value="" onchange="chooseFile(this)" name="file" accept="image/gif, image/jpeg, image/png, image/jpg">
                                 </div>
                             </div>
                         </div>
@@ -146,34 +152,30 @@
                                     <div class="d-flex justify-content-between">
                                         <label class="m-0">&nbsp;Họ</label>
                                         @error('ho')
-                                            <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
-                                            </div>
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
                                         @enderror
                                     </div>
-                                    <input type="text" name="ho" class="form-control" placeholder="Nhập họ"
-                                        value="{{ Auth::user()->ho }}">
+                                    <input type="text" name="ho" class="form-control" placeholder="Nhập họ" value="{{ Auth::user()->ho }}">
                                 </div><!-- form-group -->
                                 <div class="col-lg form-group">
                                     <div class="d-flex justify-content-between">
                                         <label class="m-0">&nbsp;Tên</label>
                                         @error('ten')
-                                            <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
-                                            </div>
+                                        <div style="font-style: italic;" class="text-danger">{{ $message }} *&nbsp;
+                                        </div>
                                         @enderror
                                     </div>
-                                    <input type="text" name="ten" class="form-control" placeholder="Nhập tên"
-                                        value="{{ Auth::user()->ten }}">
+                                    <input type="text" name="ten" class="form-control" placeholder="Nhập tên" value="{{ Auth::user()->ten }}">
                                 </div><!-- form-group -->
                             </div>
                             <div class="row row-sm align-items-end">
                                 <div class="col-lg form-group">
                                     <div class="row row-sm justify-content-between ml-0 mr-0">
                                         <label class="m-0">&nbsp;Email</label>
-                                        <a style="text-decoration: underline" class=""
-                                            href="{{ route('xac-minh-email') }}">Thay đổi</a>
+                                        <a style="text-decoration: underline" class="" href="{{ route('xac-minh-email') }}">Thay đổi</a>
                                     </div>
-                                    <input type="email" name="email" class="form-control" readonly
-                                        value="{{ Auth::user()->email }}">
+                                    <input type="email" name="email" class="form-control" readonly value="{{ Auth::user()->email }}">
                                 </div><!-- form-group -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
@@ -183,8 +185,7 @@
                                 </div><!-- col-3 -->
                                 <div class="mg-b-20">
                                     <label class="rdiobox">
-                                        <input name="gioi_tinh" value="2" type="radio"
-                                            {{ Auth::user()->gioi_tinh == 2 ? 'checked' : '' }}>
+                                        <input name="gioi_tinh" value="2" type="radio" {{ Auth::user()->gioi_tinh == 2 ? 'checked' : '' }}>
                                         <span>Nữ</span>
                                     </label>
                                 </div><!-- col-3 -->
@@ -192,8 +193,7 @@
 
                             <div class="form-group">
                                 <label class="m-0">&nbsp;Vai trò</label>
-                                <input class="form-control"
-                                    value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
+                                <input class="form-control" value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
                             </div><!-- form-group -->
                             <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Cập nhật</button>
                         </div>
