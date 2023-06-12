@@ -84,7 +84,7 @@ class AdminController extends Controller
             $nam_xuat_ban = $request->old('nam_xuat_ban');
             $khu_vuc = $request->old('khu_vuc');
             $tu_sach = $request->old('tu_sach');
-            $tom_tat = $request->old('tom_tat');
+            $mo_ta = $request->old('mo_ta');
            
             Sach::create([
                 'ma_sach' => $randomTime,
@@ -93,7 +93,7 @@ class AdminController extends Controller
                 'the_loai_id' => $request->the_loai,
                 'nha_xuat_ban_id' => $request->nha_xuat_ban,
                 'nam_xuat_ban' => $request->nam_xuat_ban,
-                'tom_tat' => $request->tom_tat,
+                'mo_ta' => $request->mo_ta,
                 'hinh_anh' => $file_name,
             ]);
             ThuVien::create([
@@ -280,7 +280,7 @@ class AdminController extends Controller
                     'the_loai_id' => $request->the_loai,
                     'nha_xuat_ban_id' => $request->nha_xuat_ban,
                     'nam_xuat_ban' => $request->nam_xuat_ban,
-                    'tom_tat' => $request->tom_tat,
+                    'mo_ta' => $request->mo_ta,
                 ]);
                 $img = Sach::find($id);
                 if ($request->has('file')) {
@@ -314,7 +314,7 @@ class AdminController extends Controller
                 'the_loai_id' => $request->the_loai,
                 'nha_xuat_ban_id' => $request->nha_xuat_ban,
                 'nam_xuat_ban' => $request->nam_xuat_ban,
-                'tom_tat' => $request->tom_tat,
+                'mo_ta' => $request->mo_ta,
             ]);
             $img = Sach::find($id);
             if ($request->has('file')) {
@@ -371,8 +371,9 @@ class AdminController extends Controller
     // XEM, TÌM KIẾM & CHI TIẾT sách
     public function dsSach(Request $request)
     {
+        $slsach = Sach::all()->count();
         $sach = Sach::orderBy('ten', 'asc')->paginate(20);
-        return view('sach.index', ['sach' => $sach]);
+        return view('sach.index', ['sach' => $sach,'slsach'=>$slsach]);
     }
 
     public function dsTimKiem(Request $request)
@@ -571,6 +572,8 @@ class AdminController extends Controller
                 'anh_dai_dien' => '',
                 'vai_tro' => $request->vai_tro,
                 'gioi_tinh' => $request->gioi_tinh,
+                'ngay_sinh'=> '2000/1/1',
+                'dien_thoai'=>''
             ]);
             $this->taoTaiKhoan($user);
             return redirect()->route('tao-tai-khoan');
@@ -594,17 +597,25 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
+        $admin = NguoiDung::where('vai_tro',1)->get();
+        $thuthu = NguoiDung::where('vai_tro', 2)->get();
+        $docgia = NguoiDung::where('vai_tro', 3)->get();
+        return view('tai_khoan.index', ['admin' => $admin,'thuthu'=>$thuthu,'docgia'=>$docgia ]);
+        // return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
     }
     public function themTinTuc(){
         return view('tin_tuc.them_tin_tuc');
+    }
+    public function dsTinTuc(){
+        $tintuc = TinTuc::all();
+        return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc]);
     }
     public function xuLyThemTinTuc(Request $request){
         if ($request->hasFile('file_upload')) {
             $file = $request->file_upload;
             if ($file->isValid()) {
                 $file_name = $file->getClientOriginalName();
-                $file->move(public_path('img/books'), $file_name);
+                $file->move(public_path('img/avt'), $file_name);
                 $request->merge(['hinh_anh' => $file_name]);
             }
         } else {
@@ -626,5 +637,34 @@ class AdminController extends Controller
             return back()->with('error', 'Tiêu đề không được bỏ trống');
         }
        
+    }
+    public function xemChiTietTinTuc($id){
+        $tintuc = TinTuc::where('id',$id)->get();
+        return view('tin_tuc.chi_tiet_tin_tuc',['tintuc'=>$tintuc]);
+    }
+    public function xoaTinTuc($id){
+        TinTuc::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return back();
+    }
+    public function suaTinTuc($id){
+        $tintuc = TinTuc::where('id',$id)->get();
+        return view('tin_tuc.sua_tin_tuc',['tintuc'=>$tintuc]);
+    }
+    public function xuLySuaTinTuc($id, Request $request){
+        TinTuc::find($id)->update([
+            'tieu_de' => $request->tieu_de,
+            'noi_dung' => $request->noi_dung,
+        ]);
+        $img = TinTuc::find($id);
+        if ($request->has('file')) {
+            $file = $request->file_upload;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        $img->save();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return back();
     }
 }

@@ -23,6 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
@@ -56,13 +57,25 @@
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
+                    <!-- <div class="dropdown col-lg-1" style="margin: 0;">
+                        <a style="margin: 0;" class="btn btn-indigo dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bộ lọc
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Tác giả</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div> -->
                 </form>
+
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
+                <h4 class="mt-3">Số lượng sách {{$slsach}}</h4>
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach($sach as $item)
                     @foreach($item->hasThuVien as $book)
@@ -74,8 +87,8 @@
                         @endif
                         <div class="card-body">
                             <h5 style="height: 50px;" class="card-title">{{$book->fkSach->ten}}</h5>
-                            <p class="card-text">so luong {{$book->sl_con_lai}}</p>
-                            <a href="{{route('chi-tiet-sach',['id' => $book->fkSach->id])}}" class="btn btn-primary">Go somewhere</a>
+                            <p class="card-text">Số lượng {{$book->sl_con_lai}}</p>
+                            <a href="{{route('chi-tiet-sach',['id' => $book->fkSach->id])}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
                     @endforeach

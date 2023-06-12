@@ -87,9 +87,16 @@ Route::post('/xac-minh-doi-email', [HomeController::class, 'xulyXacMinhEmail'])-
 Route::get('/doi-email', [HomeController::class, 'doiEmail'])->name('doi-email')->middleware('auth');
 Route::post('/doi-email', [HomeController::class, 'xuLyDoiEmail'])->middleware('auth');
 
-// TIN tức
+// Tin tức
 Route::get('/them-tin-tuc', [AdminController::class, 'themTinTuc'])->name('them-tin-tuc')->middleware('auth');
 Route::post('/them-tin-tuc', [AdminController::class, 'xuLyThemTinTuc'])->name('xu-ly-them-tin-tuc')->middleware('auth');
+Route::get('/quan-ly-tin-tuc', [AdminController::class, 'dsTinTuc'])->name('danh-sach-tin-tuc')->middleware('auth');
+Route::get('/xem-chi-tiet-tin-tuc/{id}', [AdminController::class, 'xemChiTietTinTuc'])->name('chi-tiet-tin-tuc')->middleware('auth');
+Route::get('/xoa-tin-tuc/{id}', [AdminController::class, 'xoaTinTuc'])->name('xoa-tin-tuc')->middleware('auth');
+Route::get('/sua-tin-tuc/{id}', [AdminController::class, 'suaTinTuc'])->name('sua-tin-tuc')->middleware('auth');
+Route::post('/sua-tin-tuc/{id}', [AdminController::class, 'xuLySuaTinTuc'])->name('xu-ly-sua-tin-tuc')->middleware('auth');
+
+
 
 
 //Client

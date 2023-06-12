@@ -306,7 +306,7 @@
 
                             <div class="form-group">
                                 <label for="">&nbsp;Nội dung tóm tắt</label>
-                                <textarea rows="10" class="form-control" name="tom_tat" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ old('tom_tat') }}</textarea>
+                                <textarea rows="10" class="form-control" name="mo_ta" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ old('tom_tat') }}</textarea>
                             </div>
 
                             <div style="display: flex; justify-content: end;">

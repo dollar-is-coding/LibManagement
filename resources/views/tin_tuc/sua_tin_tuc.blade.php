@@ -64,7 +64,7 @@
                 <div class="component-item">
                     <label>Tin tức</label>
                     <nav class="nav flex-column">
-                        <a href="{{route('them-tin-tuc')}}" class="nav-link active">Thêm tin tức</a>
+                        <a href="{{route('them-tin-tuc')}}" class="nav-link ">Thêm tin tức</a>
                         <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link ">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
@@ -73,38 +73,46 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column border">
                 <div class="az-content-breadcrumb">
                     <span>Tin tức</span>
-                    <span>Thêm tin tức</span>
+                    <span>Sửa tin tức</span>
                 </div>
-                <h3>Thêm tin tức</h3>
-                <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data">
+                <h3>Sửa tin tức</h3>
+                @foreach($tintuc as $item)
+                <form action="{{route('xu-ly-sua-tin-tuc',['id'=>$item->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div style="display: flex;">
                         <div style="flex-basis: 30%;">
+                            @if($item->anh_bia == '')
                             <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
                                 <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                 <div id="preview-container" class="preview-container">
                                 </div>
                             </div>
+                            @else
+                            <div class="upload-container border rounded" style="background-image: url('/img/avt/{{$item->anh_bia}}');margin-top: 30px;">
+                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                                <div id="preview-container" class="preview-container">
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         <div style="flex-basis: 70%;">
                             <label for="">Tiêu đề</label>
-                            <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
+                            <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" value="{{$item->ten}}">
                             <label class="pt-3" for="">Nội dung</label>
                             <!-- <textarea id="sample"></textarea> -->
                             <div class="form-floating">
-                                <textarea style="height: 200px;" required name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
+                                <textarea style="height: 200px;" required name="noi_dung" class="form-control">{{$item->noi_dung}}</textarea>
                             </div>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: end;" class="mt-3 mr-2">
-                        <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
-
+                        <a href="{{route('danh-sach-tin-tuc')}}" class="btn btn-danger" style="margin-right: 2%">Hủy</a>
                         <button class="btn btn-success" type="submit">
-                            Thêm
+                            Sửa
                         </button>
                     </div>
                 </form>
-
+                @endforeach
                 <style>
                     .upload-container {
                         position: relative;
