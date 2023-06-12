@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0"></h2>
+                        <h2 class="mb-0">{{ $tac_gia->ten }}</h2>
                     </div>
                 </div>
             </div>

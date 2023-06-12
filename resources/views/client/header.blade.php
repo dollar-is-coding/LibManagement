@@ -45,18 +45,6 @@
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
 
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            {{-- @if ($gio_sach->count() > 0)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
-                                        ({{ $gio_sach->count() }})</a>
-                                </li>
-                            @else
-                                <li>
-                                    <a class="dropdown-item">Giỏ sách
-                                        ({{ $gio_sach->count() }})</a>
-                                </li>
-                            @endif --}}
-
                             <li>
                                 <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
                                     ({{ $gio_sach->count() }})</a>
@@ -65,6 +53,10 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('cho-duyet') }}">
                                     Lịch sử mượn sách</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">
+                                    Đăng xuất</a>
                             </li>
                         </ul>
                     </li>

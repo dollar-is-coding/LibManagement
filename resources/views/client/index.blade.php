@@ -329,7 +329,7 @@
                                         </a>
                                     </h5>
                                     <p class="badge mb-0">
-                                        34 quyển
+                                        {{ $item->so_luong }} quyển
                                     </p>
                                 </div>
                             </div>

@@ -601,6 +601,14 @@ main {
     padding-bottom: 7px;
 }
 
+.meet-deadline {
+    color: var(--secondary-color);
+}
+
+.miss-deadline {
+    color: red;
+}
+
 .history {
     color: var(--p-color);
 }

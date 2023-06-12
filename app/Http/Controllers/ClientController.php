@@ -80,13 +80,13 @@ class ClientController extends Controller
         ]);
     }
 
-    public function timKiemSach()
+    public function timKiemTacGia()
     {
         $id=request()->input('tac_gia');
         $sach=Sach::where('tac_gia_id',$id)->paginate('10');
         $so_luong=Sach::where('tac_gia_id',$id)->get();
         $tac_gia=TacGia::find($id);
-        return view('client.tim_kiem',[
+        return view('client.tim_kiem_tac_gia',[
             'sach'=>$sach,
             'so_luong'=>$so_luong->count(),
             'tac_gia'=>$tac_gia
@@ -178,6 +178,13 @@ class ClientController extends Controller
         $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         return view('client.dang_muon',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
+    }
+
+    public function showLichSuDaTra()
+    {
+        $da_tra=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',3]])->get();
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        return view('client.da_tra',['gio_sach'=>$gio_sach,'da_tra'=>$da_tra]);
     }
 
     public function cancelPhieuMuon()

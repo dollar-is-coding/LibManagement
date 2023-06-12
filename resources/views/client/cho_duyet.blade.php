@@ -63,8 +63,8 @@ https://templatemo.com/tm-584-pod-talk
                             <div class="p-4 pt-0 pb-0 history">
                                 <a href="{{ route('dang-muon') }}" class="history"><strong>Đang mượn</strong></a>
                             </div>
-                            <div class="p-4 pt-0 pb-0"><a href="" class="history"><strong>Đã trả</strong></a>
-                            </div>
+                            <div class="p-4 pt-0 pb-0"><a href="{{ route('da-tra') }}" class="history">
+                                    <strong>Đã trả</strong></a></div>
                             <div class="p-4 pt-0 pb-0"><a href="" class="history"><strong>Phiếu phạt</strong></a>
                             </div>
                         </div>
@@ -119,8 +119,8 @@ https://templatemo.com/tm-584-pod-talk
                             <hr>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex">
-                                    <p class="m-0">Ngày trả:&nbsp;</p>
-                                    <div>{{ date('d-m-Y', strtotime(date('m-d-y') . ' + 14 days')) }}</div>
+                                    <p class="m-0">Ngày cần trả:&nbsp;</p>
+                                    <div>{{ date('d-m-Y', strtotime($item->han_tra)) }}</div>
                                 </div>
                                 <a href="{{ route('huy-phieu-muon', ['ma_phieu_muon' => $item->ma_phieu_muon]) }}"
                                     class="btn danger-btn">Hủy phiếu</a>

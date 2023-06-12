@@ -14,11 +14,10 @@ class SachSeeder extends Seeder
     public function run(): void
     {
         $a = 0;
-        $b = 100;
+        $b = 25;
         for ($i = 1; $i > $a && $i < $b; $i++) {
-
             Sach::create([
-                'ten' => 'Tiếng anh'.strval($i),
+                'ten' => 'Tiếng anh '.strval($i),
                 'ma_sach' => $i,
                 'tac_gia_id' => 1,
                 'nha_xuat_ban_id' => 1,

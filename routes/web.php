@@ -96,7 +96,7 @@ Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-cl
 Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach');
 Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client');
 Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->name('chi-tiet-danh-muc');
-Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client');
+Route::get('/tim-kiem-tac-gia', [ClientController::class, 'timKiemTacGia'])->name('tim-kiem-tac-gia');
 Route::get('/sach-moi-hang-tuan', [ClientController::class, 'sachHangTuan'])->name('sach-moi-hang-tuan');
 Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
 Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
@@ -105,3 +105,4 @@ Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('mu
 Route::get('/lich-su-cho-duyet', [ClientController::class, 'showLichSuChoDuyet'])->name('cho-duyet')->middleware('auth');
 Route::get('/lich-su-dang-muon', [ClientController::class, 'showLichSuDangMuon'])->name('dang-muon')->middleware('auth');
 Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon')->middleware('auth');
+Route::get('/da-tra', [ClientController::class, 'showLichSuDaTra'])->name('da-tra')->middleware('auth');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('so_luong')->default(1);
             $table->timestamp('ngay_lap_phieu')->useCurrent();
             $table->date('han_tra');
-            $table->integer('trang_thai')->default(0);
+            $table->integer('trang_thai')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
