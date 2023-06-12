@@ -23,7 +23,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-lg-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ $view == 1 ? 'active' : '' }}" href="{{ route('trang-chu-client') }}">Trang chủ</a>
+                    <a class="nav-link {{ $view == 1 ? 'active' : '' }}" href="{{ route('trang-chu-client') }}">Trang
+                        chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('danh-muc-sach') }}">
@@ -37,11 +38,43 @@
                         Liên hệ
                     </a>
                 </li>
-            </ul>
+                @if (Auth::user() && Auth::user()->vai_tro == 3)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown bi bi-person-circle" href="#" id="navbarLightDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
 
-            <div class="ms-4">
-                <a href="#section_3" class="btn custom-btn custom-border-btn smoothscroll">Đăng nhập</a>
-            </div>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            {{-- @if ($gio_sach->count() > 0)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
+                                        ({{ $gio_sach->count() }})</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a class="dropdown-item">Giỏ sách
+                                        ({{ $gio_sach->count() }})</a>
+                                </li>
+                            @endif --}}
+
+                            <li>
+                                <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
+                                    ({{ $gio_sach->count() }})</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{ route('cho-duyet') }}">
+                                    Lịch sử mượn sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('dang-nhap') }}" class="btn custom-btn custom-border-btn smoothscroll">Đăng
+                            nhập</a>
+                    </li>
+                @endif
+            </ul>
         </div>
     </div>
 </nav>

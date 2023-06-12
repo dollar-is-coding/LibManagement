@@ -75,7 +75,6 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-
     // Cá nhân
     public function xemThongTin()
     {

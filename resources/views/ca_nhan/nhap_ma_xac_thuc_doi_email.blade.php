@@ -61,7 +61,6 @@
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->
 
-
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
