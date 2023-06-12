@@ -82,7 +82,13 @@ https://templatemo.com/tm-584-pod-talk
                                             </a>
                                         </div>
                                         <div class="mt-2">
-                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                            @if (Auth::user() && Auth::user()->vai_tro == 3)
+                                                <a href="{{ route('them-sach-vao-gio', ['sach' => $single_book->sach_id]) }}"
+                                                    class="btn custom-btn"> Chọn mượn </a>
+                                            @else
+                                                <a href="{{ route('dang-nhap') }}" class="btn custom-btn"> Chọn mượn
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="custom-block-info">

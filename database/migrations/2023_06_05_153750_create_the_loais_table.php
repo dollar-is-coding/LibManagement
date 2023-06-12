@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('the_loai', function (Blueprint $table) {
             $table->id();
             $table->string('ten');
+            $table->tinyInteger('so_luong');
             $table->timestamps();
             $table->softDeletes();
         });
