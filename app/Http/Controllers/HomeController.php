@@ -63,15 +63,15 @@ class HomeController extends Controller
             'password' => $request->password,
             'vai_tro' => 3,
         ];
-        
+
         if (Auth::attempt($admin)) {
-            session()->put('email_user', $admin['email']);
+            session(['vai_tro' => $admin['vai_tro'], 'email_user' => $admin['email']]);
             return redirect()->route('trang-chu');
-        }else if (Auth::attempt($thuthu)) {
-            session()->put('email_user', $thuthu['email']);
+        } else if (Auth::attempt($thuthu)) {
+            session(['vai_tro' => $thuthu['vai_tro'], 'email_user' => $thuthu['email']]);
             return redirect()->route('trang-chu');
-        }else if(Auth::attempt($docgia)){
-            session()->put('email_user', $docgia['email']);
+        } else if (Auth::attempt($docgia)) {
+            session(['vai_tro' => $docgia['vai_tro'], 'email_user' => $docgia['email']]);
             return redirect()->route('trang-chu-client');
         }
         return back()->with('error', 'Đăng nhập thất bại');

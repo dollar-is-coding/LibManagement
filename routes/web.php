@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use LaravelQRCode\Facades\QRCode as qrcodea;
 
-// DASHBOARD
-Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
+
 
 // ĐĂNG NHẬP & ĐĂNG XUẤT
 Route::get('/dang-nhap', [HomeController::class, 'dangNhap'])->name('dang-nhap')->middleware('guest');
@@ -25,6 +24,12 @@ Route::post('/xac-minh-quen-mat-khau', [HomeController::class, 'xuLyNhapMailQuen
 Route::get('/xac-minh', [HomeController::class, 'nhapMaXacMinh'])->name('nhap-ma-xac-minh');
 Route::post('/xac-minh', [HomeController::class, 'XuLyNhapMaXacMinh']);
 
+
+
+Route::middleware('guest')->group(function () {
+    
+// DASHBOARD
+Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 // XEM, TÌM KIẾM & CHI TIẾT SÁCH
 Route::get('/danh-sach-cac-cuon-sach', [AdminController::class, 'dsSach'])->name('hien-thi-sach')->middleware('auth');
 Route::get('/tim-kiem', [AdminController::class, 'dsTimKiem'])->name('tim-kiem')->middleware('auth');
@@ -95,10 +100,10 @@ Route::get('/xem-chi-tiet-tin-tuc/{id}', [AdminController::class, 'xemChiTietTin
 Route::get('/xoa-tin-tuc/{id}', [AdminController::class, 'xoaTinTuc'])->name('xoa-tin-tuc')->middleware('auth');
 Route::get('/sua-tin-tuc/{id}', [AdminController::class, 'suaTinTuc'])->name('sua-tin-tuc')->middleware('auth');
 Route::post('/sua-tin-tuc/{id}', [AdminController::class, 'xuLySuaTinTuc'])->name('xu-ly-sua-tin-tuc')->middleware('auth');
-
-
+});
 
 //Client
+Route::middleware('guest')->group(function () {
 Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
 Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach');
 Route::get('/chi-tiet-sach', [ClientController::class, 'chiTietSach'])->name('chi-tiet-sach-client');
@@ -112,3 +117,4 @@ Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('mu
 Route::get('/lich-su-cho-duyet', [ClientController::class, 'showLichSuChoDuyet'])->name('cho-duyet')->middleware('auth');
 Route::get('/lich-su-dang-muon', [ClientController::class, 'showLichSuDangMuon'])->name('dang-muon')->middleware('auth');
 Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon')->middleware('auth');
+});
