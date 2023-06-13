@@ -40,7 +40,7 @@ class NguoiDungSeeder extends Seeder
             'ho' => 'Dinh',
             'ten' => 'Dinh',
             'mat_khau' => Hash::make('12345678'),
-            'email' => null,
+            'email' => '123@gmail.com',
             'dien_thoai' => null,
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',

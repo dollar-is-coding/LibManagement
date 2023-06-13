@@ -15,7 +15,12 @@ class Sach extends Model
     
     public function hasThuVien()
     {
-        return $this->hasMany(ThuVien::class,'sach_id');
+        return $this->hasOne(ThuVien::class,'sach_id');
+    }
+
+    public function hasYeuThich()
+    {
+        return $this->hasMany(LichSu::class,'sach_id');
     }
 
     public function fkTacGia()

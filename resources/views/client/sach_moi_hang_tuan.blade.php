@@ -46,7 +46,8 @@ https://templatemo.com/tm-584-pod-talk
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
                         <h2 class="mb-0">Sách mới hàng tuần</h2>
-                        <h5 class="mt-2 text-light">( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }} )</h5>
+                        <h5 class="mt-2 text-light">( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }}
+                            )</h5>
                     </div>
                 </div>
             </div>
@@ -57,73 +58,69 @@ https://templatemo.com/tm-584-pod-talk
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Tất cả ({{$so_luong}})</h4>
+                            <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
                         </div>
                     </div>
                     @foreach ($sach_moi as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
-                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
-                                <div class="custom-block d-flex">
-                                    <div class="">
-                                        <div class="custom-block-icon-wrap">
-                                            <div class="section-overlay"></div>
-                                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                                @if ($single_book->fkSach->hinh_anh != '')
-                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
-                                                        class="custom-block-image img-fluid" alt="" />
-                                                @else
-                                                    <img src="../img/default/no_book.jpg"
-                                                        class="custom-block-image img-fluid border" alt="" />
-                                                @endif
-                                            </a>
-                                        </div>
-                                        <div class="mt-2">
-                                            <a href="#" class="btn custom-btn"> Chọn mượn </a>
-                                        </div>
+                        <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                            <div class="custom-block d-flex">
+                                <div>
+                                    <div class="custom-block-icon-wrap">
+                                        <div class="section-overlay"></div>
+                                        <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
+                                            class="custom-block-image-wrap">
+                                            @if ($item->hinh_anh != '')
+                                                <img src="../img/books/{{ $item->hinh_anh }}"
+                                                    class="custom-block-image img-fluid" alt="" />
+                                            @else
+                                                <img src="../img/default/no_book.jpg"
+                                                    class="custom-block-image img-fluid border" alt="" />
+                                            @endif
+                                        </a>
                                     </div>
-                                    <div class="custom-block-info">
-                                        <div class="custom-block-top d-flex mb-1">
-                                            <small class="me-4">
-                                                <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
-                                            </small>
-                                            <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
-                                            <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
-                                        </div>
-                                        <h5 class="mb-2">
-                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
-                                        </h5>
-                                        <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                                alt="" />
-                                            <p>
-                                                Tác giả
-                                                <strong>
-                                                    <a href="{{ route('tim-kiem-client', ['tac_gia' => $single_book->fkSach->tac_gia_id]) }}"
-                                                        style="color:#717275">{{ $single_book->fkSach->fkTacGia->ten }}</a>
-                                                </strong>
-                                            </p>
-                                        </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                            <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
-                                            </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
-                                            </a>
-                                            <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
-                                            </a>
-                                            <div class="me-1"></div>
-                                        </div>
+                                    <div class="mt-2">
+                                        <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                    </div>
+                                </div>
+                                <div class="custom-block-info">
+                                    <div class="custom-block-top d-flex mb-1">
+                                        <small class="me-4">
+                                            <i class="bi-clock-fill custom-icon"></i>
+                                            {{ $item->nam_xuat_ban }}
+                                        </small>
+                                        <small class="me-4">Mã sách <span
+                                                class="badge">#{{ $item->ma_sach }}</span></small>
+                                        <small>Số lượng <span
+                                                class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
+                                    </div>
+                                    <h5 class="mb-2">
+                                        <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                            href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                            {{ $item->ten }} </a>
+                                    </h5>
+                                    <div class="profile-block d-flex">
+                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                            alt="" />
+                                        <p>
+                                            Tác giả
+                                            <strong>{{ $item->fkTacGia->ten }}</strong>
+                                        </p>
+                                    </div>
+                                    <div class="custom-block-bottom d-flex justify-content-between">
+                                        <a href="#" class="bi-eye me-1">
+                                            <span>{{ $item->luot_xem }}</span>
+                                        </a>
+                                        <a href="#" class="bi-heart me-1">
+                                            <span>{{ $item->luot_thich }}</span>
+                                        </a>
+                                        <a href="#" class="bi-chat me-1">
+                                            <span>{{ $item->luot_binh_luan }}</span>
+                                        </a>
+                                        <div class="me-1"></div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
                     @endforeach
 
                     <div class="col-auto mr-auto mx-auto mt-5">

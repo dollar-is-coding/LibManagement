@@ -28,13 +28,8 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
-    <!--
 
-TemplateMo 584 Pod Talk
-
-https://templatemo.com/tm-584-pod-talk
-
--->
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
 <body>
@@ -50,25 +45,26 @@ https://templatemo.com/tm-584-pod-talk
                 </div>
             </div>
         </header>
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách giáo khoa</h4>
+
+        @if ($sgk->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách giáo khoa</h4>
+                            </div>
                         </div>
-                    </div>
-                    @foreach ($sgk as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                        @foreach ($sgk as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                @if ($single_book->fkSach->hinh_anh != '')
-                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
                                                         class="custom-block-image img-fluid" alt="" />
                                                 @else
                                                     <img src="../img/default/no_book.jpg"
@@ -84,35 +80,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png" class="profile-block-image img-fluid"
                                                 alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -120,41 +116,41 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 1]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách tham khảo</h4>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 1]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    @foreach ($tham_khao as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                </div>
+            </section>
+        @endif
+
+        @if ($tham_khao->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách tham khảo</h4>
+                            </div>
+                        </div>
+                        @foreach ($tham_khao as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                @if ($single_book->fkSach->hinh_anh != '')
-                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
                                                         class="custom-block-image img-fluid" alt="" />
                                                 @else
                                                     <img src="../img/default/no_book.jpg"
@@ -170,35 +166,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png" class="profile-block-image img-fluid"
                                                 alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -206,41 +202,42 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 2]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách khoa học</h4>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 2]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    @foreach ($khoa_hoc as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                </div>
+            </section>
+        @endif
+
+        @if ($khoa_hoc->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách khoa học</h4>
+                            </div>
+                        </div>
+                        @foreach ($khoa_hoc as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                @if ($single_book->fkSach->hinh_anh != '')
-                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
                                                         class="custom-block-image img-fluid" alt="" />
                                                 @else
                                                     <img src="../img/default/no_book.jpg"
@@ -256,35 +253,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png" class="profile-block-image img-fluid"
                                                 alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -292,41 +289,42 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 5]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách văn học</h4>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 5]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    @foreach ($van_hoc as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                </div>
+            </section>
+        @endif
+
+        @if ($van_hoc->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách văn học</h4>
+                            </div>
+                        </div>
+                        @foreach ($van_hoc as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                @if ($single_book->fkSach->hinh_anh != '')
-                                                    <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
                                                         class="custom-block-image img-fluid" alt="" />
                                                 @else
                                                     <img src="../img/default/no_book.jpg"
@@ -342,35 +340,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
-                                            <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                                class="profile-block-image img-fluid" alt="" />
+                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                                alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -378,41 +376,47 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 6]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách phát triển kỹ năng sống</h4>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 6]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    @foreach ($phat_trien as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                </div>
+            </section>
+        @endif
+
+        @if ($phat_trien->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách phát triển kỹ năng sống</h4>
+                            </div>
+                        </div>
+                        @foreach ($phat_trien as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="mt-2">
@@ -423,35 +427,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png" class="profile-block-image img-fluid"
                                                 alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -459,41 +463,47 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 3]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Báo, tạp chí</h4>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 3]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    @foreach ($tap_chi as $key => $item)
-                        @foreach ($item->hasThuVien as $single_book)
+                </div>
+            </section>
+        @endif
+
+        @if ($tap_chi->count() > 0)
+            <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Báo, tạp chí</h4>
+                            </div>
+                        </div>
+                        @foreach ($tap_chi as $key => $item)
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                                 <div class="custom-block d-flex">
                                     <div>
                                         <div class="custom-block-icon-wrap">
                                             <div class="section-overlay"></div>
-                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}"
+                                            <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
                                                 class="custom-block-image-wrap">
-                                                <img src="../img/books/{{ $single_book->fkSach->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" alt="" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="mt-2">
@@ -504,35 +514,35 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="custom-block-top d-flex mb-1">
                                             <small class="me-4">
                                                 <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $single_book->fkSach->nam_xuat_ban }}
+                                                {{ $item->nam_xuat_ban }}
                                             </small>
                                             <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $single_book->fkSach->ma_sach }}</span></small>
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
                                             <small>Số lượng <span
-                                                    class="badge">{{ $single_book->sl_con_lai }}</span></small>
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
                                         </div>
                                         <h5 class="mb-2">
                                             <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('chi-tiet-sach-client', ['id' => $single_book->sach_id]) }}">
-                                                {{ $single_book->fkSach->ten }} </a>
+                                                href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png" class="profile-block-image img-fluid"
                                                 alt="" />
                                             <p>
                                                 Tác giả
-                                                <strong>{{ $single_book->fkSach->fkTacGia->ten }}</strong>
+                                                <strong>{{ $item->fkTacGia->ten }}</strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <div class="custom-block-bottom d-flex justify-content-between">
                                             <a href="#" class="bi-eye me-1">
-                                                <span>{{ $single_book->fkSach->luot_xem }}</span>
+                                                <span>{{ $item->luot_xem }}</span>
                                             </a>
                                             <a href="#" class="bi-heart me-1">
-                                                <span>{{ $single_book->fkSach->luot_thich }}</span>
+                                                <span>{{ $item->luot_thich }}</span>
                                             </a>
                                             <a href="#" class="bi-chat me-1">
-                                                <span>{{ $single_book->fkSach->luot_binh_luan }}</span>
+                                                <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>
                                         </div>
@@ -540,195 +550,22 @@ https://templatemo.com/tm-584-pod-talk
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => 4]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="trending-podcast-section section-padding pt-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Đã xem gần đây</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-full">
-                            <div class="custom-block-image-wrap">
-                                <a href="detail-page.html">
-                                    <img src="images/podcast/27376480_7326766.jpg"
-                                        class="custom-block-image img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Vintage Show </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Elsa
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>100k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>2.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>924k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="social-share d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-full">
-                            <div class="custom-block-image-wrap">
-                                <a href="detail-page.html">
-                                    <img src="images/podcast/27670664_7369753.jpg"
-                                        class="custom-block-image img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Vintage Show </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        Taylor
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Creator</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>100k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>2.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>924k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="social-share d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-12">
-                        <div class="custom-block custom-block-full">
-                            <div class="custom-block-image-wrap">
-                                <a href="detail-page.html">
-                                    <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                        alt="" />
-                                </a>
-                            </div>
-
-                            <div class="custom-block-info">
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Daily Talk </a>
-                                </h5>
-
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                        class="profile-block-image img-fluid" alt="" />
-
-                                    <p>
-                                        William
-                                        <img src="images/verified.png" class="verified-image img-fluid"
-                                            alt="" />
-                                        <strong>Vlogger</strong>
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                                <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>100k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>2.5k</span>
-                                    </a>
-
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>924k</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="social-share d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
-                            </div>
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('chi-tiet-danh-muc', ['id' => 4]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
     </main>
 
     <footer class="site-footer">

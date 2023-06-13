@@ -4,7 +4,8 @@
             <img src="images/pod-talk-logo.png" class="logo-image img-fluid" alt="templatemo pod talk" />
         </a>
 
-        <form action="#" method="get" class="custom-form search-form flex-fill me-3" role="search">
+        <form action="{{ route('tim-kiem') }}" method="get" role="search"
+            class="custom-form search-form flex-fill me-3">
             <div class="input-group input-group-lg">
                 <input name="search" type="search" class="form-control" id="search" placeholder="Tìm kiếm sách"
                     aria-label="Search" autocomplete="off" />
