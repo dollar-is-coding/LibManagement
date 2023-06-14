@@ -13,11 +13,11 @@ class TheLoaiSeeder extends Seeder
      */
     public function run(): void
     {
-        TheLoai::create(['ten'=>'Sách giáo khoa']);
-        TheLoai::create(['ten'=>'Sách tham khảo']);
-        TheLoai::create(['ten'=>'Sách phát triển kỹ năng sống']);
-        TheLoai::create(['ten'=>'Báo, tạp chí']);
-        TheLoai::create(['ten'=>'Sách khoa học']);
-        TheLoai::create(['ten'=>'Sách lịch sử']);
+        TheLoai::create(['ten'=>'Sách giáo khoa','so_luong'=>20]);
+        TheLoai::create(['ten'=>'Sách tham khảo', 'so_luong' => 20]);
+        TheLoai::create(['ten'=>'Sách phát triển kỹ năng sống', 'so_luong' => 20]);
+        TheLoai::create(['ten'=>'Báo, tạp chí', 'so_luong' => 20]);
+        TheLoai::create(['ten'=>'Sách khoa học', 'so_luong' => 20]);
+        TheLoai::create(['ten'=>'Sách lịch sử', 'so_luong' => 20]);
     }
 }

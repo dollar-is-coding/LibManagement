@@ -17,18 +17,17 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
-        if (session()->get('vai_tro') == 1 || session()->get('vai_tro') == 2) {
-            return redirect()->route('trang-chu');
-        } else {
-            return redirect()->route('trang-chu-client');
-        }
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+        
+            $user = $request->user();
+            if ($user && $user->vai_tro === 1) { // Assuming 'user' role has id 1
                 return redirect()->route('trang-chu');
+            } else  if ($user && $user->vai_tro === 2) { // Assuming 'user' role has id 1
+                return redirect()->route('trang-chu');
+            } else if ($user && $user->vai_tro === 3) { 
+                return redirect()->route('trang-chu-client');
             }
-        }
-
-        return $next($request);
+            else{
+                return $next($request);
+            }
     }
 }

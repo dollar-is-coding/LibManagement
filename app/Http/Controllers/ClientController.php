@@ -9,7 +9,7 @@ use App\Models\TacGia;
 use App\Models\TheLoai;
 use App\Models\GioSach;
 use App\Models\PhieuMuonSach;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {

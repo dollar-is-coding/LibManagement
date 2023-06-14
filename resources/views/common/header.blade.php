@@ -26,11 +26,11 @@
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group"></i>Độc giả</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i>Mượn sách</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('hien-thi-doc-gia') }}" class="nav-link">Tra cứu</a>
-                        <a href="{{ route('cap-the-doc-gia') }}" class="nav-link">Cấp thẻ</a>
-                        <a href="{{ route('hien-thi-muon-sach-giao-khoa') }}" class="nav-link">Mượn sách</a>
+                        <a href="" class="nav-link">Phê duyệt mượn sách</a>
+                        <a href="" class="nav-link">Đọc giả đang mượn sách</a>
+                        <a href="" class="nav-link">Đọc giả đã mượn sách</a>
                     </nav>
                 </li>
                 @if(Auth::user()->vai_tro == 1)
@@ -55,10 +55,10 @@
             <div class="text-info font-weight-bold">{{ Auth::user()->ho }} {{ Auth::user()->ten }}</div>
             <div class="dropdown az-profile-menu">
                 <a href="" class="az-img-user">
-                    @if (Auth::user()->anh_dai_dien == '')
-                    <img src="../img/default/no_avatar.png">
+                    @if (Auth::user()->hinh_anh == '')
+                    <img src="/img/default/no_avatar.png">
                     @else
-                    <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
+                    <img src="/img/avt/{{ Auth::user()->hinh_anh }}">
                     @endif
                 </a>
                 <div class="dropdown-menu">
@@ -67,10 +67,10 @@
                     </div>
                     <div class="az-header-profile">
                         <div class="az-img-user">
-                            @if (Auth::user()->anh_dai_dien == '')
+                            @if (Auth::user()->hinh_anh == '')
                             <img src="../img/default/no_avatar.png">
                             @else
-                            <img src="../img/avt/{{ Auth::user()->anh_dai_dien }}">
+                            <img src="../img/avt/{{ Auth::user()->hinh_anh }}">
                             @endif
                         </div><!-- az-img-user -->
                         <h6>{{ Auth::user()->ho }} {{ Auth::user()->ten }}</h6>

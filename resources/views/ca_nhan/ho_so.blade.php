@@ -133,10 +133,10 @@
                         <div class="ongnoi col-lg-4">
                             <div class="cha">
                                 <div class="con1">
-                                    @if (Auth::user()->anh_dai_dien == '')
+                                    @if (Auth::user()->hinh_anh == '')
                                     <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/default/no_avatar.png" width="200px" height="200px" style="object-fit:cover">
                                     @else
-                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/{{ Auth::user()->anh_dai_dien }}" width="200px" height="200px" style="object-fit:cover">
+                                    <img class="ca border rounded-circle" id="image" alt="" srcset="" src="../img/avt/{{ Auth::user()->hinh_anh }}" width="200px" height="200px" style="object-fit:cover">
                                     @endif
                                 </div>
 

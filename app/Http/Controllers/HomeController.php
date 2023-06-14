@@ -79,8 +79,10 @@ class HomeController extends Controller
     }
     public function xuLyDangXuat()
     {
+  
         Auth::logout();
-        return redirect()->back();
+        session()->flush();
+        return redirect()->route('dang-nhap');
     }
 
     // Cá nhân
@@ -102,7 +104,7 @@ class HomeController extends Controller
             $file = $request->file;
             $filename = $file->getClientOriginalName();
             $file->move(public_path('img/avt'), $filename);
-            $img->anh_dai_dien = $filename;
+            $img->hinh_anh = $filename;
         }
         FacadesSession::flash('success', 'Xử lý thành công');
         $img->save();

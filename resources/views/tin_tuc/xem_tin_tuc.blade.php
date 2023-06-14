@@ -70,34 +70,39 @@
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
 
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column border">
-                <div class="az-content-breadcrumb">
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+                <div class="az-content-breadcrumb mt-3">
                     <span>Tin tức</span>
                     <span>Quản lý tin tức</span>
                 </div>
-                <h3>Quản lý tin tức</h3>
-                <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto;">
-                    @foreach ($tintuc as $key => $item)
-                    <div class="card" style="width: 18rem;margin: 10px;">
-                        @if($item->anh_bia == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->anh_bia != '')
-                        <img src="/img/avt/{{$item->anh_bia}}" class="card-img-top">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{$item->ten}}</h5>
-                            <a href="{{route('chi-tiet-tin-tuc',['id'=>$item->id])}}" class="btn btn-primary">Chi tiết</a>
-                            <a href="{{route('xoa-tin-tuc',['id'=>$item->id])}}" class="btn btn-danger delete-link">Xóa</a>
-                            <a href="{{route('sua-tin-tuc',['id'=>$item->id])}}" class="btn btn-success">Sửa</a>
+                <div class="border">
+                    <h3 class="ml-3 mt-3">Quản lý tin tức ({{$sltintuc}})</h3>
+                    @if($sltintuc == 0)
+                    <p class="ml-3">Hiện không có tin tức nào</p>
+                    @endif
+                    <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto;">
+                        @foreach ($tintuc as $key => $item)
+                        <div class="card" style="width: 18rem;margin: 10px;">
+                            @if($item->anh_bia == '')
+                            <img src="/img/avt/income.jpg" class="card-img-top">
+                            @elseif($item->anh_bia != '')
+                            <img src="/img/avt/{{$item->anh_bia}}" class="card-img-top">
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title">{{$item->ten}}</h5>
+                                <a href="{{route('chi-tiet-tin-tuc',['id'=>$item->id])}}" class="btn btn-primary">Chi tiết</a>
+                                <a href="{{route('xoa-tin-tuc',['id'=>$item->id])}}" class="btn btn-danger delete-link">Xóa</a>
+                                <a href="{{route('sua-tin-tuc',['id'=>$item->id])}}" class="btn btn-success">Sửa</a>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             </div>
-            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+            <!-- <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
 
                 @include('../common/footer')
-            </div><!-- az-content-body -->
+            </div> -->
 
         </div><!-- container -->
     </div><!-- az-content -->

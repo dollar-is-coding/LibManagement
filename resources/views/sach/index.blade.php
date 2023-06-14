@@ -27,19 +27,19 @@
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
+    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="/lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
+    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="/lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="/lib/pickerjs/picker.min.css" rel="stylesheet">
 
     <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    <link rel="stylesheet" href="/css/azia.css">
 
 </head>
 
@@ -76,6 +76,9 @@
                 </div>
                 @endif
                 <h4 class="mt-3">Số lượng sách {{$slsach}}</h4>
+                @if($slsach==0)
+                <p>Hiện không có sách nào</p>
+                @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach($sach as $item)
                     @foreach($item->hasThuVien as $book)
@@ -83,7 +86,7 @@
                         @if($book->fkSach->hinh_anh == '')
                         <img src="/img/avt/income.jpg" class="card-img-top">
                         @elseif($book->fkSach->hinh_anh != '')
-                        <img src="/img/avt/{{$item->hinh_anh}}" class="card-img-top">
+                        <img src="/img/books/{{$item->hinh_anh}}" class="card-img-top">
                         @endif
                         <div class="card-body">
                             <h5 style="height: 50px;" class="card-title">{{$book->fkSach->ten}}</h5>
@@ -101,20 +104,20 @@
         </div><!-- az-content -->
 
 
-        <script src="../lib/jquery/jquery.min.js"></script>
-        <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
+        <script src="/lib/jquery/jquery.min.js"></script>
+        <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
-        <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-        <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+        <script src="/lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+        <script src="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-        <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="../lib/ionicons/ionicons.js"></script>
-        <script src="../lib/chart.js/Chart.bundle.min.js"></script>
-        <script src="../lib/select2/js/select2.min.js"></script>
+        <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/lib/ionicons/ionicons.js"></script>
+        <script src="/lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="/lib/select2/js/select2.min.js"></script>
 
-        <script src="../js/azia.js"></script>
-        <script src="../js/chart.chartjs.js"></script>
-        <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+        <script src="/js/azia.js"></script>
+        <script src="/js/chart.chartjs.js"></script>
+        <script src="/js/jquery.cookie.js" type="text/javascript"></script>
         <script>
             $(function() {
                 // Datepicker

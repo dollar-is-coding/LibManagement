@@ -26,13 +26,13 @@
     <title>libro - Sách</title>
 
     <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
 
     <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    <link rel="stylesheet" href="/css/azia.css">
 
 </head>
 
@@ -76,7 +76,7 @@
                     <span>Sửa sách</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
-                    <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div style="display: flex;flex-direction: row-reverse;">
                             <!-- form -->
@@ -175,12 +175,12 @@
                             <!-- up ảnh -->
                             <div style="flex-basis: 30%; margin:2%" class="ml-3 mb-0">
                                 @if ($item->fkSach->hinh_anh == '')
-                                <div class="upload-container" style="background-size:contain;background-image: url('../img/default/no_image_available.jpg');">
+                                <div class="upload-container" style="background-size:contain;background-image: url('/img/default/no_image_available.jpg');">
                                     <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                     <div id="preview-container" class="preview-container"></div>
                                 </div>
                                 @else
-                                <div class="upload-container" style="background-size:contain;background-image: url('../img/books/{{ $item->fkSach->hinh_anh }}');">
+                                <div class="upload-container" style="background-size:contain;background-image: url('/img/books/{{ $item->fkSach->hinh_anh }}');">
                                     <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                     <div id="preview-container" class="preview-container"></div>
                                 </div>
@@ -272,16 +272,16 @@
             object-fit: contain;
         }
     </style>
-    <script src="../lib/jquery/jquery.min.js"></script>
-    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/ionicons/ionicons.js"></script>
-    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/ionicons/ionicons.js"></script>
+    <script src="/lib/chart.js/Chart.bundle.min.js"></script>
 
-    <script src="../js/azia.js"></script>
-    <!-- <script src="../js/chart.chartjs.js"></script> -->
-    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/js/azia.js"></script>
+    <!-- <script src="/js/chart.chartjs.js"></script> -->
+    <script src="/js/jquery.cookie.js" type="text/javascript"></script>
 
-    <script src="../lib/select2/js/select2.min.js"></script>
+    <script src="/lib/select2/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#khuVucSelect")

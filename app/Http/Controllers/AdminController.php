@@ -269,7 +269,7 @@ class AdminController extends Controller
         $tu_sach =TuSach::all();
         return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
-    public function xuLySuaSach($id, SachRequest $request)
+    public function xuLySuaSach($id,$id_tv, SachRequest $request)
     {
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
         if($tangsl){
@@ -290,7 +290,7 @@ class AdminController extends Controller
                     $img->hinh_anh = $filename;
                 }
                 $img->save();
-                ThuVien::find($id)->update([
+                ThuVien::where('sach_id', $tangsl->id)->update([
                     'tu_sach_id' => $request->tu_sach,
                     'sl_con_lai' => $request->so_luong,
                 ]);
@@ -303,7 +303,7 @@ class AdminController extends Controller
                     'sach_id' => $tangsl->id
                 ]);
                 Sach::find($id)->delete();
-                ThuVien::find($id)->delete();
+                ThuVien::where('sach_id', $tangsl->id)->delete();
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-sach');
             }
@@ -324,14 +324,13 @@ class AdminController extends Controller
                 $img->hinh_anh = $filename;
             }
             $img->save();
-            ThuVien::find($id)->update([
+            ThuVien::where('sach_id', $id_tv)->update([
                 'tu_sach_id' => $request->tu_sach,
                 'sl_con_lai' => $request->so_luong,
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return back();
         }
-       
     }
 
 
@@ -569,7 +568,7 @@ class AdminController extends Controller
                 'mat_khau' => Hash::make($randomString),
                 'ho' => $request->ho,
                 'ten' => $request->ten,
-                'anh_dai_dien' => '',
+                'hinh_anh' => '',
                 'vai_tro' => $request->vai_tro,
                 'gioi_tinh' => $request->gioi_tinh,
                 'ngay_sinh'=> '2000/1/1',
@@ -608,7 +607,8 @@ class AdminController extends Controller
     }
     public function dsTinTuc(){
         $tintuc = TinTuc::all();
-        return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc]);
+        $sltintuc =TinTuc::all()->count();
+        return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc, 'sltintuc'=> $sltintuc]);
     }
     public function xuLyThemTinTuc(Request $request){
         if ($request->hasFile('file_upload')) {
