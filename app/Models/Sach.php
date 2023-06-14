@@ -30,6 +30,11 @@ class Sach extends Model
         return $this->hasOne(ThuVien::class,'sach_id');
     }
 
+    public function hasGioSach()
+    {
+        return $this->hasMany(GioSach::class,'sach_id');
+    }
+
     public function hasYeuThich()
     {
         return $this->hasMany(LichSu::class,'sach_id');
