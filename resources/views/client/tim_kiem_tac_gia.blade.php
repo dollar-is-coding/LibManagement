@@ -28,13 +28,9 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
-    <!--
 
-TemplateMo 584 Pod Talk
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 
-https://templatemo.com/tm-584-pod-talk
-
--->
 </head>
 
 <body>
@@ -45,15 +41,13 @@ https://templatemo.com/tm-584-pod-talk
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Sách mới hàng tuần</h2>
-                        <h5 class="mt-2 text-light">( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }}
-                            )</h5>
+                        <h2 class="mb-0">{{ $tac_gia->ten }}</h2>
                     </div>
                 </div>
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding pt-2" id="section_2">
+        <section class="latest-podcast-section section-padding pt-0" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -61,7 +55,7 @@ https://templatemo.com/tm-584-pod-talk
                             <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
                         </div>
                     </div>
-                    @foreach ($sach_moi as $key => $item)
+                    @foreach ($sach as $key => $item)
                         <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                             <div class="custom-block d-flex">
                                 <div>
@@ -110,27 +104,9 @@ https://templatemo.com/tm-584-pod-talk
                                         <a href="#" class="bi-eye me-1">
                                             <span>{{ $item->luot_xem }}</span>
                                         </a>
-                                        @foreach ($item->hasYeuThich as $key => $lich_su)
-                                            @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
-                                                <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
-                                                    class="bi-heart-fill me-1">
-                                                    <span>{{ $item->luot_thich }}</span>
-                                                </a>
-                                                @break
-                                            @endif
-                                            @if ($item->hasYeuThich->count() - 1 == $key)
-                                                <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
-                                                    class="bi-heart me-1">
-                                                    <span>{{ $item->luot_thich }}</span>
-                                                </a>
-                                            @endif
-                                        @endforeach
-                                        @if ($item->hasYeuThich->count() == 0)
-                                            <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
-                                                class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
-                                        @endif
+                                        <a href="#" class="bi-heart me-1">
+                                            <span>{{ $item->luot_thich }}</span>
+                                        </a>
                                         <a href="#" class="bi-chat me-1">
                                             <span>{{ $item->luot_binh_luan }}</span>
                                         </a>
@@ -142,7 +118,7 @@ https://templatemo.com/tm-584-pod-talk
                     @endforeach
                     <div class="col-auto mr-auto mx-auto mt-5">
                         <nav aria-label="Page navigation example">
-                            {{ $sach_moi->appends(request()->input())->links() }}
+                            {{ $sach->appends(request()->input())->links() }}
                         </nav>
                     </div>
                 </div>

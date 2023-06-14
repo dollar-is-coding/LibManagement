@@ -11,11 +11,33 @@ class Sach extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='sach';
-    protected $fillable=['ten','ma_sach','tac_gia_id','nha_xuat_ban_id','the_loai_id','nam_xuat_ban','mo_ta','luot_xem','luot_thich','luot_binh_luan','hinh_anh'];
+    protected $fillable=[
+        'ten',
+        'ma_sach',
+        'tac_gia_id',
+        'nha_xuat_ban_id',
+        'the_loai_id',
+        'nam_xuat_ban',
+        'mo_ta',
+        'luot_xem',
+        'luot_thich',
+        'luot_binh_luan',
+        'hinh_anh'
+    ];
     
     public function hasThuVien()
     {
-        return $this->hasMany(ThuVien::class,'sach_id');
+        return $this->hasOne(ThuVien::class,'sach_id');
+    }
+
+    public function hasGioSach()
+    {
+        return $this->hasMany(GioSach::class,'sach_id');
+    }
+
+    public function hasYeuThich()
+    {
+        return $this->hasMany(LichSu::class,'sach_id');
     }
 
     public function fkTacGia()

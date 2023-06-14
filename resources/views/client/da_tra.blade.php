@@ -57,17 +57,17 @@
                                 <a href="{{ route('cho-duyet') }}" class="history"><strong>Đang chờ duyệt</strong></a>
                             </div>
                             <div class="p-4 pt-0 pb-0">
-                                <a href="" class="history-active"><strong>Đang mượn</strong></a>
+                                <a href="{{ route('dang-muon') }}" class="history"><strong>Đang mượn</strong></a>
                             </div>
-                            <div class="p-4 pt-0 pb-0"><a href="{{ route('da-tra') }}" class="history">
+                            <div class="p-4 pt-0 pb-0"><a href="" class="history-active">
                                     <strong>Đã trả</strong></a>
                             </div>
                             <div class="p-4 pt-0 pb-0"><a href="" class="history"><strong>Phiếu phạt</strong></a>
                             </div>
                         </div>
                     </div>
-                    @foreach ($cho_duyet as $key => $item)
-                        @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
+                    @foreach ($da_tra as $key => $item)
+                        @if ($key == 0 || $item->ma_phieu_muon != $da_tra[$key - 1]->ma_phieu_muon)
                             <div class="mt-4" style="font-family: 'sono'">
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -76,8 +76,8 @@
                                     </div>
                         @endif
                         @if (
-                            ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
-                                $key == $cho_duyet->count() - 1)
+                            ($key != $da_tra->count() - 1 && $item->ma_phieu_muon != $da_tra[$key + 1]->ma_phieu_muon) ||
+                                $key == $da_tra->count() - 1)
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex" style="width:70%">
@@ -125,24 +125,17 @@
                                     <div>{{ date('d-m-Y', strtotime($item->han_tra)) }}</div>
                                 </div>
                                 <div class="m-4 mt-0 mb-0">&#8226;</div>
-                                @if (\Carbon\Carbon::now() == $item->updated_at)
-                                    <div>Đến hạn hôm nay</div>
-                                @elseif(\Carbon\Carbon::now() < \Carbon\Carbon::parse(strtotime($item->created_at . ' + 14 days')))
-                                    <div class="d-flex">
-                                        <p class="m-0">Còn hạn:&nbsp;</p>
-                                        <div>
-                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 14 days'))) }}
-                                            ngày
-                                        </div>
-                                    </div>
+                                <div class="d-flex">
+                                    <p class="m-0">Ngày trả:&nbsp;</p>
+                                    <div>{{ date('d-m-Y', strtotime($item->updated_at)) }}</div>
+                                </div>
+                                <div class="m-4 mt-0 mb-0">&#8226;</div>
+                                @if ($item->updated_at <= $item->han_tra)
+                                    <div class="meet-deadline"><strong>Trả đúng hạn</strong></div>
                                 @else
-                                    <div class="d-flex">
-                                        <p class="m-0">Quá hạn:&nbsp;</p>
-                                        <div>
-                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 14 days'))) }}
-                                            ngày
-                                        </div>
-                                    </div>
+                                    <div class="miss-deadline"><strong>
+                                        Trả trễ hạn {{ $item->updated_at->diffInDays($item->han_tra) }} ngày
+                                    </strong></div>
                                 @endif
                             </div>
                 </div>

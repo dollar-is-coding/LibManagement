@@ -6,10 +6,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\QRcode;
 use Illuminate\Support\Facades\Route;
-
 use LaravelQRCode\Facades\QRCode as qrcodea;
 
-
+// DASHBOARD
+Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 
 // ĐĂNG NHẬP & ĐĂNG XUẤT
 Route::get('/dang-nhap', [HomeController::class, 'dangNhap'])->name('dang-nhap')->middleware('guest');
@@ -101,7 +101,8 @@ Route::get('/sua-tin-tuc/{id}', [AdminController::class, 'suaTinTuc'])->name('su
 Route::post('/sua-tin-tuc/{id}', [AdminController::class, 'xuLySuaTinTuc'])->name('xu-ly-sua-tin-tuc')->middleware('auth');
 });
 
-Route::middleware('user')->group(function () {
+
+
 //Client
 Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
 Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach');
@@ -110,10 +111,9 @@ Route::get('/chi-tiet-danh-muc', [ClientController::class, 'chiTietDanhMuc'])->n
 Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem-client');
 Route::get('/sach-moi-hang-tuan', [ClientController::class, 'sachHangTuan'])->name('sach-moi-hang-tuan');
 Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
-Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach');
-Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach');
-Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('muon-sach');
-Route::get('/lich-su-cho-duyet', [ClientController::class, 'showLichSuChoDuyet'])->name('cho-duyet');
-Route::get('/lich-su-dang-muon', [ClientController::class, 'showLichSuDangMuon'])->name('dang-muon');
-Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon');
-})->middleware('auth');
+Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
+Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');
+Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('muon-sach')->middleware('auth');
+Route::get('/lich-su-cho-duyet', [ClientController::class, 'showLichSuChoDuyet'])->name('cho-duyet')->middleware('auth');
+Route::get('/lich-su-dang-muon', [ClientController::class, 'showLichSuDangMuon'])->name('dang-muon')->middleware('auth');
+Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon')->middleware('auth');

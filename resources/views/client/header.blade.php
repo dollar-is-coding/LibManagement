@@ -4,7 +4,8 @@
             <img src="images/pod-talk-logo.png" class="logo-image img-fluid" alt="templatemo pod talk" />
         </a>
 
-        <form action="#" method="get" class="custom-form search-form flex-fill me-3" role="search">
+        <form action="{{ route('tim-kiem') }}" method="get" role="search"
+            class="custom-form search-form flex-fill me-3">
             <div class="input-group input-group-lg">
                 <input name="search" type="search" class="form-control" id="search" placeholder="Tìm kiếm sách"
                     aria-label="Search" autocomplete="off" />
@@ -34,7 +35,7 @@
                     <a class="nav-link" href="about.html">Tin tức</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">
+                    <a class="nav-link" href="{{ route('lien-he') }}">
                         Liên hệ
                     </a>
                 </li>
@@ -45,18 +46,6 @@
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
 
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            {{-- @if ($gio_sach->count() > 0)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
-                                        ({{ $gio_sach->count() }})</a>
-                                </li>
-                            @else
-                                <li>
-                                    <a class="dropdown-item">Giỏ sách
-                                        ({{ $gio_sach->count() }})</a>
-                                </li>
-                            @endif --}}
-
                             <li>
                                 <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
                                     ({{ $gio_sach->count() }})</a>
@@ -65,6 +54,10 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('cho-duyet') }}">
                                     Lịch sử mượn sách</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">
+                                    Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
