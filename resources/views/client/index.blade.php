@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" />
 
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.6.0.min.js">
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
 
@@ -198,7 +199,6 @@
                             <h4 class="section-title">Sách mới hàng tuần</h4>
                         </div>
                     </div>
-
                     @foreach ($sach_moi as $key => $item)
                         <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                             <div class="custom-block d-flex">
@@ -262,13 +262,19 @@
                                                 </a>
                                             @break
                                         @endif
-                                        @if ($key == $item->hasYeuThich->count() - 1)
+                                        @if ($item->hasYeuThich->count() - 1 == $key)
                                             <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
                                                 class="bi-heart me-1">
                                                 <span>{{ $item->luot_thich }}</span>
                                             </a>
                                         @endif
                                     @endforeach
+                                    @if ($item->hasYeuThich->count() == 0)
+                                        <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                            class="bi-heart me-1">
+                                            <span>{{ $item->luot_thich }}</span>
+                                        </a>
+                                    @endif
                                     <a href="#" class="bi-chat me-1">
                                         <span>{{ $item->luot_binh_luan }}</span>
                                     </a>
@@ -304,41 +310,42 @@
                 @foreach ($the_loai as $item)
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                         <div class="custom-block custom-block-overlay">
-                            <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->id]) }}"
+                            <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->the_loai_id]) }}"
                                 class="custom-block-image-wrap">
-                                @if ($item->id == 1)
+                                @if ($item->the_loai_id == 1)
                                     <img src="../img/default/bia_sach_giao_khoa.jpg"
                                         class="custom-block-image img-fluid" alt="" />
                                 @endif
-                                @if ($item->id == 2)
+                                @if ($item->the_loai_id == 2)
                                     <img src="../img/default/bia_tham_khao.jpg"
                                         class="custom-block-image img-fluid" alt="" />
                                 @endif
-                                @if ($item->id == 3)
+                                @if ($item->the_loai_id == 3)
                                     <img src="../img/default/bia_phat_trien.jpg"
                                         class="custom-block-image img-fluid" alt="" />
                                 @endif
-                                @if ($item->id == 4)
+                                @if ($item->the_loai_id == 4)
                                     <img src="../img/default/bia_tap_chi.jpg" class="custom-block-image img-fluid"
                                         alt="" />
                                 @endif
-                                @if ($item->id == 5)
+                                @if ($item->the_loai_id == 5)
                                     <img src="../img/default/bia_khoa_hoc.jpg"
                                         class="custom-block-image img-fluid" alt="" />
                                 @endif
-                                @if ($item->id == 6)
+                                @if ($item->the_loai_id == 6)
                                     <img src="../img/default/bia_van_hoc.jpg" class="custom-block-image img-fluid"
                                         alt="" />
                                 @endif
                             </a>
+
                             <div class="custom-block-info custom-block-overlay-info">
                                 <h5 class="mb-1">
-                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->id]) }}">
-                                        {{ $item->ten }}
+                                    <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->the_loai_id]) }}">
+                                        {{ $item->fkTheLoai->ten }}
                                     </a>
                                 </h5>
                                 <p class="badge mb-0">
-                                    {{ $item->so_luong }} quyển
+                                    {{ $item->total }} đầu sách
                                 </p>
                             </div>
                         </div>

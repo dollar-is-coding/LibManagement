@@ -114,4 +114,5 @@ Route::get('/tim-kiem-tac-gia', [ClientController::class, 'timKiemTacGia'])->nam
     Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon')->middleware('auth');
     Route::get('/da-tra', [ClientController::class, 'showLichSuDaTra'])->name('da-tra')->middleware('auth');
     Route::get('/xu-ly-yeu-thich', [ClientController::class, 'showLove'])->name('yeu-thich')->middleware('auth');
-
+    Route::post('/binh-luan', [ClientController::class, 'handleBinhLuan'])->name('binh-luan')->middleware('auth');
+    Route::get('/lien-he', [ClientController::class, 'showLienHe'])->name('lien-he')->middleware('auth');

@@ -35,7 +35,7 @@
                     <a class="nav-link" href="about.html">Tin tức</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">
+                    <a class="nav-link" href="{{ route('lien-he') }}">
                         Liên hệ
                     </a>
                 </li>

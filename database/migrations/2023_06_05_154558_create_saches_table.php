@@ -20,10 +20,11 @@ return new class extends Migration
             $table->integer('the_loai_id');
             $table->integer('nam_xuat_ban');
             $table->string('mo_ta');
-            $table->integer('luot_xem')->default('0');
-            $table->integer('luot_thich')->default('0');
-            $table->integer('luot_binh_luan')->default('0');
+            $table->integer('luot_xem')->default(0);
+            $table->integer('luot_thich')->default(0);
+            $table->integer('luot_binh_luan')->default(0);
             $table->string('hinh_anh');
+            $table->boolean('de_xuat')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

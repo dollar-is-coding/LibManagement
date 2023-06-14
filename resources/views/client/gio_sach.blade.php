@@ -114,7 +114,9 @@
                                             <div>x1</div>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center" style="width:10%">
-                                            <div>{{ $sach->sl_con_lai > 0 ? 'Có sẵn' : 'Đang hết' }}</div>
+                                            <div>
+                                                {{ $sach->fkSach->hasThuVien->sl_con_lai > 0 ? 'Có sẵn' : 'Đang hết' }}
+                                            </div>
                                         </div>
                                         <div class="d-flex flex-column justify-content-evenly align-items-center"
                                             style="width:15%">

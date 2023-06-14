@@ -104,9 +104,21 @@
                                             <a href="#" class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="#" class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
@@ -190,9 +202,21 @@
                                             <a href="#" class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="#" class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
@@ -277,9 +301,21 @@
                                             <a href="#" class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="#" class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
@@ -364,9 +400,21 @@
                                             <a href="#" class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="#" class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
@@ -451,9 +499,21 @@
                                             <a href="#" class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="#" class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
@@ -535,13 +595,25 @@
                                             </p>
                                         </div>
                                         <div class="custom-block-bottom d-flex justify-content-between">
-                                            <a href="#" class="bi-eye me-1">
+                                            <a class="bi-eye me-1">
                                                 <span>{{ $item->luot_xem }}</span>
                                             </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
-                                            <a href="#" class="bi-chat me-1">
+                                            @foreach ($item->hasYeuThich as $key => $lich_su)
+                                                @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart-fill me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                    @break
+                                                @endif
+                                                @if ($item->hasYeuThich->count() - 1 == $key)
+                                                    <a href="{{ route('yeu-thich', ['sach' => $item->id]) }}"
+                                                        class="bi-heart me-1">
+                                                        <span>{{ $item->luot_thich }}</span>
+                                                    </a>
+                                                @endif
+                                            @endforeach
+                                            <a class="bi-chat me-1">
                                                 <span>{{ $item->luot_binh_luan }}</span>
                                             </a>
                                             <div class="me-1"></div>

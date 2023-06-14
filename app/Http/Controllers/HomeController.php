@@ -80,7 +80,7 @@ class HomeController extends Controller
     public function xuLyDangXuat()
     {
         Auth::logout();
-        return redirect()->back();
+        return redirect()->route('dang-nhap');
     }
 
     // Cá nhân

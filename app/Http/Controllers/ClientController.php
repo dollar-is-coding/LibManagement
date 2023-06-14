@@ -10,6 +10,7 @@ use App\Models\TheLoai;
 use App\Models\GioSach;
 use App\Models\LichSu;
 use App\Models\PhieuMuonSach;
+use App\Models\BinhLuan;
 use Auth;
 
 class ClientController extends Controller
@@ -25,7 +26,9 @@ class ClientController extends Controller
         $end_of_week=Carbon::now()->endOfWeek();
         $start_of_month=Carbon::now()->startOfMonth();
         $end_of_month=Carbon::now()->endOfMonth();
-        $the_loai=TheLoai::all();
+        $the_loai=Sach::groupBy('the_loai_id')
+            ->select('the_loai_id',Sach::raw('count(*) as total'))
+            ->get();
         $sach_moi=Sach::where([
             ['updated_at','>=',$start_of_week],
             ['updated_at','<=',$end_of_week]
@@ -34,9 +37,9 @@ class ClientController extends Controller
             ['updated_at','>=',$start_of_month],
             ['updated_at','<=',$end_of_month]
         ])->groupBy('sach_id')
-        ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
-        ->orderBy('total','desc')
-        ->get();
+            ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
+            ->orderBy('total','desc')
+            ->get();
         return view('client.index',[
             'the_loai'=>$the_loai,
             'sach_moi'=>$sach_moi,
@@ -92,11 +95,13 @@ class ClientController extends Controller
         Sach::find($id)->update([
             'luot_xem'=>Sach::find($id)->luot_xem+1
         ]);
+        $binh_luan=BinhLuan::where([['sach_id',$id],['binh_luan_id',0]])->get();
         return view('client.chi_tiet_sach',[
             'sach'=>$sach,
             'gio_sach'=>$gio_sach,
             'cung_tac_gia'=>$cung_tac_gia,
-            'ds_da_xem'=>$ds_da_xem
+            'ds_da_xem'=>$ds_da_xem,
+            'binh_luan'=>$binh_luan
         ]);
     }
 
@@ -129,7 +134,7 @@ class ClientController extends Controller
             'sach'=>$sach,
             'so_luong'=>$so_luong->count(),
             'tac_gia'=>$tac_gia,
-            'gio_sach'=>$gio_sach
+            'gio_sach'=>$gio_sach 
         ]);
     }
 
@@ -252,22 +257,42 @@ class ClientController extends Controller
     {
         $sach=request()->input('sach');
         $da_thich=LichSu::where([['doc_gia_id',Auth::user()->id],['sach_id',$sach]])->first();
-        if ($da_thich) {
+        if (!$da_thich) {
             LichSu::create([
                 'doc_gia_id'=>Auth::user()->id,
                 'sach_id'=>$sach,
                 'da_xem'=>0,
                 'da_thich'=>1
             ]);
+            Sach::find($sach)->update(['luot_thich'=>Sach::find($sach)->luot_thich+1]);
         } else {
             if ($da_thich->da_thich==1) {
                 LichSu::where([['doc_gia_id',Auth::user()->id],['sach_id',$sach]])
                 ->update(['da_thich'=>0]);
+                Sach::find($sach)->update(['luot_thich'=>Sach::find($sach)->luot_thich-1]);
             } elseif($da_thich->da_thich==0) {
                 LichSu::where([['doc_gia_id',Auth::user()->id],['sach_id',$sach]])
                 ->update(['da_thich'=>1]);
+                Sach::find($sach)->update(['luot_thich'=>Sach::find($sach)->luot_thich+1]);
             }
         }
         return back();
+    }
+
+    public function handleBinhLuan(Request $request)
+    {
+        BinhLuan::create([
+            'binh_luan_id'=>request()->input('tra_loi')?request()->input('tra_loi'):0,
+            'sach_id'=>request()->input('sach'),
+            'nguoi_dung_id'=>Auth::user()->id,
+            'noi_dung'=>$request->binh_luan
+        ]);
+        return back();
+    }
+
+    public function showLienHe() 
+    {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        return view('client.lien_he',['gio_sach'=>$gio_sach]);
     }
 }
