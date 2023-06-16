@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('nha_xuat_ban_id');
             $table->integer('the_loai_id');
             $table->integer('nam_xuat_ban');
-            $table->string('mo_ta');
+            $table->text('mo_ta');
             $table->integer('luot_xem')->default(0);
             $table->integer('luot_thich')->default(0);
             $table->integer('luot_binh_luan')->default(0);

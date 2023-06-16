@@ -205,7 +205,7 @@
                                 <div>
                                     <div class="custom-block-icon-wrap">
                                         <div class="section-overlay"></div>
-                                        <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
+                                        <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}"
                                             class="custom-block-image-wrap">
                                             @if ($item->hinh_anh != '')
                                                 <img src="../img/books/{{ $item->hinh_anh }}"
@@ -222,19 +222,19 @@
                                                 @if ($detail->doc_gia_id == Auth::user()->id)
                                                     <a href="{{ route('loai-khoi-gio-sach', ['id' => $item->id]) }}"
                                                         class="btn danger-btn smoothscroll align-self-end">
-                                                        Bỏ chọn</a>
+                                                        Bỏ mượn</a>
                                                 @break
                                             @endif
                                             @if ($item->hasGioSach->count() - 1 == $key)
                                                 <a href="{{ route('them-sach-vao-gio', ['sach' => $item->id]) }}"
                                                     class="btn comment-btn smoothscroll align-self-end">
-                                                    Chọn sách</a>
+                                                    Chọn mượn</a>
                                             @endif
                                         @endforeach
                                         @if ($item->hasGioSach->count() == 0)
                                             <a href="{{ route('them-sach-vao-gio', ['sach' => $item->id]) }}"
                                                 class="btn comment-btn smoothscroll align-self-end">
-                                                Chọn sách</a>
+                                                Chọn mượn</a>
                                         @endif
                                     @else
                                         <a href="{{ route('dang-nhap') }}" class="btn custom-btn"> Chọn mượn
@@ -255,7 +255,7 @@
                                 </div>
                                 <h5 class="mb-2">
                                     <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                        href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
+                                        href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
                                         {{ $item->ten }} </a>
                                 </h5>
                                 <div class="profile-block d-flex">
@@ -263,11 +263,13 @@
                                         alt="" />
                                     <p>
                                         Tác giả
-                                        <strong>{{ $item->fkTacGia->ten }}</strong>
+                                        <strong><a
+                                                href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
+                                                class="author">{{ $item->fkTacGia->ten }}</a></strong>
                                     </p>
                                 </div>
                                 <div class="custom-block-bottom d-flex justify-content-between">
-                                    <a href="#" class="bi-eye me-1">
+                                    <a class="bi-eye me-1">
                                         <span>{{ $item->luot_xem }}</span>
                                     </a>
                                     @foreach ($item->hasYeuThich as $key => $lich_su)
@@ -291,7 +293,7 @@
                                         <span>{{ $item->luot_thich }}</span>
                                     </a>
                                 @endif
-                                <a href="#" class="bi-chat me-1">
+                                <a class="bi-chat me-1">
                                     <span>{{ $item->luot_binh_luan }}</span>
                                 </a>
                                 <div class="me-1"></div>
@@ -304,7 +306,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-lg justify-content-center mt-5">
                         <h4>
-                            <a href="{{ route('sach-moi-hang-tuan') }}"
+                            <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 1]) }}"
                                 onMouseOver="this.style.textDecoration='underline'"
                                 onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
                         </h4>
@@ -323,10 +325,10 @@
                     <h4 class="section-title">Thể loại</h4>
                 </div>
             </div>
-            @foreach ($the_loai as $item)
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+            @foreach ($the_loai as $key => $item)
+                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 {{ $key > 3 ? 'mt-3' : '' }}">
                     <div class="custom-block custom-block-overlay">
-                        <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->the_loai_id]) }}"
+                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->the_loai_id]) }}"
                             class="custom-block-image-wrap">
                             @if ($item->the_loai_id == 1)
                                 <img src="../img/default/bia_sach_giao_khoa.jpg"
@@ -353,10 +355,10 @@
                                     alt="" />
                             @endif
                         </a>
-
                         <div class="custom-block-info custom-block-overlay-info">
                             <h5 class="mb-1">
-                                <a href="{{ route('chi-tiet-danh-muc', ['id' => $item->the_loai_id]) }}">
+                                <a
+                                    href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->the_loai_id]) }}">
                                     {{ $item->fkTheLoai->ten }}
                                 </a>
                             </h5>
@@ -386,7 +388,7 @@
                     <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }}">
                         <div class="custom-block custom-block-full">
                             <div class="custom-block-image-wrap">
-                                <a href="{{ route('chi-tiet-sach-client', ['id' => $item->fkSach->id]) }}">
+                                <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
                                     @if ($item->fkSach->hinh_anh != '')
                                         <img src="../img/books/{{ $sach->fkSach->hinh_anh }}"
                                             class="custom-block-image img-fluid" alt="" />
@@ -403,8 +405,8 @@
                             </div>
                             <div class="custom-block-info">
                                 <h5 class="mb-2">
-                                    <a
-                                        href="{{ route('chi-tiet-sach-client', ['id' => $item->fkSach->id]) }}">
+                                    <a style="width:13em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                        href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
                                         {{ $item->fkSach->ten }}</a>
                                 </h5>
                                 <div class="profile-block d-flex">
@@ -412,24 +414,15 @@
                                         alt="" />
                                     <p>
                                         Tác giả
-                                        <strong>{{ $item->fkSach->fkTacGia->ten }}</strong>
+                                        <strong><a
+                                                href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
+                                                class="author">{{ $item->fkSach->fkTacGia->ten }}</a></strong>
                                     </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between">
-                                    <a href="#" class="bi-eye me-1">
-                                        <span>{{ $item->fkSach->luot_xem }}</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>{{ $item->fkSach->luot_thich }}</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>{{ $item->fkSach->luot_binh_luan }}</span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if ($key == 5)
+                    @if ($key == 3)
                     @break
                 @endif
             @endforeach
@@ -438,7 +431,8 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination pagination-lg justify-content-center mt-5">
                             <h4>
-                                <a href="" onMouseOver="this.style.textDecoration='underline'"
+                                <a href="{{ route('thang-nay-doc-gi') }}"
+                                    onMouseOver="this.style.textDecoration='underline'"
                                     onMouseOut="this.style.textDecoration='none'" href="">
                                     Xem tất cả</a>
                             </h4>

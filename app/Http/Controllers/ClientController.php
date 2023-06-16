@@ -12,6 +12,8 @@ use App\Models\LichSu;
 use App\Models\PhieuMuonSach;
 use Illuminate\Support\Facades\Auth;
 use App\Models\BinhLuan;
+use App\Models\TinTuc;
+use App\Models\NguoiDung;
 
 class ClientController extends Controller
 {
@@ -35,7 +37,8 @@ class ClientController extends Controller
         ])->take(4)->get();
         $xu_huong=PhieuMuonSach::where([
             ['updated_at','>=',$start_of_month],
-            ['updated_at','<=',$end_of_month]
+            ['updated_at','<=',$end_of_month],
+            ['trang_thai','>',0]
         ])->groupBy('sach_id')
             ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
             ->orderBy('total','desc')
@@ -50,25 +53,11 @@ class ClientController extends Controller
 
     public function danhMucSach()
     {
-        if (Auth::user()) {
-            $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        } else {
-            $gio_sach=null;
-        }
-        $sgk=Sach::where('the_loai_id',1)->take(4)->get();
-        $tham_khao=Sach::where('the_loai_id',2)->take(4)->get();
-        $phat_trien=Sach::where('the_loai_id',3)->take(4)->get();
-        $tap_chi=Sach::where('the_loai_id',4)->take(4)->get();
-        $khoa_hoc=Sach::where('the_loai_id',5)->take(4)->get();
-        $van_hoc=Sach::where('the_loai_id',6)->take(4)->get();
+        $the_loai=TheLoai::all();
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         return view('client.danh_muc_sach',[
-            'sgk'=>$sgk,
-            'tham_khao'=>$tham_khao,
-            'tap_chi'=>$tap_chi,
-            'phat_trien'=>$phat_trien,
-            'khoa_hoc'=>$khoa_hoc,
-            'van_hoc'=>$van_hoc,
-            'gio_sach'=>$gio_sach
+            'gio_sach'=>$gio_sach,
+            'the_loai'=>$the_loai,
         ]);
     }
 
@@ -105,37 +94,76 @@ class ClientController extends Controller
         ]);
     }
 
-    public function chiTietDanhMuc()
+    public function sachTheoChuDe()
     {
-        if (Auth::user()) {
-            $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        } else {
-            $gio_sach=null;
+        $dieu_kien=request()->input('dieu_kien');
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        // 1. Sách mới hàng tuần
+        if ($dieu_kien==1) {
+            $start_of_week=Carbon::now()->startOfWeek();
+            $end_of_week=Carbon::now()->endOfWeek();
+            $sach=Sach::where([
+                ['updated_at','>=',$start_of_week],
+                ['updated_at','<=',$end_of_week]
+            ])->paginate('10');
+            $so_luong=Sach::where([
+                ['updated_at','>=',$start_of_week],
+                ['updated_at','<=',$end_of_week]
+            ])->get();
+            return view('client.sach_theo_chu_de',[
+                'dieu_kien'=>1,
+                'gio_sach'=>$gio_sach,
+                'sach'=>$sach,
+                'so_luong'=>$so_luong->count(),
+                'bat_dau'=>$start_of_week,
+                'ket_thuc'=>$end_of_week,
+            ]);
         }
-        $id=request()->input('id');
-        $sach=Sach::where('the_loai_id',$id)->paginate('10');
-        $so_luong=Sach::where('the_loai_id',$id)->get();
-        return view('client.chi_tiet_danh_muc',[
-            'sach'=>$sach,
-            'so_luong'=>$so_luong->count(),
-            'the_loai_id'=>$id,
-            'gio_sach'=>$gio_sach
-        ]);
+        // 2. Sách theo tác giả
+        if ($dieu_kien==2) {
+            $id=request()->input('tac_gia');
+            $tac_gia=TacGia::find($id);
+            $sach=Sach::where('tac_gia_id',$id)->paginate('10');
+            $so_luong=Sach::where('tac_gia_id',$id)->get();
+            return view('client.sach_theo_chu_de',[
+                'dieu_kien'=>2,
+                'gio_sach'=>$gio_sach,
+                'tac_gia'=>$tac_gia,
+                'sach'=>$sach,
+                'so_luong'=>$so_luong->count(),
+            ]);
+        }
+        // 3. Sách theo thể loại
+        if ($dieu_kien==3) {
+            $id=request()->input('the_loai');
+            $the_loai=TheLoai::find($id);
+            $sach=Sach::where('the_loai_id',$id)->paginate('10');
+            $so_luong=Sach::where('the_loai_id',$id)->get();
+            return view('client.sach_theo_chu_de',[
+                'dieu_kien'=>3,
+                'gio_sach'=>$gio_sach,
+                'the_loai'=>$the_loai,
+                'sach'=>$sach,
+                'so_luong'=>$so_luong->count(),
+            ]);
+        }
+        return back();
     }
 
-    public function timKiemTacGia()
+    public function thangNayDocGi()
     {
-        $id=request()->input('tac_gia');
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        $sach=Sach::where('tac_gia_id',$id)->paginate('10');
-        $so_luong=Sach::where('tac_gia_id',$id)->get();
-        $tac_gia=TacGia::find($id);
-        return view('client.tim_kiem_tac_gia',[
-            'sach'=>$sach,
-            'so_luong'=>$so_luong->count(),
-            'tac_gia'=>$tac_gia,
-            'gio_sach'=>$gio_sach 
-        ]);
+        $start_of_month=Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth();
+        $end_of_month=Carbon::now('Asia/Ho_Chi_Minh')->endOfMonth();
+        $xu_huong=PhieuMuonSach::where([
+            ['updated_at','>=',$start_of_month],
+            ['updated_at','<=',$end_of_month],
+            ['trang_thai','>',0]
+        ])
+        ->groupBy('sach_id','doc_gia_id')
+        ->select('sach_id','doc_gia_id',PhieuMuonSach::raw('count(*) as total'))
+        ->take(15)->get();
+        return view('client.thang_nay_doc_gi',['xu_huong'=>$xu_huong,'gio_sach'=>$gio_sach]);
     }
 
     public function timKiem(Request $request)
@@ -149,25 +177,6 @@ class ClientController extends Controller
             'gio_sach'=>$gio_sach,
             'so_luong'=>$so_luong->count(),
             'key_word'=>$key_word
-        ]);
-    }
-
-    public function sachHangTuan()
-    {
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        $start_of_week=Carbon::now()->startOfWeek();
-        $end_of_week=Carbon::now()->endOfWeek();
-        $sach_moi=Sach::where([
-            ['updated_at','>=',$start_of_week],
-            ['updated_at','<=',$end_of_week]
-        ])->paginate('10');
-        $so_luong=Sach::where([['updated_at','>=',$start_of_week],['updated_at','<=',$end_of_week]])->get();
-        return view('client.sach_moi_hang_tuan',[
-            'sach_moi'=>$sach_moi,
-            'so_luong'=>$so_luong->count(),
-            'bat_dau'=>$start_of_week,
-            'ket_thuc'=>$end_of_week,
-            'gio_sach'=>$gio_sach,
         ]);
     }
 
@@ -192,12 +201,20 @@ class ClientController extends Controller
 
     public function showGioSach()
     {
+        $phieu_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->orWhere([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->paginate('10');
-        return view('client.gio_sach',['gio_sach'=>$gio_sach]);
+        if ($phieu_muon->count()>0) {
+            $dang_muon=1;
+        } else {
+            $dang_muon=0;
+        }
+        return view('client.gio_sach',['gio_sach'=>$gio_sach,'dang_muon'=>$dang_muon]);
     }
 
     public function handleMuonSach(Request $request)
     {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
         if (blank(PhieuMuonSach::latest()->first())) {
             $ma_so=date('y').date('m').'0001';
         } else {
@@ -217,12 +234,13 @@ class ClientController extends Controller
                     'thu_thu_id'=>null,
                     'sach_id'=>$key,
                     'so_luong'=>1,
-                    'han_tra'=>date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days'))
+                    'han_tra'=>date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
+                    'tong_so_luong'=>count($request->all())-1
                 ]);
                 GioSach::where('sach_id',$key)->delete();
             }
         }
-        return back();
+        return redirect()->route('cho-duyet',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
     }
     
     public function showLichSuChoDuyet() 
@@ -281,9 +299,13 @@ class ClientController extends Controller
 
     public function handleBinhLuan(Request $request)
     {
+        $sach=request()->input('sach');
+        Sach::find($sach)->update([
+            'luot_binh_luan'=>Sach::find($sach)->luot_binh_luan+1
+        ]);
         BinhLuan::create([
             'binh_luan_id'=>request()->input('tra_loi')?request()->input('tra_loi'):0,
-            'sach_id'=>request()->input('sach'),
+            'sach_id'=>$sach,
             'nguoi_dung_id'=>Auth::user()->id,
             'noi_dung'=>$request->binh_luan
         ]);
@@ -294,5 +316,19 @@ class ClientController extends Controller
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         return view('client.lien_he',['gio_sach'=>$gio_sach]);
+    }
+
+    public function showBaiViet()
+    {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        $bai_viet=TinTuc::all()->last();
+        return view('client.bai_viet',['gio_sach'=>$gio_sach,'bai_viet'=>$bai_viet]);
+    }
+
+    public function showTrangCaNhan()
+    {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        $tai_khoan=NguoiDung::find(Auth::user()->id);
+        return view('client.ca_nhan',['gio_sach'=>$gio_sach,'doc_gia'=>$tai_khoan]);
     }
 }

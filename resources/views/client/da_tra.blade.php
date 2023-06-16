@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Lịch sử mượn - trả</h2>
+                        <h2 class="mb-0">Mượn - trả sách</h2>
                     </div>
                 </div>
             </div>

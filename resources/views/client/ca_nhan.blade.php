@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="description" content="" />
+
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    <title>Pod Talk - About Page</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,97 +32,114 @@
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
 
-    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
-
 </head>
 
 <body>
     <main>
-        @include('client.header', ['view' => 2])
+        @include('client.header', ['view' => 5])
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">{{ $tac_gia->ten }}</h2>
+                        <h2 class="mb-0">Tài khoản của tôi</h2>
                     </div>
                 </div>
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding pt-0" id="section_2">
+        <section class="about-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
-                        </div>
-                    </div>
-                    @foreach ($sach as $key => $item)
-                        <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
-                            <div class="custom-block d-flex">
-                                <div>
-                                    <div class="custom-block-icon-wrap">
-                                        <div class="section-overlay"></div>
-                                        <a href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}"
-                                            class="custom-block-image-wrap">
-                                            @if ($item->hinh_anh != '')
-                                                <img src="../img/books/{{ $item->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
+                <div class="row">
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <div class="mb-5 d-flex custom-block">
+                            <div class="d-flex flex-column">
+                                <div class="ongnoi col-lg-4">
+                                    <div class="cha">
+                                        <div class="con1 border">
+                                            @if (Auth::user()->hinh_anh == '')
+                                                <img class="ca border rounded-circle" id="image" alt=""
+                                                    srcset="" src="../img/default/no_avatar.png" width="200px"
+                                                    height="200px">
                                             @else
-                                                <img src="../img/default/no_book.jpg"
-                                                    class="custom-block-image img-fluid border" alt="" />
+                                                <img class="ca border rounded-circle" id="image" alt=""
+                                                    srcset="" src="../img/avt/{{ Auth::user()->hinh_anh }}"
+                                                    width="200px" height="200px" style="object-fit:cover">
                                             @endif
-                                        </a>
-                                    </div>
-                                    <div class="mt-2">
-                                        <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        </div>
+                                        <div class="con2">
+                                            <label for="file"></label>
+                                            <input class="chau1" type="file" value=""
+                                                onchange="chooseFile(this)" name="file"
+                                                accept="image/gif, image/jpeg, image/png, image/jpg">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="custom-block-info">
-                                    <div class="custom-block-top d-flex mb-1">
-                                        <small class="me-4">
-                                            <i class="bi-clock-fill custom-icon"></i>
-                                            {{ $item->nam_xuat_ban }}
-                                        </small>
-                                        <small class="me-4">Mã sách <span
-                                                class="badge">#{{ $item->ma_sach }}</span></small>
-                                        <small>Số lượng <span
-                                                class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
+                            </div>
+                            <div class="m-4"></div>
+                            <div class="flex-fill d-flex flex-column justify-content-evenly">
+                                <h4>{{ $doc_gia->ho }} {{ $doc_gia->ten }}</h4>
+                                <div class="d-flex align-items-center sono">
+                                    <p class="m-0">Mã số:&nbsp;</p>
+                                    <div>1234567</div>
+                                </div>
+                                <div class="d-flex align-items-center sono">
+                                    <p class="m-0">Giới tính:&nbsp;</p>
+                                    <div>{{ $doc_gia->gioi_tinh == 1 ? 'Nam' : 'Nữ' }}</div>
+                                </div>
+                                <div class="d-flex align-items-center sono">
+                                    <p class="m-0">Ngày sinh:&nbsp;</p>
+                                    <div>{{ date('d-m-Y', strtotime($doc_gia->ngay_sinh)) }}</div>
+                                </div>
+                                <div>
+                                    <div class="border-bottom d-flex">
+                                        <i class="bi-journal-text custom-icon"></i>&nbsp;
+                                        <p class="so-no m-0">Sách</p>
                                     </div>
-                                    <h5 class="mb-2">
-                                        <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                            href="{{ route('chi-tiet-sach-client', ['id' => $item->id]) }}">
-                                            {{ $item->ten }} </a>
-                                    </h5>
-                                    <div class="profile-block d-flex">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                            alt="" />
-                                        <p>
-                                            Tác giả
-                                            <strong>{{ $item->fkTacGia->ten }}</strong>
-                                        </p>
+                                    <div class="d-flex align-items-center sono bi-dot">
+                                        <p class="m-0">Đang mượn:&nbsp;</p>
+                                        <div>5 quyển</div>
                                     </div>
-                                    <div class="custom-block-bottom d-flex justify-content-between">
-                                        <a href="#" class="bi-eye me-1">
-                                            <span>{{ $item->luot_xem }}</span>
-                                        </a>
-                                        <a href="#" class="bi-heart me-1">
-                                            <span>{{ $item->luot_thich }}</span>
-                                        </a>
-                                        <a href="#" class="bi-chat me-1">
-                                            <span>{{ $item->luot_binh_luan }}</span>
-                                        </a>
-                                        <div class="me-1"></div>
+                                    <div class="d-flex align-items-center sono bi-dot">
+                                        <p class="m-0">Đã mượn:&nbsp;</p>
+                                        <div>12 quyển</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    <div class="col-auto mr-auto mx-auto mt-5">
-                        <nav aria-label="Page navigation example">
-                            {{ $sach->appends(request()->input())->links() }}
-                        </nav>
+                    </div>
+
+                    <div class="col-lg-12 col-12">
+                        <div class="section-title-wrap mb-5">
+                            <h4 class="section-title">Liên quan</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+                        <div class="team-thumb bg-white shadow-lg">
+                            <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
+                                class="about-image img-fluid" alt="" />
+                            <div class="team-info">
+                                <h4 class="mb-2">
+                                    William
+                                    <img src="images/verified.png" class="verified-image img-fluid" alt="" />
+                                </h4>
+                                <span class="badge">Creative</span>
+                                <span class="badge">Design</span>
+                            </div>
+                            <div class="social-share">
+                                <ul class="social-icon">
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-twitter"></a>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-facebook"></a>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-pinterest"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,11 +152,10 @@
                 <div class="col-lg-6 col-12 mb-5 mb-lg-0">
                     <div class="subscribe-form-wrap">
                         <h6>Subscribe. Every weekly.</h6>
-
                         <form class="custom-form subscribe-form" action="#" method="get" role="form">
-                            <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*"
-                                class="form-control" placeholder="Email Address" required="" />
-
+                            <input type="email" name="subscribe-email" id="subscribe-email"
+                                pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address"
+                                required="" />
                             <div class="col-lg-12 col-12">
                                 <button type="submit" class="form-control" id="submit">
                                     Subscribe
@@ -239,6 +258,17 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        function chooseFile(fileinput) {
+            if (fileinput.files && fileinput.files[0]) {
+                var read = new FileReader();
+                read.onload = function(e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                read.readAsDataURL(fileinput.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>

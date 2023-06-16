@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ten');
             $table->string('anh_bia');
-            $table->string('noi_dung');
+            $table->text('noi_dung');
             $table->integer('luot_xem')->default('0');
             $table->integer('luot_thich')->default('0');
             $table->integer('luot_binh_luan')->default('0');

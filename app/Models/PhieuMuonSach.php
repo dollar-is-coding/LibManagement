@@ -19,6 +19,7 @@ class PhieuMuonSach extends Model
         'so_luong',
         'ngay_lap_phieu',
         'han_tra',
+        'tong_so_luong',
         'trang_thai',
     ];
 

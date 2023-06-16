@@ -15,9 +15,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -28,13 +26,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
-    <!--
-
-TemplateMo 584 Pod Talk
-
-https://templatemo.com/tm-584-pod-talk
-
--->
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
 <body>
@@ -45,7 +37,7 @@ https://templatemo.com/tm-584-pod-talk
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Lịch sử mượn - trả</h2>
+                        <h2 class="mb-0">Mượn - trả sách</h2>
                     </div>
                 </div>
             </div>
@@ -54,33 +46,67 @@ https://templatemo.com/tm-584-pod-talk
         <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div style="font-family: 'sono'">
-                        <div class="d-flex justify-content-start shadow-sm border"
-                            style="padding:20px 30px 20px 30px; border-radius:30px">
-                            <div class="p-4 pt-0 pb-0">
-                                <a href="" class="history-active"><strong>Đang chờ duyệt</strong></a>
+                    <!-- <div style="font-family: 'sono'">
+                        <div class="d-flex justify-content-start shadow-sm border nav-tabs" id="myTab" role="tablist" style="padding:20px 30px 20px 30px; border-radius:30px">
+                            <div class="p-4 pt-0 pb-0" role="presentation">
+                                <a style="border: none;" class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><strong>Đang chờ duyệt</strong></a>
                             </div>
-                            <div class="p-4 pt-0 pb-0 history">
-                                <a href="{{ route('dang-muon') }}" class="history"><strong>Đang mượn</strong></a>
+                            <div class="p-4 pt-0 pb-0" role="presentation">
+                                <a style="border: none;" class=" nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><strong>Đang mượn</strong></a>
                             </div>
-                            <div class="p-4 pt-0 pb-0"><a href="{{ route('da-tra') }}" class="history">
-                                    <strong>Đã trả</strong></a></div>
-                            <div class="p-4 pt-0 pb-0"><a href="" class="history"><strong>Phiếu phạt</strong></a>
+                            <div class="p-4 pt-0 pb-0" role="presentation">
+                                <a style="border: none;" class=" nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false"><strong>Đã trả</strong></a>
+                            </div>
+                            <div class="p-4 pt-0 pb-0" role="presentation">
+                                <a style="border: none;" class=" nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false"><strong>Phiếu phạt</strong></a>
                             </div>
                         </div>
                     </div>
+                  
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">.2..</div>
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">..3.</div>
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">..4.</div>
+                        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">5...</div>
+                    </div> -->
+                    <!-- end dinh -->
+                    <style>
+                        .nav-link.active {
+                            color: blue !important;
+                        }
+                    </style>
+
+                    <nav style="font-family: 'sono'; padding: 20px 30px 20px 30px; border-radius: 30px" class="d-flex justify-content-start shadow-sm border">
+                        <div class="nav nav-tabs" id="nav-tab" style="border: none; padding: 0" role="tablist">
+                            <a class="nav-link active" style="border: none; padding: 0; color: black;" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><strong>Home</strong></a>
+                            <a class="nav-link" style="border: none; padding: 0; color: black" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><strong>Profile</strong></a>
+                            <a class="nav-link" style="border: none; padding: 0; color: black" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><strong>Contact</strong></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">..1.</div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">..2.</div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">..3.</div>
+                    </div>
+
+
+
+                    <!-- again end -->
                     @foreach ($cho_duyet as $key => $item)
-                        @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
-                            <div class="mt-4" style="font-family: 'sono'">
-                                <div class="custom-block">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
-                                        <div class="m-0"><strong>Tổng số lượng (5)</strong></div>
-                                    </div>
-                        @endif
-                        @if (
+                    @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
+                    <div class="mt-4" style="font-family: 'sono'">
+                        <div class="custom-block">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
+                                <div class="m-0"><strong>
+                                        Tổng số lượng ({{ $item->tong_so_luong }})
+                                    </strong></div>
+                            </div>
+                            @endif
+                            @if (
                             ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
-                                $key == $cho_duyet->count() - 1)
+                            $key == $cho_duyet->count() - 1)
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex" style="width:70%">
@@ -88,11 +114,9 @@ https://templatemo.com/tm-584-pod-talk
                                         <div class="section-overlay"></div>
                                         <a class="custom-block-image-wrap">
                                             @if ($item->fkSach->hinh_anh != '')
-                                                <img src="../img/books/{{ $item->fkSach->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
+                                            <img src="../img/books/{{ $item->fkSach->hinh_anh }}" class="custom-block-image img-fluid" alt="" />
                                             @else
-                                                <img src="../img/default/no_book.jpg"
-                                                    class="custom-block-image img-fluid border" alt="" />
+                                            <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border" alt="" />
                                             @endif
                                         </a>
                                     </div>
@@ -122,51 +146,48 @@ https://templatemo.com/tm-584-pod-talk
                                     <p class="m-0">Ngày cần trả:&nbsp;</p>
                                     <div>{{ date('d-m-Y', strtotime($item->han_tra)) }}</div>
                                 </div>
-                                <a href="{{ route('huy-phieu-muon', ['ma_phieu_muon' => $item->ma_phieu_muon]) }}"
-                                    class="btn danger-btn">Hủy phiếu</a>
+                                <a href="{{ route('huy-phieu-muon', ['ma_phieu_muon' => $item->ma_phieu_muon]) }}" class="btn danger-btn">Hủy phiếu</a>
                             </div>
-                </div>
-            </div>
-        @else
-            <hr>
-            <div class="d-flex justify-content-between">
-                <div class="d-flex" style="width:55%">
-                    <div class="custom-block-icon-wrap">
-                        <div class="section-overlay"></div>
-                        <a class="custom-block-image-wrap">
-                            @if ($item->fkSach->hinh_anh != '')
-                                <img src="../img/books/{{ $item->fkSach->hinh_anh }}"
-                                    class="custom-block-image img-fluid" alt="" />
-                            @else
-                                <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border"
-                                    alt="" />
-                            @endif
-                        </a>
-                    </div>
-                    <div class="custom-block-info d-flex flex-column justify-content-start">
-                        <div><strong>{{ $item->fkSach->ten }}</strong></div>
-                        <div class="d-flex">
-                            <p class="m-0">Tác giả:&nbsp;</p>
-                            <div> {{ $item->fkSach->fkTacGia->ten }}</div>
-                        </div>
-                        <div class="d-flex">
-                            <p class="m-0">Thể loại:&nbsp;</p>
-                            <div> {{ $item->fkSach->fkTheLoai->ten }}</div>
-                        </div>
-                        <div class="d-flex">
-                            <p class="m-0">Nhà xuất bản:&nbsp;</p>
-                            <div> {{ $item->fkSach->fkNhaXuatBan->ten }}</div>
                         </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-center align-items-center" style="width:10%">
-                    <div class="m-0">Số lượng x1</div>
-                </div>
-            </div>
-            @endif
-            @endforeach
+                    @else
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex" style="width:55%">
+                            <div class="custom-block-icon-wrap">
+                                <div class="section-overlay"></div>
+                                <a class="custom-block-image-wrap">
+                                    @if ($item->fkSach->hinh_anh != '')
+                                    <img src="../img/books/{{ $item->fkSach->hinh_anh }}" class="custom-block-image img-fluid" alt="" />
+                                    @else
+                                    <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border" alt="" />
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="custom-block-info d-flex flex-column justify-content-start">
+                                <div><strong>{{ $item->fkSach->ten }}</strong></div>
+                                <div class="d-flex">
+                                    <p class="m-0">Tác giả:&nbsp;</p>
+                                    <div> {{ $item->fkSach->fkTacGia->ten }}</div>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="m-0">Thể loại:&nbsp;</p>
+                                    <div> {{ $item->fkSach->fkTheLoai->ten }}</div>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="m-0">Năm xuất bản:&nbsp;</p>
+                                    <div> {{ $item->fkSach->nam_xuat_ban }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center" style="width:10%">
+                            <div class="m-0">Số lượng x1</div>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
 
-            </div>
+                </div>
             </div>
         </section>
     </main>
@@ -179,9 +200,7 @@ https://templatemo.com/tm-584-pod-talk
                         <h6>Subscribe. Every weekly.</h6>
 
                         <form class="custom-form subscribe-form" action="#" method="get" role="form">
-                            <input type="email" name="subscribe-email" id="subscribe-email"
-                                pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address"
-                                required="" />
+                            <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address" required="" />
 
                             <div class="col-lg-12 col-12">
                                 <button type="submit" class="form-control" id="submit">
