@@ -15,9 +15,9 @@ class TheLoaiSeeder extends Seeder
     {
         TheLoai::create(['ten'=>'Sách giáo khoa']);
         TheLoai::create(['ten'=>'Sách tham khảo']);
+        TheLoai::create(['ten'=>'Sách văn học']);
+        TheLoai::create(['ten'=>'Sách khoa học']);
         TheLoai::create(['ten'=>'Sách phát triển kỹ năng sống']);
         TheLoai::create(['ten'=>'Báo, tạp chí']);
-        TheLoai::create(['ten'=>'Sách khoa học']);
-        TheLoai::create(['ten'=>'Sách lịch sử']);
     }
 }

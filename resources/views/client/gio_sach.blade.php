@@ -71,8 +71,7 @@
                             <div class="mt-4" style="font-family: 'sono'">
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center">
-                                        <input style="width:1em;height:1em" type="checkbox" name="{{ $sach->sach_id }}"
-                                            checked hidden>
+                                        <input style="width:1em;height:1em" type="checkbox" name="{{ $sach->sach_id }}">
                                         <h6 class="m-0">&nbsp;{{ $sach->fkSach->ten }}</h6>
                                     </div>
                                     <hr>
@@ -125,7 +124,8 @@
                                                     class="btn danger-btn">Bỏ chọn</a>
                                             </div>
                                             <div>
-                                                <a href="#" class="btn custom-btn">Xem chi tiết</a>
+                                                <a href="{{ route('thong-tin-sach', ['id' => $sach->sach_id]) }}"
+                                                    class="btn custom-btn">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
@@ -135,16 +135,6 @@
                         <div class="mt-5 d-flex" style="font-family: 'Sono'">
                             <div class="d-flex justify-content-end shadow-sm border flex-grow-1"
                                 style="padding:20px 30px 20px 30px; border-radius:30px">
-                                {{-- <div class="d-flex">
-                                    <p class="m-0"><strong>Ngày lập phiếu:&nbsp;</strong></p>
-                                    <div><strong>{{ date('d-m-Y') }}</strong></div>
-                                </div>
-                                <div class="d-flex justify-content-center" style="margin-left: 5em">
-                                    <p class="m-0"><strong>Hạn trả:&nbsp; </strong></p>
-                                    <div>
-                                        <strong>{{ date('d-m-Y', strtotime(date('m-d-y') . ' + 14 days')) }}</strong>
-                                    </div>
-                                </div> --}}
                                 <div class="d-flex justify-content-center" style="margin-left: 5em">
                                     <p class="m-0">Tổng số sách:&nbsp;</p>
                                     <div>{{ $gio_sach->count() }} quyển</div>
@@ -152,9 +142,15 @@
                             </div>
                             <div class="m-3"></div>
                             <div class="d-inline-flex justify-content-center">
-                                <button type="submit" class="pagination pagination-lg btn custom-btn">
-                                    Xác nhận mượn sách
-                                </button>
+                                @if ($dang_muon == 0)
+                                    <button type="submit" class="pagination pagination-lg btn custom-btn">
+                                        Xác nhận mượn sách
+                                    </button>
+                                @else
+                                    <button type="button" class="pagination pagination-lg btn disable-btn">
+                                        Chưa thể mượn sách
+                                    </button>
+                                @endif
                             </div>
                             <div class="m-1"></div>
                         </div>

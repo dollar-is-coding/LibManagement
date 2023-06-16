@@ -317,7 +317,8 @@
                                         alt="" />
                                     <p>
                                         Tác giả
-                                        <strong>{{ $item->fkTacGia->ten }}</strong>
+                                        <strong><a href=""
+                                                class="author">{{ $item->fkTacGia->ten }}</a></strong>
                                     </p>
                                 </div>
                                 <div class="custom-block-bottom d-flex justify-content-between">
@@ -343,8 +344,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination pagination-lg justify-content-center mt-5">
                             <h4>
-                                <a href="{{ route('tim-kiem-tac-gia', ['tac_gia' => $sach->tac_gia_id]) }}"
-                                    onMouseOver="this.style.textDecoration='underline'"
+                                <a href="" onMouseOver="this.style.textDecoration='underline'"
                                     onMouseOut="this.style.textDecoration='none'" href="">Xem tất
                                     cả</a>
                             </h4>
@@ -442,19 +442,9 @@
                                     alt="" />
                                 <p>
                                     Tác giả
-                                    <strong>{{ $item->fkSach->fkTacGia->ten }}</strong>
+                                    <strong><a href=""
+                                            class="author">{{ $item->fkSach->fkTacGia->ten }}</a></strong>
                                 </p>
-                            </div>
-                            <div class="custom-block-bottom d-flex justify-content-between">
-                                <a href="#" class="bi-eye me-1">
-                                    <span>{{ $item->fkSach->luot_xem }}</span>
-                                </a>
-                                <a href="#" class="bi-heart me-1">
-                                    <span>{{ $item->fkSach->luot_thich }}</span>
-                                </a>
-                                <a href="#" class="bi-chat me-1">
-                                    <span>{{ $item->fkSach->luot_binh_luan }}</span>
-                                </a>
                             </div>
                         </div>
                     </div>

@@ -28,13 +28,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
-    <!--
-
-TemplateMo 584 Pod Talk
-
-https://templatemo.com/tm-584-pod-talk
-
--->
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
 <body>
@@ -45,7 +39,7 @@ https://templatemo.com/tm-584-pod-talk
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Lịch sử mượn - trả</h2>
+                        <h2 class="mb-0">Mượn - trả sách</h2>
                     </div>
                 </div>
             </div>
@@ -75,7 +69,9 @@ https://templatemo.com/tm-584-pod-talk
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
-                                        <div class="m-0"><strong>Tổng số lượng (5)</strong></div>
+                                        <div class="m-0"><strong>
+                                                Tổng số lượng ({{ $item->tong_so_luong }})
+                                            </strong></div>
                                     </div>
                         @endif
                         @if (
@@ -154,8 +150,8 @@ https://templatemo.com/tm-584-pod-talk
                             <div> {{ $item->fkSach->fkTheLoai->ten }}</div>
                         </div>
                         <div class="d-flex">
-                            <p class="m-0">Nhà xuất bản:&nbsp;</p>
-                            <div> {{ $item->fkSach->fkNhaXuatBan->ten }}</div>
+                            <p class="m-0">Năm xuất bản:&nbsp;</p>
+                            <div> {{ $item->fkSach->nam_xuat_ban }}</div>
                         </div>
                     </div>
                 </div>

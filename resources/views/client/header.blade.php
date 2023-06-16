@@ -31,21 +31,35 @@
                     <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('danh-muc-sach') }}">
                         Thể loại sách</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">Tin tức</a>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle {{ $view == 3 ? 'active' : '' }}" href="#"
+                        id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Bài viết</a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('bai-viet') }}">Tin tức</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">Review sách</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('lien-he') }}">
+                    <a class="nav-link {{ $view == 4 ? 'active' : '' }}" href="{{ route('lien-he') }}">
                         Liên hệ
                     </a>
                 </li>
                 @if (Auth::user() && Auth::user()->vai_tro == 3)
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown bi bi-person-circle" href="#" id="navbarLightDropdownMenuLink"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown bi bi-person-circle {{ $view == 5 ? 'active' : '' }}"
+                            id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
 
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('trang-ca-nhan') }}">Tài khoản của tôi</a>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
                                     ({{ $gio_sach->count() }})</a>
@@ -53,7 +67,7 @@
 
                             <li>
                                 <a class="dropdown-item" href="{{ route('cho-duyet') }}">
-                                    Lịch sử mượn sách</a>
+                                    Mượn - trả sách</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">
