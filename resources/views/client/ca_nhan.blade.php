@@ -48,47 +48,6 @@
             </div>
         </header>
 
-        <div style="font-family: 'sono'">
-            <div class="d-flex justify-content-start shadow-sm border"
-                style="padding:20px 30px 20px 30px; border-radius:30px">
-                <div class="p-4 pt-0 pb-0">
-                    <a href="" class="history-active"><strong>Đang chờ duyệt</strong></a>
-                </div>
-                <div class="p-4 pt-0 pb-0 history">
-                    <a href="{{ route('dang-muon') }}" class="history"><strong>Đang mượn</strong></a>
-                </div>
-                <div class="p-4 pt-0 pb-0"><a href="{{ route('da-tra') }}" class="history">
-                        <strong>Đã trả</strong></a></div>
-                <div class="p-4 pt-0 pb-0"><a href="" class="history"><strong>Phiếu phạt</strong></a>
-                </div>
-            </div>
-        </div>
-
-        <div style="font-family: 'sono'">
-            <ul class="nav nav-pills mb-3 d-flex justify-content-start shadow-sm border" id="pills-tab" role="tablist">
-                <li class=" p-4 pt-0 pb-0" role="presentation">
-                    <a class="" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
-                        role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-                        role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
-                        role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
-                tabindex="0">1</div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-                tabindex="0">2</div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
-                tabindex="0">3</div>
-        </div>
-
         <section class="about-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row">
