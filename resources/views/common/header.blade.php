@@ -28,9 +28,9 @@
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i>Mượn sách</a>
                     <nav class="az-menu-sub">
-                        <a href="" class="nav-link">Phê duyệt mượn sách</a>
-                        <a href="" class="nav-link">Đọc giả đang mượn sách</a>
-                        <a href="" class="nav-link">Đọc giả đã mượn sách</a>
+                        <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link">Phê duyệt mượn sách</a>
+                        <a href="{{route('dang-muon-sach')}}" class="nav-link">Đọc giả đang mượn sách</a>
+                        <a href="{{route('da-muon-sach')}}" class="nav-link">Đọc giả đã mượn sách</a>
                     </nav>
                 </li>
                 @if(Auth::user()->vai_tro == 1)

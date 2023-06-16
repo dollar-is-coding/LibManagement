@@ -23,6 +23,7 @@ class NguoiDungSeeder extends Seeder
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',
             'vai_tro' => 1,
+            'hinh_anh'=>'',
         ]);
         NguoiDung::create([
             'ho' => 'Dinh',
@@ -33,6 +34,7 @@ class NguoiDungSeeder extends Seeder
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',
             'vai_tro' => 2,
+            'hinh_anh' => '',
         ]);
         NguoiDung::create([
             'ho' => 'Dinh',
@@ -43,6 +45,7 @@ class NguoiDungSeeder extends Seeder
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',
             'vai_tro' => 3,
+            'hinh_anh' => '',
         ]);
     }
 }

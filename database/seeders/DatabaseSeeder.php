@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             TacGiaSeeder::class,
             TheLoaiSeeder::class,
             SachSeeder::class,
-            ThuVienSeeder::class,
             NguoiDungSeeder::class,
         ]);
     }

@@ -122,9 +122,9 @@
                     </div>
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng quản trị viên</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                            <h5 class="card-title">Số lượng sách mượn cần duyệt</h5>
+                            <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slsachduyet}}</p>
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
                     <div class="card" style="width: 400px;">

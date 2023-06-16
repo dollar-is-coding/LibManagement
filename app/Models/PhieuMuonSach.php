@@ -26,4 +26,12 @@ class PhieuMuonSach extends Model
     {
         return $this->belongsTo(Sach::class,'sach_id');
     }
+    public function fkNguoiDung()
+    {
+        return $this->belongsTo(NguoiDung::class, 'doc_gia_id');
+    }
+    public function fkThuThu()
+    {
+        return $this->belongsTo(NguoiDung::class, 'thu_thu_id');
+    }
 }

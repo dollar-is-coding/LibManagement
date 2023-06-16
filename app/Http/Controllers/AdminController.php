@@ -374,33 +374,21 @@ class AdminController extends Controller
         $sach = Sach::orderBy('ten', 'asc')->paginate(20);
         return view('sach.index', ['sach' => $sach,'slsach'=>$slsach]);
     }
-
-    public function dsTimKiem(Request $request)
-    {
-        $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->paginate(10);
-        if ($request->sort=='desc_name') {
-            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','desc')->paginate(10);
-        }
-        if ($request->sort=='desc_year') {
-            $ds_sach=Sach::where('ten','like','%'.$request->tim_kiem.'%')->orderBy('ten','asc')->orderBy('nam_xuat_ban','desc')->paginate(10);
-        }
-        return view('sach.index',['ds_sach'=>$ds_sach,'search'=>$request->tim_kiem,'selected'=>$request->sort]);
-    }
-
     public function timKiemTheoTacGia(Request $request)
     {
         $timKiem = $request->tim_kiem;
         $sach = Sach::where('ten', 'like', "%$timKiem%")
         ->orderBy('ten', 'asc')
             ->paginate(20);
-
+        $slsach = $sach->count();
         if($sach->count()===0){
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         }else{
             return view('sach.index', [
                 'sach' => $sach,
                 'search' => '',
-                'selected' => 'asc_name'
+                'selected' => 'asc_name',
+                'slsach' => $slsach,
             ]);
         }
         
@@ -666,5 +654,71 @@ class AdminController extends Controller
         $img->save();
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
+    }
+
+    public function timKiemDocGiaDuyetSach(Request $request){
+        $timKiem = $request->tim_kiem;
+        $cho_duyet = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai',1)
+            ->orderBy('ma_phieu_muon', 'asc')->get();
+        if ($cho_duyet->count() === 0) {
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        } else {
+            return view('muon_sach.phe_duyet_sach', [
+                'cho_duyet' => $cho_duyet,
+                'search' => '',
+                'selected' => 'asc_name',
+            ]);
+        }
+    }
+    public function timKiemDocGiaDangMuonSach(Request $request)
+    {
+        $timKiem = $request->tim_kiem;
+        $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)
+        ->orderBy('ma_phieu_muon', 'asc')->get();
+        if ($dang_muon->count() === 0) {
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        } else {
+            return view('muon_sach.dang_muon_sach', [
+                'dang_muon' => $dang_muon,
+                'search' => '',
+                'selected' => 'asc_name',
+            ]);
+        }
+    }
+    public function duyetMuonSach(){
+        $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
+        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet]);
+    }
+    public function xuLyMuonSach($id){
+        $so_luong = PhieuMuonSach::where('trang_thai', 1)->where('ma_phieu_muon', $id)->count();
+        PhieuMuonSach::where('ma_phieu_muon',$id)->update([
+            'trang_thai'=>2,
+            'thu_thu_id'=> Auth::id(),
+        ]);
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return back();
+    }
+    public function xuLyTraSach($id)
+    {
+        PhieuMuonSach::where('ma_phieu_muon', $id)->update([
+            'trang_thai' => 3,
+        ]);
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return back();
+    }
+    public function dangMuonSach()
+    {
+        $dang_muon = PhieuMuonSach::where('trang_thai', 2)->get();
+        return view('muon_sach.dang_muon_sach',['dang_muon'=> $dang_muon]);
+    }
+
+    public function daMuonSach()
+    {
+        $da_muon = PhieuMuonSach::where('trang_thai', 3)->get();
+        return view('muon_sach.da_muon_sach',['da_muon'=> $da_muon]);
+    }
+    public function chiTietPhieu($id){
+        $chitiet = PhieuMuonSach::where('ma_phieu_muon',$id)->get();   
+        return view('muon_sach.chi_tiet',['chitiet'=>$chitiet]);
     }
 }

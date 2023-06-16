@@ -57,16 +57,6 @@
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
-                    <!-- <div class="dropdown col-lg-1" style="margin: 0;">
-                        <a style="margin: 0;" class="btn btn-indigo dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Bộ lọc
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Tác giả</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div> -->
                 </form>
 
                 @if (session('error'))
@@ -81,20 +71,19 @@
                 @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach($sach as $item)
-                    @foreach($item->hasThuVien as $book)
                     <div class="card" style="margin: 10px;">
-                        @if($book->fkSach->hinh_anh == '')
+                        @if($item->hinh_anh == '')
                         <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($book->fkSach->hinh_anh != '')
+                        @elseif($item->hinh_anh != '')
                         <img src="/img/books/{{$item->hinh_anh}}" class="card-img-top">
                         @endif
                         <div class="card-body">
-                            <h5 style="height: 50px;" class="card-title">{{$book->fkSach->ten}}</h5>
-                            <p class="card-text">Số lượng {{$book->sl_con_lai}}</p>
-                            <a href="{{route('chi-tiet-sach',['id' => $book->fkSach->id])}}" class="btn btn-primary">Xem chi tiết</a>
+                            <h5 style="height: 50px;" class="card-title">{{$item->ten}}</h5>
+                            <p class="card-text">Số lượng {{$item->hasThuVien->sl_con_lai}}</p>
+                            <a href="{{route('chi-tiet-sach',['id' => $item->id])}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
-                    @endforeach
+
                     @endforeach
                 </div><!-- az-content-body -->
                 <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>

@@ -30,7 +30,8 @@ class HomeController extends Controller
         $sldocgia = NguoiDung::where('vai_tro', 3)->count();
         $slthuthu = NguoiDung::where('vai_tro', 2)->count();
         $sltintuc = TinTuc::all()->count();
-        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten]);
+        $slsachduyet = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
+        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet]);
     }
 
 
