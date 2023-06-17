@@ -599,6 +599,10 @@ class AdminController extends Controller
         return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc, 'sltintuc'=> $sltintuc]);
     }
     public function xuLyThemTinTuc(Request $request){
+        
+        if($request->noi_bat != ''){
+            TinTuc::update(['noi_bat' => 0]);
+        }
         if ($request->hasFile('file_upload')) {
             $file = $request->file_upload;
             if ($file->isValid()) {
@@ -614,9 +618,7 @@ class AdminController extends Controller
                 TinTuc::create([
                     'ten' => $request->tieu_de,
                     'noi_dung' =>$request->noi_dung,
-                    'luot_xem' => 0,
-                    'luot_thich' => 0,
-                    'luot_binh_luan' => 0,
+                    'noi_bat' =>$request->noi_bat=='' ? 0 : 1,
                     'anh_bia' => $file_name
                 ]);
                 FacadesSession::flash('success', 'Xử lý thành công');

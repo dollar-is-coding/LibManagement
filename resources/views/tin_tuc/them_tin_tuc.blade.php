@@ -79,6 +79,12 @@
                     <h3 class="ml-3 mt-3">Thêm tin tức</h3>
                     <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data" class="ml-3">
                         @csrf
+                        <div class="form-check">
+                            <input class="form-check-input" name="noi_bat" type="checkbox" value="" id="flexCheckDefault">
+                            <label style="user-select: none;" class="form-check-label" for="flexCheckDefault">
+                                Nổi bật
+                            </label>
+                        </div>
                         <div style="display: flex;">
                             <div style="flex-basis: 30%;">
                                 <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
