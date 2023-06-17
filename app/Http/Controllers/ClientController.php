@@ -11,6 +11,7 @@ use App\Models\GioSach;
 use App\Models\LichSu;
 use App\Models\PhieuMuonSach;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session as FacadesSession;
 use App\Models\BinhLuan;
 use App\Models\TinTuc;
 use App\Models\NguoiDung;
@@ -55,7 +56,7 @@ class ClientController extends Controller
     {
         $the_loai=TheLoai::all();
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.danh_muc_sach',[
+        return view('client.the_loai_sach',[
             'gio_sach'=>$gio_sach,
             'the_loai'=>$the_loai,
         ]);
@@ -242,27 +243,6 @@ class ClientController extends Controller
         }
         return redirect()->route('cho-duyet',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
     }
-    
-    public function showLichSuChoDuyet() 
-    {
-        $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.cho_duyet',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
-    }
-
-    public function showLichSuDangMuon() 
-    {
-        $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.dang_muon',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
-    }
-
-    public function showLichSuDaTra()
-    {
-        $da_tra=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',3]])->get();
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.da_tra',['gio_sach'=>$gio_sach,'da_tra'=>$da_tra]);
-    }
 
     public function cancelPhieuMuon()
     {
@@ -325,10 +305,33 @@ class ClientController extends Controller
         return view('client.bai_viet',['gio_sach'=>$gio_sach,'bai_viet'=>$bai_viet]);
     }
 
-    public function showTrangCaNhan()
+    public function handleCapNhatThongTin(Request $request)
+    {
+        $img =NguoiDung::find(Auth::id());
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        FacadesSession::flash('success', 'Xử lý thành công');
+        $img->save();
+        return redirect()->back();
+    }
+
+    public function showCaNhan()
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        $tai_khoan=NguoiDung::find(Auth::user()->id);
-        return view('client.ca_nhan',['gio_sach'=>$gio_sach,'doc_gia'=>$tai_khoan]);
+        $phieu_huy=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',0]])->get();
+        $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
+        $dang_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
+        $da_tra=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',3]])->get();
+        return view('client.trang_ca_nhan',[
+            'gio_sach'=>$gio_sach,
+            'phieu_huy'=>$phieu_huy,
+            'cho_duyet'=>$cho_duyet,
+            'dang_muon'=>$dang_muon,
+            'da_tra'=>$da_tra
+        ]);
     }
 }
