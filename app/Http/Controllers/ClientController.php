@@ -228,7 +228,7 @@ class ClientController extends Controller
             }
         }
         foreach ($request->all() as $key => $value) {
-            if ($key!='_token') {
+            if ($key!='_token'&&$key!='all') {
                 PhieuMuonSach::create([
                     'ma_phieu_muon'=>$ma_so,
                     'doc_gia_id'=>Auth::user()->id,
@@ -241,7 +241,7 @@ class ClientController extends Controller
                 GioSach::where('sach_id',$key)->delete();
             }
         }
-        return redirect()->route('cho-duyet',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
+        return redirect()->route('tai-khoan-cua-toi',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
     }
 
     public function cancelPhieuMuon()
