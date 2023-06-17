@@ -61,74 +61,139 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <p>thanh toán</p>
                 <div class="">
-                    <h3 class="ml-3 mt-3">Chi tiết</h3>
-                    <div class="table-responsive">
-                        @foreach ($thanhtoan as $key => $item)
-                        <p>{{$item->fkSach->ten}}</p>
-                        <p>{{$item->ma_phieu_muon}}</p>
+                    <p>{{$detail->ma_phieu_muon}}</p>
+                    <!-- <p>ngay lap {{$detail->ngay_lap_phieu}}</p>
+                    <p>ngay tra {{$detail->han_tra}}</p> -->
+                    <p>Thu thu {{$detail->fkThuThu->ten}}</p>
+                    <p>doc gia {{$detail->fkNguoiDung->ten}}</p>
+                    @php
+                    $hanTra = strtotime($detail->han_tra);
+                    $ngayHienTai = strtotime(date('Y-m-d'));
 
-                        @if($item->thu_thu_id == '')
-                        <p>_</p>
-                        @else
-                        <p>Thu thu {{$item->fkThuThu->ten}}</p>
-                        @endif
+                    if ($hanTra < $ngayHienTai) { echo '<p style="color:red">Hết hạn</p>' ; } else { echo '<p style="color:green">Còn hạn</p>' ; } @endphp <hr>
+                        <form action="" method="post">
+                            <div class="table-responsive">
 
-                        <p>doc gia {{$item->fkNguoiDung->ten}}</p>
+                                @foreach ($thanhtoan as $key => $item)
+                                <div class="thanhtoan" data-id="{{$key}}">
+                                    <label for="">Còn nguyên</label>
+                                    <input checked type="radio" value="0" name="{{$key}}" id="{{$key}}_nguyen">
+                                    <label for="">Mất sách</label>
+                                    <input type="radio" value="10" name="{{$key}}" id="{{$key}}_mat">
+                                    <label for="{{$key}}">Hư</label>
+                                    <input type="radio" value="20" name="{{$key}}" id="{{$key}}_hu">
+                                    <input type="hidden" id="tien{{$key}}" value="0" class="tongtien">
 
-                        <p>ten sach {{$item->fkSach->ten}}</p>
-                        <p>ngay lap {{$item->ngay_lap_phieu}}</p>
-                        <p>ngay tra {{$item->han_tra}}</p>
-                        <p>Thanh toán</p>
-                        <hr>
+                                    <div id="{{$key}}_a" style="display: none;">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Trình trạng hư hỏng" id="floatingTextarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                @endforeach
+                                <p id="tongtien"></p>
+                                <script>
+                                    function tinhtongtiensach(key) {
+                                        let hu = document.getElementById(`${key}_hu`);
+                                        let nguyen = document.getElementById(`${key}_nguyen`);
+                                        let mat = document.getElementById(`${key}_mat`);
+                                        let input = document.getElementById(`${key}_a`);
 
-                        @endforeach
-                    </div>
+                                        function check_hu() {
+                                            if (hu.checked) {
+                                                input.style.display = "block";
+                                                Dom();
+                                            }
+                                        };
+
+                                        function check_nguyen() {
+                                            if (nguyen.checked) {
+                                                input.style.display = "none";
+                                                Dom();
+                                            }
+                                        }
+
+                                        function check_mat() {
+                                            if (mat.checked) {
+                                                input.style.display = "none";
+                                                Dom();
+                                            }
+                                        }
+
+                                        hu.onchange = check_hu;
+                                        nguyen.onchange = check_nguyen;
+                                        mat.onchange = check_mat;
+                                    }
+                                    var tongtien = document.getElementById('tongtien');
+                                    let a = document.querySelectorAll('.thanhtoan');
+                                    var tong = 0;
+
+                                    function Dom() {
+                                        let tong_tien_sach = 0;
+                                        for (i of a) {
+                                            let id_sach = i.getAttribute('data-id');
+                                            let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
+                                            tong_tien_sach += Number(value);
+                                        }
+                                        tongtien.innerHTML = `Tổng tiền: ${tong_tien_sach}`;
+                                    }
+                                    for (i of a) {
+                                        let id_sach = i.getAttribute('data-id');
+                                        tinhtongtiensach(id_sach);
+                                        let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
+                                        tong += Number(value);
+                                    }
+                                    tongtien.innerHTML = `Tổng tiền: ${tong}`;
+                                </script>
+
+                            </div>
+                            <button class="btn btn-success" type="submit">Thanh Toán</button>
+                        </form>
                 </div>
-            </div>
 
 
-        </div><!-- container -->
-    </div><!-- az-content -->
-    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+            </div><!-- container -->
+        </div><!-- az-content -->
+        <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 
 
-    <script src="../lib/jquery/jquery.min.js"></script>
-    <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
+        <script src="../lib/jquery/jquery.min.js"></script>
+        <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
-    <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-    <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+        <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+        <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/ionicons/ionicons.js"></script>
-    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
-    <script src="../lib/select2/js/select2.min.js"></script>
+        <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../lib/ionicons/ionicons.js"></script>
+        <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="../lib/select2/js/select2.min.js"></script>
 
-    <script src="../js/azia.js"></script>
-    <script src="../js/chart.chartjs.js"></script>
-    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-    <script>
-        $(document).on("click", ".delete-link", function(event) {
-            event.preventDefault();
-            var link = this;
+        <script src="../js/azia.js"></script>
+        <script src="../js/chart.chartjs.js"></script>
+        <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+        <script>
+            $(document).on("click", ".delete-link", function(event) {
+                event.preventDefault();
+                var link = this;
 
-            Swal.fire({
-                title: "Bạn có muốn xóa không?",
-                imageUrl: "/img/war.png",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link.href;
-                }
+                Swal.fire({
+                    title: "Bạn có muốn xóa không?",
+                    imageUrl: "/img/war.png",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link.href;
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

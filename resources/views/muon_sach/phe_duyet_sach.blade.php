@@ -100,7 +100,7 @@
                                 <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
                                 <p style="text-align: right;" class="mt-1 mr-2">{{$item->ngay_lap_phieu}} - {{$item->han_tra}}</p>
                             </div>
-                            <p class="ml-2">Tổng số lượng: </p>
+                            <p class="ml-2">Tổng số lượng: {{$item->tong_so_luong}}</p>
                             @endif
                             @if (
                             ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||

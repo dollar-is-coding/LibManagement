@@ -738,6 +738,7 @@ class AdminController extends Controller
     }
     public function thanhToanSach($id){
         $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
-        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan]);
+        $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
+        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail]);
     }
 }
