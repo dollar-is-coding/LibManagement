@@ -102,6 +102,8 @@ Route::post('/sua-tin-tuc/{id}', [AdminController::class, 'xuLySuaTinTuc'])->nam
 // Mượn sách
 Route::get('/tim-kiem-duyet-sach', [AdminController::class, 'timKiemDocGiaDuyetSach'])->name('tim-kiem-duyet-sach')->middleware('auth');
 Route::get('/tim-kiem-dang-muon-sach', [AdminController::class, 'timKiemDocGiaDangMuonSach'])->name('tim-kiem-dang-muon-sach')->middleware('auth');
+Route::get('/tim-kiem-da-muon-sach', [AdminController::class, 'timKiemDocGiaDaMuonSach'])->name('tim-kiem-da-muon-sach')->middleware('auth');
+
 
 Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-duyet-muon-sach')->middleware('auth');
 Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
@@ -113,6 +115,8 @@ Route::get('/da-muon-sach', [AdminController::class, 'daMuonSach'])->name('da-mu
 
 
 Route::get('/chi-tiet-phieu/{id}', [AdminController::class, 'chiTietPhieu'])->name('chi-tiet-phieu')->middleware('auth');
+
+Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->name('thanh-toan-sach')->middleware('auth');
 });
 
 Route::middleware('user')->group(function () {

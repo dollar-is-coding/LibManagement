@@ -61,69 +61,28 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <form class="row az-signin-header" action="{{route('tim-kiem-da-muon-sach')}}" method="get">
-                    <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
-                    </div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
-                    </div>
-                </form>
-                @if (session('error'))
-                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                    <span class="text-danger">{{ session('error') }}</span>
-                </div>
-                @endif
-                <style>
-                    .nav-link {
-                        margin: 15px 50px 15px 15px !important;
-                    }
-                </style>
-                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
-                    <div class="component-item" style="position: sticky;">
-                        <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link ">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link active">Đã mượn</a>
-                        </nav>
-                    </div><!-- component-item -->
-                </div><!-- az-content-left -->
+                <p>thanh toán</p>
                 <div class="">
-                    <h3 class="ml-3 mt-3">Sách đã mượn</h3>
+                    <h3 class="ml-3 mt-3">Chi tiết</h3>
                     <div class="table-responsive">
-                        @foreach ($da_muon as $key => $item)
-                        @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
-                        <div class="container border rounded ml-3 mb-3" style="width: 96%;display: grid;grid-template-columns: auto;">
-                            <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
-                                <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
-                                <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
-                                <p style="text-align: right;" class="mt-1 mr-2">{{$item->ngay_lap_phieu}} - {{$item->han_tra}}</p>
-                            </div>
-                            <p class="ml-2" style="font-weight: bold;">Người duyệt: {{$item->fkNguoiDung->ten}}</p>
-                            <p class="ml-2">Tổng số lượng: </p>
-                            @endif
-                            @if (
-                            ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
-                            $key == $da_muon->count() - 1)
-                            <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
-                                <div style="display: flex;">
-                                    <div class="ml-3">
-                                        <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
-                                    </div>
-                                </div>
-                                <div style="display: flex;flex-direction: row-reverse;height: 50px;" class="mr-3">
-                                    <a href="{{route('chi-tiet-phieu',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
+                        @foreach ($thanhtoan as $key => $item)
+                        <p>{{$item->fkSach->ten}}</p>
+                        <p>{{$item->ma_phieu_muon}}</p>
+
+                        @if($item->thu_thu_id == '')
+                        <p>_</p>
                         @else
-                        <div class="ml-2">
-                            <div class="ml-3">
-                                <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
-                            </div>
-                        </div>
+                        <p>Thu thu {{$item->fkThuThu->ten}}</p>
                         @endif
+
+                        <p>doc gia {{$item->fkNguoiDung->ten}}</p>
+
+                        <p>ten sach {{$item->fkSach->ten}}</p>
+                        <p>ngay lap {{$item->ngay_lap_phieu}}</p>
+                        <p>ngay tra {{$item->han_tra}}</p>
+                        <p>Thanh toán</p>
+                        <hr>
+
                         @endforeach
                     </div>
                 </div>

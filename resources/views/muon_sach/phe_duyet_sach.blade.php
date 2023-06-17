@@ -61,114 +61,115 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                
-                <div class="component-item">
-                    <nav class="nav" style="display: flex;">
-                        <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active">Phê duyệt mượn sách</a>
-                        <a href="{{route('dang-muon-sach')}}" class="nav-link">Đọc giả đang mượn sách</a>
-                        <a href="{{route('da-muon-sach')}}" class="nav-link">Đọc giả đã mượn sách</a>
-                    </nav>
+                <form class="row az-signin-header" action="{{route('tim-kiem-duyet-sach')}}" method="get">
+                    <div class="col-lg">
+                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
+                    </div>
+                </form>
+                @if (session('error'))
+                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                    <span class="text-danger">{{ session('error') }}</span>
                 </div>
-
-                    <div class="az-content-breadcrumb mt-3">
-                        <span>Mượn sách</span>
-                        <span>Phê duyệt mượn sách</span>
-                    </div>
-                    <form class="row az-signin-header" action="{{route('tim-kiem-duyet-sach')}}" method="get">
-                        <div class="col-lg">
-                            <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
-                        </div>
-                        <div class="col-lg-2">
-                            <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
-                        </div>
-                    </form>
-                    @if (session('error'))
-                    <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                        <span class="text-danger">{{ session('error') }}</span>
-                    </div>
-                    @endif
-                    <div class="">
-                        <h3 class="ml-3 mt-3">Phê duyệt mượn sách</h3>
-                        <div class="table-responsive">
-                            @foreach ($cho_duyet as $key => $item)
-                            @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
-                            <div class="container border rounded ml-3 mb-3" style="width: 96%;display: grid;grid-template-columns: auto;">
-                                <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
-                                    <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
-                                    <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
-                                    <p style="text-align: right;" class="mt-1 mr-2">{{$item->ngay_lap_phieu}} - {{$item->han_tra}}</p>
-                                </div>
-                                <p class="ml-2">Tổng số lượng: </p>
-                                @endif
-                                @if (
-                                ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
-                                $key == $cho_duyet->count() - 1)
-                                <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
-                                    <div style="display: flex;">
-                                        <div class="ml-3">
-                                            <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                        <a href="{{route('xu-ly-muon-sach',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Duyệt</a>
-                                        <a href="{{route('chi-tiet-phieu',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @else
-                            <div class="ml-2">
-                                <div class="ml-3">
-                                    <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-
-            </div><!-- container -->
-        </div><!-- az-content -->
-        <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
-
-
-        <script src="../lib/jquery/jquery.min.js"></script>
-        <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
-
-        <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-        <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-
-        <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="../lib/ionicons/ionicons.js"></script>
-        <script src="../lib/chart.js/Chart.bundle.min.js"></script>
-        <script src="../lib/select2/js/select2.min.js"></script>
-
-        <script src="../js/azia.js"></script>
-        <script src="../js/chart.chartjs.js"></script>
-        <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-        <script>
-            $(document).on("click", ".delete-link", function(event) {
-                event.preventDefault();
-                var link = this;
-
-                Swal.fire({
-                    title: "Bạn có muốn xóa không?",
-                    imageUrl: "/img/war.png",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Xóa",
-                    cancelButtonText: "Hủy",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = link.href;
+                @endif
+                <style>
+                    .nav-link {
+                        margin: 15px 50px 15px 15px !important;
                     }
-                });
+                </style>
+                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
+                    <div class="component-item" style="position: sticky;">
+                        <nav style="display: flex">
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active">Chờ duyệt</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link">Đang mượn</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link">Đã mượn</a>
+                        </nav>
+                    </div><!-- component-item -->
+                </div><!-- az-content-left -->
+                <div class="">
+                    <h3 class="ml-3 mt-3">Phê duyệt mượn sách</h3>
+                    <div class="table-responsive">
+                        @foreach ($cho_duyet as $key => $item)
+                        @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
+                        <div class="container border rounded ml-3 mb-3" style="width: 96%;display: grid;grid-template-columns: auto;">
+                            <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
+                                <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
+                                <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
+                                <p style="text-align: right;" class="mt-1 mr-2">{{$item->ngay_lap_phieu}} - {{$item->han_tra}}</p>
+                            </div>
+                            <p class="ml-2">Tổng số lượng: </p>
+                            @endif
+                            @if (
+                            ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
+                            $key == $cho_duyet->count() - 1)
+                            <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
+                                <div style="display: flex;">
+                                    <div class="ml-3">
+                                        <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex;flex-direction: row-reverse;height: 50px;">
+                                    <a href="{{route('xu-ly-muon-sach',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Duyệt</a>
+                                    <a href="{{route('chi-tiet-phieu',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="ml-2">
+                            <div class="ml-3">
+                                <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+
+        </div><!-- container -->
+    </div><!-- az-content -->
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+
+
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery-ui/ui/widgets/datepicker.js"></script>
+
+    <script src="../lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+    <script src="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
+    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/ionicons/ionicons.js"></script>
+    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="../lib/select2/js/select2.min.js"></script>
+
+    <script src="../js/azia.js"></script>
+    <script src="../js/chart.chartjs.js"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        $(document).on("click", ".delete-link", function(event) {
+            event.preventDefault();
+            var link = this;
+
+            Swal.fire({
+                title: "Bạn có muốn xóa không?",
+                imageUrl: "/img/war.png",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Hủy",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = link.href;
+                }
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

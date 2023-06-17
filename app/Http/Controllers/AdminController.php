@@ -685,6 +685,21 @@ class AdminController extends Controller
             ]);
         }
     }
+    public function timKiemDocGiaDaMuonSach(Request $request)
+    {
+        $timKiem = $request->tim_kiem;
+        $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
+        ->orderBy('ma_phieu_muon', 'asc')->get();
+        if ($dang_muon->count() === 0) {
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        } else {
+            return view('muon_sach.da_muon_sach', [
+                'dang_muon' => $dang_muon,
+                'search' => '',
+                'selected' => 'asc_name',
+            ]);
+        }
+    }
     public function duyetMuonSach(){
         $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
         return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet]);
@@ -720,5 +735,9 @@ class AdminController extends Controller
     public function chiTietPhieu($id){
         $chitiet = PhieuMuonSach::where('ma_phieu_muon',$id)->get();   
         return view('muon_sach.chi_tiet',['chitiet'=>$chitiet]);
+    }
+    public function thanhToanSach($id){
+        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
+        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan]);
     }
 }

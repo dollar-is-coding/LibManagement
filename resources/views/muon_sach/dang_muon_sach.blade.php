@@ -60,22 +60,7 @@
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-left az-content-left-components">
-                <div class="component-item">
-                    <label>Mượn sách</label>
-                    <nav class="nav flex-column">
-                        <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link ">Phê duyệt mượn sách</a>
-                        <a href="{{route('dang-muon-sach')}}" class="nav-link active">Đọc giả đang mượn sách</a>
-                        <a href="{{route('da-muon-sach')}}" class="nav-link">Đọc giả đã mượn sách</a>
-                    </nav>
-                </div><!-- component-item -->
-            </div><!-- az-content-left -->
-
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <div class="az-content-breadcrumb mt-3">
-                    <span>Mượn sách</span>
-                    <span>Phê duyệt mượn sách</span>
-                </div>
                 <form class="row az-signin-header" action="{{route('tim-kiem-dang-muon-sach')}}" method="get">
                     <div class="col-lg">
                         <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
@@ -90,6 +75,20 @@
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
+                <style>
+                    .nav-link {
+                        margin: 15px 50px 15px 15px !important;
+                    }
+                </style>
+                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
+                    <div class="component-item" style="position: sticky;">
+                        <nav style="display: flex">
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link">Chờ duyệt</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link active">Đang mượn</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link">Đã mượn</a>
+                        </nav>
+                    </div><!-- component-item -->
+                </div><!-- az-content-left -->
                 <div class="">
                     <h3 class="ml-3 mt-3">Sách đang mượn sách</h3>
                     <div class="table-responsive">
@@ -114,7 +113,7 @@
                                     </div>
                                 </div>
                                 <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                    <a href="{{route('xu-ly-tra-sach',['id'=>$item->ma_phieu_muon])}}" style="width: 30%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Xác nhận trả</a>
+                                    <a href="{{route('thanh-toan-sach',['id'=>$item->ma_phieu_muon])}}" style="width: 30%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Xác nhận</a>
                                     <a href="{{route('chi-tiet-phieu',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
                                 </div>
                             </div>
