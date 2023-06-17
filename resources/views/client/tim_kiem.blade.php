@@ -88,7 +88,7 @@
                                     </div>
                                     <h5 class="mb-2">
                                         <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                            href="{{ route('chi-tiet-sach-client', ['id' => $item->sach_id]) }}">
+                                            href="{{ route('thong-tin-sach', ['id' => $item->sach_id]) }}">
                                             {{ $item->ten }} </a>
                                     </h5>
                                     <div class="profile-block d-flex">

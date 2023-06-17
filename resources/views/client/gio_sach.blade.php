@@ -48,13 +48,15 @@
         <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
                 @if ($gio_sach->count() > 0)
-                    <form action="{{ route('muon-sach') }}" class="row justify-content-center" method="POST">
+                    <form action="{{ route('muon-sach') }}" class="row justify-content-center"
+                        style="position: relative;" method="POST">
                         @csrf
                         <div style="font-family: 'Sono'">
                             <div class="d-flex justify-content-between shadow-sm border"
                                 style="padding:20px 30px 20px 30px; border-radius:30px">
-                                <div style="width:55%">
-                                    <p class="m-0"><strong>Sách</strong></p>
+                                <div style="width:55%" class="d-flex align-items-center">
+                                    <input style="width:1em;height:1em" type="checkbox" id="all" name="all">
+                                    <p class="m-0"><strong>&nbsp;Sách</strong></p>
                                 </div>
                                 <div style="width:10%" class="d-flex justify-content-center">
                                     <p class="m-0"><strong>Số lượng</strong></p>
@@ -71,7 +73,8 @@
                             <div class="mt-4" style="font-family: 'sono'">
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center">
-                                        <input style="width:1em;height:1em" type="checkbox" name="{{ $sach->sach_id }}">
+                                        <input style="width:1em;height:1em" type="checkbox" class="checkbox"
+                                            name="{{ $sach->sach_id }}">
                                         <h6 class="m-0">&nbsp;{{ $sach->fkSach->ten }}</h6>
                                     </div>
                                     <hr>
@@ -132,22 +135,22 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="mt-5 d-flex" style="font-family: 'Sono'">
-                            <div class="d-flex justify-content-end shadow-sm border flex-grow-1"
+                        <div class="mt-5 d-flex" style="font-family:'Sono'; position: sticky; bottom: 0;">
+                            <div class="d-flex justify-content-end border flex-grow-1 bg-white shadow"
                                 style="padding:20px 30px 20px 30px; border-radius:30px">
                                 <div class="d-flex justify-content-center" style="margin-left: 5em">
-                                    <p class="m-0">Tổng số sách:&nbsp;</p>
-                                    <div>{{ $gio_sach->count() }} quyển</div>
+                                    <p class="m-0">Sách được chọn:&nbsp;</p>
+                                    <div id="so_luong">0 quyển</div>
                                 </div>
                             </div>
                             <div class="m-3"></div>
                             <div class="d-inline-flex justify-content-center">
                                 @if ($dang_muon == 0)
-                                    <button type="submit" class="pagination pagination-lg btn custom-btn">
+                                    <button type="submit" class="shadow pagination pagination-lg btn custom-btn">
                                         Xác nhận mượn sách
                                     </button>
                                 @else
-                                    <button type="button" class="pagination pagination-lg btn disable-btn">
+                                    <button type="button" class="shadow pagination pagination-lg btn disable-btn">
                                         Chưa thể mượn sách
                                     </button>
                                 @endif
@@ -278,6 +281,38 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        var checkAllCheckbox = document.getElementById('all');
+        var checkboxes = document.getElementsByClassName('checkbox');
+        var countElement = document.getElementById('so_luong');
+        var checkedCount = 0;
+
+        checkAllCheckbox.addEventListener('change', function() {
+            var isChecked = checkAllCheckbox.checked;
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = isChecked;
+            }
+
+            // Update the count
+            checkedCount = isChecked ? checkboxes.length : 0;
+            countElement.textContent = checkedCount + ' quyển';
+        });
+
+        // Attach event listener to individual checkboxes
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function() {
+                if (this.checked) {
+                    checkedCount++;
+                } else {
+                    checkedCount--;
+                }
+
+                countElement.textContent = checkedCount + ' quyển';
+                checkAllCheckbox.checked = (checkedCount === checkboxes.length);
+            });
+        }
+    </script>
 </body>
 
 </html>

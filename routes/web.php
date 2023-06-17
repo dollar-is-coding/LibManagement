@@ -120,23 +120,24 @@ Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->
 });
 
 Route::middleware('user')->group(function () {
+    Route::get('/demo',function(){
+        return view('client.demo');
+    });
     Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
-    Route::get('/danh-muc-sach', [ClientController::class, 'danhMucSach'])->name('danh-muc-sach');
+    Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('the-loai-sach');
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
     Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');
-    Route::get('/tim-kiem', [ClientController::class, 'timKiemSach'])->name('tim-kiem');
+    Route::get('/tim-kiem', [ClientController::class, 'timKiem'])->name('tim-kiem');
     Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
     Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
     Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');
     Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('muon-sach')->middleware('auth');
-    Route::get('/lich-su-cho-duyet', [ClientController::class, 'showLichSuChoDuyet'])->name('cho-duyet')->middleware('auth');
-    Route::get('/lich-su-dang-muon', [ClientController::class, 'showLichSuDangMuon'])->name('dang-muon')->middleware('auth');
     Route::get('/huy-phieu-muon', [ClientController::class, 'cancelPhieuMuon'])->name('huy-phieu-muon')->middleware('auth');
     Route::get('/lien-he', [ClientController::class, 'showLienHe'])->name('lien-he')->middleware('auth');
     Route::get('/yeu-thich', [ClientController::class, 'showLove'])->name('yeu-thich')->middleware('auth');
-    Route::get('/da-tra', [ClientController::class, 'showLichSuDaTra'])->name('da-tra')->middleware('auth');
     Route::post('/binh-luan', [ClientController::class, 'handleBinhLuan'])->name('binh-luan')->middleware('auth');
     Route::get('/sach-theo-chu-de', [ClientController::class, 'sachTheoChuDe'])->name('sach-theo-chu-de')->middleware('auth');
     Route::get('/bai-viet', [ClientController::class, 'showBaiViet'])->name('bai-viet')->middleware('auth');
-    Route::get('/trang-ca-nhan', [ClientController::class, 'showTrangCaNhan'])->name('trang-ca-nhan')->middleware('auth');
+    Route::post('/cap-nhat-thong-tin', [ClientController::class, 'handleCapNhatThongTin'])->name('cap-nhat-thong-tin')->middleware('auth');
+    Route::get('/tai-khoan-cua-toi', [ClientController::class, 'showCaNhan'])->name('tai-khoan-cua-toi')->middleware('auth');
 });

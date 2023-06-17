@@ -28,7 +28,7 @@
                         chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('danh-muc-sach') }}">
+                    <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('the-loai-sach') }}">
                         Thể loại sách</a>
                 </li>
                 <li class="nav-item dropdown ">
@@ -55,19 +55,14 @@
                             id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
-
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('trang-ca-nhan') }}">Tài khoản của tôi</a>
-                            </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
                                     ({{ $gio_sach->count() }})</a>
                             </li>
-
                             <li>
-                                <a class="dropdown-item" href="{{ route('cho-duyet') }}">
-                                    Mượn - trả sách</a>
+                                <a class="dropdown-item" href="{{ route('tai-khoan-cua-toi') }}">
+                                    Trang cá nhân</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">

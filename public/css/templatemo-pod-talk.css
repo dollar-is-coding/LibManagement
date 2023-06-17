@@ -694,12 +694,15 @@ main {
     color: red;
 }
 
-.history {
-    color: var(--p-color);
+.history-include {
+    font-family: "sono";
+    padding: 20px 30px;
+    border-radius: 30px;
 }
 
-.history-active {
-    color: #0066cc;
+.history {
+    color: var(--p-color);
+    padding: 0px 30px;
 }
 
 .comment-container {
