@@ -65,10 +65,11 @@ https://templatemo.com/tm-584-pod-talk
                             <p style="text-align: justify;">
                                 {{ $bai_viet->noi_dung }}
                             </p>
-
-                            <div class="d-flex justify-content-center">
-                                <img src="../img/avt/{{ $bai_viet->anh_bia }}" class="about-image mt-3 img-fluid" />
-                            </div>
+                            @if ($bai_viet->anh_bia)
+                                <div class="d-flex justify-content-center">
+                                    <img src="../img/avt/{{ $bai_viet->anh_bia }}" class="about-image mt-3 img-fluid" />
+                                </div>
+                            @endif
                         </div>
                     </div>
 

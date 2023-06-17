@@ -80,7 +80,7 @@
                     <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data" class="ml-3">
                         @csrf
                         <div class="form-check">
-                            <input class="form-check-input" name="noi_bat" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" name="noi_bat" type="checkbox" id="flexCheckDefault">
                             <label style="user-select: none;" class="form-check-label" for="flexCheckDefault">
                                 Nổi bật
                             </label>

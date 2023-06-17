@@ -61,7 +61,7 @@
                                 <div class="">
                                     <div class="custom-block-icon-wrap">
                                         <div class="section-overlay"></div>
-                                        <a href="detail-page.html" class="custom-block-image-wrap">
+                                        <a href="" class="custom-block-image-wrap">
                                             @if ($item->hinh_anh != '')
                                                 <img src="../img/books/{{ $item->hinh_anh }}"
                                                     class="custom-block-image img-fluid" alt="" />
@@ -88,7 +88,7 @@
                                     </div>
                                     <h5 class="mb-2">
                                         <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                            href="{{ route('thong-tin-sach', ['id' => $item->sach_id]) }}">
+                                            href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
                                             {{ $item->ten }} </a>
                                     </h5>
                                     <div class="profile-block d-flex">
