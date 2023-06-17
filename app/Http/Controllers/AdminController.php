@@ -599,9 +599,8 @@ class AdminController extends Controller
         return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc, 'sltintuc'=> $sltintuc]);
     }
     public function xuLyThemTinTuc(Request $request){
-        
         if($request->noi_bat != ''){
-            TinTuc::update(['noi_bat' => 0]);
+            TinTuc::where('noi_bat',1)->update(['noi_bat' => 0]);
         }
         if ($request->hasFile('file_upload')) {
             $file = $request->file_upload;
