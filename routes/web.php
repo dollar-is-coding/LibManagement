@@ -120,9 +120,6 @@ Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->
 });
 
 Route::middleware('user')->group(function () {
-    Route::get('/demo',function(){
-        return view('client.demo');
-    });
     Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
     Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('the-loai-sach');
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');

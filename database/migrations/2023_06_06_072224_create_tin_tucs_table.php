@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('ten');
             $table->string('anh_bia');
             $table->text('noi_dung');
-            $table->integer('luot_xem')->default('0');
-            $table->integer('luot_thich')->default('0');
-            $table->integer('luot_binh_luan')->default('0');
+            $table->boolean('noi_bat');
             $table->timestamps();
             $table->softDeletes();
         });

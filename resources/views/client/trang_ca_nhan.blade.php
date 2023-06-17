@@ -103,11 +103,11 @@
                                     </div>
                                     <div class="d-flex align-items-center sono bi-dot">
                                         <p class="m-0">Đang mượn:&nbsp;</p>
-                                        <div>5 quyển</div>
+                                        <div>{{ $dang_muon->count() }} quyển</div>
                                     </div>
                                     <div class="d-flex align-items-center sono bi-dot">
                                         <p class="m-0">Đã mượn:&nbsp;</p>
-                                        <div>12 quyển</div>
+                                        <div>{{ $da_tra->count() }} quyển</div>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +257,8 @@
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
-                                        <div class="m-0"><strong>Tổng số lượng ({{ $item->tong_so_luong }})</strong></div>
+                                        <div class="m-0"><strong>Tổng số lượng
+                                                ({{ $item->tong_so_luong }})</strong></div>
                                     </div>
                         @endif
                         @if (
@@ -379,7 +380,8 @@
                             <div class="custom-block">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
-                                    <div class="m-0"><strong>Tổng số lượng ({{ $item->tong_so_luong }})</strong></div>
+                                    <div class="m-0"><strong>Tổng số lượng ({{ $item->tong_so_luong }})</strong>
+                                    </div>
                                 </div>
                     @endif
                     @if (
