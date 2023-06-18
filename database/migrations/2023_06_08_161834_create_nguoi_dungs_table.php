@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('ho');
             $table->string('ten');
+            $table->string('ma_hs')->default('0');
             $table->date('ngay_sinh');
             $table->tinyInteger('gioi_tinh');
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->string('dien_thoai')->nullable();
             $table->string('mat_khau');
             $table->tinyInteger('vai_tro');

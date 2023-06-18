@@ -97,7 +97,8 @@
                                         <p>
                                             Tác giả
                                             <strong>
-                                                <a href="" style="color:#717275">{{ $item->fkTacGia->ten }}</a>
+                                                <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
+                                                    style="color:#717275">{{ $item->fkTacGia->ten }}</a>
                                             </strong>
                                         </p>
                                     </div>
