@@ -598,7 +598,8 @@ class AdminController extends Controller
         $sltintuc =TinTuc::all()->count();
         return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc, 'sltintuc'=> $sltintuc]);
     }
-    public function xuLyThemTinTuc(Request $request){
+    public function xuLyThemTinTuc(Request $request)
+    {
         if($request->noi_bat != ''){
             TinTuc::where('noi_bat',1)->update(['noi_bat' => 0]);
         }
@@ -617,15 +618,14 @@ class AdminController extends Controller
                 TinTuc::create([
                     'ten' => $request->tieu_de,
                     'noi_dung' =>$request->noi_dung,
-                    'noi_bat' =>$request->noi_bat=='' ? 0 : 1,
+                    'noi_bat' =>$request->noi_bat ? 1 : 0,
                     'anh_bia' => $file_name
                 ]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('them-tin-tuc');
-        }else{
+        } else {
             return back()->with('error', 'Tiêu đề không được bỏ trống');
         }
-       
     }
     public function xemChiTietTinTuc($id){
         $tintuc = TinTuc::where('id',$id)->get();

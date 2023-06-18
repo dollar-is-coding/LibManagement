@@ -301,7 +301,7 @@ class ClientController extends Controller
     public function showBaiViet()
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        $bai_viet=TinTuc::all()->last();
+        $bai_viet=TinTuc::where('noi_bat',1)->first();
         return view('client.bai_viet',['gio_sach'=>$gio_sach,'bai_viet'=>$bai_viet]);
     }
 
