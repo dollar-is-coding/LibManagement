@@ -15,6 +15,7 @@ class NguoiDung extends Authenticatable
         'ho',
         'ten',
         'mat_khau',
+        'ma_hs',
         'ngay_sinh',
         'email',
         'dien_thoai',

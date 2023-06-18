@@ -18,6 +18,7 @@ class Sach extends Model
         'nha_xuat_ban_id',
         'the_loai_id',
         'nam_xuat_ban',
+        'gia_tien',
         'mo_ta',
         'luot_xem',
         'luot_thich',
