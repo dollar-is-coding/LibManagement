@@ -10,9 +10,14 @@ class PhieuPhat extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table='phieu_phat';
-    protected $fillable = ['ma_phieu_phat','ma_phieu_muon','sach_id','ly_do','tien_phat','tong_tien_phat'];
-    public function fkSach()
-    {
-        return $this->belongsTo(Sach::class,'sach_id');
-    }
+    protected $fillable=[
+        'doc_gia_id',
+        'thu_thu_id',
+        'ma_phieu',
+        'sach_id',
+        'so_luong',
+        'ly_do',
+        'tien_phat',
+        'tong_tien_phat'
+    ];
 }
