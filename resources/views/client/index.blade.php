@@ -35,7 +35,6 @@
 
 <body>
     <main>
-
         @include('client.header', ['view' => 1])
         <section class="hero-section">
             <div class="container">

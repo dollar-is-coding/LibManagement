@@ -120,6 +120,18 @@ Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->
 });
 
 Route::middleware('user')->group(function () {
+    Route::get('/nguoi-dung',function(){
+        return view('client.dang_nhap');
+    });
+    Route::get('/email',function(){
+        return view('client.email_xac_thuc');
+    });
+    Route::get('/xac-thuc',function(){
+        return view('client.xac_thuc');
+    });
+    Route::get('/mat-khau-moi',function(){
+        return view('client.mat_khau_moi');
+    });
     Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
     Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('the-loai-sach');
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
