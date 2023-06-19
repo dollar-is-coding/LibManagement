@@ -62,22 +62,39 @@
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="">
-                    <label for="">Mã phiếu mượn</label>
-                    <input type="text" value="{{$detail->ma_phieu_muon}}" name="ma_phieu_muon">
+                    <form action="{{route('xu-ly-tra-sach',['id'=>$detail->ma_phieu_muon])}}" method="post">
+                        @csrf
+                        <div class="table-responsive">
+                            <label for="">Mã phiếu mượn</label>
+                            <input type="text" value="{{$detail->ma_phieu_muon}}" name="ma_phieu_muon">
 
-                    <label for="">Đọc giả</label>
-                    <input type="text" value="{{$detail->fkThuThu->ten}}" name="doc_gia_id">
-                    <p>doc gia {{$detail->fkNguoiDung->ten}}</p>
-                    @php
-                    $hanTra = strtotime($detail->han_tra);
-                    $ngayHienTai = strtotime(date('Y-m-d'));
+                            <label for="">Đọc giả</label>
+                            <input type="text" value="{{$detail->doc_gia_id}}" name="doc_gia_id">
 
-                    if ($hanTra < $ngayHienTai) { echo '<p style="color:red">Hết hạn</p>' ; } else { echo '<p style="color:green">Còn hạn</p>' ; } @endphp <hr>
-                        <form action="" method="post">
-                            <div class="table-responsive">
-
+                            @if (\Carbon\Carbon::now() == $detail->updated_at)
+                            <div>Đến hạn hôm nay</div>
+                            @elseif(\Carbon\Carbon::now() < \Carbon\Carbon::parse(strtotime($detail->created_at . ' + 14 days')))
+                                <div class="d-flex">
+                                    <div>
+                                        {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($detail->created_at . ' + 14 days'))) }}
+                                        ngày
+                                    </div>
+                                </div>
+                                @else
+                                <div class="d-flex">
+                                    <p class="m-0">Quá hạn:&nbsp;</p>
+                                    <div>
+                                        {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($detail->created_at . ' + 14 days'))) }} ngày
+                                    </div>
+                                    <input type="text" value="">
+                                    <label for="Lý do"></label>
+                                    <input type="text">
+                                </div>
+                                @endif
                                 @foreach ($thanhtoan as $key => $item)
+                                id<input type="text" name="sach_id" value="{{$item->sach_id}}">
                                 <p>{{$item->fkSach->ten}}</p>
+                                <input type="number" name="so_luong" value="{{$item->so_luong}}">so luong
                                 <div class="thanhtoan" data-id="{{$key}}">
                                     <label for="">Còn nguyên</label>
                                     <input checked type="radio" value="0" name="{{$key}}" id="{{$key}}_nguyen">
@@ -97,7 +114,9 @@
                                 </div>
                                 <hr>
                                 @endforeach
-                                <p id="tongtien"></p>
+
+                                <input name="tong_tien_phat" id="tongtien">
+
                                 <script>
                                     function tinhtongtiensach(key) {
                                         let hu = document.getElementById(`${key}_hu`);
@@ -141,7 +160,7 @@
                                             let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
                                             tong_tien_sach += Number(value);
                                         }
-                                        tongtien.innerHTML = `Tổng tiền: ${tong_tien_sach}`;
+                                        tongtien.value = `${tong_tien_sach}`;
                                     }
                                     for (i of a) {
                                         let id_sach = i.getAttribute('data-id');
@@ -149,12 +168,12 @@
                                         let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
                                         tong += Number(value);
                                     }
-                                    tongtien.innerHTML = `Tổng tiền: ${tong}`;
+                                    tongtien.value = `${tong}`;
                                 </script>
 
-                            </div>
-                            <button class="btn btn-success" type="submit">Thanh Toán</button>
-                        </form>
+                        </div>
+                        <button class="btn btn-success" type="submit">Thanh Toán</button>
+                    </form>
                 </div>
 
 

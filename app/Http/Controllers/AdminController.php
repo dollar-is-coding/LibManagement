@@ -744,16 +744,19 @@ class AdminController extends Controller
         PhieuMuonSach::where('ma_phieu_muon', $id)->update([
             'trang_thai' => 3,
         ]);
-        $phat = PhieuMuonSach::where('ma_muon_sach', $id)->get();
+
         foreach ($request->all() as $key => $value) {
             if ($key != '_token' && $key != 'all') {
                 PhieuPhat::create([
-                    'ma_phieu_phat' => $request->ma_phieu_phat,
-                    'ma_phieu_muon' => $request->ma_phieu_phat,
-                    'sach_id' => $key,
+                    'doc_gia_id' => $request->doc_gia_id,
+                    'thu_thu_id'=>Auth::id(),
+                    'ma_phieu' => $request->ma_phieu_muon,
+                    'sach_id' => $request->sach_id,
                     'ly_do' => $request->ly_do,
-                    'tien_phat' => $request->tien_phat,
-                    'tien_phat' => $request->tong_tien_phat,
+                    'so_luong'=>$request->so_luong,
+                    'tien_phat' => $request->$key,
+                    'ly_do'=>'',
+                    'tong_tien_phat' => $request->tong_tien_phat,
                 ]);
             }
         }

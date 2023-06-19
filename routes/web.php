@@ -109,7 +109,7 @@ Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-d
 Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
 
 Route::get('/dang-muon-sach', [AdminController::class, 'dangMuonSach'])->name('dang-muon-sach')->middleware('auth');
-Route::get('/dang-muon-sach/{id}', [AdminController::class, 'xuLyTraSach'])->name('xu-ly-tra-sach')->middleware('auth');
+Route::post('/dang-muon-sach/{id}', [AdminController::class, 'xuLyTraSach'])->name('xu-ly-tra-sach')->middleware('auth');
 
 Route::get('/da-muon-sach', [AdminController::class, 'daMuonSach'])->name('da-muon-sach')->middleware('auth');
 
