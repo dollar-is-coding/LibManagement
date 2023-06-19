@@ -15,9 +15,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -29,6 +27,9 @@
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
 
+    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
     <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 
 </head>
@@ -41,23 +42,57 @@
                     <div class="section-title-wrap mb-5">
                         <h4 class="section-title">Đăng nhập</h4>
                     </div>
-                    <form action="#" method="post" class="custom-form contact-form" role="form">
+                    <form action="{{ route('xu-ly-dang-nhap') }}" method="post" class="custom-form contact-form" role="form">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12 col-12">
                                 <div class="form-floating">
-                                    <input type="email" name="email" id="name" class="form-control"
-                                        placeholder="Nhập email" required="" />
+                                    @error('email')
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
+                                    @enderror
+                                    <input type="text" name="email" id="name" class="form-control" placeholder="Nhập email" value="{{ old('email') }}" />
                                     <label for="floatingInput">Email</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="password" name="password" id="name" class="form-control"
-                                        placeholder="Nhập mật khẩu" required="" />
+                                    @error('password')
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
+                                    @enderror
+                                    <style>
+                                        .password-container {
+                                            position: relative;
+                                        }
+
+                                        .password-toggle {
+                                            position: absolute;
+                                            top: 50%;
+                                            right: 10px;
+                                            transform: translateY(-50%);
+                                            cursor: pointer;
+                                        }
+                                    </style>
+                                    <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="{{ old('password') }}">
                                     <label for="floatingInput">Mật khẩu</label>
+                                    <i class="password-toggle far fa-eye"></i>
+                                    <script>
+                                        document.querySelector('.password-toggle').addEventListener('click', function() {
+                                            var passwordInput = document.querySelector('input[name="password"]');
+                                            var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                                            passwordInput.setAttribute('type', type);
+
+                                            // Thay đổi biểu tượng mắt khi chế độ hiển thị mật khẩu thay đổi
+                                            this.classList.toggle('fa-eye');
+                                            this.classList.toggle('fa-eye-slash');
+                                        });
+                                    </script>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="h7" style="margin-left:10px">
-                                    <a href="">Quên mật khẩu?</a>
+                                    <a href="{{ route('nhap-mail-quen-mat-khau') }}">Quên mật khẩu?</a>
                                 </div>
                                 <div class="col-lg-4 col-12 ms-auto">
                                     <button type="submit" class="form-control">Đăng nhập</button>
@@ -65,6 +100,14 @@
                             </div>
                         </div>
                     </form>
+                    @if (session('error'))
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('error') }}</span>
+                        </span>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

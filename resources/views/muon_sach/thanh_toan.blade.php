@@ -62,10 +62,11 @@
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="">
-                    <p>{{$detail->ma_phieu_muon}}</p>
-                    <!-- <p>ngay lap {{$detail->ngay_lap_phieu}}</p>
-                    <p>ngay tra {{$detail->han_tra}}</p> -->
-                    <p>Thu thu {{$detail->fkThuThu->ten}}</p>
+                    <label for="">Mã phiếu mượn</label>
+                    <input type="text" value="{{$detail->ma_phieu_muon}}" name="ma_phieu_muon">
+
+                    <label for="">Đọc giả</label>
+                    <input type="text" value="{{$detail->fkThuThu->ten}}" name="doc_gia_id">
                     <p>doc gia {{$detail->fkNguoiDung->ten}}</p>
                     @php
                     $hanTra = strtotime($detail->han_tra);
@@ -81,14 +82,16 @@
                                     <label for="">Còn nguyên</label>
                                     <input checked type="radio" value="0" name="{{$key}}" id="{{$key}}_nguyen">
                                     <label for="">Mất sách</label>
-                                    <input type="radio" value="10" name="{{$key}}" id="{{$key}}_mat">
+                                    <input type="radio" value="{{$item->fkSach->gia_tien}}" name="{{$key}}" id="{{$key}}_mat">
                                     <label for="{{$key}}">Hư</label>
-                                    <input type="radio" value="20" name="{{$key}}" id="{{$key}}_hu">
-                                    <input type="hidden" id="tien{{$key}}" value="0" class="tongtien">
+                                    @php
+                                    $a = ($item->fkSach->gia_tien/100)*60;
+                                    @endphp
+                                    <input type="radio" value="{{$a}}" name="{{$key}}" id="{{$key}}_hu">
 
                                     <div id="{{$key}}_a" style="display: none;">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Trình trạng hư hỏng" id="floatingTextarea"></textarea>
+                                            <textarea name="ly_do" class="form-control" placeholder="Trình trạng hư hỏng" id="floatingTextarea"></textarea>
                                         </div>
                                     </div>
                                 </div>

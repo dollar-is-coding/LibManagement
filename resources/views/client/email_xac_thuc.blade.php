@@ -15,9 +15,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -41,23 +39,31 @@
                     <div class="section-title-wrap mb-5">
                         <h4 class="section-title">Xác thực email</h4>
                     </div>
-                    <form action="#" method="post" class="custom-form contact-form" role="form">
+                    <form action="" method="post" class="custom-form contact-form" role="form">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12 col-12">
                                 <div class="form-floating">
-                                    <input type="email" name="email" id="name" class="form-control"
-                                        placeholder="Nhập email" required="" />
+                                    <input type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
                                     <label for="floatingInput">Email</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a href="" style="margin-left:10px" class="d-flex align-items-center">
+                                <a href="{{ route('dang-nhap') }}" style="margin-left:10px" class="d-flex align-items-center">
                                     <i class="bi bi-caret-left-fill"></i>
                                     <span class="h7">Quay lại</span>
                                 </a>
                                 <div class="col-lg-4 col-12 ms-auto">
                                     <button type="submit" class="form-control">Gửi</button>
                                 </div>
+                                @if (session('error'))
+                                <div class="row justify-content-center">
+                                    <span class="rounded-lg p-1 pl-2 pr-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                                        <span class="text-danger">{{ session('error') }}</span>
+                                    </span>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </form>

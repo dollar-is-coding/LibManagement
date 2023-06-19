@@ -2,88 +2,81 @@
 <html lang="en">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-        gtag('config', 'UA-90680653-2');
-    </script>
+    <title>Đăng nhập</title>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="author" content="BootstrapDash">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <title>libro - Đăng nhập</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
 
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css" />
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+
+    <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
+
+    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 
 </head>
 
-<body class="az-body">
-
-    <div class="az-signin-wrapper">
-        <div class="az-card-signin">
-            <h1 class="az-logo">libro</h1>
-            <div class="az-signin-header">
-                <h2>Xác thực email</h2>
-                <!-- <h4>Xác minh tài khoản</h4> -->
-                <form action="" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label class="mb-0">&nbsp;Email</label>
-                        <input type="text" name="email" class="form-control" placeholder="Nhập email của bạn">
-                    </div><!-- form-group -->
-                    <button type="submit" class="btn btn-az-primary btn-block mb-2">Gửi</button>
-                    @if (session('error'))
-                        <div class="row justify-content-center">
-                            <span class="rounded-lg p-1 pl-2 pr-2"
-                                style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                                <span class="text-danger">{{ session('error') }}</span>
-                            </span>
+<body>
+    <section class="contact-section section-padding pt-0" style="margin-top:20vh">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-12 mx-auto sign-in">
+                    <div class="section-title-wrap mb-5">
+                        <h4 class="section-title">Xác thực email</h4>
+                    </div>
+                    <form action="" method="post" class="custom-form contact-form" role="form">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('dang-nhap') }}" style="margin-left:10px" class="d-flex align-items-center">
+                                    <i class="bi bi-caret-left-fill"></i>
+                                    <span class="h7">Quay lại</span>
+                                </a>
+                                <div class="col-lg-4 col-12 ms-auto">
+                                    <button type="submit" class="form-control">Gửi</button>
+                                </div>
+                            </div>
                         </div>
+                    </form>
+                    @if (session('error'))
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('error') }}</span>
+                        </span>
+                    </div>
                     @endif
-                </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            </div><!-- az-signin-header -->
-            <div class="az-signin-footer">
-                <!-- @if ($errors->any())
-{{ implode('', $errors->all('<div>:message</div>')) }}
-@endif -->
-                <p><a href="{{ route('dang-nhap') }}">Quay lại</a></p>
-            </div><!-- az-signin-footer -->
-        </div><!-- az-card-signin -->
-    </div><!-- az-signin-wrapper -->
-
-
-    <script src="../lib/jquery/jquery.min.js"></script>
-    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/ionicons/ionicons.js"></script>
-    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-
-    <script src="../js/azia.js"></script>
-    <script>
-        $(function() {
-            'use strict'
-        });
-    </script>
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
 </body>
 
 </html>

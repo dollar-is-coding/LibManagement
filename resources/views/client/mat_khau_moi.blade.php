@@ -15,9 +15,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -29,6 +27,9 @@
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
 
+    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
     <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 
 </head>
@@ -41,27 +42,59 @@
                     <div class="section-title-wrap mb-5">
                         <h4 class="section-title">Đặt mật khẩu mới</h4>
                     </div>
-                    <form action="#" method="post" class="custom-form contact-form" role="form">
+                    <form action="{{ route('xu-ly-dat-lai-mat-khau') }}" method="post" class="custom-form contact-form" role="form">
+                        @csrf
+                        <style>
+                            .password-container {
+                                position: relative;
+                            }
+
+                            .password-toggle {
+                                position: absolute;
+                                top: 50%;
+                                right: 10px;
+                                transform: translateY(-50%);
+                                cursor: pointer;
+                            }
+
+                            .password-toggle_1 {
+                                position: absolute;
+                                top: 50%;
+                                right: 10px;
+                                transform: translateY(-50%);
+                                cursor: pointer;
+                            }
+                        </style>
                         <div class="row">
                             <div class="col-lg-12 col-12">
                                 <div class="form-floating">
-                                    <input type="password" name="ma_xac_minh" id="name" class="form-control"
-                                        placeholder="Nhập email" required="" />
+                                    <input type="password" name="new_pass" id="name" class="form-control" placeholder="Nhập email" required="" />
+                                    <i class="password-toggle far fa-eye"></i>
                                     <label for="floatingInput">Mật khẩu mới</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="password" name="ma_xac_minh" id="name" class="form-control"
-                                        placeholder="Nhập email" required="" />
+                                    <input type="password" name="confirm_pass" id="name" class="form-control" placeholder="Nhập email" required="" />
                                     <label for="floatingInput">Xác nhận mật khẩu mới</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="col-lg-4 col-12 ms-auto">
-                                    <button type="submit" class="form-control">Xác nhận</button>
+                                    <button type="submit" class="form-control">Lưu</button>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <script>
+                        document.querySelector('.password-toggle').addEventListener('click', function() {
+                            var passwordInput = document.querySelector('input[name="new_pass"]');
+                            var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordInput.setAttribute('type', type);
+
+                            // Thay đổi biểu tượng mắt khi chế độ hiển thị mật khẩu thay đổi
+                            this.classList.toggle('fa-eye');
+                            this.classList.toggle('fa-eye-slash');
+                        });
+                    </script>
                 </div>
             </div>
         </div>
