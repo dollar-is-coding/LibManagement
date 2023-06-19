@@ -98,6 +98,12 @@ h6 {
     font-size: var(--h6-font-size);
 }
 
+.h7 {
+    font-family: var(--title-font-family);
+    font-weight: var(--font-weight-semibold);
+    font-size: 18px;
+}
+
 p {
     color: var(--p-color);
     font-size: var(--p-font-size);
@@ -379,11 +385,11 @@ main {
 }
 
 .navbar .logo-image {
-    width: 100px;
+    width: 70px;
 }
 
 .logo-image {
-    width: 120px;
+    width: 70px;
     height: auto;
 }
 
@@ -782,6 +788,13 @@ main {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
     border-color: transparent;
     transform: translateY(-3px);
+}
+
+.sign-in {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+    position: relative;
+    border-radius: var(--border-radius-medium);
+    padding: 30px;
 }
 
 .comment-block {

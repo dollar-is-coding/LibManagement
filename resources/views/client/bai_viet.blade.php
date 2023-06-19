@@ -60,150 +60,56 @@ https://templatemo.com/tm-584-pod-talk
                                 <h4 class="section-title">Nổi bật</h4>
                             </div>
 
-                            <h6 class="mb-3">{{ $bai_viet->ten }}</h6>
+                            <h6 class="mb-3">{{ $noi_bat->ten }}</h6>
 
                             <p style="text-align: justify;">
-                                {{ $bai_viet->noi_dung }}
+                                {{ $noi_bat->noi_dung }}
                             </p>
-                            @if ($bai_viet->anh_bia)
+                            @if ($noi_bat->anh_bia)
                                 <div class="d-flex justify-content-center">
-                                    <img src="../img/avt/{{ $bai_viet->anh_bia }}" class="about-image mt-3 img-fluid" />
+                                    <img src="../img/avt/{{ $noi_bat->anh_bia }}" class="about-image mt-3 img-fluid" />
                                 </div>
                             @endif
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="trending-podcast-section section-padding pt-0">
+            <div class="container">
+                <div class="row">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Liên quan</h4>
+                            <h4 class="section-title">
+                                Liên quan
+                            </h4>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="team-thumb bg-white shadow-lg">
-                            <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg"
-                                class="about-image img-fluid" alt="" />
-
-                            <div class="team-info">
-                                <h4 class="mb-2">
-                                    Taylor
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="" />
-                                </h4>
-
-                                <span class="badge">Modeling</span>
-
-                                <span class="badge">Fashion</span>
-                            </div>
-
-                            <div class="social-share">
-                                <ul class="social-icon">
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-twitter"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-facebook"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-pinterest"></a>
-                                    </li>
-                                </ul>
+                    @foreach ($tin_tuc as $key => $item)
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }}">
+                            <div class="custom-block custom-block-full">
+                                <div class="custom-block-image-wrap">
+                                    <a href="">
+                                        @if ($item->anh_bia != '')
+                                            <img src="../img/avt/{{ $item->anh_bia }}"
+                                                class="custom-block-image img-fluid" alt="" />
+                                        @else
+                                            <img src="../img/default/no_book.jpg"
+                                                class="custom-block-image img-fluid border" alt="" />
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="custom-block-info">
+                                    <h5 class="mb-2">
+                                        <a style="width:13em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"
+                                            href="">{{ $item->ten }}</a>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                        <div class="team-thumb bg-white shadow-lg">
-                            <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                class="about-image img-fluid" alt="" />
-
-                            <div class="team-info">
-                                <h4 class="mb-2">
-                                    William
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="" />
-                                </h4>
-
-                                <span class="badge">Creative</span>
-
-                                <span class="badge">Design</span>
-                            </div>
-
-                            <div class="social-share">
-                                <ul class="social-icon">
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-twitter"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-facebook"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-pinterest"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                        <div class="team-thumb bg-white shadow-lg">
-                            <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg"
-                                class="about-image img-fluid" alt="" />
-
-                            <div class="team-info">
-                                <h4 class="mb-2">
-                                    Chan
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="" />
-                                </h4>
-
-                                <span class="badge">Education</span>
-                            </div>
-
-                            <div class="social-share">
-                                <ul class="social-icon">
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-linkedin"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="team-thumb bg-white shadow-lg">
-                            <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg"
-                                class="about-image img-fluid" alt="" />
-
-                            <div class="team-info">
-                                <h4 class="mb-2">
-                                    Candice
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="" />
-                                </h4>
-
-                                <span class="badge">Storytelling</span>
-
-                                <span class="badge">Business</span>
-                            </div>
-
-                            <div class="social-share">
-                                <ul class="social-icon">
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-twitter"></a>
-                                    </li>
-
-                                    <li class="social-icon-item">
-                                        <a href="#" class="social-icon-link bi-facebook"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -217,9 +123,8 @@ https://templatemo.com/tm-584-pod-talk
                         <h6>Subscribe. Every weekly.</h6>
 
                         <form class="custom-form subscribe-form" action="#" method="get" role="form">
-                            <input type="email" name="subscribe-email" id="subscribe-email"
-                                pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address"
-                                required="" />
+                            <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*"
+                                class="form-control" placeholder="Email Address" required="" />
 
                             <div class="col-lg-12 col-12">
                                 <button type="submit" class="form-control" id="submit">
