@@ -26,12 +26,10 @@
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i>Mượn sách</a>
-                    <nav class="az-menu-sub">
-                        <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link">Phê duyệt mượn sách</a>
-                        <a href="{{route('dang-muon-sach')}}" class="nav-link">Đọc giả đang mượn sách</a>
-                        <a href="{{route('da-muon-sach')}}" class="nav-link">Đọc giả đã mượn sách</a>
-                    </nav>
+                    <a href="{{ $view == 3 ? '#' : route('phe-duyet-muon-sach') }}" class="nav-link">
+                        <i class="typcn typcn-book"></i>
+                        Mượn sách
+                    </a>
                 </li>
                 @if(Auth::user()->vai_tro == 1)
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">

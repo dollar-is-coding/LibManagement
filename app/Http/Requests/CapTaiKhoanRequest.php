@@ -25,7 +25,8 @@ class CapTaiKhoanRequest extends FormRequest
             'ho'=>'required',
             'ten'=>'required',
             'vai_tro'=>'required',
-            'email'=>'required|email:rfc,dns'
+            'email'=>'required|email:rfc,dns',
+            'ma_hs'=>'required'
         ];
     }
 
@@ -36,7 +37,8 @@ class CapTaiKhoanRequest extends FormRequest
             'ten.required'=>'Tên không được bỏ trống',
             'vai_tro'=>'Vai trò không được bỏ trống',
             'email.required'=>'Email không được bỏ trống',
-            'email.email'=>'Email không đúng định dạng'
+            'email.email'=>'Email không đúng định dạng',
+            'ma_hs'=>'Mã học sinh không được bỏ trống',
         ];
     }
 }

@@ -76,6 +76,7 @@
                             <div class="table-responsive">
 
                                 @foreach ($thanhtoan as $key => $item)
+                                <p>{{$item->fkSach->ten}}</p>
                                 <div class="thanhtoan" data-id="{{$key}}">
                                     <label for="">Còn nguyên</label>
                                     <input checked type="radio" value="0" name="{{$key}}" id="{{$key}}_nguyen">

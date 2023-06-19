@@ -30,6 +30,7 @@ class SachRequest extends FormRequest
             'nam_xuat_ban'=>'required',
             'tu_sach'=>'required',
             'khu_vuc'=>'required',
+            'gia_tien'=>'required',
         ];
     }
 
@@ -43,7 +44,8 @@ class SachRequest extends FormRequest
             'so_luong.required'=>'Không bỏ trống',
             'nam_xuat_ban.required'=>'Năm xuất bản không được bỏ trống',
             'tu_sach.required'=>'Tủ sách không được bỏ trống',
-            'khu_vuc.required'=>'Không bỏ trống'
+            'khu_vuc.required'=>'Không bỏ trống',
+            'gia_tien'=>'Giá tiền không bỏ trống'
         ];
     }
 }

@@ -69,7 +69,7 @@
                     <div style="flex-basis: 70%; margin-right: 2%; padding: 2%" class="shadow border rounded auto_form az-signin-header">
                         <div>
                             <!-- import -->
-                            <div>
+                            <!-- <div>
                                 <form action="{{route('import-sach')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <label class="custom-file-upload">
@@ -101,7 +101,7 @@
                                     </script>
                                     <input style="margin-top: 0px;" type="submit" value="Import CSV" name="import_csv" class="btn btn-success rounded">
                                 </form>
-                            </div>
+                            </div> -->
                             <!-- end import -->
 
                             <!-- export -->
@@ -238,30 +238,46 @@
                                     </div>
                                     <!-- form-group -->
 
-                                    <div class="form-group">
-                                        <div class="d-flex justify-content-between">
-                                            <label class="m-0">&nbsp;Tủ sách</label>
-                                            @error('tu_sach')
-                                            <div style="font-style: italic;" class="text-danger">
-                                                {{ $message }} *&nbsp;
+                                    <div class="form-group" style="display: grid;grid-template-columns: auto auto;">
+                                        <div class="mr-3">
+                                            <div class="d-flex justify-content-between">
+                                                <label class="m-0">&nbsp;Tủ sách</label>
+                                                @error('tu_sach')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                                @enderror
                                             </div>
-                                            @enderror
-                                        </div>
-                                        <select id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
-                                            <option value="" selected>Chọn tủ sách</option>
-                                            @foreach ($khu_vuc as $khu_vuc_item)
-                                            <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
-                                                @foreach ($tu_sach as $tu_sach_item)
-                                                @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                                <option value="{{ $tu_sach_item->id }}" {{ $tu_sach_item->id == old('tu_sach') ? 'selected' : '' }}>
-                                                    {{ $tu_sach_item->ten }}
-                                                </option>
-                                                @endif
+                                            <select id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
+                                                <option value="" selected>Chọn tủ sách</option>
+                                                @foreach ($khu_vuc as $khu_vuc_item)
+                                                <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                                    @foreach ($tu_sach as $tu_sach_item)
+                                                    @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                                    <option value="{{ $tu_sach_item->id }}" {{ $tu_sach_item->id == old('tu_sach') ? 'selected' : '' }}>
+                                                        {{ $tu_sach_item->ten }}
+                                                    </option>
+                                                    @endif
+                                                    @endforeach
+                                                </optgroup>
                                                 @endforeach
-                                            </optgroup>
-                                            @endforeach
-                                        </select>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <label class="m-0">&nbsp;Giá tiền</label>
+                                                @error('gia_tien')
+                                                <div style="font-style: italic;" class="text-danger">
+                                                    {{ $message }} *&nbsp;
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <input type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{ old('gia_tien') }}" tabindex="11">
+                                        </div>
                                     </div>
+
+
+
                                 </div>
                                 <!-- up ảnh -->
                                 <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%;">

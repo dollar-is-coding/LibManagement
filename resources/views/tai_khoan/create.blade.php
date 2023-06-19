@@ -118,12 +118,39 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <select name="vai_tro" class="form-control select2-no-search">
+                                <select name="vai_tro" id="vai_tro" class="form-control select2-no-search">
                                     <option value="" selected></option>
                                     <option value="1" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
                                     <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
-                                    <option value="3" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Độc giả</option>
+                                    <option value="3" {{ old('vai_tro') == 3 ? 'selected' : '' }}>Độc giả</option>
                                 </select>
+
+                                <div class="mt-3" id="show" style="display: none;">
+                                    <div class="wd-320 form-group m-0">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Mã học sinh</label>
+                                            @error('ma_hs')
+                                            <div style="font-style: italic;" class="text-danger">
+                                                {{ $message }} *&nbsp;
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <input class="form-control" name="ma_hs" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
+                                    </div><!-- col -->
+                                </div>
+                                <script>
+                                    let select = document.getElementById('vai_tro');
+                                    let show = document.getElementById('show');
+
+                                    function hide_show() {
+                                        if (select.value == 3) {
+                                            show.style.display = 'block';
+                                        } else if (select.value == 1 || select.value == 2) {
+                                            show.style.display = 'none';
+                                        }
+                                    }
+                                    select.onchange = hide_show;
+                                </script>
                             </div><!-- col-4 -->
                             <div class="col-lg form-group">
                                 <div class="d-flex justify-content-between">

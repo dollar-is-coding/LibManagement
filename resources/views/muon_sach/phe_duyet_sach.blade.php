@@ -43,7 +43,6 @@
 </head>
 
 <body>
-
     @include('../common/header', ['view' => 3])
     @if(Session::has('success'))
     <script>
@@ -58,6 +57,7 @@
         }, 100);
     </script>
     @endif
+
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
@@ -76,16 +76,16 @@
                 </div>
                 @endif
                 <style>
-                    .nav-link {
+                    .mumu {
                         margin: 15px 50px 15px 15px !important;
                     }
                 </style>
                 <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link">Đã mượn</a>
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active mumu">Chờ duyệt</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">Đang mượn</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">Đã mượn</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
@@ -128,8 +128,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div><!-- container -->
     </div><!-- az-content -->
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">

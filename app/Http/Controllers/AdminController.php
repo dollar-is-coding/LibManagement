@@ -30,6 +30,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ExcelImport;
 use App\Imports\ExcelImportThuVien;
 use App\Models\NguoiDung;
+use App\Models\PhieuPhat;
 use App\Models\TinTuc;
 use Illuminate\Contracts\Session\Session;
 use Maatwebsite\Excel\Validators\Failure;
@@ -44,7 +45,7 @@ class AdminController extends Controller
     {
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
-        Excel::import(new ExcelImportThuVien,$path);
+        Excel::import(new ExcelImportThuVien, $path);
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
@@ -56,15 +57,15 @@ class AdminController extends Controller
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
-        $tu_sach =TuSach::all();
-        return view('sach.create', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc,'tu_sach'=>$tu_sach]);
+        $tu_sach = TuSach::all();
+        return view('sach.create', ['tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
     public function themSachThuVien(SachRequest $request)
     {
-        $tangsl = Sach::where('ten',$request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
+        $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
         $randomDateTime = Carbon::now()->addDays(random_int(0, 30));
         $randomTime = $randomDateTime->format('YmdHis');
-        if(!$tangsl){
+        if (!$tangsl) {
             if ($request->hasFile('file_upload')) {
                 $file = $request->file_upload;
                 if ($file->isValid()) {
@@ -85,7 +86,8 @@ class AdminController extends Controller
             $khu_vuc = $request->old('khu_vuc');
             $tu_sach = $request->old('tu_sach');
             $mo_ta = $request->old('mo_ta');
-           
+            $gia_tien = $request->old('gia_tien');
+
             Sach::create([
                 'ma_sach' => $randomTime,
                 'ten' => $request->ten_sach,
@@ -95,20 +97,21 @@ class AdminController extends Controller
                 'nam_xuat_ban' => $request->nam_xuat_ban,
                 'mo_ta' => $request->mo_ta,
                 'hinh_anh' => $file_name,
+                'gia_tien' => $request->gia_tien,
             ]);
             ThuVien::create([
-                'sach_id' =>Sach::latest()->first()->id,
+                'sach_id' => Sach::latest()->first()->id,
                 'tu_sach_id' => $request->tu_sach,
                 'khu_vuc_id' => $request->khu_vuc,
                 'sl_con_lai' => $request->so_luong,
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }else{
+        } else {
             $soluongbandau = ThuVien::where('sach_id', $tangsl->id)->first();
             ThuVien::where('sach_id', $tangsl->id)->update([
-                 'sl_con_lai'=>($soluongbandau->sl_con_lai + $request->so_luong)
-             ]);
+                'sl_con_lai' => ($soluongbandau->sl_con_lai + $request->so_luong)
+            ]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
         }
@@ -130,63 +133,62 @@ class AdminController extends Controller
 
     public function themNhaXuatBan(Request $request)
     {
-        if ($request->nha_xuat_ban!='') {
-            $nxb = NhaXuatBan::where('ten',$request->nha_xuat_ban)->first();
-            if(!$nxb){
+        if ($request->nha_xuat_ban != '') {
+            $nxb = NhaXuatBan::where('ten', $request->nha_xuat_ban)->first();
+            if (!$nxb) {
                 NhaXuatBan::create(['ten' => $request->nha_xuat_ban]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
-            }else{
+            } else {
                 return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
             }
         }
-        return back()->with('error','Nhà xuất bản không được bỏ trống');
+        return back()->with('error', 'Nhà xuất bản không được bỏ trống');
     }
     public function themTheLoai(Request $request)
     {
-        if ($request->the_loai!='') {
+        if ($request->the_loai != '') {
             $theloai = TheLoai::where('ten', $request->the_loai)->first();
-           if(!$theloai){
+            if (!$theloai) {
                 TheLoai::create(['ten' => $request->the_loai]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
-           }else{
+            } else {
                 return back()->with('error_r', 'Tên thể loại đã tồn tại');
-           }
+            }
         }
-        return back()->with('error','Thể loại không được bỏ trống');
+        return back()->with('error', 'Thể loại không được bỏ trống');
     }
     public function themKhuVuc(Request $request)
     {
-        if ($request->khu_vuc!='') {
-            $khuvuc = KhuVuc::where('ten',$request->khu_vuc)->first();
-            if(!$khuvuc){
+        if ($request->khu_vuc != '') {
+            $khuvuc = KhuVuc::where('ten', $request->khu_vuc)->first();
+            if (!$khuvuc) {
                 KhuVuc::create(['ten' => $request->khu_vuc]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
-            }else{
+            } else {
                 return back()->with('error_r', 'Tên khu vực đã tồn tại');
             }
         }
-        return back()->with('error','Khu vực không được bỏ trống');
+        return back()->with('error', 'Khu vực không được bỏ trống');
     }
     public function themTuSach(Request $request)
     {
-        if ($request->tu_sach!='') {
+        if ($request->tu_sach != '') {
             $tusach = TuSach::where('ten', $request->tu_sach)->where('khu_vuc_id', $request->khu_vuc_id)->first();
-            if(!$tusach){
+            if (!$tusach) {
                 TuSach::create([
                     'ten' => $request->tu_sach,
                     'khu_vuc_id' => $request->khu_vuc_id,
                 ]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-them-sach');
-            }else {
+            } else {
                 return back()->with('error_r', 'Tủ sách đã tồn tại');
             }
-            
         }
-        return back()->with('error','Tủ sách không được bỏ trống');
+        return back()->with('error', 'Tủ sách không được bỏ trống');
     }
 
 
@@ -194,66 +196,61 @@ class AdminController extends Controller
     public function suaTacgia($id, Request $request)
     {
         $tacgia = TacGia::where('ten', $request->tac_gia)->first();
-        if(!$tacgia){
+        if (!$tacgia) {
             TacGia::find($id)->update(['ten' => $request->tac_gia]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }
-        else{
+        } else {
             return back()->with('error_r', 'Tên tác giả đã tồn tại');
         }
-        
     }
     public function suaNhaXuatBan($id, Request $request)
     {
         $nxb = NhaXuatBan::where('ten', $request->nha_xuat_ban)->first();
-        if(!$nxb){
+        if (!$nxb) {
             NhaXuatBan::find($id)->update(['ten' => $request->nha_xuat_ban]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }else{
+        } else {
             return back()->with('error_r', 'Tên nhà xuất bản đã tồn tại');
         }
-       
     }
     public function suaTheLoai($id, Request $request)
     {
         $theloai = TheLoai::where('ten', $request->the_loai)->first();
-        if(!$theloai){
+        if (!$theloai) {
             TheLoai::find($id)->update(['ten' => $request->the_loai]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }else{
+        } else {
             return back()->with('error_r', 'Tên thể loại đã tồn tại');
         }
-        
     }
     public function suaKhuVuc($id, Request $request)
     {
         $khuvuc = KhuVuc::where('ten', $request->khu_vuc)->first();
-        if(!$khuvuc){
+        if (!$khuvuc) {
             KhuVuc::find($id)->update(['ten' => $request->khu_vuc]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }else{
+        } else {
             return back()->with('error_r', 'Tên khu vực đã tồn tại');
         }
-        
     }
     public function suaTuSach($id, Request $request)
     {
         $tusach = TuSach::where('ten', $request->tu_sach)->where('khu_vuc_id', $request->khu_vuc_id)->first();
-        if(!$tusach){
+        if (!$tusach) {
             TuSach::find($id)->update([
                 'ten' => $request->tu_sach,
                 'khu_vuc_id' => $request->khu_vuc_id,
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('hien-thi-them-sach');
-        }else{
+        } else {
             return back()->with('error_r', 'Tên tủ sách đã tồn tại');
         }
-        
+
         return redirect()->route('hien-thi-them-sach');
     }
 
@@ -266,13 +263,13 @@ class AdminController extends Controller
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
-        $tu_sach =TuSach::all();
+        $tu_sach = TuSach::all();
         return view('sach.edit', ['sach' => $sach, 'tac_gia' => $tac_gia, 'nha_xuat_ban' => $nha_xuat_ban, 'the_loai' => $the_loai, 'khu_vuc' => $khu_vuc, 'tu_sach' => $tu_sach]);
     }
-    public function xuLySuaSach($id,$id_tv, SachRequest $request)
+    public function xuLySuaSach($id, $id_tv, SachRequest $request)
     {
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
-        if($tangsl){
+        if ($tangsl) {
             if (strval($tangsl->id) === $request->id_sach) {
                 Sach::find($id)->update([
                     'ten' => $request->ten_sach,
@@ -296,7 +293,7 @@ class AdminController extends Controller
                 ]);
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return back();
-            } else{
+            } else {
                 $soluongbandau = ThuVien::where('sach_id', $tangsl->id)->first();
                 ThuVien::where('sach_id', $tangsl->id)->update([
                     'sl_con_lai' => ($soluongbandau->sl_con_lai + $request->so_luong),
@@ -307,7 +304,7 @@ class AdminController extends Controller
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-sach');
             }
-        }else{
+        } else {
             Sach::find($id)->update([
                 'ten' => $request->ten_sach,
                 'tac_gia_id' => $request->tac_gia,
@@ -372,18 +369,18 @@ class AdminController extends Controller
     {
         $slsach = Sach::all()->count();
         $sach = Sach::orderBy('ten', 'asc')->paginate(20);
-        return view('sach.index', ['sach' => $sach,'slsach'=>$slsach]);
+        return view('sach.index', ['sach' => $sach, 'slsach' => $slsach]);
     }
     public function timKiemTheoTacGia(Request $request)
     {
         $timKiem = $request->tim_kiem;
         $sach = Sach::where('ten', 'like', "%$timKiem%")
-        ->orderBy('ten', 'asc')
+            ->orderBy('ten', 'asc')
             ->paginate(20);
         $slsach = $sach->count();
-        if($sach->count()===0){
+        if ($sach->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
-        }else{
+        } else {
             return view('sach.index', [
                 'sach' => $sach,
                 'search' => '',
@@ -391,14 +388,13 @@ class AdminController extends Controller
                 'slsach' => $slsach,
             ]);
         }
-        
     }
 
 
     public function chiTietSach($id)
     {
-        $sach=ThuVien::where('sach_id',$id)->get();
-        return view('sach.detail',['sach'=>$sach]);
+        $sach = ThuVien::where('sach_id', $id)->get();
+        return view('sach.detail', ['sach' => $sach]);
     }
 
 
@@ -535,35 +531,55 @@ class AdminController extends Controller
         $randomString = '';
 
         for ($i = 0; $i < 8; $i++) {
-            if ($i < 4
+            if (
+                $i < 4
             ) {
                 $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
             } else {
                 $randomString .= $letters[rand(0, strlen($letters) - 1)];
             }
         }
-        $ho=$request->old('ho');
-        $ten=$request->old('ten');
-        $vai_tro=$request->old('vai_tro');
-        $email=$request->old('email');
-        $gioi_tinh=$request->old('gioi_tinh');
+        $ho = $request->old('ho');
+        $ten = $request->old('ten');
+        $vai_tro = $request->old('vai_tro');
+        $email = $request->old('email');
+        $gioi_tinh = $request->old('gioi_tinh');
         //random pas chu and so
         $user = NguoiDung::where('email', $request->email)->first();
         if (!$user) {
-            session()->put('mat_khau', $randomString);
-            $user = NguoiDung::create([
-                'email' => $request->email,
-                'mat_khau' => Hash::make($randomString),
-                'ho' => $request->ho,
-                'ten' => $request->ten,
-                'hinh_anh' => '',
-                'vai_tro' => $request->vai_tro,
-                'gioi_tinh' => $request->gioi_tinh,
-                'ngay_sinh'=> '2000/1/1',
-                'dien_thoai'=>''
-            ]);
-            $this->taoTaiKhoan($user);
-            return redirect()->route('tao-tai-khoan');
+            if ($request->vai_tro == 1 || $request->vai_tro == 2) {
+                session()->put('mat_khau', $randomString);
+                $user = NguoiDung::create([
+                    'email' => $request->email,
+                    'mat_khau' => Hash::make($randomString),
+                    'ho' => $request->ho,
+                    'ten' => $request->ten,
+                    'hinh_anh' => '',
+                    'vai_tro' => $request->vai_tro,
+                    'gioi_tinh' => $request->gioi_tinh,
+                    'ngay_sinh' => '2000/1/1',
+                    'dien_thoai' => '',
+                    'ma_hs' => ''
+                ]);
+                $this->taoTaiKhoan($user);
+                return redirect()->route('tao-tai-khoan');
+            } else {
+                session()->put('mat_khau', $randomString);
+                $user = NguoiDung::create([
+                    'email' => $request->email,
+                    'mat_khau' => Hash::make($randomString),
+                    'ho' => $request->ho,
+                    'ten' => $request->ten,
+                    'hinh_anh' => '',
+                    'vai_tro' => $request->vai_tro,
+                    'gioi_tinh' => $request->gioi_tinh,
+                    'ngay_sinh' => '2000/1/1',
+                    'dien_thoai' => '',
+                    'ma_hs' => $request->ma_hs,
+                ]);
+                $this->taoTaiKhoan($user);
+                return redirect()->route('tao-tai-khoan');
+            }
         } else {
             return back()->with('errorMail', 'Không thể tạo tài khoản do email đã tồn tại');
         }
@@ -571,12 +587,12 @@ class AdminController extends Controller
     public function taoTaiKhoan($user)
     {
         $mailData = [
-                'title' => 'Chào mừng bạn đến với Libro',
-                'body' => 'Vui lòng không chia sẻ tài khoản này với ai',
-                'name' => $user['ten'],
-                'email' => $user['email'],
-                'mat_khau' => session()->get('mat_khau'),
-            ];
+            'title' => 'Chào mừng bạn đến với Libro',
+            'body' => 'Vui lòng không chia sẻ tài khoản này với ai',
+            'name' => $user['ten'],
+            'email' => $user['email'],
+            'mat_khau' => session()->get('mat_khau'),
+        ];
         session()->forget('mat_khau');
         $mailable = new SendMailCreateUser($mailData);
         Mail::to($user['email'])->send($mailable);
@@ -584,24 +600,26 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro',1)->get();
+        $admin = NguoiDung::where('vai_tro', 1)->get();
         $thuthu = NguoiDung::where('vai_tro', 2)->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
-        return view('tai_khoan.index', ['admin' => $admin,'thuthu'=>$thuthu,'docgia'=>$docgia ]);
+        return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
         // return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
     }
-    public function themTinTuc(){
+    public function themTinTuc()
+    {
         return view('tin_tuc.them_tin_tuc');
     }
-    public function dsTinTuc(){
+    public function dsTinTuc()
+    {
         $tintuc = TinTuc::all();
-        $sltintuc =TinTuc::all()->count();
-        return view('tin_tuc.xem_tin_tuc',['tintuc'=>$tintuc, 'sltintuc'=> $sltintuc]);
+        $sltintuc = TinTuc::all()->count();
+        return view('tin_tuc.xem_tin_tuc', ['tintuc' => $tintuc, 'sltintuc' => $sltintuc]);
     }
     public function xuLyThemTinTuc(Request $request)
     {
-        if($request->noi_bat != ''){
-            TinTuc::where('noi_bat',1)->update(['noi_bat' => 0]);
+        if ($request->noi_bat != '') {
+            TinTuc::where('noi_bat', 1)->update(['noi_bat' => 0]);
         }
         if ($request->hasFile('file_upload')) {
             $file = $request->file_upload;
@@ -615,32 +633,36 @@ class AdminController extends Controller
             $request->merge(['hinh_anh' => $file_name]);
         }
         if ($request->tieu_de != '') {
-                TinTuc::create([
-                    'ten' => $request->tieu_de,
-                    'noi_dung' =>$request->noi_dung,
-                    'noi_bat' =>$request->noi_bat ? 1 : 0,
-                    'anh_bia' => $file_name
-                ]);
-                FacadesSession::flash('success', 'Xử lý thành công');
-                return redirect()->route('them-tin-tuc');
+            TinTuc::create([
+                'ten' => $request->tieu_de,
+                'noi_dung' => $request->noi_dung,
+                'noi_bat' => $request->noi_bat ? 1 : 0,
+                'anh_bia' => $file_name
+            ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return redirect()->route('them-tin-tuc');
         } else {
             return back()->with('error', 'Tiêu đề không được bỏ trống');
         }
     }
-    public function xemChiTietTinTuc($id){
-        $tintuc = TinTuc::where('id',$id)->get();
-        return view('tin_tuc.chi_tiet_tin_tuc',['tintuc'=>$tintuc]);
+    public function xemChiTietTinTuc($id)
+    {
+        $tintuc = TinTuc::where('id', $id)->get();
+        return view('tin_tuc.chi_tiet_tin_tuc', ['tintuc' => $tintuc]);
     }
-    public function xoaTinTuc($id){
+    public function xoaTinTuc($id)
+    {
         TinTuc::find($id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-    public function suaTinTuc($id){
-        $tintuc = TinTuc::where('id',$id)->get();
-        return view('tin_tuc.sua_tin_tuc',['tintuc'=>$tintuc]);
+    public function suaTinTuc($id)
+    {
+        $tintuc = TinTuc::where('id', $id)->get();
+        return view('tin_tuc.sua_tin_tuc', ['tintuc' => $tintuc]);
     }
-    public function xuLySuaTinTuc($id, Request $request){
+    public function xuLySuaTinTuc($id, Request $request)
+    {
         TinTuc::find($id)->update([
             'tieu_de' => $request->tieu_de,
             'noi_dung' => $request->noi_dung,
@@ -657,9 +679,10 @@ class AdminController extends Controller
         return back();
     }
 
-    public function timKiemDocGiaDuyetSach(Request $request){
+    public function timKiemDocGiaDuyetSach(Request $request)
+    {
         $timKiem = $request->tim_kiem;
-        $cho_duyet = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai',1)
+        $cho_duyet = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 1)
             ->orderBy('ma_phieu_muon', 'asc')->get();
         if ($cho_duyet->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
@@ -675,7 +698,7 @@ class AdminController extends Controller
     {
         $timKiem = $request->tim_kiem;
         $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)
-        ->orderBy('ma_phieu_muon', 'asc')->get();
+            ->orderBy('ma_phieu_muon', 'asc')->get();
         if ($dang_muon->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
@@ -690,7 +713,7 @@ class AdminController extends Controller
     {
         $timKiem = $request->tim_kiem;
         $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
-        ->orderBy('ma_phieu_muon', 'asc')->get();
+            ->orderBy('ma_phieu_muon', 'asc')->get();
         if ($dang_muon->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
@@ -701,45 +724,62 @@ class AdminController extends Controller
             ]);
         }
     }
-    public function duyetMuonSach(){
+    public function duyetMuonSach()
+    {
         $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
         return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet]);
     }
-    public function xuLyMuonSach($id){
+    public function xuLyMuonSach($id)
+    {
         $so_luong = PhieuMuonSach::where('trang_thai', 1)->where('ma_phieu_muon', $id)->count();
-        PhieuMuonSach::where('ma_phieu_muon',$id)->update([
-            'trang_thai'=>2,
-            'thu_thu_id'=> Auth::id(),
+        PhieuMuonSach::where('ma_phieu_muon', $id)->update([
+            'trang_thai' => 2,
+            'thu_thu_id' => Auth::id(),
         ]);
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-    public function xuLyTraSach($id)
+    public function xuLyTraSach(Request $request, $id)
     {
         PhieuMuonSach::where('ma_phieu_muon', $id)->update([
             'trang_thai' => 3,
         ]);
+        $phat = PhieuMuonSach::where('ma_muon_sach', $id)->get();
+        foreach ($request->all() as $key => $value) {
+            if ($key != '_token' && $key != 'all') {
+                PhieuPhat::create([
+                    'ma_phieu_phat' => $request->ma_phieu_phat,
+                    'ma_phieu_muon' => $request->ma_phieu_phat,
+                    'sach_id' => $key,
+                    'ly_do' => $request->ly_do,
+                    'tien_phat' => $request->tien_phat,
+                    'tien_phat' => $request->tong_tien_phat,
+                ]);
+            }
+        }
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
     public function dangMuonSach()
     {
         $dang_muon = PhieuMuonSach::where('trang_thai', 2)->get();
-        return view('muon_sach.dang_muon_sach',['dang_muon'=> $dang_muon]);
+        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon]);
     }
 
     public function daMuonSach()
     {
         $da_muon = PhieuMuonSach::where('trang_thai', 3)->get();
-        return view('muon_sach.da_muon_sach',['da_muon'=> $da_muon]);
+        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon]);
     }
-    public function chiTietPhieu($id){
-        $chitiet = PhieuMuonSach::where('ma_phieu_muon',$id)->get();   
-        return view('muon_sach.chi_tiet',['chitiet'=>$chitiet]);
+    public function chiTietPhieu($id)
+    {
+        $chitiet = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
+        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet]);
     }
-    public function thanhToanSach($id){
-        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
+    public function thanhToanSach($id)
+    {
+        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
-        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail]);
+        return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail]);
     }
 }

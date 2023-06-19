@@ -24,7 +24,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 1,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=> 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -42,7 +43,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 2,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien' => 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -60,7 +62,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 3,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien' => 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -78,7 +81,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 4,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien' => 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -96,7 +100,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 5,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien' => 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -114,7 +119,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 6,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien' => 10000,
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([

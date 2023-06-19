@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('tien_phat');
             $table->integer('tong_tien_phat');
             $table->timestamps();
-            $table->sofeDeletes();
+            $table->softDeletes();
         });
     }
 

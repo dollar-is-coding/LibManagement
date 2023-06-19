@@ -76,16 +76,16 @@
                 </div>
                 @endif
                 <style>
-                    .nav-link {
+                    .mumu {
                         margin: 15px 50px 15px 15px !important;
                     }
                 </style>
                 <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link active">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link">Đã mượn</a>
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">Chờ duyệt</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link active mumu">Đang mượn</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">Đã mượn</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
