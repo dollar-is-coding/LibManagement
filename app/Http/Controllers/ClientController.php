@@ -202,7 +202,8 @@ class ClientController extends Controller
 
     public function showGioSach()
     {
-        $phieu_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->orWhere([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
+        $phieu_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])
+        ->orWhere([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->paginate('10');
         if ($phieu_muon->count()>0) {
             $dang_muon=1;

@@ -128,7 +128,7 @@
                                             </div>
                                             <div>
                                                 <a href="{{ route('thong-tin-sach', ['id' => $sach->sach_id]) }}"
-                                                    class="btn custom-btn">Xem chi tiết</a>
+                                                    class="btn custom-btn">Xem thông tin</a>
                                             </div>
                                         </div>
                                     </div>
@@ -190,43 +190,34 @@
 
                 <div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0">
                     <h6 class="site-footer-title mb-3">Contact</h6>
-
                     <p class="mb-2">
                         <strong class="d-inline me-2">Phone:</strong> 010-020-0340
                     </p>
-
                     <p>
                         <strong class="d-inline me-2">Email:</strong>
                         <a href="#">inquiry@pod.co</a>
                     </p>
                 </div>
-
                 <div class="col-lg-3 col-md-6 col-12">
                     <h6 class="site-footer-title mb-3">Download Mobile</h6>
-
                     <div class="site-footer-thumb mb-4 pb-2">
                         <div class="d-flex flex-wrap">
                             <a href="#">
                                 <img src="images/app-store.png" class="me-3 mb-2 mb-lg-0 img-fluid" alt="" />
                             </a>
-
                             <a href="#">
                                 <img src="images/play-store.png" class="img-fluid" alt="" />
                             </a>
                         </div>
                     </div>
-
                     <h6 class="site-footer-title mb-3">Social</h6>
-
                     <ul class="social-icon">
                         <li class="social-icon-item">
                             <a href="#" class="social-icon-link bi-instagram"></a>
                         </li>
-
                         <li class="social-icon-item">
                             <a href="#" class="social-icon-link bi-twitter"></a>
                         </li>
-
                         <li class="social-icon-item">
                             <a href="#" class="social-icon-link bi-whatsapp"></a>
                         </li>
@@ -242,27 +233,22 @@
                         <img src="images/pod-talk-logo.png" class="logo-image img-fluid" alt="templatemo pod talk" />
                     </a>
                 </div>
-
                 <div class="col-lg-7 col-md-9 col-12">
                     <ul class="site-footer-links">
                         <li class="site-footer-link-item">
                             <a href="#" class="site-footer-link">Homepage</a>
                         </li>
-
                         <li class="site-footer-link-item">
                             <a href="#" class="site-footer-link">Browse episodes</a>
                         </li>
-
                         <li class="site-footer-link-item">
                             <a href="#" class="site-footer-link">Help Center</a>
                         </li>
-
                         <li class="site-footer-link-item">
                             <a href="#" class="site-footer-link">Contact Us</a>
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-lg-3 col-12">
                     <p class="copyright-text mb-0">
                         Copyright © 2036 Talk Pod Company <br /><br />
