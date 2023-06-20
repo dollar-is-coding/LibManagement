@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Session as FacadesSession;
 use App\Models\BinhLuan;
 use App\Models\TinTuc;
 use App\Models\NguoiDung;
+use App\Models\ThuVien;
+use Illuminate\Support\Arr;
 
 class ClientController extends Controller
 {
@@ -203,18 +205,20 @@ class ClientController extends Controller
     public function showGioSach()
     {
         $phieu_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])
-        ->orWhere([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
+            ->orWhere([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->paginate('10');
-        if ($phieu_muon->count()>0) {
-            $dang_muon=1;
-        } else {
-            $dang_muon=0;
-        }
-        return view('client.gio_sach',['gio_sach'=>$gio_sach,'dang_muon'=>$dang_muon]);
+        return view('client.gio_sach',[
+            'gio_sach'=>$gio_sach,
+            'phieu_muon'=>$phieu_muon
+        ]);
     }
 
     public function handleMuonSach(Request $request)
     {
+        if (Arr::has($request->all(),'all')) {
+            $tong_so_luong=count($request->all())-2;
+        }
+        $tong_so_luong=count($request->all())-1;
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
         if (blank(PhieuMuonSach::latest()->first())) {
@@ -237,9 +241,10 @@ class ClientController extends Controller
                     'sach_id'=>$key,
                     'so_luong'=>1,
                     'han_tra'=>date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
-                    'tong_so_luong'=>count($request->all())-1
+                    'tong_so_luong'=>$tong_so_luong
                 ]);
                 GioSach::where('sach_id',$key)->delete();
+                ThuVien::where('sach_id',$key)->update(['sl_con_lai'=>ThuVien::where('sach_id',$key)->first()->sl_con_lai-1]);
             }
         }
         return redirect()->route('tai-khoan-cua-toi',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);

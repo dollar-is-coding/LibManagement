@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    <title>Libro - Giỏ sách ({{ $gio_sach->count() }})</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Giỏ sách ({{ $gio_sach->count() }})</h2>
+                        <h2 class="mb-0">GIỎ SÁCH ({{ $gio_sach->count() }})</h2>
                     </div>
                 </div>
             </div>
@@ -57,6 +57,9 @@
                                 <div style="width:55%" class="d-flex align-items-center">
                                     <input style="width:1em;height:1em" type="checkbox" id="all" name="all">
                                     <p class="m-0"><strong>&nbsp;Sách</strong></p>
+                                    <div id="can_borrow" style="display: none">
+                                        {{ 5 - $phieu_muon->count() }} quyển
+                                    </div>
                                 </div>
                                 <div style="width:10%" class="d-flex justify-content-center">
                                     <p class="m-0"><strong>Số lượng</strong></p>
@@ -145,15 +148,10 @@
                             </div>
                             <div class="m-3"></div>
                             <div class="d-inline-flex justify-content-center">
-                                @if ($dang_muon == 0)
-                                    <button type="submit" class="shadow pagination pagination-lg btn custom-btn">
-                                        Xác nhận mượn sách
-                                    </button>
-                                @else
-                                    <button type="button" class="shadow pagination pagination-lg btn disable-btn">
-                                        Chưa thể mượn sách
-                                    </button>
-                                @endif
+                                <button id="compare" style="pointer-events: none" type="submit"
+                                    class="shadow pagination pagination-lg btn custom-btn">
+                                    Vui lòng chọn sách
+                                </button>
                             </div>
                             <div class="m-1"></div>
                         </div>
@@ -272,6 +270,8 @@
         var checkboxes = document.getElementsByClassName('checkbox');
         var countElement = document.getElementById('so_luong');
         var checkedCount = 0;
+        var canBorrow = document.getElementById('can_borrow');
+        var compare = document.getElementById('compare');
 
         checkAllCheckbox.addEventListener('change', function() {
             var isChecked = checkAllCheckbox.checked;
@@ -283,7 +283,9 @@
             // Update the count
             checkedCount = isChecked ? checkboxes.length : 0;
             countElement.textContent = checkedCount + ' quyển';
+            muonSach();
         });
+
 
         // Attach event listener to individual checkboxes
         for (var i = 0; i < checkboxes.length; i++) {
@@ -293,10 +295,24 @@
                 } else {
                     checkedCount--;
                 }
-
                 countElement.textContent = checkedCount + ' quyển';
                 checkAllCheckbox.checked = (checkedCount === checkboxes.length);
+                muonSach();
             });
+        }
+
+        function muonSach() {
+            if (countElement.textContent.replace(/\s/g, '') <= canBorrow.textContent.replace(/\s/g, '') &&
+                checkedCount > 0) {
+                compare.style.pointerEvents = 'auto';
+                compare.textContent = 'Xác nhận mượn sách';
+            } else if (countElement.textContent.replace(/\s/g, '') > canBorrow.textContent.replace(/\s/g, '')) {
+                compare.style.pointerEvents = 'none';
+                compare.textContent = 'Quá số lượng sách';
+            } else {
+                compare.style.pointerEvents = 'none';
+                compare.textContent = 'Vui lòng chọn sách';
+            }
         }
     </script>
 </body>

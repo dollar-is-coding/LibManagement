@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Chi tiết</h2>
+                        <h2 class="mb-0">THÔNG TIN SÁCH</h2>
                     </div>
                 </div>
             </div>

@@ -45,112 +45,123 @@
 <body>
 
     @include('../common/header', ['view' => 3])
-    @if(Session::has('success'))
-    <script>
-        setTimeout(function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công',
-                text: `{{ Session::get('success') }}`,
-                showConfirmButton: false,
-                timer: 1000 // Hiển thị trong 5 giây
-            });
-        }, 100);
-    </script>
+    @if (Session::has('success'))
+        <script>
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `{{ Session::get('success') }}`,
+                    showConfirmButton: false,
+                    timer: 1000 // Hiển thị trong 5 giây
+                });
+            }, 100);
+        </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="">
-                    <p>{{$detail->ma_phieu_muon}}</p>
-                    <!-- <p>ngay lap {{$detail->ngay_lap_phieu}}</p>
-                    <p>ngay tra {{$detail->han_tra}}</p> -->
-                    <p>Thu thu {{$detail->fkThuThu->ten}}</p>
-                    <p>doc gia {{$detail->fkNguoiDung->ten}}</p>
+                    <input type="text" name="ma_phieu_muon" value="{{ $detail->ma_phieu_muon }}">
+                    <p>Tiền phạt: </p>
+                    <input type="text" id="tien_phat" value="{{ $tien_phat_het_han }}">
+                    <p>{{ $detail->ma_phieu_muon }}</p>
+                    <!-- <p>ngay lap {{ $detail->ngay_lap_phieu }}</p>
+                    <p>ngay tra {{ $detail->han_tra }}</p> -->
+                    <p>Thu thu {{ $detail->fkThuThu->ten }}</p>
+                    <p>doc gia {{ $detail->fkNguoiDung->ten }}</p>
                     @php
-                    $hanTra = strtotime($detail->han_tra);
-                    $ngayHienTai = strtotime(date('Y-m-d'));
-
-                    if ($hanTra < $ngayHienTai) { echo '<p style="color:red">Hết hạn</p>' ; } else { echo '<p style="color:green">Còn hạn</p>' ; } @endphp <hr>
-                        <form action="" method="post">
-                            <div class="table-responsive">
-
-                                @foreach ($thanhtoan as $key => $item)
-                                <div class="thanhtoan" data-id="{{$key}}">
-                                    <label for="">Còn nguyên</label>
-                                    <input checked type="radio" value="0" name="{{$key}}" id="{{$key}}_nguyen">
-                                    <label for="">Mất sách</label>
-                                    <input type="radio" value="10" name="{{$key}}" id="{{$key}}_mat">
-                                    <label for="{{$key}}">Hư</label>
-                                    <input type="radio" value="20" name="{{$key}}" id="{{$key}}_hu">
-                                    <input type="hidden" id="tien{{$key}}" value="0" class="tongtien">
-
-                                    <div id="{{$key}}_a" style="display: none;">
+                        $hanTra = strtotime($detail->han_tra);
+                        $ngayHienTai = strtotime(date('Y-m-d'));
+                        
+                        if ($hanTra < $ngayHienTai) {
+                            echo '<p style="color:red">Hết hạn</p>';
+                        } else {
+                            echo '<p style="color:green">Còn hạn</p>';
+                    } @endphp
+                    <hr>
+                    <form action="{{ route('thanh-toan') }}" method="post">
+                        @csrf
+                        <div class="table-responsive">
+                            @foreach ($thanhtoan as $key => $item)
+                                <div class="thanhtoan" data-id="{{ $item->sach_id }}">
+                                    <input checked type="radio" value="0|Nguyen ven" name="{{ $item->sach_id }}"
+                                        id="{{ $item->sach_id }}_nguyen">Còn nguyên
+                                    <input type="radio" value="{{ $item->fkSach->gia_tien }}|Mat sach"
+                                        name="{{ $item->sach_id }}" id="{{ $item->sach_id }}_mat">Mất sách
+                                    <input type="radio" value="{{ $item->fkSach->gia_tien * 0.7 }}|Hu sach"
+                                        name="{{ $item->sach_id }}" id="{{ $item->sach_id }}_hu">Hư
+                                    <div id="{{ $item->sach_id }}_a" style="display: none;">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Trình trạng hư hỏng" id="floatingTextarea"></textarea>
+                                            <textarea name="{{ $item->sach_id }},hư sách" class="form-control" placeholder="Trình trạng hư hỏng"
+                                                id="floatingTextarea"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                @endforeach
-                                <p id="tongtien"></p>
-                                <script>
-                                    function tinhtongtiensach(key) {
-                                        let hu = document.getElementById(`${key}_hu`);
-                                        let nguyen = document.getElementById(`${key}_nguyen`);
-                                        let mat = document.getElementById(`${key}_mat`);
-                                        let input = document.getElementById(`${key}_a`);
+                            @endforeach
+                            <input name="charge" id="tongtien" style="pointer-events: none">
+                            <script>
+                                function tinhtongtiensach(key) {
+                                    let hu = document.getElementById(`${key}_hu`);
+                                    let nguyen = document.getElementById(`${key}_nguyen`);
+                                    let mat = document.getElementById(`${key}_mat`);
+                                    let input = document.getElementById(`${key}_a`);
+                                    let tien_phat = document.getElementById('tien_phat')
 
-                                        function check_hu() {
-                                            if (hu.checked) {
-                                                input.style.display = "block";
-                                                Dom();
-                                            }
-                                        };
-
-                                        function check_nguyen() {
-                                            if (nguyen.checked) {
-                                                input.style.display = "none";
-                                                Dom();
-                                            }
+                                    function check_hu() {
+                                        if (hu.checked) {
+                                            input.style.display = "block";
+                                            Dom();
                                         }
+                                    };
 
-                                        function check_mat() {
-                                            if (mat.checked) {
-                                                input.style.display = "none";
-                                                Dom();
-                                            }
+                                    function check_nguyen() {
+                                        if (nguyen.checked) {
+                                            input.style.display = "none";
+                                            Dom();
                                         }
-
-                                        hu.onchange = check_hu;
-                                        nguyen.onchange = check_nguyen;
-                                        mat.onchange = check_mat;
                                     }
-                                    var tongtien = document.getElementById('tongtien');
-                                    let a = document.querySelectorAll('.thanhtoan');
-                                    var tong = 0;
 
-                                    function Dom() {
-                                        let tong_tien_sach = 0;
-                                        for (i of a) {
-                                            let id_sach = i.getAttribute('data-id');
-                                            let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
-                                            tong_tien_sach += Number(value);
+                                    function check_mat() {
+                                        if (mat.checked) {
+                                            input.style.display = "none";
+                                            Dom();
                                         }
-                                        tongtien.innerHTML = `Tổng tiền: ${tong_tien_sach}`;
                                     }
+                                    hu.onchange = check_hu;
+                                    nguyen.onchange = check_nguyen;
+                                    mat.onchange = check_mat;
+                                }
+
+                                var tongtien = document.getElementById('tongtien');
+                                let a = document.querySelectorAll('.thanhtoan');
+                                var tong = 0;
+
+                                function Dom() {
+                                    let tong_tien_sach = Number(tien_phat.value);
                                     for (i of a) {
                                         let id_sach = i.getAttribute('data-id');
-                                        tinhtongtiensach(id_sach);
                                         let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
-                                        tong += Number(value);
+                                        let array = value.split("|");
+                                        console.log(array[0]);
+                                        tong_tien_sach += Number(array[0]);
                                     }
-                                    tongtien.innerHTML = `Tổng tiền: ${tong}`;
-                                </script>
+                                    tongtien.value = `${tong_tien_sach}`;
+                                }
 
-                            </div>
-                            <button class="btn btn-success" type="submit">Thanh Toán</button>
-                        </form>
+                                for (i of a) {
+                                    let id_sach = i.getAttribute('data-id');
+                                    tinhtongtiensach(id_sach);
+                                    let value = i.querySelector(`input[name="${id_sach}"]:checked`).value;
+                                    let array = value.split("|");
+                                    tong += Number(array[0]);
+                                }
+                                tongtien.value = Number(tien_phat.value) + Number(`${tong}`);
+                            </script>
+                        </div>
+                        <button class="btn btn-success" type="submit">Thanh Toán</button>
+                    </form>
                 </div>
 
 

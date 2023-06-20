@@ -15,7 +15,7 @@ class SachSeeder extends Seeder
     public function run(): void
     {
         for ($i=1; $i <= 150; $i++) { 
-            if ($i<=30) {
+            if ($i <= 30) {
                 Sach::create([
                     'ten' => 'Tiếng anh '.strval($i),
                     'ma_sach' => $i,
@@ -24,7 +24,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 1,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>60000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -33,7 +34,7 @@ class SachSeeder extends Seeder
                     'khu_vuc_id' => 1,
                     'sl_con_lai' => 20
                 ]);
-            } elseif($i<=50) {
+            } elseif($i <= 50) {
                 Sach::create([
                     'ten' => 'Sách tham khảo '.strval($i),
                     'ma_sach' => $i,
@@ -42,7 +43,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 2,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>120000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -51,7 +53,7 @@ class SachSeeder extends Seeder
                     'khu_vuc_id' => 1,
                     'sl_con_lai' => 20
                 ]);
-            } elseif($i<=60) {
+            } elseif($i <= 60) {
                 Sach::create([
                     'ten' => 'Ngữ văn '.strval($i),
                     'ma_sach' => $i,
@@ -60,7 +62,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 3,
                     'nam_xuat_ban' => 2012,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>75000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -69,7 +72,7 @@ class SachSeeder extends Seeder
                     'khu_vuc_id' => 1,
                     'sl_con_lai' => 20
                 ]);
-            } elseif($i<=85) {
+            } elseif($i <= 85) {
                 Sach::create([
                     'ten' => 'Khoa học '.strval($i),
                     'ma_sach' => $i,
@@ -78,7 +81,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 4,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>80000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -87,7 +91,7 @@ class SachSeeder extends Seeder
                     'khu_vuc_id' => 1,
                     'sl_con_lai' => 20
                 ]);
-            } elseif($i<108) {
+            } elseif($i < 108) {
                 Sach::create([
                     'ten' => 'Phát triển kỹ năng '.strval($i),
                     'ma_sach' => $i,
@@ -96,7 +100,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 5,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>50000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([
@@ -114,7 +119,8 @@ class SachSeeder extends Seeder
                     'the_loai_id' => 6,
                     'nam_xuat_ban' => 2020,
                     'hinh_anh' => '',
-                    'mo_ta'=>'Sách hay lắm đó nhen'
+                    'mo_ta'=>'Sách hay lắm đó nhen',
+                    'gia_tien'=>25000
                 ]);
                 $id =Sach::where('ma_sach',$i)->first();;
                 ThuVien::create([

@@ -11,7 +11,7 @@
 
     <meta name="author" content="" />
 
-    <title>Pod Talk - About Page</title>
+    <title>Libro - Tài khoản của tôi</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -317,7 +317,7 @@
                                     <div class="d-flex">
                                         <p class="m-0">Còn hạn:&nbsp;</p>
                                         <div>
-                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 14 days'))) }}
+                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 15 days'))) }}
                                             ngày
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@
                                     <div class="d-flex">
                                         <p class="m-0">Quá hạn:&nbsp;</p>
                                         <div>
-                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 14 days'))) }}
+                                            {{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(strtotime($item->created_at . ' + 15 days'))) }}
                                             ngày
                                         </div>
                                     </div>

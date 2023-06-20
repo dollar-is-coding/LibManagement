@@ -117,6 +117,7 @@ Route::get('/da-muon-sach', [AdminController::class, 'daMuonSach'])->name('da-mu
 Route::get('/chi-tiet-phieu/{id}', [AdminController::class, 'chiTietPhieu'])->name('chi-tiet-phieu')->middleware('auth');
 
 Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->name('thanh-toan-sach')->middleware('auth');
+Route::post('/thanh-toan-sach', [AdminController::class, 'handleThanhToan'])->name('thanh-toan')->middleware('auth');
 });
 
 Route::middleware('user')->group(function () {

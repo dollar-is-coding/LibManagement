@@ -737,9 +737,30 @@ class AdminController extends Controller
         $chitiet = PhieuMuonSach::where('ma_phieu_muon',$id)->get();   
         return view('muon_sach.chi_tiet',['chitiet'=>$chitiet]);
     }
-    public function thanhToanSach($id){
+    public function thanhToanSach($id)
+    {
+        $charge=0;
         $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
-        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail]);
+        if (Carbon::now('Asia/Ho_Chi_Minh')>Carbon::parse($detail->han_tra)) {
+            $expired=Carbon::parse($detail->han_tra)->diffIndays(Carbon::now('Asia/Ho_Chi_Minh'))+1;
+            if ($expired<=3) {
+                $charge=$thanhtoan->count()*5000;
+            } else {
+                $charge=$thanhtoan->count()*10000;
+            }
+        }
+        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail,'tien_phat_het_han'=>$charge]);
+    }
+
+    public function handleThanhToan(Request $request)
+    {
+        // Không phạt
+        if ($request->charge==0) {
+            PhieuTraSach::create(['ma_phieu_muon'=>$request->ma_phieu_muon,'thu_thu_id'=>Auth::id(),'trang_thai'=>0]);
+            return redirect()->route('/da-muon-sach');
+        }
+        // Phạt đi
+        
     }
 }

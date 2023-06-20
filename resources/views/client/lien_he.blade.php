@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Liên hệ</h2>
+                        <h2 class="mb-0">LIÊN HỆ</h2>
                     </div>
                 </div>
             </div>
@@ -55,12 +55,11 @@
                             <h3 class="mb-4">Thông tin liện hệ</h3>
                             <p class="d-flex border-bottom pb-3 mb-4">
                                 <strong class="d-inline me-4">Số điện thoại:</strong>
-                                <span>010-020-0340</span>
+                                <span>099-232-9999</span>
                             </p>
                             <p class="d-flex border-bottom pb-3 mb-4">
                                 <strong class="d-inline me-4">Email:</strong>
-                                <a
-                                    href="mailto:123@gmail.com">inquiry@pod.co</a>
+                                <span>libro@gmail.com</span>
                             </p>
                             <p class="d-flex">
                                 <strong class="d-inline me-4">Vị trí:</strong>
@@ -90,7 +89,7 @@
                                 <div class="col-lg-12 col-12">
                                     <div class="form-floating">
                                         <input type="text" name="tieu_de" id="name" class="form-control"
-                                            placeholder="Name" required="" />
+                                            placeholder="Name" required="" autocomplete="off" />
                                         <label for="floatingInput">Tiêu đề</label>
                                     </div>
                                     <div class="form-floating">
