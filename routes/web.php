@@ -122,6 +122,7 @@ Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->
 Route::get('/chi-tiet-tai-khoan/{id}', [AdminController::class, 'chiTietTaiKhoan'])->name('chi-tiet-tai-khoan')->middleware('auth');
 Route::post('/thay-doi-thong-tin-tai-khoan/{id}', [AdminController::class, 'xuLyDoiThongTinNguoiDung'])->name('xu-ly-doi-thong-tin-tai-khoan')->middleware('auth');
 
+Route::post('/thanh-toan-sach', [AdminController::class, 'handleThanhToan'])->name('thanh-toan')->middleware('auth');
 });
 
 Route::middleware('user')->group(function () {

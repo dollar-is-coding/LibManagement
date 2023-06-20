@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - About Page</title>
+    <title>Libro - Tin tức</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

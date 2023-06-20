@@ -8,7 +8,14 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    @if ($dieu_kien == 1)
+        <title>Libro - Sách mới hàng tuần</title>
+    @elseif($dieu_kien == 2)
+        <title>Libro - {{ $tac_gia->ten }}</title>
+    @elseif($dieu_kien == 3)
+        <title>Libro - {{ $the_loai->ten }}</title>
+    @endif
+
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,14 +49,14 @@
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
                         @if ($dieu_kien == 1)
-                            <h2 class="mb-0">Sách mới hàng tuần</h2>
+                            <h2 class="mb-0">SÁCH MỚI HÀNG TUẦN</h2>
                             <h5 class="mt-2 text-light">
                                 ( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }})
                             </h5>
                         @elseif($dieu_kien == 2)
-                            <h2 class="mb-0">{{ $tac_gia->ten }}</h2>
+                            <h2 class="mb-0">{{ Str::upper($tac_gia->ten) }}</h2>
                         @elseif($dieu_kien == 3)
-                            <h2 class="mb-0">{{ $the_loai->ten }}</h2>
+                            <h2 class="mb-0">{{ Str::upper($the_loai->ten) }}</h2>
                         @endif
                     </div>
                 </div>

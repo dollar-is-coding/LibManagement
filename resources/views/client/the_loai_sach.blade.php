@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    <title>Libro - Thể loại sách</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,7 +40,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Thể loại sách</h2>
+                        <h2 class="mb-0">THỂ LOẠI SÁCH</h2>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    <title>Libro - Tháng này mọi người đọc gì?</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

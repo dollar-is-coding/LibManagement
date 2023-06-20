@@ -31,6 +31,7 @@ use App\Imports\ExcelImport;
 use App\Imports\ExcelImportThuVien;
 use App\Models\NguoiDung;
 use App\Models\PhieuPhat;
+use App\Models\PhieuTraSach;
 use App\Models\TinTuc;
 use Illuminate\Contracts\Session\Session;
 use Maatwebsite\Excel\Validators\Failure;
@@ -782,45 +783,28 @@ class AdminController extends Controller
     }
     public function thanhToanSach($id)
     {
-        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
+        $charge=0;
+        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
-        return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail]);
+        if (Carbon::now('Asia/Ho_Chi_Minh')>Carbon::parse($detail->han_tra)) {
+            $expired=Carbon::parse($detail->han_tra)->diffIndays(Carbon::now('Asia/Ho_Chi_Minh'))+1;
+            if ($expired<=3) {
+                $charge=$thanhtoan->count()*5000;
+            } else {
+                $charge=$thanhtoan->count()*10000;
+            }
+        }
+        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail,'tien_phat_het_han'=>$charge]);
     }
-    public function chiTietTaiKhoan($id){
-        $detail = NguoiDung::find($id);
-        $getdetail =NguoiDung::all();
-        return view('tai_khoan.detail',['detail'=> $detail , 'getdetail'=> $getdetail]);
-    }
-    public function xuLyDoiThongTinNguoiDung($id,Request $request){
-        $nd = NguoiDung::where('id',$id)->first();
-        if($nd->vai_tro == 1 || $nd->vai_tro == 2){
-            NguoiDung::find($id)->update([
-                'ho' => $request->ho,
-                'ten' => $request->ten,
-                'ma_hs' => '',
-                'ngay_sinh' => $request->ngay_sinh,
-                'gioi_tinh' => $request->gioi_tinh,
-            ]);
-        }
-        else{
-            NguoiDung::find($id)->update([
-                'ho' => $request->ho,
-                'ten' => $request->ten,
-                'ma_hs' => $request->ma_hs,
-                'ngay_sinh' => $request->ngay_sinh,
-                'gioi_tinh' => $request->gioi_tinh,
-            ]);
-        }
-        $img = NguoiDung::find($id);
-        if ($request->has('file')) {
-            $file = $request->file;
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/avt'), $filename);
-            $img->hinh_anh = $filename;
-        }
-        FacadesSession::flash('success', 'Xử lý thành công');
-        $img->save();
 
-        return redirect()->back();
+    public function handleThanhToan(Request $request)
+    {
+        // Không phạt
+        if ($request->charge==0) {
+            PhieuTraSach::create(['ma_phieu_muon'=>$request->ma_phieu_muon,'thu_thu_id'=>Auth::id(),'trang_thai'=>0]);
+            return redirect()->route('/da-muon-sach');
+        }
+        // Phạt đi
+        
     }
 }

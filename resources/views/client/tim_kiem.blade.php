@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk - Listing Page</title>
+    <title>Libro - Tìm kiếm</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Từ khóa "{{ $key_word }}"</h2>
+                        <h2 class="mb-0">TỪ KHÓA "{{ $key_word }}"</h2>
                     </div>
                 </div>
             </div>
