@@ -98,10 +98,9 @@
                             <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
                                 <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
                                 <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
-                                <p style="text-align: right;" class="mt-1 mr-2">{{$item->ngay_lap_phieu}} - {{$item->han_tra}}</p>
+                                <p style="text-align: right;" class="mt-1 mr-2">{{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} - {{$item->han_tra}}</p>
                             </div>
                             <p class="ml-2" style="font-weight: bold;">Người duyệt: {{$item->fkNguoiDung->ten}}</p>
-                            <p class="ml-2">Tổng số lượng: </p>
                             @endif
                             @if (
                             ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
@@ -109,7 +108,7 @@
                             <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
                                 <div style="display: flex;">
                                     <div class="ml-3">
-                                        <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
+                                        <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
                                     </div>
                                 </div>
                                 <div style="display: flex;flex-direction: row-reverse;height: 50px;" class="mr-3">
@@ -120,7 +119,7 @@
                         @else
                         <div class="ml-2">
                             <div class="ml-3">
-                                <p>{{ $item->fkSach->ten }} ({{ $item->so_luong }} quyển)</p>
+                                <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
                             </div>
                         </div>
                         @endif

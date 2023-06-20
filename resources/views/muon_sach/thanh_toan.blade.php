@@ -153,7 +153,7 @@
                                     let a = document.querySelectorAll('.thanhtoan');
                                     var tong = 0;
 
-                                    function Dom() {
+                                    function Dom($a) {
                                         let tong_tien_sach = 0;
                                         for (i of a) {
                                             let id_sach = i.getAttribute('data-id');

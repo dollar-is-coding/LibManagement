@@ -86,7 +86,7 @@
                                     @foreach ($admin as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->ho }}</td>
+                                        <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
 
@@ -121,7 +121,7 @@
                                     @foreach ($thuthu as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->ho }}</td>
+                                        <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
 
@@ -156,7 +156,7 @@
                                     @foreach ($docgia as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->ho }}</td>
+                                        <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
 

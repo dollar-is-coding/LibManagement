@@ -776,13 +776,51 @@ class AdminController extends Controller
     }
     public function chiTietPhieu($id)
     {
+        $chi_tiet_sach = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
         $chitiet = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
-        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet]);
+        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet, 'chi_tiet_sach'=> $chi_tiet_sach]);
     }
     public function thanhToanSach($id)
     {
         $thanhtoan = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
         return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail]);
+    }
+    public function chiTietTaiKhoan($id){
+        $detail = NguoiDung::find($id);
+        $getdetail =NguoiDung::all();
+        return view('tai_khoan.detail',['detail'=> $detail , 'getdetail'=> $getdetail]);
+    }
+    public function xuLyDoiThongTinNguoiDung($id,Request $request){
+        $nd = NguoiDung::where('id',$id)->first();
+        if($nd->vai_tro == 1 || $nd->vai_tro == 2){
+            NguoiDung::find($id)->update([
+                'ho' => $request->ho,
+                'ten' => $request->ten,
+                'ma_hs' => '',
+                'ngay_sinh' => $request->ngay_sinh,
+                'gioi_tinh' => $request->gioi_tinh,
+            ]);
+        }
+        else{
+            NguoiDung::find($id)->update([
+                'ho' => $request->ho,
+                'ten' => $request->ten,
+                'ma_hs' => $request->ma_hs,
+                'ngay_sinh' => $request->ngay_sinh,
+                'gioi_tinh' => $request->gioi_tinh,
+            ]);
+        }
+        $img = NguoiDung::find($id);
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        FacadesSession::flash('success', 'Xử lý thành công');
+        $img->save();
+
+        return redirect()->back();
     }
 }

@@ -36,7 +36,6 @@
     <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
     <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
 
@@ -60,48 +59,67 @@
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-left az-content-left-components">
-                <div class="component-item">
-                    <label>Mượn sách</label>
-                    <nav class="nav flex-column">
-                        <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active">Phê duyệt mượn sách</a>
-                        <a href="{{route('dang-muon-sach')}}" class="nav-link">Đọc giả đang mượn sách</a>
-                        <a href="{{route('da-muon-sach')}}" class="nav-link">Đọc giả đã mượn sách</a>
-                    </nav>
-                </div><!-- component-item -->
-            </div><!-- az-content-left -->
-
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <div class="az-content-breadcrumb mt-3">
-                    <span>Mượn sách</span>
-                    <span>Phê duyệt mượn sách</span>
-                </div>
+                <style>
+                    .mumu {
+                        margin: 15px 50px 15px 15px !important;
+                    }
+                </style>
+                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
+                    <div class="component-item" style="position: sticky;">
+                        <nav style="display: flex">
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">Chờ duyệt</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">Đang mượn</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">Đã mượn</a>
+                        </nav>
+                    </div><!-- component-item -->
+                </div><!-- az-content-left -->
                 <div class="">
-                    <h3 class="ml-3 mt-3">Chi tiết</h3>
+                    <a href="{{ url()->previous() }}" style="text-decoration: none;">Quay lại</a>
+                    <h3 class=" mt-3">Chi tiết</h3>
                     <div class="table-responsive">
+                        <div class=" rounded" style="display: flex;background-color: whitesmoke;">
+                            <div style="flex-basis: 75%;margin:10px 0px 0px 20px;">
+                                <h5>Mã phiếu: {{$chi_tiet_sach->ma_phieu_muon}}</h5>
+                                <div style="display: flex;">
+                                    <p>Đọc giả: <b>{{$chi_tiet_sach->fkNguoiDung->ten}}</b></p>
+                                    @if($chi_tiet_sach->thu_thu_id != '')
+                                    <p class="ml-3">Thủ thư: <b>{{$chi_tiet_sach->fkThuThu->ten}}</b></p>
+                                    @endif
+                                </div>
+                                <p>Tổng số lượng sách: <b>{{$chi_tiet_sach->tong_so_luong-1}}</b></p>
+                            </div>
+
+                            <div style="flex-basis: 25%;margin: 10px 0 0 0;">
+                                <p>Thời gian: <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('Y-m-d') }}</b> -- <b>{{$chi_tiet_sach->han_tra}}</b></p>
+                            </div>
+                        </div>
+
                         @foreach ($chitiet as $key => $item)
-                        <p>{{$item->fkSach->ten}}</p>
-                        <p>{{$item->ma_phieu_muon}}</p>
+                        <div class="border rounded mt-3" style="display: flex;">
+                            <div style="flex-basis: 75%;" class="mt-3 ml-3">
+                                <div style="display: flex;">
+                                    <p class="mr-3">Tên sách:
+                                        <b>{{$item->fkSach->ten}}</b>
+                                    </p>
+                                    <p>Mã sách: <b>{{$item->fkSach->ma_sach}}</b></p>
+                                    <p class="ml-3">Số lượng: <b>{{$item->so_luong}}</b></p>
+                                </div>
 
-                        @if($item->thu_thu_id == '')
-                        <p>_</p>
-                        @else
-                        <p>Thu thu {{$item->fkThuThu->ten}}</p>
-                        @endif
+                                <p>Tác giả: <b>{{$item->fkSach->fkTacGia->ten}}</b></p>
+                                <p>Nhà xuất bản: <b>{{$item->fkSach->fkNhaXuatBan->ten}}</b></p>
+                            </div>
 
-                        <p>doc gia {{$item->fkNguoiDung->ten}}</p>
-
-                        <p>ten sach {{$item->fkSach->ten}}</p>
-                        <p>ngay lap {{$item->ngay_lap_phieu}}</p>
-                        <p>ngay tra {{$item->han_tra}}</p>
-
-                        @if($item->trang_thai == 1)
-                        <p>Duyet</p>
-                        @elseif($item->trang_thai == 2)
-                        <p>Xac nhan tra</p>
-                        @endif
+                            <div style="flex-basis: 25%;" class="mt-3">
+                                <div style="display: flex;">
+                                    <p class="mr-3">Khu vực: <b>{{$item->fkSach->hasThuVien->fkTuSach->ten}}</b></p>
+                                    <p><b>{{$item->fkSach->hasThuVien->fkKhuVuc->ten}}</b></p>
+                                </div>
+                            </div>
+                        </div>
                         @endforeach
                     </div>
+
                 </div>
             </div>
 

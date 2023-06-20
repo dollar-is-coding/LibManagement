@@ -97,9 +97,8 @@
                                 <label for="">Tiêu đề</label>
                                 <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
                                 <label class="pt-3" for="">Nội dung</label>
-                                <!-- <textarea id="sample"></textarea> -->
                                 <div class="form-floating">
-                                    <textarea style="height: 200px;" required name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
+                                    <textarea id="sample" style="height: 200px;" required name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -176,10 +175,6 @@
 
 
     <script>
-        // const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
-
-        //     lang: SUNEDITOR_LANG['ko']
-        // });
         const editor = SUNEDITOR.create('sample', {
             buttonList: [
                 ['undo', 'redo'],

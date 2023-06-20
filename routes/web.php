@@ -117,6 +117,11 @@ Route::get('/da-muon-sach', [AdminController::class, 'daMuonSach'])->name('da-mu
 Route::get('/chi-tiet-phieu/{id}', [AdminController::class, 'chiTietPhieu'])->name('chi-tiet-phieu')->middleware('auth');
 
 Route::get('/thanh-toan-sach/{id}', [AdminController::class, 'thanhToanSach'])->name('thanh-toan-sach')->middleware('auth');
+
+
+Route::get('/chi-tiet-tai-khoan/{id}', [AdminController::class, 'chiTietTaiKhoan'])->name('chi-tiet-tai-khoan')->middleware('auth');
+Route::post('/thay-doi-thong-tin-tai-khoan/{id}', [AdminController::class, 'xuLyDoiThongTinNguoiDung'])->name('xu-ly-doi-thong-tin-tai-khoan')->middleware('auth');
+
 });
 
 Route::middleware('user')->group(function () {
