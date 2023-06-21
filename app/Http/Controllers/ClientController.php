@@ -54,16 +54,6 @@ class ClientController extends Controller
         ]);
     }
 
-    public function danhMucSach()
-    {
-        $the_loai=TheLoai::all();
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.the_loai_sach',[
-            'gio_sach'=>$gio_sach,
-            'the_loai'=>$the_loai,
-        ]);
-    }
-
     public function chiTietSach()
     {
         $id=request()->input('id');
@@ -97,6 +87,17 @@ class ClientController extends Controller
         ]);
     }
 
+
+    // List of Book
+    public function danhMucSach()
+    {
+        $the_loai=TheLoai::all();
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        return view('client.ds_sach.the_loai_sach',[
+            'gio_sach'=>$gio_sach,
+            'the_loai'=>$the_loai,
+        ]);
+    }
     public function sachTheoChuDe()
     {
         $dieu_kien=request()->input('dieu_kien');
@@ -113,7 +114,7 @@ class ClientController extends Controller
                 ['updated_at','>=',$start_of_week],
                 ['updated_at','<=',$end_of_week]
             ])->get();
-            return view('client.sach_theo_chu_de',[
+            return view('client.ds_sach.sach_theo_chu_de',[
                 'dieu_kien'=>1,
                 'gio_sach'=>$gio_sach,
                 'sach'=>$sach,
@@ -128,7 +129,7 @@ class ClientController extends Controller
             $tac_gia=TacGia::find($id);
             $sach=Sach::where('tac_gia_id',$id)->paginate('10');
             $so_luong=Sach::where('tac_gia_id',$id)->get();
-            return view('client.sach_theo_chu_de',[
+            return view('client.ds_sach.sach_theo_chu_de',[
                 'dieu_kien'=>2,
                 'gio_sach'=>$gio_sach,
                 'tac_gia'=>$tac_gia,
@@ -142,7 +143,7 @@ class ClientController extends Controller
             $the_loai=TheLoai::find($id);
             $sach=Sach::where('the_loai_id',$id)->paginate('10');
             $so_luong=Sach::where('the_loai_id',$id)->get();
-            return view('client.sach_theo_chu_de',[
+            return view('client.ds_sach.sach_theo_chu_de',[
                 'dieu_kien'=>3,
                 'gio_sach'=>$gio_sach,
                 'the_loai'=>$the_loai,
@@ -152,7 +153,6 @@ class ClientController extends Controller
         }
         return back();
     }
-
     public function thangNayDocGi()
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
@@ -166,16 +166,15 @@ class ClientController extends Controller
         ->groupBy('sach_id','doc_gia_id')
         ->select('sach_id','doc_gia_id',PhieuMuonSach::raw('count(*) as total'))
         ->take(15)->get();
-        return view('client.thang_nay_doc_gi',['xu_huong'=>$xu_huong,'gio_sach'=>$gio_sach]);
+        return view('client.ds_sach.thang_nay_doc_gi',['xu_huong'=>$xu_huong,'gio_sach'=>$gio_sach]);
     }
-
     public function timKiem(Request $request)
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         $key_word=$request->search;
         $sach=Sach::where('ten','like',"%$key_word%")->orWhere('mo_ta','like',"%$key_word%")->paginate('20');
         $so_luong=Sach::where('ten','like',"%$key_word%")->orWhere('mo_ta','like',"%$key_word%")->get();
-        return view('client.tim_kiem',[
+        return view('client.ds_sach.tim_kiem',[
             'sach'=>$sach,
             'gio_sach'=>$gio_sach,
             'so_luong'=>$so_luong->count(),
@@ -183,6 +182,8 @@ class ClientController extends Controller
         ]);
     }
 
+
+    // Show - Add - Remove Book from Cart
     public function themSachVaoGio()
     {
         $gio_sach=GioSach::where([['sach_id',request()->input('sach')],['doc_gia_id',Auth::user()->id]])->first();
@@ -194,14 +195,12 @@ class ClientController extends Controller
         }
         return back();
     }
-
     public function loaiKhoiGioSach()
     {
         $sach=request()->input('id');
         GioSach::where([['doc_gia_id',Auth::user()->id],['sach_id',$sach]])->delete();
         return back();
     }
-
     public function showGioSach()
     {
         $phieu_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])
@@ -213,12 +212,15 @@ class ClientController extends Controller
         ]);
     }
 
+
+    // Thêm phiếu mượn sách
     public function handleMuonSach(Request $request)
     {
         if (Arr::has($request->all(),'all')) {
             $tong_so_luong=count($request->all())-2;
+        } else {
+            $tong_so_luong=count($request->all())-1;
         }
-        $tong_so_luong=count($request->all())-1;
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
         $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
         if (blank(PhieuMuonSach::latest()->first())) {
@@ -257,6 +259,8 @@ class ClientController extends Controller
         return back();
     }
 
+
+    // Interact
     public function showLove()
     {
         $sach=request()->input('sach');
@@ -282,7 +286,6 @@ class ClientController extends Controller
         }
         return back();
     }
-
     public function handleBinhLuan(Request $request)
     {
         $sach=request()->input('sach');
@@ -298,34 +301,8 @@ class ClientController extends Controller
         return back();
     }
 
-    public function showLienHe() 
-    {
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        return view('client.lien_he',['gio_sach'=>$gio_sach]);
-    }
 
-    public function showBaiViet()
-    {
-        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        $noi_bat=TinTuc::where('noi_bat',1)->first();
-        $tin_tuc=TinTuc::where('noi_bat',0)->get();
-        return view('client.bai_viet',['gio_sach'=>$gio_sach,'noi_bat'=>$noi_bat,'tin_tuc'=>$tin_tuc]);
-    }
-
-    public function handleCapNhatThongTin(Request $request)
-    {
-        $img =NguoiDung::find(Auth::id());
-        if ($request->has('file')) {
-            $file = $request->file;
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/avt'), $filename);
-            $img->hinh_anh = $filename;
-        }
-        FacadesSession::flash('success', 'Xử lý thành công');
-        $img->save();
-        return redirect()->back();
-    }
-
+    // Info
     public function showCaNhan()
     {
         $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
@@ -340,5 +317,32 @@ class ClientController extends Controller
             'dang_muon'=>$dang_muon,
             'da_tra'=>$da_tra
         ]);
+    }
+    public function handleCapNhatThongTin(Request $request)
+    {
+        $img =NguoiDung::find(Auth::id());
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        FacadesSession::flash('success', 'Xử lý thành công');
+        $img->save();
+        return redirect()->back();
+    }
+
+
+    public function showLienHe() 
+    {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        return view('client.lien_he',['gio_sach'=>$gio_sach]);
+    }
+    public function showTinTuc()
+    {
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+        $noi_bat=TinTuc::where('noi_bat',1)->first();
+        $tin_tuc=TinTuc::where('noi_bat',0)->get();
+        return view('client.tin_tuc',['gio_sach'=>$gio_sach,'noi_bat'=>$noi_bat,'tin_tuc'=>$tin_tuc]);
     }
 }

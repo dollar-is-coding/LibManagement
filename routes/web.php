@@ -152,7 +152,7 @@ Route::middleware('user')->group(function () {
     Route::get('/yeu-thich', [ClientController::class, 'showLove'])->name('yeu-thich')->middleware('auth');
     Route::post('/binh-luan', [ClientController::class, 'handleBinhLuan'])->name('binh-luan')->middleware('auth');
     Route::get('/sach-theo-chu-de', [ClientController::class, 'sachTheoChuDe'])->name('sach-theo-chu-de')->middleware('auth');
-    Route::get('/bai-viet', [ClientController::class, 'showBaiViet'])->name('bai-viet')->middleware('auth');
+    Route::get('/tin-tuc', [ClientController::class, 'showTinTuc'])->name('tin-tuc')->middleware('auth');
     Route::post('/cap-nhat-thong-tin', [ClientController::class, 'handleCapNhatThongTin'])->name('cap-nhat-thong-tin')->middleware('auth');
     Route::get('/tai-khoan-cua-toi', [ClientController::class, 'showCaNhan'])->name('tai-khoan-cua-toi')->middleware('auth');
 });

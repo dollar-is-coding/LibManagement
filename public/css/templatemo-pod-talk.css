@@ -227,26 +227,17 @@ main {
     padding: 10px 20px;
 }
 
-.disable-btn {
-    background: var(--custom-btn-bg-hover-color);
-    border: 2px solid transparent;
-    border-radius: var(--border-radius-large);
-    color: var(--white-color);
-    font-family: var(--title-font-family);
-    font-size: var(--p-font-size);
-    font-weight: var(--font-weight-semibold);
-    line-height: normal;
-    transition: all 0.3s;
-    padding: 10px 20px;
+.disable {
+    pointer-events: none; 
+    background-color: #dddddd; 
+    color: rgb(80, 80, 80);
 }
-
-.disable-btn:hover {
-    background: var(--custom-btn-bg-hover-color);
-    color: var(--white-color);
+.disable-text {
+    color: rgb(130, 130, 130);
 }
 
 .danger-btn {
-    background: var(--custom-btn-bg-danger);
+    background: #DC1F16;
     border: 2px solid transparent;
     border-radius: var(--border-radius-large);
     color: var(--white-color);

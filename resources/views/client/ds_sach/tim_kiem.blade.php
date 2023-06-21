@@ -72,7 +72,7 @@
                                         </a>
                                     </div>
                                     <div class="mt-2">
-                                        <a href="#" class="btn custom-btn"> Chọn mượn </a>
+                                        @include('client.element.muon_sach_btn', ['sach' => $item])
                                     </div>
                                 </div>
                                 <div class="custom-block-info">
