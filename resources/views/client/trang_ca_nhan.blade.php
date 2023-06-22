@@ -161,7 +161,9 @@
                         </div>
 
                         <div class="tab-pane fade" id="fined-tab" role="tabpanel" aria-labelledby="nav-contact-tab"
-                            tabindex="0">..3.</div>
+                            tabindex="0">
+                            @include('client.cac_loai_phieu.phieu_phat', ['phieu_phat' => $phieu_phat])
+                        </div>
 
                         <div class="tab-pane fade" id="cancel-tab" role="tabpanel" aria-labelledby="nav-contact-tab"
                             tabindex="0">

@@ -16,6 +16,7 @@ use App\Models\BinhLuan;
 use App\Models\TinTuc;
 use App\Models\NguoiDung;
 use App\Models\ThuVien;
+use App\Models\PhieuPhat;
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
 
@@ -23,22 +24,27 @@ class ClientController extends Controller
 {
     public function index()
     {
-        if (Auth::user()) {
-            $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
-        } else {
-            $gio_sach=null;
-        }
-        $start_of_week=Carbon::now()->startOfWeek();
-        $end_of_week=Carbon::now()->endOfWeek();
-        $start_of_month=Carbon::now()->startOfMonth();
-        $end_of_month=Carbon::now()->endOfMonth();
+        $gio_sach=GioSach::where('doc_gia_id',Auth::user()->id)->get();
+
+        // Book recc
+        $book_recc=Sach::where('de_xuat',1)->get();
+        
+        // Hiện thị thể loại
         $the_loai=Sach::groupBy('the_loai_id')
             ->select('the_loai_id',Sach::raw('count(*) as total'))
             ->get();
+        
+        // Sách mới hàng tuần
+        $start_of_week=Carbon::now()->startOfWeek();
+        $end_of_week=Carbon::now()->endOfWeek();
         $sach_moi=Sach::where([
             ['updated_at','>=',$start_of_week],
             ['updated_at','<=',$end_of_week]
         ])->take(4)->get();
+
+        // Tháng này đọc gì
+        $start_of_month=Carbon::now()->startOfMonth();
+        $end_of_month=Carbon::now()->endOfMonth();
         $xu_huong=PhieuMuonSach::where([
             ['updated_at','>=',$start_of_month],
             ['updated_at','<=',$end_of_month],
@@ -47,7 +53,9 @@ class ClientController extends Controller
             ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
             ->orderBy('total','desc')
             ->get();
+        
         return view('client.index',[
+            'de_xuat'=>$book_recc,
             'the_loai'=>$the_loai,
             'sach_moi'=>$sach_moi,
             'gio_sach'=>$gio_sach,
@@ -339,12 +347,14 @@ class ClientController extends Controller
         $cho_duyet=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',1]])->get();
         $dang_muon=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',2]])->get();
         $da_tra=PhieuMuonSach::where([['doc_gia_id',Auth::user()->id],['trang_thai',3]])->get();
+        $phieu_phat=PhieuPhat::where('doc_gia_id',Auth::id())->get();
         return view('client.trang_ca_nhan',[
             'gio_sach'=>$gio_sach,
             'phieu_huy'=>$phieu_huy,
             'cho_duyet'=>$cho_duyet,
             'dang_muon'=>$dang_muon,
-            'da_tra'=>$da_tra
+            'da_tra'=>$da_tra,
+            'phieu_phat'=>$phieu_phat
         ]);
     }
     public function handleCapNhatThongTin(Request $request)

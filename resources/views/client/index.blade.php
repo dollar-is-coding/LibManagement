@@ -57,133 +57,35 @@
                         </div>
 
                         <div class="owl-carousel owl-theme">
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg"
-                                    class="owl-carousel-image img-fluid" alt="" />
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        Chuyện con mèo dạy hải âu bay
-                                    </h4>
-
-                                    <span class="badge">Đặng Hoàng Giang</span>
-
-                                    <span class="badge">#23456678</span>
+                            @foreach ($de_xuat as $sach)
+                                <div class="owl-carousel-info-wrap item">
+                                    @if ($sach->hinh_anh == '')
+                                        <img src="../img/default/no_book_slider.png"
+                                            class="owl-carousel-image img-fluid" alt="" />
+                                    @else
+                                        <img src="../img/books/{{ $sach->hinh_anh }}"
+                                            class="owl-carousel-image img-fluid" alt="" />
+                                    @endif
+                                    <div class="owl-carousel-info">
+                                        <h4 class="mb-2">
+                                            {{ $sach->ten }}
+                                        </h4>
+                                        <span class="badge">{{ $sach->fkTacGia->ten }}</span>
+                                        <span class="badge">#{{ $sach->ma_sach }}</span>
+                                    </div>
+                                    <div class="social-share">
+                                        <ul class="social-icon">
+                                            <li class="social-icon-item">
+                                                <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
+                                                    class="social-icon-link bi-eye"></a>
+                                            </li>
+                                            <li class="social-icon-item">
+                                                <a href="#" class="social-icon-link bi-cart"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-eye"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-cart"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg"
-                                    class="owl-carousel-image img-fluid" alt="" />
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Taylor</h4>
-
-                                    <span class="badge">Modeling</span>
-
-                                    <span class="badge">Fashion</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-pinterest"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid"
-                                    alt="" />
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Nick</h4>
-
-                                    <span class="badge">Acting</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-instagram"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-youtube"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                    class="owl-carousel-image img-fluid" alt="" />
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        Elsa
-                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                            alt="" />
-                                    </h4>
-
-                                    <span class="badge">Influencer</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-instagram"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-youtube"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg"
-                                    class="owl-carousel-image img-fluid" alt="" />
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Chan</h4>
-
-                                    <span class="badge">Education</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-linkedin"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -406,12 +308,12 @@
 
 <script>
     function handleGioSach(sach) {
-        var option=document.getElementById('sach_'+sach).innerHTML;
+        var option = document.getElementById('sach_' + sach).innerHTML;
         var request = new XMLHttpRequest();
         request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
             option), true);
         request.send();
-        if (option=='Chọn sách') {
+        if (option == 'Chọn sách') {
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     var data = JSON.parse(request.responseText);

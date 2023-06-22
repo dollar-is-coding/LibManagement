@@ -20,4 +20,8 @@ class PhieuPhat extends Model
         'tien_phat',
         'tong_tien_phat'
     ];
+    public function fkSach()
+    {
+        return $this->belongsTo(Sach::class,'sach_id');
+    }
 }

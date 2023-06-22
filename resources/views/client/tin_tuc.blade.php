@@ -62,9 +62,9 @@ https://templatemo.com/tm-584-pod-talk
 
                             <h6 class="mb-3">{{ $noi_bat->ten }}</h6>
 
-                            <p style="text-align: justify;">
-                                {{ $noi_bat->noi_dung }}
-                            </p>
+                            <div style="text-align: justify;">
+                                <?= htmlspecialchars_decode($noi_bat->noi_dung) ?>
+                            </div>
                             @if ($noi_bat->anh_bia)
                                 <div class="d-flex justify-content-center">
                                     <img src="../img/avt/{{ $noi_bat->anh_bia }}" class="about-image mt-3 img-fluid" />
