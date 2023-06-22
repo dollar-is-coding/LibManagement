@@ -51,7 +51,7 @@ Route::post('/sua-nha-xuat-ban/{id}', [AdminController::class, 'suaNhaXuatBan'])
 Route::post('/sua-the-loai/{id}', [AdminController::class, 'suaTheLoai'])->name('sua-the-loai')->middleware('auth');
 Route::post('/sua-khu-vuc/{id}', [AdminController::class, 'suaKhuVuc'])->name('sua-khu-vuc')->middleware('auth');
 Route::post('/sua-tu-sach/{id}', [AdminController::class, 'suaTuSach'])->name('sua-tu-sach')->middleware('auth');
-Route::get('/chinh-sua-sach/{id}/{id_tv}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
+Route::get('/chinh-sua-sach/{id}', [AdminController::class, 'suaSach'])->name('chinh-sua-sach')->middleware('auth');
 Route::post('/chinh-sua-sach/{id}/{id_tv}', [AdminController::class, 'xuLySuaSach'])->name('xu-ly-sua-sach')->middleware('auth');
 
 // XÓA SÁCH CÁC LOẠI

@@ -23,7 +23,8 @@ class Sach extends Model
         'luot_xem',
         'luot_thich',
         'luot_binh_luan',
-        'hinh_anh'
+        'hinh_anh',
+        'de_xuat',
     ];
     
     public function hasThuVien()

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -98,13 +99,13 @@
                                 <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
                                 <label class="pt-3" for="">Nội dung</label>
                                 <div class="form-floating">
-                                    <textarea id="sample" style="height: 200px;" required name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
+                                    <textarea id="sample" style="height: 200px;" name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: end;" class="mt-3 mr-2">
-                            <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
 
+                        <div style="display: flex; justify-content: end;" class="mt-3 mr-2 mb-3">
+                            <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
                             <button class="btn btn-success" type="submit">
                                 Thêm
                             </button>
@@ -189,8 +190,18 @@
                 ['preview'],
             ],
             width: '100%',
-            height: '400px',
+            height: '200px',
             placeholder: 'Nhập nội dung ở đây...'
+        });
+
+        const form = document.querySelector('form');
+        const textarea = document.getElementById('sample');
+
+        form.addEventListener('submit', function(event) {
+            // Lấy nội dung từ SunEditor
+            const content = editor.getContents();
+            // Gán nội dung vào trường textarea
+            textarea.value = content;
         });
 
 

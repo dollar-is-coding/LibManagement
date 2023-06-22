@@ -88,18 +88,38 @@ class AdminController extends Controller
             $tu_sach = $request->old('tu_sach');
             $mo_ta = $request->old('mo_ta');
             $gia_tien = $request->old('gia_tien');
-
-            Sach::create([
-                'ma_sach' => $randomTime,
-                'ten' => $request->ten_sach,
-                'tac_gia_id' => $request->tac_gia,
-                'the_loai_id' => $request->the_loai,
-                'nha_xuat_ban_id' => $request->nha_xuat_ban,
-                'nam_xuat_ban' => $request->nam_xuat_ban,
-                'mo_ta' => $request->mo_ta,
-                'hinh_anh' => $file_name,
-                'gia_tien' => $request->gia_tien,
-            ]);
+            
+            $dexuat = Sach::where('de_xuat',1)->count();
+            $dexuatend = Sach::where('de_xuat',1)->orderBy('created_at','desc')->first();
+            if($dexuat<7){
+                Sach::create([
+                    'ma_sach' => $randomTime,
+                    'ten' => $request->ten_sach,
+                    'tac_gia_id' => $request->tac_gia,
+                    'the_loai_id' => $request->the_loai,
+                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                    'nam_xuat_ban' => $request->nam_xuat_ban,
+                    'mo_ta' => $request->mo_ta,
+                    'hinh_anh' => $file_name,
+                    'gia_tien' => $request->gia_tien,
+                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                ]);
+            }else{
+                $dexuatend->de_xuat = 0;
+                $dexuatend->save();
+                Sach::create([
+                    'ma_sach' => $randomTime,
+                    'ten' => $request->ten_sach,
+                    'tac_gia_id' => $request->tac_gia,
+                    'the_loai_id' => $request->the_loai,
+                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                    'nam_xuat_ban' => $request->nam_xuat_ban,
+                    'mo_ta' => $request->mo_ta,
+                    'hinh_anh' => $file_name,
+                    'gia_tien' => $request->gia_tien,
+                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                ]);
+            }
             ThuVien::create([
                 'sach_id' => Sach::latest()->first()->id,
                 'tu_sach_id' => $request->tu_sach,
@@ -269,9 +289,12 @@ class AdminController extends Controller
     }
     public function xuLySuaSach($id, $id_tv, SachRequest $request)
     {
+        $dexuat = Sach::where('de_xuat', 1)->count();
+        $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
         if ($tangsl) {
-            if (strval($tangsl->id) === $request->id_sach) {
+            if (strval($tangsl->id) === strval($request->id_sach)) {
+                if ($dexuat < 7) {
                 Sach::find($id)->update([
                     'ten' => $request->ten_sach,
                     'tac_gia_id' => $request->tac_gia,
@@ -279,7 +302,23 @@ class AdminController extends Controller
                     'nha_xuat_ban_id' => $request->nha_xuat_ban,
                     'nam_xuat_ban' => $request->nam_xuat_ban,
                     'mo_ta' => $request->mo_ta,
+                    'de_xuat'=>$request->de_xuat ? 1 : 0,
+                    'gia_tien'=>$request->gia_tien,
                 ]);
+                }else{
+                    $dexuatend->de_xuat = 0;
+                    $dexuatend->save();
+                    Sach::find($id)->update([
+                        'ten' => $request->ten_sach,
+                        'tac_gia_id' => $request->tac_gia,
+                        'the_loai_id' => $request->the_loai,
+                        'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                        'nam_xuat_ban' => $request->nam_xuat_ban,
+                        'mo_ta' => $request->mo_ta,
+                        'de_xuat' => $request->de_xuat ? 1 : 0,
+                        'gia_tien' => $request->gia_tien,
+                    ]);
+                }
                 $img = Sach::find($id);
                 if ($request->has('file')) {
                     $file = $request->file;
@@ -301,19 +340,36 @@ class AdminController extends Controller
                     'sach_id' => $tangsl->id
                 ]);
                 Sach::find($id)->delete();
-                ThuVien::where('sach_id', $tangsl->id)->delete();
+                ThuVien::where('sach_id', $id_tv)->delete();
                 FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('hien-thi-sach');
             }
         } else {
-            Sach::find($id)->update([
-                'ten' => $request->ten_sach,
-                'tac_gia_id' => $request->tac_gia,
-                'the_loai_id' => $request->the_loai,
-                'nha_xuat_ban_id' => $request->nha_xuat_ban,
-                'nam_xuat_ban' => $request->nam_xuat_ban,
-                'mo_ta' => $request->mo_ta,
-            ]);
+            if ($dexuat < 7) {
+                Sach::find($id)->update([
+                    'ten' => $request->ten_sach,
+                    'tac_gia_id' => $request->tac_gia,
+                    'the_loai_id' => $request->the_loai,
+                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                    'nam_xuat_ban' => $request->nam_xuat_ban,
+                    'mo_ta' => $request->mo_ta,
+                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                    'gia_tien' => $request->gia_tien,
+                ]);
+            } else {
+                $dexuatend->de_xuat = 0;
+                $dexuatend->save();
+                Sach::find($id)->update([
+                    'ten' => $request->ten_sach,
+                    'tac_gia_id' => $request->tac_gia,
+                    'the_loai_id' => $request->the_loai,
+                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                    'nam_xuat_ban' => $request->nam_xuat_ban,
+                    'mo_ta' => $request->mo_ta,
+                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                    'gia_tien' => $request->gia_tien,
+                ]);
+            }
             $img = Sach::find($id);
             if ($request->has('file')) {
                 $file = $request->file;
@@ -601,8 +657,8 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro', 1)->get();
-        $thuthu = NguoiDung::where('vai_tro', 2)->get();
+        $admin = NguoiDung::where('vai_tro', 1)->where('id','!=',Auth::id())->get();
+        $thuthu = NguoiDung::where('vai_tro', 2)->where('id', '!=', Auth::id())->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
         return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
         // return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
@@ -806,5 +862,40 @@ class AdminController extends Controller
         }
         // Phạt đi
         
+    }
+    public function chiTietTaiKhoan($id){
+        $detail = NguoiDung::find($id);
+        return view('tai_khoan.detail',['detail'=>$detail]);
+    }
+    public function xuLyDoiThongTinNguoiDung($id,Request $request){
+        $vaitro = NguoiDung::where('id',$id)->first();
+        if($vaitro->vai_tro == 1 || $vaitro->vai_tro == 2){
+            NguoiDung::find($id)->update([
+                'ho' => $request->ho,
+                'ten' => $request->ten,
+                'ma_hs' => '',
+                'ngay_sinh' => $request->ngay_sinh,
+                'gioi_tinh' => $request->gioi_tinh,
+            ]);
+        }else if($vaitro->vai_tro == 3){
+            NguoiDung::find($id)->update([
+                'ho' => $request->ho,
+                'ten' => $request->ten,
+                'ma_hs' => $request->ma_hs,
+                'ngay_sinh' => $request->ngay_sinh,
+                'gioi_tinh' => $request->gioi_tinh,
+            ]);
+        }
+        $img = NguoiDung::find($id);
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/avt'), $filename);
+            $img->hinh_anh = $filename;
+        }
+        FacadesSession::flash('success', 'Xử lý thành công');
+        $img->save();
+
+        return back();
     }
 }

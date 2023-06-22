@@ -87,7 +87,7 @@
                                     <p class="ml-3">Thủ thư: <b>{{$chi_tiet_sach->fkThuThu->ten}}</b></p>
                                     @endif
                                 </div>
-                                <p>Tổng số lượng sách: <b>{{$chi_tiet_sach->tong_so_luong-1}}</b></p>
+                                <p>Tổng số lượng sách: <b>{{$chi_tiet_sach->tong_so_luong}}</b></p>
                             </div>
 
                             <div style="flex-basis: 25%;margin: 10px 0 0 0;">

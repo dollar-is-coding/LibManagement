@@ -153,6 +153,21 @@
                         @endif
                         <form action="{{ route('xu-ly-them-sach') }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <div class="form-group">
+                                <input style="width: 17px;height: 17px;" type="checkbox" name="de_xuat" id="checkDeXuat">
+                                <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> Không đề xuất</label>
+                                <script>
+                                    let check = document.getElementById('checkDeXuat');
+                                    let text = document.getElementById('changeContext');
+                                    check.onchange = function() {
+                                        if (check.checked === true) {
+                                            text.innerHTML = 'Đề xuất'
+                                        } else {
+                                            text.innerHTML = 'Không đề xuất'
+                                        }
+                                    }
+                                </script>
+                            </div>
                             <div style="display: flex;flex-direction: row-reverse;">
                                 <!-- form -->
                                 <div style="flex-basis: 70%">

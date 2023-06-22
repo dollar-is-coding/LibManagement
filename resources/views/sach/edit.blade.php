@@ -78,6 +78,21 @@
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <div class="form-group">
+                            <input name="de_xuat" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
+                            <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> {{$item->fkSach->de_xuat == 1 ? 'Đề xuất' : 'Không đề xuất'}}</label>
+                            <script>
+                                let check = document.getElementById('checkDeXuat');
+                                let text = document.getElementById('changeContext');
+                                check.onchange = function() {
+                                    if (check.checked === true) {
+                                        text.innerHTML = 'Đề xuất'
+                                    } else {
+                                        text.innerHTML = 'Không đề xuất'
+                                    }
+                                }
+                            </script>
+                        </div>
                         <div style="display: flex;flex-direction: row-reverse;">
                             <!-- form -->
 
@@ -151,25 +166,37 @@
                                     @endforeach
                                 </div>
                                 <!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="m-0">&nbsp;Tủ sách</label>
-                                    <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
-                                        <option disabled value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
-                                            {{ $item->fkTuSach->ten }}
-                                        </option>
-                                        @foreach ($khu_vuc as $khu_vuc_item)
-                                        <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
-                                            @foreach ($tu_sach as $tu_sach_item)
-                                            @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
-                                            <option value="{{ $tu_sach_item->id }}">
-                                                {{ $tu_sach_item->ten }}
+                                <div class="form-group" style="display: grid;grid-template-columns: auto auto;">
+                                    <div class="form-group mr-3">
+                                        <label class="m-0">&nbsp;Tủ sách</label>
+                                        <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
+                                            <option disabled value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
+                                                {{ $item->fkTuSach->ten }}
                                             </option>
-                                            @endif
+                                            @foreach ($khu_vuc as $khu_vuc_item)
+                                            <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                                @foreach ($tu_sach as $tu_sach_item)
+                                                @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
+                                                <option value="{{ $tu_sach_item->id }}">
+                                                    {{ $tu_sach_item->ten }}
+                                                </option>
+                                                @endif
+                                                @endforeach
+                                            </optgroup>
                                             @endforeach
-                                        </optgroup>
-                                        @endforeach
-                                    </select>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <label class="m-0">&nbsp;Giá tiền</label>
+                                            @error('gia_tien')
+                                            <div style="font-style: italic;" class="text-danger">
+                                                {{ $message }} *&nbsp;
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <input type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{$item->fkSach->gia_tien}}" tabindex="11">
+                                    </div>
                                 </div>
                             </div>
                             <!-- up ảnh -->
