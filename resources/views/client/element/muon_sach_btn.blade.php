@@ -1,15 +1,15 @@
 {{-- Sách không được mượn --}}
 @if ($sach->hasPhieuMuon->count() == 0)
     @if ($sach->hasGioSach->count()==0)
-        <a href="{{route('them-sach-vao-gio',['sach'=>$sach->id])}}" class="btn custom-btn">Chọn sách</a>
+        <a class="btn custom-btn" id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})">Chọn sách</a>
     @else
         @foreach ($sach->hasGioSach as $key_gs=> $gio_sach)
             @if ($gio_sach->doc_gia_id==Auth::id())
-                <a href="{{route('loai-khoi-gio-sach',['id'=>$sach->id])}}" class="btn danger-btn">Bỏ chọn</a>
+                <a id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})" class="btn danger-btn">Bỏ chọn</a>
                 @break
             @endif
             @if ($gio_sach->hasGioSach->count()-1==$key_gs)
-                <a href="{{route('them-sach-vao-gio',['sach'=>$sach->id])}}" class="btn custom-btn">Chọn sách</a>
+                <a class="btn custom-btn" id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})">Chọn sách</a>
             @endif
         @endforeach
     @endif
@@ -22,15 +22,15 @@
         @endif
         @if ($sach->hasPhieuMuon->count()-1==$pm_key)
             @if ($sach->hasGioSach->count()==0)
-                <a href="{{route('them-sach-vao-gio',['sach'=>$sach->id])}}" class="btn custom-btn">Chọn sách</a>
+                <a class="btn custom-btn" id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})">Chọn sách</a>
             @else
                 @foreach ($sach->hasGioSach as $key_gs=> $gio_sach)
                     @if ($gio_sach->doc_gia_id==Auth::id())
-                        <a href="{{route('loai-khoi-gio-sach',['id'=>$sach->id])}}" class="btn danger-btn">Bỏ chọn</a>
+                        <a id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})" class="btn danger-btn">Bỏ chọn</a>
                         @break
                     @endif
                     @if ($gio_sach->hasGioSach->count()-1==$key_gs)
-                        <a href="{{route('them-sach-vao-gio',['sach'=>$sach->id])}}" class="btn custom-btn">Chọn sách</a>
+                        <a class="btn custom-btn" id="sach_{{$sach->id}}" onclick="handleGioSach({{$sach->id}})">Chọn sách</a>
                     @endif
                 @endforeach
             @endif
