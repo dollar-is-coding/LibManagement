@@ -26,6 +26,7 @@ use App\Http\Requests\CapTheRequest;
 use App\Http\Requests\SachRequest;
 use App\Http\Requests\CapTaiKhoanRequest;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Arr;
 
 use App\Imports\ExcelImport;
 use App\Imports\ExcelImportThuVien;
@@ -854,14 +855,44 @@ class AdminController extends Controller
     }
 
     public function handleThanhToan(Request $request)
-    {
-        // Không phạt
-        if ($request->charge==0) {
-            PhieuTraSach::create(['ma_phieu_muon'=>$request->ma_phieu_muon,'thu_thu_id'=>Auth::id(),'trang_thai'=>0]);
-            return redirect()->route('/da-muon-sach');
+    { 
+        PhieuTraSach::create([
+            'ma_phieu_muon'=>$request->ma_phieu,
+            'thu_thu_id'=>Auth::id(),
+            'trang_thai'=>$request->het_han==1?1:0 // Kiểm tra 1 là quá hạn, 0 là đúng hạn
+        ]);
+        PhieuMuonSach::where('ma_phieu_muon',$request->ma_phieu)->update(['trang_thai'=>3]);
+        foreach ($request->all() as $key => $value) {
+            if ($key!='_token'&&is_numeric($key)) {
+                $array=explode('|',$value);
+                // Nếu hết hạn thì phạt tất cả cuốn sách
+                if ($request->het_han==1) {
+                    PhieuPhat::create([
+                        'doc_gia_id'=>$request->doc_gia,
+                        'thu_thu_id'=>Auth::id(),
+                        'ma_phieu'=>$request->ma_phieu,
+                        'sach_id'=>$key,
+                        'so_luong'=>1,
+                        'ly_do'=>$array[1]==1?'Hết hạn':($array[1]==2?'Hết hạn + Mất sách':'Hết hạn + Hư hại'),
+                        'tien_phat'=>$array[0]+20000,
+                        'tong_tien_phat'=>$request->tong_tien_phat
+                    ]);
+                // Nếu không quá hạn thì chỉ phạt MẤT SÁCH (2) & HƯ HẠI (3)
+                } elseif($array[0]!=0) {
+                    PhieuPhat::create([
+                        'doc_gia_id'=>$request->doc_gia,
+                        'thu_thu_id'=>Auth::id(),
+                        'ma_phieu'=>$request->ma_phieu,
+                        'sach_id'=>$key,
+                        'so_luong'=>1,
+                        'ly_do'=>$array[1]==2?'Mất sách':'Hư hại',
+                        'tien_phat'=>$array[0],
+                        'tong_tien_phat'=>$request->tong_tien_phat
+                    ]);
+                }
+            }
         }
-        // Phạt đi
-        
+        return redirect()->route('da-muon-sach');
     }
     public function chiTietTaiKhoan($id){
         $detail = NguoiDung::find($id);

@@ -23,32 +23,16 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-lg-auto">
-                <li class="nav-item">
-                    <a class="nav-link {{ $view == 1 ? 'active' : '' }}" href="{{ route('trang-chu-client') }}">Trang
-                        chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ $view == 2 ? 'active' : '' }}" href="{{ route('the-loai-sach') }}">
-                        Thể loại sách</a>
-                </li>
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle {{ $view == 3 ? 'active' : '' }}" href="#"
-                        id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Bài viết</a>
-                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('bai-viet') }}">Tin tức</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">Review sách</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ $view == 4 ? 'active' : '' }}" href="{{ route('lien-he') }}">
-                        Liên hệ
-                    </a>
-                </li>
+                <li class="nav-item"><a class="nav-link {{ $view == 1 ? 'active' : '' }}"
+                        href="{{ route('trang-chu-client') }}">
+                        Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link {{ $view == 2 ? 'active' : '' }}"
+                        href="{{ route('the-loai-sach') }}">
+                        Thể loại sách</a></li>
+                <li class="nav-item"><a class="nav-link {{ $view == 3 ? 'active' : '' }}" href="{{ route('tin-tuc') }}">
+                        Tin tức</a></li>
+                <li class="nav-item"><a class="nav-link {{ $view == 4 ? 'active' : '' }}" href="{{ route('lien-he') }}">
+                        Liên hệ</a></li>
                 @if (Auth::user() && Auth::user()->vai_tro == 3)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown bi bi-person-circle {{ $view == 5 ? 'active' : '' }}"
@@ -56,25 +40,17 @@
                             aria-expanded="false">
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
-                                    ({{ $gio_sach->count() }})</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('tai-khoan-cua-toi') }}">
-                                    Trang cá nhân</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">
-                                    Đăng xuất</a>
-                            </li>
+                            <li><a class="dropdown-item" href="{{ route('hien-thi-gio-sach') }}">Giỏ sách
+                                    ({{ $gio_sach->count() }})</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tai-khoan-cua-toi') }}">
+                                    Tài khoản của tôi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('xu-ly-dang-xuat') }}">
+                                    Đăng xuất</a></li>
                         </ul>
                     </li>
                 @else
-                    <li>
-                        <a href="{{ route('dang-nhap') }}" class="btn custom-btn custom-border-btn smoothscroll">Đăng
-                            nhập</a>
-                    </li>
+                    <li><a href="{{ route('dang-nhap') }}" class="btn custom-btn custom-border-btn smoothscroll">
+                            Đăng nhập</a></li>
                 @endif
             </ul>
         </div>

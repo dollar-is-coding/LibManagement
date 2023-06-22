@@ -82,25 +82,29 @@
                     <hr>
                     <form action="{{ route('thanh-toan') }}" method="post">
                         @csrf
+                        <input type="text" name="het_han"
+                            value="{{ Carbon\Carbon::now() > Carbon\Carbon::parse($detail->han_tra) ? 1 : 0 }}">Hết hạn?
+                        <input type="text" name="doc_gia" value="{{ $detail->doc_gia_id }}">Độc giả
+                        <input type="text" name="ma_phieu" value="{{ $detail->ma_phieu_muon }}">Mã phiếu
                         <div class="table-responsive">
                             @foreach ($thanhtoan as $key => $item)
                                 <div class="thanhtoan" data-id="{{ $item->sach_id }}">
-                                    <input checked type="radio" value="0|Nguyen ven" name="{{ $item->sach_id }}"
+                                    <input checked type="radio" value="0|1" name="{{ $item->sach_id }}"
                                         id="{{ $item->sach_id }}_nguyen">Còn nguyên
-                                    <input type="radio" value="{{ $item->fkSach->gia_tien }}|Mat sach"
+                                    <input type="radio" value="{{ $item->fkSach->gia_tien }}|2"
                                         name="{{ $item->sach_id }}" id="{{ $item->sach_id }}_mat">Mất sách
-                                    <input type="radio" value="{{ $item->fkSach->gia_tien * 0.7 }}|Hu sach"
+                                    <input type="radio" value="{{ $item->fkSach->gia_tien * 0.7 }}|3"
                                         name="{{ $item->sach_id }}" id="{{ $item->sach_id }}_hu">Hư
                                     <div id="{{ $item->sach_id }}_a" style="display: none;">
                                         <div class="form-floating">
-                                            <textarea name="{{ $item->sach_id }},hư sách" class="form-control" placeholder="Trình trạng hư hỏng"
+                                            <textarea class="form-control" name="hu_hong_{{ $item->sach_id }}" placeholder="Trình trạng hư hỏng"
                                                 id="floatingTextarea"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                             @endforeach
-                            <input name="charge" id="tongtien" style="pointer-events: none">
+                            <input name="tong_tien_phat" id="tongtien" style="pointer-events: none">
                             <script>
                                 function tinhtongtiensach(key) {
                                     let hu = document.getElementById(`${key}_hu`);
