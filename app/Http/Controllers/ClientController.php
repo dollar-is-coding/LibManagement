@@ -17,6 +17,7 @@ use App\Models\TinTuc;
 use App\Models\NguoiDung;
 use App\Models\ThuVien;
 use Illuminate\Support\Arr;
+use Illuminate\Http\JsonResponse;
 
 class ClientController extends Controller
 {
@@ -184,22 +185,43 @@ class ClientController extends Controller
 
 
     // Show - Add - Remove Book from Cart
+    public function handleGioSach()
+    {
+        if (request()->input('gio_sach')=='Chọn sách') {
+            $gio_sach=GioSach::where([
+                ['sach_id',request()->input('sach')],
+                ['doc_gia_id',Auth::user()->id]
+            ])->first();
+            if (!$gio_sach) {
+                GioSach::create([
+                    'doc_gia_id'=>Auth::user()->id,
+                    'sach_id'=>request()->input('sach')
+                ]);
+            }
+            return response()->json(['data'=>'success']);
+        }
+        GioSach::where([['doc_gia_id',Auth::user()->id],['sach_id',request()->input('sach')]])->delete();
+        return response()->json(['data'=>'success']);
+    }
     public function themSachVaoGio()
     {
-        $gio_sach=GioSach::where([['sach_id',request()->input('sach')],['doc_gia_id',Auth::user()->id]])->first();
+        $gio_sach=GioSach::where([
+            ['sach_id',request()->input('sach')],
+            ['doc_gia_id',Auth::user()->id]
+        ])->first();
         if (!$gio_sach) {
             GioSach::create([
                 'doc_gia_id'=>Auth::user()->id,
                 'sach_id'=>request()->input('sach')
             ]);
         }
-        return back();
+        return response()->json(['data'=>'Bỏ chọn']);
     }
     public function loaiKhoiGioSach()
     {
         $sach=request()->input('id');
         GioSach::where([['doc_gia_id',Auth::user()->id],['sach_id',$sach]])->delete();
-        return back();
+        return response()->json(['message'=>'success']);
     }
     public function showGioSach()
     {
@@ -246,7 +268,9 @@ class ClientController extends Controller
                     'tong_so_luong'=>$tong_so_luong
                 ]);
                 GioSach::where('sach_id',$key)->delete();
-                ThuVien::where('sach_id',$key)->update(['sl_con_lai'=>ThuVien::where('sach_id',$key)->first()->sl_con_lai-1]);
+                ThuVien::where('sach_id',$key)->update([
+                    'sl_con_lai'=>ThuVien::where('sach_id',$key)->first()->sl_con_lai-1
+                ]);
             }
         }
         return redirect()->route('tai-khoan-cua-toi',['gio_sach'=>$gio_sach,'cho_duyet'=>$cho_duyet]);
@@ -255,6 +279,11 @@ class ClientController extends Controller
     public function cancelPhieuMuon()
     {
         $ma_phieu_cho=request()->input('ma_phieu_muon');
+        $ds_phieu=PhieuMuonSach::where('ma_phieu_muon',$ma_phieu_cho)->get();
+        foreach ($ds_phieu as $key => $value) {
+            ThuVien::where('sach_id',$value->sach_id)
+            ->update(['sl_con_lai'=>ThuVien::where('sach_id',$value->sach_id)->first()->sl_con_lai+1]);
+        }
         PhieuMuonSach::where('ma_phieu_muon',$ma_phieu_cho)->update(['trang_thai'=>0]);
         return back();
     }
@@ -344,5 +373,10 @@ class ClientController extends Controller
         $noi_bat=TinTuc::where('noi_bat',1)->first();
         $tin_tuc=TinTuc::where('noi_bat',0)->get();
         return view('client.tin_tuc',['gio_sach'=>$gio_sach,'noi_bat'=>$noi_bat,'tin_tuc'=>$tin_tuc]);
+    }
+    public function ajaxHere()
+    {
+        $data='Bỏ chọn';
+        return response()->json(['data'=>$data]);
     }
 }
