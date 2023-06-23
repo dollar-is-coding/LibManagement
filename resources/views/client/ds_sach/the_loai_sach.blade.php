@@ -100,37 +100,34 @@
                                                         </a></strong>
                                                 </p>
                                             </div>
-                                            <div class="custom-block-bottom d-flex justify-content-between">
-                                                @include('client.element.interact_bar', ['sach' => $sach])
-                                            <div class="me-1"></div>
+                                            @include('client.element.interact_bar', ['sach' => $sach])
                                         </div>
                                     </div>
                                 </div>
+                                @if ($key == 3)
+                                @break
+                            @endif
+                        @endforeach
+                        @if ($item->hasSach->count() > 4)
+                            <div></div>
+                            <div class="col-lg-4 col-12 mx-auto">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination pagination-lg justify-content-center mt-5">
+                                        <h4>
+                                            <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->id]) }}"
+                                                onMouseOver="this.style.textDecoration='underline'"
+                                                onMouseOut="this.style.textDecoration='none'" href="">
+                                                Xem tất cả</a>
+                                        </h4>
+                                    </ul>
+                                </nav>
                             </div>
-                            @if ($key == 3)
-                            @break
                         @endif
-                    @endforeach
-                    @if ($item->hasSach->count() > 4)
-                        <div></div>
-                        <div class="col-lg-4 col-12 mx-auto">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination pagination-lg justify-content-center mt-5">
-                                    <h4>
-                                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->id]) }}"
-                                            onMouseOver="this.style.textDecoration='underline'"
-                                            onMouseOut="this.style.textDecoration='none'" href="">
-                                            Xem tất cả</a>
-                                    </h4>
-                                </ul>
-                            </nav>
-                        </div>
-                    @endif
+                    </div>
                 </div>
-            </div>
-        </section>
-    @endif
-@endforeach
+            </section>
+        @endif
+    @endforeach
 </main>
 
 @include('client.element.footer')
@@ -142,12 +139,12 @@
 <script src="js/custom.js"></script>
 <script>
     function handleGioSach(sach) {
-        var option=document.getElementById('sach_'+sach).innerHTML;
+        var option = document.getElementById('sach_' + sach).innerHTML;
         var request = new XMLHttpRequest();
         request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
             option), true);
         request.send();
-        if (option=='Chọn sách') {
+        if (option == 'Chọn sách') {
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     var data = JSON.parse(request.responseText);

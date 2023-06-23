@@ -1,17 +1,17 @@
 @if ($cho_duyet->count() <= 0)
-    <div class="sono d-flex justify-content-center mt-5 mb-5 ">
+    <div class="sono d-flex justify-content-center mt-5 mb-5">
         <div class="disable-text"><strong>Không có phiếu đang chờ duyệt nào!</strong></div>
     </div>
 @else
     @foreach ($cho_duyet as $key => $item)
         @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
-            <div class="mt-4" style="font-family: 'sono'">
+            <div class="mt-4" style="font-family: 'sono'" id="{{ $item->ma_phieu_muon }}">
                 <div class="custom-block">
                     <div class="d-flex align-items-center justify-content-between">
                         <h6 class="m-0">Mã số: #{{ $item->ma_phieu_muon }}</h6>
-                        <div class="m-0"><strong>
-                                Tổng số lượng ({{ $item->tong_so_luong }})
-                            </strong></div>
+                        <div class="m-0">
+                            <strong>Tổng số lượng ({{ $item->tong_so_luong }})</strong>
+                        </div>
                     </div>
         @endif
         @if (
@@ -58,8 +58,7 @@
                     <p class="m-0">Ngày cần trả:&nbsp;</p>
                     <div>{{ date('d-m-Y', strtotime($item->han_tra)) }}</div>
                 </div>
-                <a href="{{ route('huy-phieu-muon', ['ma_phieu_muon' => $item->ma_phieu_muon]) }}"
-                    class="btn danger-btn">Hủy phiếu</a>
+                <a onclick="cancelPhieuMuon({{ $item->ma_phieu_muon }})" class="btn danger-btn">Hủy phiếu</a>
             </div>
             </div>
             </div>

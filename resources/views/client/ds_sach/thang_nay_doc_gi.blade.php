@@ -106,12 +106,7 @@
                                                 </strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between">
-                                            @include('client.element.interact_bar', [
-                                                'sach' => $item->fkSach,
-                                            ])
-                                            <div class="me-1"></div>
-                                        </div>
+                                        @include('client.element.interact_bar', ['sach' => $item->fkSach])
                                     </div>
                                 </div>
                             </div>
