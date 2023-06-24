@@ -28,6 +28,12 @@ Route::post('/xac-minh', [HomeController::class, 'XuLyNhapMaXacMinh']);
 
 // Route::middleware('guest')->group(function () {
 Route::middleware('admin')->group(function () {
+//quen mat khau
+Route::get('/xac-minh-quen-mat-khau-nguoi-dung', [HomeController::class, 'hienNhapXacThucQuenMatKhau'])->name('nhap-ma-quen-mat-khau');
+Route::post('/xac-minh-quen-mat-khau-nguoi-dung', [HomeController::class, 'xuLyGuiMaQuenMatKhau'])->name('xu-ly-gui-ma-quen-mat-khau');
+
+Route::get('/doi-mat-khau-moi', [HomeController::class, 'hienDoiMatKhau'])->name('hien-doi-mat-khau-moi');
+Route::post('/doi-mat-khau-moi', [HomeController::class, 'xuLyNhapMaXacThucQuenMatKhau'])->name('nhap-ma-xac-thuc-quen-mat-khau');
 // DASHBOARD
 Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 // XEM, TÌM KIẾM & CHI TIẾT SÁCH
@@ -45,6 +51,8 @@ Route::post('/them-tu-sach', [AdminController::class, 'themTuSach'])->name('them
 
 //import SÁCH
 Route::post('/import-sach-excel', [AdminController::class, 'import_csv'])->name('import-sach')->middleware('auth');
+//export
+Route::post('/export-excel', [AdminController::class, 'export'])->name('export')->middleware('auth');
 // CHỈNH SỬA SÁCH CÁC LOẠI
 Route::post('/sua-tac-gia/{id}', [AdminController::class, 'suaTacgia'])->name('sua-tac-gia')->middleware('auth');
 Route::post('/sua-nha-xuat-ban/{id}', [AdminController::class, 'suaNhaXuatBan'])->name('sua-nha-xuat-ban')->middleware('auth');
@@ -124,7 +132,6 @@ Route::post('/thay-doi-thong-tin-tai-khoan/{id}', [AdminController::class, 'xuLy
 
 Route::post('/thanh-toan-sach', [AdminController::class, 'handleThanhToan'])->name('thanh-toan')->middleware('auth');
 });
-
 Route::middleware('user')->group(function () {
     Route::get('/nguoi-dung',function(){
         return view('client.dang_nhap');

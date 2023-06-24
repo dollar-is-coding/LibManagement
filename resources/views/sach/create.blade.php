@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -335,10 +336,12 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group">
                                 <label for="">&nbsp;Nội dung tóm tắt</label>
-                                <textarea rows="10" class="form-control" name="mo_ta" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ old('tom_tat') }}</textarea>
+                                <textarea rows="10" id="sample" style="height: 200px;" name="mo_ta" class="form-control" placeholder="Mô tả" tabindex="9">{{ old('tom_tat') }}</textarea>
                             </div>
+
 
                             <div style="display: flex; justify-content: end;">
                                 <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
@@ -818,6 +821,37 @@
             object-fit: cover;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <script>
+        const editor = SUNEDITOR.create('sample', {
+            buttonList: [
+                ['undo', 'redo'],
+                ['font', 'fontSize', 'formatBlock'],
+                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                ['fontColor', 'hiliteColor', 'textStyle'],
+                ['removeFormat'],
+                '/',
+                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                ['table', 'link', 'image', 'video'],
+                ['fullScreen', 'showBlocks', 'codeView'],
+                ['preview'],
+            ],
+            width: '100%',
+            height: '200px',
+            placeholder: 'Nhập nội dung ở đây...'
+        });
+
+        const form = document.querySelector('form');
+        const textarea = document.getElementById('sample');
+
+        form.addEventListener('submit', function(event) {
+            // Lấy nội dung từ SunEditor
+            const content = editor.getContents();
+            // Gán nội dung vào trường textarea
+            textarea.value = content;
+        });
+    </script>
     <script>
         function chooseFile(fileinput) {
             const previewContainer = document.getElementById("preview-container");

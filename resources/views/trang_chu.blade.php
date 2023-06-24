@@ -48,6 +48,13 @@
                         <h2 class="az-dashboard-title">Hi, {{$ten}} welcome back!</h2>
                         <!-- <p class="az-dashboard-text">Your web analytics dashboard template.</p> -->
                     </div>
+                    <!-- export -->
+                    <div>
+                        <form action="{{route('export')}}" method="POST">
+                            @csrf
+                            <input type="submit" value="Export Excel" name="export_csv" class="btn btn-success">
+                        </form>
+                    </div>
                     <div style="display: none;" class="az-content-header-right">
                         <div class="media">
                             <div class="media-body">

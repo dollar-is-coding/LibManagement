@@ -20,4 +20,16 @@ class PhieuPhat extends Model
         'tien_phat',
         'tong_tien_phat'
     ];
+    public function fkThuThu()
+    {
+        return $this->belongsTo(NguoiDung::class, 'thu_thu_id');
+    }
+    public function fkDocGia()
+    {
+        return $this->belongsTo(NguoiDung::class, 'doc_gia_id');
+    }
+    public function fkSach()
+    {
+        return $this->belongsTo(Sach::class, 'sach_id');
+    }
 }

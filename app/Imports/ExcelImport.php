@@ -2,26 +2,30 @@
 
 namespace App\Imports;
 
-use App\Models\Sach;
+use App\Models\NguoiDung;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ExcelImport implements ToModel
+class ExcelImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
-        return new Sach([
-            'ten' => $row[0],
-            'ma_sach' => $row[1],
-            'tac_gia_id' => $row[2],
-            'nha_xuat_ban_id' => $row[3],
-            'the_loai_id' => $row[4],
-            'nam_xuat_ban' => $row[5],
-            'hinh_anh' => $row[6],
+        return new NguoiDung([
+            'ho' => $row['ho'],
+            'ten' => $row['ten'],
+            'ma_hs' => $row['ma_hs'],
+            'ngay_sinh' => date('Y-m-d', strtotime($row['ngay_sinh'])),
+            'gioi_tinh' => $row['gioi_tinh'],
+            'email' => $row['email'],
+            'mat_khau' => password_hash($row['mat_khau'], PASSWORD_DEFAULT),
+            'vai_tro' => 3,
+            'hinh_anh' => '',
+            'dien_thoai' => '',
         ]);
     }
 }

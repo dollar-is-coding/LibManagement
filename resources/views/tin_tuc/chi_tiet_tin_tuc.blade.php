@@ -87,7 +87,11 @@
                         @endif
                     </div>
                     <div style="flex-basis: 70%;" class="pr-3">
-                        <p>{{$item->noi_dung}}</p>
+                        <p>
+                            @php
+                            echo $item->noi_dung;
+                            @endphp
+                        </p>
                     </div>
                 </div>
                 <div style="display: flex;" class="pt-3">

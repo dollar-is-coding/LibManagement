@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -99,13 +100,12 @@
                             <label for="">Tiêu đề</label>
                             <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" value="{{$item->ten}}">
                             <label class="pt-3" for="">Nội dung</label>
-                            <!-- <textarea id="sample"></textarea> -->
                             <div class="form-floating">
-                                <textarea style="height: 200px;" required name="noi_dung" class="form-control">{{$item->noi_dung}}</textarea>
+                                <textarea id="sample" style="height: 200px;" name="noi_dung" class="form-control" placeholder="Nội dung">{{$item->noi_dung}}</textarea>
                             </div>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: end;" class="mt-3 mr-2">
+                    <div style="display: flex; justify-content: end;" class="mt-3 mr-2 mb-3">
                         <a href="{{route('danh-sach-tin-tuc')}}" class="btn btn-danger" style="margin-right: 2%">Hủy</a>
                         <button class="btn btn-success" type="submit">
                             Sửa
@@ -176,10 +176,6 @@
 
 
     <script>
-        // const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
-
-        //     lang: SUNEDITOR_LANG['ko']
-        // });
         const editor = SUNEDITOR.create('sample', {
             buttonList: [
                 ['undo', 'redo'],
@@ -194,8 +190,18 @@
                 ['preview'],
             ],
             width: '100%',
-            height: '400px',
+            height: '200px',
             placeholder: 'Nhập nội dung ở đây...'
+        });
+
+        const form = document.querySelector('form');
+        const textarea = document.getElementById('sample');
+
+        form.addEventListener('submit', function(event) {
+            // Lấy nội dung từ SunEditor
+            const content = editor.getContents();
+            // Gán nội dung vào trường textarea
+            textarea.value = content;
         });
 
 

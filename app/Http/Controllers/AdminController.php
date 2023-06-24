@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExcelExport;
+use App\Exports\MultiSheetExport;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -29,11 +31,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Arr;
 
 use App\Imports\ExcelImport;
-use App\Imports\ExcelImportThuVien;
+
 use App\Models\NguoiDung;
 use App\Models\PhieuPhat;
 use App\Models\PhieuTraSach;
 use App\Models\TinTuc;
+use Exception;
 use Illuminate\Contracts\Session\Session;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Validators\ValidationException;
@@ -47,11 +50,12 @@ class AdminController extends Controller
     {
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
-        Excel::import(new ExcelImportThuVien, $path);
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-
+    public function export(){
+        return Excel::download(new MultiSheetExport , 'thong_ke.xlsx');
+    }
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
     {

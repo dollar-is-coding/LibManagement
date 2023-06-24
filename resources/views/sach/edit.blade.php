@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -170,11 +171,12 @@
                                     <div class="form-group mr-3">
                                         <label class="m-0">&nbsp;Tủ sách</label>
                                         <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
-                                            <option disabled value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
-                                                {{ $item->fkTuSach->ten }}
-                                            </option>
+
                                             @foreach ($khu_vuc as $khu_vuc_item)
                                             <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
+                                                <option hidden value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
+                                                    {{ $item->fkTuSach->ten }}
+                                                </option>
                                                 @foreach ($tu_sach as $tu_sach_item)
                                                 @if ($tu_sach_item->khu_vuc_id == $khu_vuc_item->id)
                                                 <option value="{{ $tu_sach_item->id }}">
@@ -243,7 +245,7 @@
                         <div class="form-group ml-3">
                             <label class="m-0">&nbsp;Nội dung tóm tắt</label>
                             @foreach ($sach as $item)
-                            <textarea rows="10" class="form-control" name="mo_ta" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->mo_ta }}</textarea>
+                            <textarea rows="10" id="sample" class="form-control" name="mo_ta" placeholder="Nhập tóm tắt nội dung sách" tabindex="9">{{ $item->fkSach->mo_ta }}</textarea>
                             @endforeach
                         </div>
 
@@ -309,6 +311,38 @@
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
 
     <script src="/lib/select2/js/select2.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <script>
+        const editor = SUNEDITOR.create('sample', {
+            buttonList: [
+                ['undo', 'redo'],
+                ['font', 'fontSize', 'formatBlock'],
+                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                ['fontColor', 'hiliteColor', 'textStyle'],
+                ['removeFormat'],
+                '/',
+                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                ['table', 'link', 'image', 'video'],
+                ['fullScreen', 'showBlocks', 'codeView'],
+                ['preview'],
+            ],
+            width: '100%',
+            height: '200px',
+            placeholder: 'Nhập nội dung ở đây...'
+        });
+
+        const form = document.querySelector('form');
+        const textarea = document.getElementById('sample');
+
+        form.addEventListener('submit', function(event) {
+            // Lấy nội dung từ SunEditor
+            const content = editor.getContents();
+            // Gán nội dung vào trường textarea
+            textarea.value = content;
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $("#khuVucSelect")

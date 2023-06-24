@@ -15,6 +15,7 @@
         gtag('config', 'UA-90680653-2');
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,7 +46,32 @@
 <body>
 
     @include('../common/header', ['view' => 4])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }, 100);
+    </script>
+    @endif
+    @if(Session::has('error'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Thất bại',
+                text: `{{ Session::get('error') }}`,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }, 100);
+    </script>
+    @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
@@ -64,6 +90,42 @@
                     <span>Cấp tài khoản</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
+                    <!-- import -->
+                    <div id="import_doc_gia" style="display: none;">
+                        <form action="{{route('import-sach')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <label class="custom-file-upload">
+                                <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
+                                <span id="file-name">Chọn tệp</span>
+                            </label>
+
+                            <style>
+                                .custom-file-upload {
+                                    display: inline-block;
+                                    padding: 6px 12px;
+                                    cursor: pointer;
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    background-color: #f1f1f1;
+                                }
+
+                                .custom-file-upload input[type="file"] {
+                                    display: none;
+                                }
+                            </style>
+                            <script>
+                                function showFileName(event) {
+                                    const input = event.target;
+                                    const fileName = input.files[0].name;
+                                    const fileNameSpan = document.getElementById('file-name');
+                                    fileNameSpan.textContent = fileName;
+                                }
+                            </script>
+                            <button style="margin-top: 0px;" type="submit" name="import_csv" class="btn btn-success ">Tải lên</button>
+                        </form>
+                    </div>
+                    <!-- end import -->
+
                     <h4 class="az-content-label mg-b-5 ml-3">Cấp tài khoản</h4>
                     <p class="mg-b-5 ml-3 ">
                         Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
@@ -141,12 +203,15 @@
                                 <script>
                                     let select = document.getElementById('vai_tro');
                                     let show = document.getElementById('show');
+                                    let show_import = document.getElementById('import_doc_gia');
 
                                     function hide_show() {
                                         if (select.value == 3) {
                                             show.style.display = 'block';
+                                            show_import.style.display = 'block';
                                         } else if (select.value == 1 || select.value == 2) {
                                             show.style.display = 'none';
+                                            show_import.style.display = 'none';
                                         }
                                     }
                                     select.onchange = hide_show;

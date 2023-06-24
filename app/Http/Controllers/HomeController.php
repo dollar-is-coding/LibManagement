@@ -219,6 +219,37 @@ class HomeController extends Controller
             return back()->with('error', 'Email không tồn tại');
         }
     }
+    public function hienNhapXacThucQuenMatKhau(){
+        return view('ca_nhan.nhap_ma_xac_thuc');
+    }
+    public function hienDoiMatKhau(){
+        return view('ca_nhan.doi_mat_khau_moi');
+    }
+    public function xuLyGuiMaQuenMatKhau()
+    {
+        $emailTo = Auth::user()->email;
+        $rand = rand(100000, 999999);
+        session()->put('emailTo', $emailTo);
+        session()->put('verify', $rand);
+        $mailData = [
+            'verify' => $rand,
+            'title' => 'Quên mật khẩu',
+            'body' => 'Vui lòng không chia sẻ bất kì ai mã này'
+        ];
+        $mailable = new SendMailForgotPass($mailData);
+        Mail::to($emailTo)->send($mailable);
+        return redirect()->route('nhap-ma-quen-mat-khau');
+    }
+    public function xuLyNhapMaXacThucQuenMatKhau(Request $request)
+    {
+        $verify = session()->get('verify');
+        $verify_nguoidung = $request->xac_thuc;
+        if ($verify == $verify_nguoidung) {
+            return redirect()->route('hien-doi-mat-khau-moi');
+        } else {
+            return back()->with('error', 'Mã không hợp lệ');
+        }
+    }
     public function nhapMaXacMinh()
     {
         return view('quen_mat_khau.nhap_ma_xac_thuc');

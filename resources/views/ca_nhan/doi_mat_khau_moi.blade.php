@@ -98,15 +98,8 @@
                                 top: 40px;
                             }
                         </style>
-                        <form action="{{ route('xu-ly-doi-mat-khau') }}" class="col-lg" method="POST">
+                        <form action="{{ route('xu-ly-dat-lai-mat-khau') }}" class="col-lg" method="POST">
                             @csrf
-                            <div class="form-group password-container">
-                                <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
-                                    <label class="m-0">&nbsp;Mật khẩu hiện tại</label>
-                                </div>
-                                <input type="password" name="old_pass" class="form-control col-lg-7" placeholder="Nhập Mật Khẩu Hiện Tại">
-                                <i class="password-toggle far fa-eye"></i>
-                            </div><!-- form-group -->
                             <div class="form-group password-container">
                                 <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
                                     <label class="m-0">&nbsp;Mật khẩu mới</label>
@@ -116,21 +109,11 @@
                             </div><!-- form-group -->
                             <div class="form-group">
                                 <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
-                                    <label class="m-0">&nbsp;Xác minh mật khẩu</label>
+                                    <label class="m-0">&nbsp;Nhập lại mật khẩu</label>
                                 </div>
                                 <input type="password" id="confirm_pass" name="confirm_pass" class="form-control col-lg-7" placeholder="Nhập Xác Nhận Mật Khẩu">
-
                             </div><!-- form-group -->
                             <script>
-                                document.querySelector('.password-toggle').addEventListener('click', function() {
-                                    var passwordInput = document.querySelector('input[name="old_pass"]');
-                                    var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                                    passwordInput.setAttribute('type', type);
-
-                                    // Thay đổi biểu tượng mắt khi chế độ hiển thị mật khẩu thay đổi
-                                    this.classList.toggle('fa-eye');
-                                    this.classList.toggle('fa-eye-slash');
-                                });
                                 document.querySelector('.password-toggle_1').addEventListener('click', function() {
                                     var conf = document.querySelector('input[id="confirm_pass"]');
                                     var passwordInput = document.querySelector('input[name="new_pass"]');
@@ -155,10 +138,6 @@
                             </div>
                             <button class="col-lg-3 btn btn-az-primary btn-block mt-2 mb-3">Cập nhật</button>
 
-                        </form>
-                        <form class="ml-3" action="{{route('xu-ly-gui-ma-quen-mat-khau')}}" method="post">
-                            @csrf
-                            <button style="border:none" type="submit">Quên mật khẩu</button>
                         </form>
                     </div><!-- az-signin-header -->
                 </div><!-- az-card-signin -->
