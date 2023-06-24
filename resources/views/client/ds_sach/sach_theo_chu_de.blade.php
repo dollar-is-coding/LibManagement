@@ -65,7 +65,7 @@
 
         <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="row justify-content-start">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
                             <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
@@ -123,14 +123,12 @@
                                             </strong>
                                         </p>
                                     </div>
-                                    <div class="custom-block-bottom d-flex justify-content-between">
-                                        @include('client.element.interact_bar', ['sach' => $item])
-                                        <div class="me-1"></div>
-                                    </div>
+                                    @include('client.element.interact_bar', ['sach' => $item])
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <div></div>
                     <div class="col-auto mr-auto mx-auto mt-5">
                         <nav aria-label="Page navigation example">
                             {{ $sach->appends(request()->input())->links() }}
@@ -150,12 +148,12 @@
     <script src="js/custom.js"></script>
     <script>
         function handleGioSach(sach) {
-            var option=document.getElementById('sach_'+sach).innerHTML;
+            var option = document.getElementById('sach_' + sach).innerHTML;
             var request = new XMLHttpRequest();
             request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
                 option), true);
             request.send();
-            if (option=='Chọn sách') {
+            if (option == 'Chọn sách') {
                 request.onreadystatechange = function() {
                     if (request.readyState == 4 && request.status == 200) {
                         var data = JSON.parse(request.responseText);

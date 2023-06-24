@@ -218,6 +218,17 @@
                 }
             }
         }
+
+        function cancelPhieuMuon(maPhieuMuon) {
+            var request = new XMLHttpRequest();
+            request.open('GET', '/huy-phieu-muon?ma_phieu_muon=' + encodeURIComponent(maPhieuMuon), true);
+            request.send();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    document.getElementById(maPhieuMuon).style.display = 'none';
+                }
+            }
+        }
     </script>
 </body>
 

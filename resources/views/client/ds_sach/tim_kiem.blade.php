@@ -92,8 +92,7 @@
                                             {{ $item->ten }} </a>
                                     </h5>
                                     <div class="profile-block d-flex">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                            alt="" />
+                                        <img src="../img/default/author.png" class="profile-block-image img-fluid" />
                                         <p>
                                             Tác giả
                                             <strong>
@@ -102,23 +101,11 @@
                                             </strong>
                                         </p>
                                     </div>
-                                    <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                        <a href="#" class="bi-eye me-1">
-                                            <span>{{ $item->luot_xem }}</span>
-                                        </a>
-                                        <a href="#" class="bi-heart me-1">
-                                            <span>{{ $item->luot_thich }}</span>
-                                        </a>
-                                        <a href="#" class="bi-chat me-1">
-                                            <span>{{ $item->luot_binh_luan }}</span>
-                                        </a>
-                                        <div class="me-1"></div>
-                                    </div>
+                                    @include('client.element.interact_bar', ['sach' => $item])
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
                     <div class="col-auto mr-auto mx-auto mt-5">
                         <nav aria-label="Page navigation example">
                             {{ $sach->appends(request()->input())->links() }}
@@ -138,12 +125,12 @@
     <script src="js/custom.js"></script>
     <script>
         function handleGioSach(sach) {
-            var option=document.getElementById('sach_'+sach).innerHTML;
+            var option = document.getElementById('sach_' + sach).innerHTML;
             var request = new XMLHttpRequest();
             request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
                 option), true);
             request.send();
-            if (option=='Chọn sách') {
+            if (option == 'Chọn sách') {
                 request.onreadystatechange = function() {
                     if (request.readyState == 4 && request.status == 200) {
                         var data = JSON.parse(request.responseText);

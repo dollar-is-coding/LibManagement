@@ -125,6 +125,15 @@ button {
 a {
     display: inline-block;
     text-decoration: none;
+    color: var(--p-color);
+}
+
+.a-link {
+    display: inline-block;
+    text-decoration: none;
+}
+.a-link:hover {
+    color: var(--primary-color);
 }
 
 a:hover {
@@ -304,7 +313,7 @@ main {
 }
 
 .author {
-    color: var(--p-color);
+    color: #8b8c8d;
 }
 
 .comment-btn:hover {
@@ -719,6 +728,22 @@ main {
 }
 
 #comment-input:focus {
+    outline: none;
+    border-bottom-color: black;
+}
+
+.reply-input {
+    border: none;
+    height: auto;
+    border-bottom: var(--custom-btn-bg-hover-color) 1px solid;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    padding: 8px 4px;
+    box-sizing: border-box;
+}
+
+.reply-input:focus {
     outline: none;
     border-bottom-color: black;
 }

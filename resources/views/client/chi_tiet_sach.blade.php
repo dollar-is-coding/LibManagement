@@ -57,10 +57,10 @@
                                     <div class="custom-block-image-wrap custom-block-image-detail-page">
                                         @if ($sach->hinh_anh != '')
                                             <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                class="custom-block-image img-fluid" alt="" />
+                                                class="custom-block-image img-fluid" />
                                         @else
                                             <img src="../img/default/no_book.jpg"
-                                                class="custom-block-image img-fluid border" alt="" />
+                                                class="custom-block-image img-fluid border" />
                                         @endif
                                     </div>
                                 </div>
@@ -69,374 +69,193 @@
                                     <a class="bi-eye">
                                         <span>{{ $sach->luot_xem }}</span>
                                     </a>
-                                    @foreach ($sach->hasYeuThich as $key => $lich_su)
-                                        @if ($lich_su->da_thich == 1 && $lich_su->doc_gia_id == Auth::user()->id)
-                                            <a href="{{ route('yeu-thich', ['sach' => $sach->id]) }}"
-                                                class="bi-heart-fill">
-                                                <span>{{ $sach->luot_thich }}</span>
-                                            </a>
-                                        @break
-                                    @endif
-                                    @if ($sach->hasYeuThich->count() - 1 == $key)
-                                        <a href="{{ route('yeu-thich', ['sach' => $sach->id]) }}" class="bi-heart">
-                                            <span>{{ $sach->luot_thich }}</span>
-                                        </a>
-                                    @endif
-                                @endforeach
-                                @if ($sach->hasYeuThich->count() == 0)
-                                    <a href="{{ route('yeu-thich', ['sach' => $sach->id]) }}" class="bi-heart">
-                                        <span>{{ $sach->luot_thich }}</span>
+                                    @include('client.element.love_btn', [
+                                        'yeu_thich' => $sach->hasYeuThich,
+                                    ])
+                                    <a class="bi-chat">
+                                        <span>{{ $sach->luot_binh_luan }}</span>
                                     </a>
-                                @endif
-                                <a href="#" class="bi-chat">
-                                    <span>{{ $sach->luot_binh_luan }}</span>
-                                </a>
-                            </div>
-                            <div class="sach-info">
-                                <ul class="first">
-                                    <li>Vị trí</li>
-                                    <li>Có sẵn</li>
-                                    <li>Đang mượn</li>
-                                    <li>Đã mượn</li>
-                                </ul>
-                                <ul class="second">
-                                    <li>
-                                        {{ $sach->hasThuVien->fkTuSach->ten }},
-                                        {{ $sach->hasThuVien->fkTuSach->ten }}
-                                    </li>
-                                    <li class="li">{{ $sach->hasThuVien->sl_con_lai }} quyển</li>
-                                    <li>{{ $sach->hasThuVien->dang_muon }} quyển</li>
-                                    <li class="li">{{ $sach->hasThuVien->da_muon }} lần</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-12">
-                            <div class="custom-block-info">
-                                <div class="custom-block-top d-flex mb-1">
-                                    <small class="" style="width:100%">Mã sách
-                                        <span class="badge">#{{ $sach->ma_sach }}</span>
-                                    </small>
-                                    <div style="white-space: nowrap;">
-                                        <small class="me-4">
-                                            <i class="bi-clock-fill custom-icon"></i>
-                                            {{ $sach->nam_xuat_ban }}
-                                        </small>
-                                        <small class="me-4">
-                                            <i class="bi-person-circle custom-icon"></i>
-                                            {{ $sach->fkTacGia->ten }}
-                                        </small>
-                                        <small>
-                                            <i class="bi-printer-fill custom-icon"></i>
-                                            {{ $sach->fkNhaXuatBan->ten }}
-                                        </small>
-                                    </div>
                                 </div>
-                                <h2 class="mb-2">{{ $sach->ten }}
-                                    @include('client.element.muon_sach_btn', ['sach' => $sach])
-                                </h2>
-                                <h6>Mô tả</h6>
-                                <p>{{ $sach->mo_ta }} Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit.
-                                    Corporis eum dignissimos consequatur maxime qui recusandae ipsum. Hic
-                                    aliquid
-                                    culpa consequatur, in eius nobis non sequi est, pariatur harum corporis
-                                    cumque.
-                                </p>
-                                <p>{{ $sach->mo_ta }} Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit.
-                                    Corporis eum dignissimos consequatur maxime qui recusandae ipsum. Hic
-                                    aliquid
-                                    culpa consequatur, in eius nobis non sequi est, pariatur harum corporis
-                                    cumque.
-                                </p>
-                                <p>{{ $sach->mo_ta }} Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit.
-                                    Corporis eum dignissimos consequatur maxime qui recusandae ipsum. Hic
-                                    aliquid
-                                    culpa consequatur, in eius nobis non sequi est, pariatur harum corporis
-                                    cumque.
-                                </p>
-                                <p>{{ $sach->mo_ta }} Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit.
-                                    Corporis eum dignissimos consequatur maxime qui recusandae ipsum. Hic
-                                    aliquid
-                                    culpa consequatur, in eius nobis non sequi est, pariatur harum corporis
-                                    cumque.
-                                </p>
-                                <form action="{{ route('binh-luan', ['sach' => $sach->id]) }}" method="POST"
-                                    class="d-flex flex-column" style="font-size: .9em">
-                                    @csrf
-                                    <div class="d-flex">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                            style="width:44px;height:44px">
-                                        <div class="comment-container">
-                                            <textarea id="comment-input" name="binh_luan" rows="1" placeholder="Suy nghĩ về cuốn sách này..."></textarea>
+                                <div class="sach-info">
+                                    <ul class="first">
+                                        <li>Vị trí</li>
+                                        <li>Có sẵn</li>
+                                        <li>Đang mượn</li>
+                                        <li>Đã mượn</li>
+                                    </ul>
+                                    <ul class="second">
+                                        <li>
+                                            {{ $sach->hasThuVien->fkTuSach->ten }},
+                                            {{ $sach->hasThuVien->fkTuSach->ten }}
+                                        </li>
+                                        <li class="li">{{ $sach->hasThuVien->sl_con_lai }} quyển</li>
+                                        <li>{{ $sach->hasThuVien->dang_muon }} quyển</li>
+                                        <li class="li">{{ $sach->hasThuVien->da_muon }} lần</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-12">
+                                <div class="custom-block-info">
+                                    <div class="custom-block-top d-flex mb-1">
+                                        <small class="" style="width:100%">Mã sách
+                                            <span class="badge">#{{ $sach->ma_sach }}</span>
+                                        </small>
+                                        <div style="white-space: nowrap;">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $sach->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">
+                                                <i class="bi-person-circle custom-icon"></i>
+                                                {{ $sach->fkTacGia->ten }}
+                                            </small>
+                                            <small>
+                                                <i class="bi-printer-fill custom-icon"></i>
+                                                {{ $sach->fkNhaXuatBan->ten }}
+                                            </small>
                                         </div>
                                     </div>
-                                    <button class="btn comment-btn smoothscroll align-self-end"
-                                        style="font-size: .9em" type="submit">
-                                        Bình luận</button>
-                                </form>
-                                @foreach ($binh_luan as $key => $item)
-                                    <div class="d-flex mt-3" style="font-size: .9em">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                            style="width:44px;height:44px">
-                                        <div style="width:100%">
-                                            <div class="comment-block">
-                                                <div class="d-flex">
-                                                    <div><strong>
-                                                            {{ $item->fkNguoiDung->ho }}
-                                                            {{ $item->fkNguoiDung->ten }}
-                                                            &nbsp;
-                                                        </strong></div>
-                                                </div>
-                                                <div>{{ $item->noi_dung }}</div>
-                                            </div>
-                                            <div class="d-flex align-items-center mt-1" style="margin-left:10px;">
-                                                <a class="bi-chat custom-icon" style="color: #717275"
-                                                    onclick="reply({{ $key }})">
-                                                    <span>&nbsp;{{ $item->hasReply->count() }}</span>
-                                                </a>
-                                                <div class="bi-dot"
-                                                    style="margin-left: 4px; margin-right: 4px; color:#717275">
-                                                </div>
-                                                <a style="color:#717275">
-                                                    @if (Carbon\Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y') == $item->updated_at->format('d/m/Y'))
-                                                        Hôm nay
-                                                    @else
-                                                        {{ Carbon\Carbon::now('Asia/Ho_Chi_Minh')->startOfDay()->diffIndays($item->updated_at->startOfDay()) }}
-                                                        ngày trước
-                                                    @endif
-                                                </a>
-                                            </div>
-                                            @foreach ($item->hasReply as $reply)
-                                                <div class="d-flex mt-3">
-                                                    <img src="../img/default/author.png"
-                                                        class="profile-block-image img-fluid"
-                                                        style="width:44px;height:44px">
-                                                    <div style="width:100%">
-                                                        <div class="comment-block">
-                                                            <div class="d-flex">
-                                                                <div><strong>
-                                                                        {{ $reply->fkNguoiDung->ho }}
-                                                                        {{ $reply->fkNguoiDung->ten }}
-                                                                    </strong></div>
-                                                                <div class="bi-dot"
-                                                                    style="margin-left: 4px; margin-right: 4px; color:#717275">
-                                                                </div>
-                                                                <a style="color:#717275">
-                                                                    @if (Carbon\Carbon::now('Asia/Ho_Chi_Minh')->format('Y/m/d') == $reply->updated_at->format('Y/m/d'))
-                                                                        Hôm nay
-                                                                    @else
-                                                                        {{ Carbon\Carbon::now('Asia/Ho_Chi_Minh')->startOfDay()->diffIndays($reply->updated_at->startOfDay()) }}
-                                                                        ngày trước
-                                                                    @endif
-                                                                </a>
-                                                            </div>
-                                                            <div>{{ $reply->noi_dung }}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                            @if (Auth::id() != null)
-                                                <form
-                                                    action="{{ route('binh-luan', ['tra_loi' => $item->id, 'sach' => $sach->id]) }}"
-                                                    method="POST" id="{{ $key }}"
-                                                    style="visibility:hidden;max-height:0;"
-                                                    class="d-flex flex-column">
-                                                    @csrf
-                                                    <div class="d-flex">
-                                                        <img src="../img/default/author.png"
-                                                            class="profile-block-image img-fluid"
-                                                            style="width:44px;height:44px">
-                                                        <div class="comment-container">
-                                                            <textarea id="comment-input" name="binh_luan" rows="1" placeholder="Phản hồi..."></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn comment-btn smoothscroll align-self-end"
-                                                        style="font-size: .9em" type="submit">
-                                                        Phản hồi</button>
-                                                </form>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach
+                                    <h2 class="mb-2">{{ $sach->ten }}
+                                        @include('client.element.muon_sach_btn', ['sach' => $sach])
+                                    </h2>
+                                    <h6>Mô tả</h6>
+                                    <p>{{ $sach->mo_ta }}</p>
+                                    @include('client.element.comment_box', ['binh_luan' => $binh_luan])
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    @if ($cung_tac_gia)
+        </section>
+        @if ($cung_tac_gia->count() > 1)
+            <section class="related-podcast-section section-padding pt-0 pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Cùng tác giả</h4>
+                            </div>
+                        </div>
+                        @foreach ($cung_tac_gia as $key => $item)
+                            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block custom-block-full">
+                                    <div class="custom-block-image-wrap">
+                                        <a href="detail-page.html">
+                                            @if ($sach->hinh_anh != '')
+                                                <img src="../img/books/{{ $sach->hinh_anh }}"
+                                                    class="custom-block-image img-fluid" />
+                                            @else
+                                                <img src="../img/default/no_book.jpg"
+                                                    class="custom-block-image img-fluid border" />
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <h5 class="mb-2">
+                                            <a href="detail-page.html">{{ $item->ten }}</a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png"
+                                                class="profile-block-image img-fluid" />
+                                            <p>
+                                                Tác giả
+                                                <strong><a href=""
+                                                        class="author">{{ $item->fkTacGia->ten }}</a></strong>
+                                            </p>
+                                        </div>
+                                        <div class="custom-block-bottom d-flex justify-content-between">
+                                            <a href="#" class="bi-eye me-1">
+                                                <span>{{ $item->luot_xem }}</span>
+                                            </a>
+                                            <a href="#" class="bi-heart me-1">
+                                                <span>{{ $item->luot_thich }}</span>
+                                            </a>
+                                            <a href="#" class="bi-chat me-1">
+                                                <span>{{ $item->luot_binh_luan }}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($key == 2)
+                            @break
+                        @endif
+                    @endforeach
+                    @if ($cung_tac_gia->count() > 3)
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="" onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'">
+                                            Xem tất cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+    @else
         <section class="related-podcast-section section-padding pt-0 pb-5">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Cùng tác giả</h4>
+                            <h4 class="section-title">Liên quan</h4>
                         </div>
                     </div>
-                    @foreach ($cung_tac_gia as $key => $item)
-                        <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                            <div class="custom-block custom-block-full">
-                                <div class="custom-block-image-wrap">
-                                    <a href="detail-page.html">
-                                        @if ($sach->hinh_anh != '')
-                                            <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                class="custom-block-image img-fluid" alt="" />
-                                        @else
-                                            <img src="../img/default/no_book.jpg"
-                                                class="custom-block-image img-fluid border" alt="" />
-                                        @endif
-                                    </a>
-                                </div>
-                                <div class="custom-block-info">
-                                    <h5 class="mb-2">
-                                        <a href="detail-page.html">{{ $item->ten }}</a>
-                                    </h5>
-                                    <div class="profile-block d-flex">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                            alt="" />
-                                        <p>
-                                            Tác giả
-                                            <strong><a href=""
-                                                    class="author">{{ $item->fkTacGia->ten }}</a></strong>
-                                        </p>
-                                    </div>
-                                    <div class="custom-block-bottom d-flex justify-content-between">
-                                        <a href="#" class="bi-eye me-1">
-                                            <span>{{ $item->luot_xem }}</span>
-                                        </a>
-                                        <a href="#" class="bi-heart me-1">
-                                            <span>{{ $item->luot_thich }}</span>
-                                        </a>
-                                        <a href="#" class="bi-chat me-1">
-                                            <span>{{ $item->luot_binh_luan }}</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @if ($key == 2)
-                        @break
-                    @endif
-                @endforeach
-                @if ($cung_tac_gia->count() > 3)
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="" onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất
-                                        cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </section>
-@else
-    <section class="related-podcast-section section-padding pt-0 pb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-12">
-                    <div class="section-title-wrap mb-5">
-                        <h4 class="section-title">Liên quan</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                    <div class="custom-block custom-block-full">
-                        <div class="custom-block-image-wrap">
-                            <a href="detail-page.html">
-                                <img src="images/podcast/27376480_7326766.jpg"
-                                    class="custom-block-image img-fluid" alt="" />
-                            </a>
-                        </div>
-                        <div class="custom-block-info">
-                            <h5 class="mb-2">
-                                <a href="detail-page.html"> Vintage Show </a>
-                            </h5>
-                            <div class="profile-block d-flex">
-                                <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                    class="profile-block-image img-fluid" alt="" />
-                                <p>
-                                    Elsa
-                                    <strong>Influencer</strong>
-                                </p>
-                            </div>
-                            <div class="custom-block-bottom d-flex justify-content-between">
-                                <a href="#" class="bi-headphones me-1">
-                                    <span>100k</span>
-                                </a>
-                                <a href="#" class="bi-heart me-1">
-                                    <span>2.5k</span>
-                                </a>
-                                <a href="#" class="bi-chat me-1">
-                                    <span>924k</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="social-share d-flex flex-column ms-auto">
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-heart"></i>
-                            </a>
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-bookmark"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endif
-@if ($ds_da_xem)
-    <section class="related-podcast-section section-padding pt-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-12">
-                    <div class="section-title-wrap mb-5">
-                        <h4 class="section-title">Đã xem gần đây</h4>
-                    </div>
-                </div>
-                @foreach ($ds_da_xem as $key => $item)
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }} ">
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                         <div class="custom-block custom-block-full">
                             <div class="custom-block-image-wrap">
                                 <a href="detail-page.html">
-                                    @if ($item->fkSach->hinh_anh != '')
-                                        <img src="../img/books/{{ $sach->fkSach->hinh_anh }}"
-                                            class="custom-block-image img-fluid" alt="" />
-                                    @else
-                                        <img src="../img/default/no_book.jpg"
-                                            class="custom-block-image img-fluid border" alt="" />
-                                    @endif
+                                    <img src="images/podcast/27376480_7326766.jpg"
+                                        class="custom-block-image img-fluid" />
                                 </a>
                             </div>
                             <div class="custom-block-info">
                                 <h5 class="mb-2">
-                                    <a href="detail-page.html">{{ $item->fkSach->ten }}</a>
+                                    <a href="detail-page.html"> Vintage Show </a>
                                 </h5>
                                 <div class="profile-block d-flex">
-                                    <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                        alt="" />
+                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
+                                        class="profile-block-image img-fluid" />
                                     <p>
-                                        Tác giả
-                                        <strong><a href=""
-                                                class="author">{{ $item->fkSach->fkTacGia->ten }}</a></strong>
+                                        Elsa
+                                        <strong>Influencer</strong>
                                     </p>
                                 </div>
+                                <div class="custom-block-bottom d-flex justify-content-between">
+                                    <a href="#" class="bi-headphones me-1">
+                                        <span>100k</span>
+                                    </a>
+                                    <a href="#" class="bi-heart me-1">
+                                        <span>2.5k</span>
+                                    </a>
+                                    <a href="#" class="bi-chat me-1">
+                                        <span>924k</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="social-share d-flex flex-column ms-auto">
+                                <a href="#" class="badge ms-auto">
+                                    <i class="bi-heart"></i>
+                                </a>
+                                <a href="#" class="badge ms-auto">
+                                    <i class="bi-bookmark"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-@endif
+        </section>
+    @endif
+    @if ($ds_da_xem)
+        @include('client.element.history', ['ds_da_xem' => $ds_da_xem])
+    @endif
 </main>
 
 @include('client.element.footer')
@@ -447,11 +266,28 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/custom.js"></script>
 <script>
-    const commentInput = document.getElementById('comment-input');
+    var commentInput = document.getElementById('comment-input');
     commentInput.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     });
+
+    function showButton() {
+        if (commentInput.value.trim() !== '') {
+            document.getElementById('binh_luan').style.display = 'block';
+        } else {
+            document.getElementById('binh_luan').style.display = 'none';
+        }
+    }
+
+    function showReply(reply) {
+        var replyInput = document.getElementById('reply_' + reply);
+        if (replyInput.value.trim() !== '') {
+            document.getElementById('btn_' + reply).style.display = 'block';
+        } else {
+            document.getElementById('btn_' + reply).style.display = 'none';
+        }
+    }
 </script>
 <script>
     function reply(id) {
@@ -472,8 +308,7 @@
             }
         }
     }
-</script>
-<script>
+
     function handleGioSach(sach) {
         var option = document.getElementById('sach_' + sach).innerHTML;
         var request = new XMLHttpRequest();
@@ -507,6 +342,31 @@
                 }
             }
         }
+    }
+
+    function handleLike(sach) {
+        var like = document.getElementById('like_not_like');
+        var loveBtn = document.getElementById('love_btn');
+        var luotThich = document.getElementById('luot_thich').innerHTML;
+        var request = new XMLHttpRequest();
+        request.open('GET', '/yeu-thich?sach=' + encodeURIComponent(sach), true);
+        request.send();
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                if (like.value == 1) {
+                    loveBtn.classList.add('bi-heart');
+                    loveBtn.classList.remove('bi-heart-fill');
+                    like.value = 0;
+                    document.getElementById('luot_thich').innerHTML = --luotThich;
+                } else {
+                    loveBtn.classList.add('bi-heart-fill');
+                    loveBtn.classList.remove('bi-heart');
+                    like.value = 1;
+                    document.getElementById('luot_thich').innerHTML = ++luotThich;
+                }
+            }
+        }
+        console.log(like.value + ', ' + luotThich);
     }
 </script>
 </body>
