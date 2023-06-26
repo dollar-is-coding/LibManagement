@@ -238,9 +238,14 @@ main {
 
 .disable {
     pointer-events: none; 
-    background-color: #dddddd; 
-    color: rgb(80, 80, 80);
+    background-color: #dddddd !important; 
+    color: rgb(80, 80, 80) !important;
 }
+
+.slide {
+    color: #000000;
+}
+
 .disable-text {
     color: rgb(130, 130, 130);
 }

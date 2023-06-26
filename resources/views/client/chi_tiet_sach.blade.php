@@ -116,7 +116,10 @@
                                         </div>
                                     </div>
                                     <h2 class="mb-2">{{ $sach->ten }}
-                                        @include('client.element.muon_sach_btn', ['sach' => $sach])
+                                        @include('client.element.muon_sach_btn', [
+                                            'sach' => $sach,
+                                            'btn' => 1,
+                                        ])
                                     </h2>
                                     <h6>Mô tả</h6>
                                     <p>{{ $sach->mo_ta }}</p>

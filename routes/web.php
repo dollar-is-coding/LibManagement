@@ -162,6 +162,6 @@ Route::middleware('user')->group(function () {
     Route::get('/tin-tuc', [ClientController::class, 'showTinTuc'])->name('tin-tuc')->middleware('auth');
     Route::post('/cap-nhat-thong-tin', [ClientController::class, 'handleCapNhatThongTin'])->name('cap-nhat-thong-tin')->middleware('auth');
     Route::get('/tai-khoan-cua-toi', [ClientController::class, 'showCaNhan'])->name('tai-khoan-cua-toi')->middleware('auth');
-    Route::get('/ajax-here', [ClientController::class, 'ajaxHere'])->name('ajax-here')->middleware('auth');
     Route::get('/xu-ly-gio-sach', [ClientController::class, 'handleGioSach'])->name('xu-ly-gio-sach')->middleware('auth');
+    Route::post('/gui-lien-he', [ClientController::class, 'sendLienHe'])->name('gui-lien-he')->middleware('auth');
 });

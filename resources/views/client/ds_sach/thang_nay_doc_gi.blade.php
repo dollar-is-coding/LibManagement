@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-0">Tháng này mọi người đọc gì?</h2>
+                        <h2 class="mb-0">THÁNG {{ Carbon\Carbon::now()->month }} NÀY MỌI NGƯỜI ĐỌC GÌ?</h2>
                     </div>
                 </div>
             </div>
@@ -76,6 +76,7 @@
                                         <div class="mt-2">
                                             @include('client.element.muon_sach_btn', [
                                                 'sach' => $item->fkSach,
+                                                'btn' => 1,
                                             ])
                                         </div>
                                     </div>
@@ -135,15 +136,17 @@
                                                 {{ $item->fkSach->ten }}</a>
                                         </h5>
                                         <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                                alt="" />
+                                            <img src="../img/default/author.png"
+                                                class="profile-block-image img-fluid" />
                                             <p>
                                                 Tác giả
-                                                <strong><a
-                                                        href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
-                                                        class="author">{{ $item->fkSach->fkTacGia->ten }}</a></strong>
+                                                <strong>
+                                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
+                                                        class="author">{{ $item->fkSach->fkTacGia->ten }}</a>
+                                                </strong>
                                             </p>
                                         </div>
+                                        @include('client.element.interact_bar', ['sach' => $item->fkSach])
                                     </div>
                                 </div>
                             </div>
@@ -161,6 +164,42 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        function handleGioSach(sach) {
+            var option = document.getElementById('sach_' + sach).innerHTML;
+            var request = new XMLHttpRequest();
+            request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
+                option), true);
+            request.send();
+            if (option == 'Chọn sách') {
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var data = JSON.parse(request.responseText);
+                        document.getElementById('sach_' + sach).innerHTML = 'Bỏ chọn';
+                        document.getElementById('sach_' + sach).classList.remove('custom-btn');
+                        document.getElementById('sach_' + sach).classList.add('danger-btn');
+                        document.getElementById('gio_sach_hien_tai').value = ++document.getElementById(
+                            'gio_sach_hien_tai').value;
+                        document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
+                            'gio_sach_hien_tai').value + ')';
+                    }
+                }
+            } else {
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var data = JSON.parse(request.responseText);
+                        document.getElementById('sach_' + sach).innerHTML = 'Chọn sách';
+                        document.getElementById('sach_' + sach).classList.add('custom-btn');
+                        document.getElementById('sach_' + sach).classList.remove('danger-btn');
+                        document.getElementById('gio_sach_hien_tai').value = --document.getElementById(
+                            'gio_sach_hien_tai').value;
+                        document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
+                            'gio_sach_hien_tai').value + ')';
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

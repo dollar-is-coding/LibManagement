@@ -51,7 +51,7 @@
                         @if ($dieu_kien == 1)
                             <h2 class="mb-0">SÁCH MỚI HÀNG TUẦN</h2>
                             <h5 class="mt-2 text-light">
-                                ( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }})
+                                ( {{ $bat_dau->format('d/m/Y') }} - {{ $ket_thuc->format('d/m/Y') }} )
                             </h5>
                         @elseif($dieu_kien == 2)
                             <h2 class="mb-0">{{ Str::upper($tac_gia->ten) }}</h2>
@@ -89,7 +89,7 @@
                                         </a>
                                     </div>
                                     <div class="mt-2">
-                                        @include('client.element.muon_sach_btn', ['sach' => $item])
+                                        @include('client.element.muon_sach_btn', ['sach' => $item,'btn'=>2])
                                     </div>
                                 </div>
                                 <div class="custom-block-info">

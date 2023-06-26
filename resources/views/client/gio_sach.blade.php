@@ -56,11 +56,8 @@
                             <div class="d-flex justify-content-between shadow-sm border"
                                 style="padding:20px 30px 20px 30px; border-radius:30px">
                                 <div style="width:55%" class="d-flex align-items-center">
-                                    <input style="width:1em;height:1em" type="checkbox" id="all" name="all">
+                                    <input style="width:1em;height:1em" type="checkbox" id="all-checked" name="all">
                                     <p class="m-0"><strong>&nbsp;Sách</strong></p>
-                                    <div id="can_borrow" style="display: none">
-                                        {{ 5 - $phieu_muon->count() }} quyển
-                                    </div>
                                 </div>
                                 <div style="width:10%" class="d-flex justify-content-center">
                                     <p class="m-0"><strong>Số lượng</strong></p>
@@ -73,6 +70,8 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="number" value="{{ 5 - $phieu_muon->count() }}" id="can-borrow" hidden>
+                        <input type="number" value="0" id="checked-count" hidden>
                         @foreach ($gio_sach as $key => $sach)
                             <div class="mt-4" style="font-family: 'sono'" id="sach_{{ $sach->sach_id }}">
                                 <div class="custom-block">
@@ -149,7 +148,7 @@
                             </div>
                             <div class="m-3"></div>
                             <div class="d-inline-flex justify-content-center">
-                                <button id="compare" style="pointer-events: none" type="submit"
+                                <button id="gio-sach-btn" style="pointer-events: none" type="submit"
                                     class="shadow pagination pagination-lg btn custom-btn">
                                     Vui lòng chọn sách
                                 </button>
@@ -177,49 +176,42 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/custom.js"></script>
     <script>
-        var checkAllCheckbox = document.getElementById('all');
-        var checkboxes = document.getElementsByClassName('checkbox');
-        var countElement = document.getElementById('so_luong');
-        var checkedCount = 0;
-        var canBorrow = document.getElementById('can_borrow');
-        var compare = document.getElementById('compare');
-
-        checkAllCheckbox.addEventListener('change', function() {
-            var isChecked = checkAllCheckbox.checked;
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = isChecked;
+        var checkAllBoxes = document.getElementById('all-checked');
+        var checkBoxes = document.getElementsByClassName('checkbox');
+        var checkedShow = document.getElementById('so_luong');
+        var canBorrow = document.getElementById('can-borrow');
+        var checkedCount = document.getElementById('checked-count');
+        var button = document.getElementById('gio-sach-btn');
+        checkAllBoxes.addEventListener('change', function() {
+            var isChecked = checkAllBoxes.checked;
+            for (let i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].checked = isChecked;
             }
-            // Update the count
-            checkedCount = isChecked ? checkboxes.length : 0;
-            countElement.textContent = checkedCount + ' quyển';
-            muonSach();
+            checkedCount.value = isChecked ? checkBoxes.length : 0;
+            checkedShow.innerHTML = Number(checkedCount.value) + ' quyển';
+            handleButton()
         });
-
-        // Attach event listener to individual checkboxes
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function() {
-                if (this.checked) {
-                    checkedCount++;
+        for (let i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].addEventListener('change', function() {
+                if (checkBoxes[i].checked) {
+                    checkedCount.value++;
                 } else {
-                    checkedCount--;
+                    checkedCount.value--;
                 }
-                countElement.textContent = checkedCount + ' quyển';
-                checkAllCheckbox.checked = (checkedCount === checkboxes.length);
-                muonSach();
+                checkedShow.innerHTML = Number(checkedCount.value) + ' quyển';
+                checkAllBoxes.checked = (Number(checkedCount.value) == checkBoxes.length)
+                handleButton()
             });
         }
 
-        function muonSach() {
-            if (countElement.textContent.replace(/\s/g, '') <= canBorrow.textContent.replace(/\s/g, '') &&
-                checkedCount > 0) {
-                compare.style.pointerEvents = 'auto';
-                compare.textContent = 'Xác nhận mượn sách';
-            } else if (countElement.textContent.replace(/\s/g, '') > canBorrow.textContent.replace(/\s/g, '')) {
-                compare.style.pointerEvents = 'none';
-                compare.textContent = 'Quá số lượng sách';
+        function handleButton() {
+            if (Number(checkedCount.value) > Number(canBorrow.value)) {
+                button.innerHTML = 'Vượt quá số lượng'
+            } else if (Number(checkedCount.value) <= Number(canBorrow.value) && Number(checkedCount.value) > 0) {
+                button.innerHTML = 'Xác nhận mượn sách'
+                button.style.pointerEvents = 'fill';
             } else {
-                compare.style.pointerEvents = 'none';
-                compare.textContent = 'Vui lòng chọn sách';
+                button.innerHTML = 'Vui lòng chọn sách'
             }
         }
 
@@ -236,7 +228,7 @@
                         'input_gio_sach').value + ')';
                     document.getElementById('title').innerHTML = 'Libro - Giỏ sách (' + document.getElementById(
                         'input_gio_sach').value + ')';
-                        document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
+                    document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
                         'input_gio_sach').value + ')';
                     if (document.getElementById('input_gio_sach').value == 0) {
                         document.getElementById('muon_sach').style.display = 'none';
