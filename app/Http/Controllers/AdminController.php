@@ -838,9 +838,10 @@ class AdminController extends Controller
     }
     public function chiTietPhieu($id)
     {
+        $tong_tien = PhieuPhat::where('ma_phieu',$id)->first();
         $chi_tiet_sach = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
         $chitiet = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
-        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet, 'chi_tiet_sach'=> $chi_tiet_sach]);
+        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet, 'chi_tiet_sach'=> $chi_tiet_sach,'tong_tien'=> $tong_tien]);
     }
     public function thanhToanSach($id)
     {

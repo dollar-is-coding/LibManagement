@@ -134,7 +134,7 @@
                             <a href="{{route('phe-duyet-muon-sach')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
-                    <div class="card" style="width: 400px;">
+                    <div class="card" style="width: 400px;visibility: hidden;">
                         <div class="card-body">
                             <h5 class="card-title">Số lượng chưa biết</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

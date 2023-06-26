@@ -92,6 +92,11 @@
 
                             <div style="flex-basis: 25%;margin: 10px 0 0 0;">
                                 <p>Thời gian: <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('Y-m-d') }}</b> -- <b>{{$chi_tiet_sach->han_tra}}</b></p>
+                                <div class="mt-2" style="margin-right: 40px;">
+                                    @if($chi_tiet_sach->trang_thai ==3)
+                                    <p style="text-align: end;">Tổng tiền phạt: <b>{{$tong_tien->tong_tien_phat}} VNĐ</b></p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
@@ -119,10 +124,8 @@
                         </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
-
 
         </div><!-- container -->
     </div><!-- az-content -->
