@@ -27,5 +27,4 @@
         <p class="bi-heart mb-0">&nbsp;{{ $sach->luot_thich }}</p>
     @endif
     <p class="bi-chat mb-0">&nbsp;{{ $sach->luot_binh_luan }}</p>
-    <div class="me-1"></div>
 </div>

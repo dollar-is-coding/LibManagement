@@ -59,30 +59,23 @@
                         <div class="owl-carousel owl-theme">
                             @foreach ($de_xuat as $sach)
                                 <div class="owl-carousel-info-wrap item">
-                                    @if ($sach->hinh_anh == '')
-                                        <img src="../img/default/no_book_slider.png"
-                                            class="owl-carousel-image img-fluid" alt="" />
-                                    @else
-                                        <img src="../img/books/{{ $sach->hinh_anh }}"
-                                            class="owl-carousel-image img-fluid" alt="" />
-                                    @endif
+                                    <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
+                                        class="custom-block-image-wrap">
+                                        @if ($sach->hinh_anh == '')
+                                            <img src="../img/default/no_book_slider.png"
+                                                class="owl-carousel-image img-fluid" />
+                                        @else
+                                            <img src="../img/books/{{ $sach->hinh_anh }}"
+                                                class="owl-carousel-image img-fluid" />
+                                        @endif
+                                    </a>
                                     <div class="owl-carousel-info">
                                         <h4 class="mb-2">
-                                            {{ $sach->ten }}
+                                            <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
+                                                class="slide">{{ $sach->ten }}</a>
                                         </h4>
                                         <span class="badge">{{ $sach->fkTacGia->ten }}</span>
                                         <span class="badge">#{{ $sach->ma_sach }}</span>
-                                    </div>
-                                    <div class="social-share">
-                                        <ul class="social-icon">
-                                            <li class="social-icon-item">
-                                                <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
-                                                    class="social-icon-link bi-eye"></a>
-                                            </li>
-                                            <li class="social-icon-item">
-                                                <a href="#" class="social-icon-link bi-cart"></a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             @endforeach
@@ -92,81 +85,90 @@
             </div>
         </section>
 
-        <section class="latest-podcast-section section-padding pb-5" id="section_2">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-12">
-                        <div class="section-title-wrap mb-5">
-                            <h4 class="section-title">Sách mới hàng tuần</h4>
-                        </div>
-                    </div>
-                    @foreach ($sach_moi as $key => $item)
-                        <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
-                            <div class="custom-block d-flex">
-                                <div>
-                                    <div class="custom-block-icon-wrap">
-                                        <div class="section-overlay"></div>
-                                        <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}"
-                                            class="custom-block-image-wrap">
-                                            @if ($item->hinh_anh != '')
-                                                <img src="../img/books/{{ $item->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
-                                            @else
-                                                <img src="../img/default/no_book.jpg"
-                                                    class="custom-block-image img-fluid border" alt="" />
-                                            @endif
-                                        </a>
-                                    </div>
-                                    <div class="mt-2">
-                                        @include('client.element.muon_sach_btn', ['sach' => $item])
-                                    </div>
-                                </div>
-                                <div class="custom-block-info">
-                                    <div class="custom-block-top d-flex mb-1">
-                                        <small class="me-4">
-                                            <i class="bi-clock-fill custom-icon"></i>
-                                            {{ $item->nam_xuat_ban }}
-                                        </small>
-                                        <small class="me-4">Mã sách <span
-                                                class="badge">#{{ $item->ma_sach }}</span></small>
-                                        <small>Số lượng <span
-                                                class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
-                                    </div>
-                                    <h5 class="mb-2">
-                                        <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                            href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
-                                            {{ $item->ten }} </a>
-                                    </h5>
-                                    <div class="profile-block d-flex">
-                                        <img src="../img/default/author.png" class="profile-block-image img-fluid" />
-                                        <p>
-                                            Tác giả
-                                            <strong><a
-                                                    href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
-                                                    class="author">{{ $item->fkTacGia->ten }}</a></strong>
-                                        </p>
-                                    </div>
-                                    @include('client.element.interact_bar', ['sach' => $item])
-                                </div>
+        @if ($sach_moi->count() > 0)
+            <section class="latest-podcast-section section-padding pb-5" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Sách mới hàng tuần</h4>
                             </div>
                         </div>
-                    @endforeach
-                    <div class="col-lg-4 col-12 mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg justify-content-center mt-5">
-                                <h4>
-                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 1]) }}"
-                                        onMouseOver="this.style.textDecoration='underline'"
-                                        onMouseOut="this.style.textDecoration='none'" href="">Xem tất cả</a>
-                                </h4>
-                            </ul>
-                        </nav>
+                        @foreach ($sach_moi as $key => $item)
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                                <div class="custom-block d-flex">
+                                    <div>
+                                        <div class="custom-block-icon-wrap">
+                                            <div class="section-overlay"></div>
+                                            <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}"
+                                                class="custom-block-image-wrap">
+                                                @if ($item->hinh_anh != '')
+                                                    <img src="../img/books/{{ $item->hinh_anh }}"
+                                                        class="custom-block-image img-fluid" />
+                                                @else
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            @include('client.element.muon_sach_btn', [
+                                                'sach' => $item,
+                                            ])
+                                        </div>
+                                    </div>
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small class="me-4">
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                {{ $item->nam_xuat_ban }}
+                                            </small>
+                                            <small class="me-4">Mã sách <span
+                                                    class="badge">#{{ $item->ma_sach }}</span></small>
+                                            <small>Số lượng <span
+                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
+                                        </div>
+                                        <h5 class="mb-2">
+                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                                                href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
+                                                {{ $item->ten }} </a>
+                                        </h5>
+                                        <div class="profile-block d-flex">
+                                            <img src="../img/default/author.png"
+                                                class="profile-block-image img-fluid" />
+                                            <p>
+                                                Tác giả
+                                                <strong>
+                                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
+                                                        class="author">{{ $item->fkTacGia->ten }}</a>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        @include('client.element.interact_bar', ['sach' => $item])
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="col-lg-4 col-12 mx-auto">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg justify-content-center mt-5">
+                                    <h4>
+                                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 1]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
+                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
+                                            cả</a>
+                                    </h4>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
 
-        <section class="topics-section section-padding pb-5 pt-0" id="section_3">
+        <section
+            class="topics-section section-padding {{ $xu_huong->count() > 0 ? 'pb-5' : '' }} {{ $sach_moi->count() > 0 ? 'pt-0' : '' }}"
+            id="section_3">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-12">
@@ -181,27 +183,27 @@
                                     class="custom-block-image-wrap">
                                     @if ($item->the_loai_id == 1)
                                         <img src="../img/default/bia_sach_giao_khoa.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                     @if ($item->the_loai_id == 2)
                                         <img src="../img/default/bia_tham_khao.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                     @if ($item->the_loai_id == 3)
                                         <img src="../img/default/bia_phat_trien.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                     @if ($item->the_loai_id == 4)
-                                        <img src="../img/default/bia_tap_chi.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
+                                        <img src="../img/default/bia_tap_chi.jpg"
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                     @if ($item->the_loai_id == 5)
                                         <img src="../img/default/bia_khoa_hoc.jpg"
-                                            class="custom-block-image img-fluid" alt="" />
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                     @if ($item->the_loai_id == 6)
-                                        <img src="../img/default/bia_van_hoc.jpg" class="custom-block-image img-fluid"
-                                            alt="" />
+                                        <img src="../img/default/bia_van_hoc.jpg"
+                                            class="custom-block-image img-fluid" />
                                     @endif
                                 </a>
                                 <div class="custom-block-info custom-block-overlay-info">
@@ -221,7 +223,7 @@
                 </div>
             </div>
         </section>
-        @if ($xu_huong)
+        @if ($xu_huong->count() > 0)
             <section class="trending-podcast-section section-padding pt-0">
                 <div class="container">
                     <div class="row">
@@ -240,10 +242,10 @@
                                         <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
                                             @if ($item->fkSach->hinh_anh != '')
                                                 <img src="../img/books/{{ $sach->fkSach->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" alt="" />
+                                                    class="custom-block-image img-fluid" />
                                             @else
                                                 <img src="../img/default/no_book.jpg"
-                                                    class="custom-block-image img-fluid border" alt="" />
+                                                    class="custom-block-image img-fluid border" />
                                             @endif
                                         </a>
                                     </div>
@@ -259,15 +261,17 @@
                                                 {{ $item->fkSach->ten }}</a>
                                         </h5>
                                         <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                                alt="" />
+                                            <img src="../img/default/author.png"
+                                                class="profile-block-image img-fluid" />
                                             <p>
                                                 Tác giả
-                                                <strong><a
-                                                        href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
-                                                        class="author">{{ $item->fkSach->fkTacGia->ten }}</a></strong>
+                                                <strong>
+                                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
+                                                        class="author">{{ $item->fkSach->fkTacGia->ten }}</a>
+                                                </strong>
                                             </p>
                                         </div>
+                                        @include('client.element.interact_bar', ['sach' => $item->fkSach])
                                     </div>
                                 </div>
                             </div>

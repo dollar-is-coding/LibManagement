@@ -10,7 +10,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <h6 class="m-0">Mã số: #{{ $item->ma_phieu }}</h6>
                         <div class="m-0"><strong>Tổng số lượng
-                                ({{ $item->tong_so_luong }})
+                                ({{ $item->tong_so_sach }})
                             </strong>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                     <div class="custom-block-icon-wrap">
                         <div class="section-overlay"></div>
                         <a class="custom-block-image-wrap">
-                            @if ($item->fkSach != '')
-                                <img src="../img/books/{{ $item->fkSach }}" class="custom-block-image img-fluid"
+                            @if ($item->fkSach->hinh_anh != '')
+                                <img src="../img/books/{{ $item->fkSach->hinh_anh }}" class="custom-block-image img-fluid"
                                     alt="" />
                             @else
                                 <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border"

@@ -29,6 +29,7 @@ use App\Http\Requests\SachRequest;
 use App\Http\Requests\CapTaiKhoanRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Arr;
+use App\Models\KhoSach;
 
 use App\Imports\ExcelImport;
 
@@ -859,43 +860,75 @@ class AdminController extends Controller
     }
 
     public function handleThanhToan(Request $request)
-    { 
+    {
+        $all_requests=$request->all();
+        $tong_so_sach=0;
         PhieuTraSach::create([
             'ma_phieu_muon'=>$request->ma_phieu,
             'thu_thu_id'=>Auth::id(),
             'trang_thai'=>$request->het_han==1?1:0 // Kiểm tra 1 là quá hạn, 0 là đúng hạn
         ]);
         PhieuMuonSach::where('ma_phieu_muon',$request->ma_phieu)->update(['trang_thai'=>3]);
-        foreach ($request->all() as $key => $value) {
+        foreach ($all_requests as $key => $value) {
+            // Nếu khác '_token' và key là số
             if ($key!='_token'&&is_numeric($key)) {
                 $array=explode('|',$value);
-                // Nếu hết hạn thì phạt tất cả cuốn sách
-                if ($request->het_han==1) {
+                // Nguyên vẹn
+                if ($array[1]==1) {
+                    if ($all_requests['het_han']==1) {
+                        PhieuPhat::create([
+                            'doc_gia_id'=>$request->doc_gia,
+                            'thu_thu_id'=>Auth::id(),
+                            'ma_phieu'=>$all_requests['ma_phieu'],
+                            'sach_id'=>$key,
+                            'so_luong'=>1,
+                            'ly_do'=>'Hết hạn',
+                            'tien_phat'=>20000,
+                            'tong_tien_phat'=>$all_requests['tong_tien_phat'],
+                            'tong_so_sach'=>0
+                        ]);
+                        $tong_so_sach++;
+                    }
+                    $this_book=ThuVien::where('sach_id',$key)->first();
+                    ThuVien::where('sach_id',$key)->update(['sl_con_lai'=>$this_book->sl_con_lai+1]);
+                // Mất sách
+                } elseif($array[1]==2) {
                     PhieuPhat::create([
                         'doc_gia_id'=>$request->doc_gia,
                         'thu_thu_id'=>Auth::id(),
-                        'ma_phieu'=>$request->ma_phieu,
+                        'ma_phieu'=>$all_requests['ma_phieu'],
                         'sach_id'=>$key,
                         'so_luong'=>1,
-                        'ly_do'=>$array[1]==1?'Hết hạn':($array[1]==2?'Hết hạn + Mất sách':'Hết hạn + Hư hại'),
-                        'tien_phat'=>$array[0]+20000,
-                        'tong_tien_phat'=>$request->tong_tien_phat
+                        'ly_do'=>$all_requests['het_han']==1?'Hết hạn + Mất sách':'Mất sách',
+                        'tien_phat'=>$all_requests['het_han']==1?$array[0]+20000:$array[0],
+                        'tong_tien_phat'=>$all_requests['tong_tien_phat'],
+                        'tong_so_sach'=>0
                     ]);
-                // Nếu không quá hạn thì chỉ phạt MẤT SÁCH (2) & HƯ HẠI (3)
-                } elseif($array[0]!=0) {
+                    $tong_so_sach++;
+                // Hư hỏng
+                } else {
                     PhieuPhat::create([
                         'doc_gia_id'=>$request->doc_gia,
                         'thu_thu_id'=>Auth::id(),
-                        'ma_phieu'=>$request->ma_phieu,
+                        'ma_phieu'=>$all_requests['ma_phieu'],
                         'sach_id'=>$key,
                         'so_luong'=>1,
-                        'ly_do'=>$array[1]==2?'Mất sách':'Hư hại',
-                        'tien_phat'=>$array[0],
-                        'tong_tien_phat'=>$request->tong_tien_phat
+                        'ly_do'=>$all_requests['het_han']==1?'Hết hạn + Hư hỏng ('.$all_requests['hu_hong_'.$key].')':'Hư hỏng ('.$all_requests['hu_hong_'.$key].')',
+                        'tien_phat'=>$all_requests['het_han']==1?$array[0]+20000:$array[0],
+                        'tong_tien_phat'=>$all_requests['tong_tien_phat'],
+                        'tong_so_sach'=>0
                     ]);
+                    KhoSach::create([
+                        'sach_id'=>$key,
+                        'thu_thu_id'=>Auth::id(),
+                        'ly_do'=>'Độc giả làm hư ('.$all_requests['hu_hong_'.$key].')',
+                        'so_luong'=>1
+                    ]);
+                    $tong_so_sach++;
                 }
             }
         }
+        PhieuPhat::where('ma_phieu',$all_requests['ma_phieu'])->update(['tong_so_sach'=>$tong_so_sach]);
         return redirect()->route('da-muon-sach');
     }
     public function chiTietTaiKhoan($id){

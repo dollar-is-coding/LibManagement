@@ -84,21 +84,25 @@
                         <div class="section-title-wrap mb-5">
                             <h4 class="section-title">Mẫu liên hệ</h4>
                         </div>
-                        <form action="#" method="post" class="custom-form contact-form" role="form">
+                        <form action="{{ route('gui-lien-he') }}" method="post" class="custom-form contact-form"
+                            role="form">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12 col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="tieu_de" id="name" class="form-control"
-                                            placeholder="Name" required="" autocomplete="off" />
+                                        <input type="text" name="tieu_de" id="tieu-de" class="form-control"
+                                            placeholder="Name" autocomplete="off" oninput="showSubmit()" />
                                         <label for="floatingInput">Tiêu đề</label>
                                     </div>
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="message" name="noi_dung" placeholder="Describe message here"></textarea>
+                                        <textarea class="form-control" id="noi-dung" name="noi_dung" placeholder="Describe message here"
+                                            oninput="showSubmit()"></textarea>
                                         <label for="floatingTextarea">Nội dung</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-12 ms-auto">
-                                    <button type="submit" class="form-control">Gửi</button>
+                                    <button type="submit" id="submit-btn" class="form-control"
+                                        style="background-color:rgb(80, 80, 80);pointer-events:none">Gửi</button>
                                 </div>
                             </div>
                         </form>
@@ -115,6 +119,21 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        var tieude = document.getElementById('tieu-de');
+        var noidung = document.getElementById('noi-dung');
+        var btn = document.getElementById('submit-btn')
+
+        function showSubmit() {
+            if (tieude.value.trim() !== '' && noidung.value.trim() !== '') {
+                btn.style.pointerEvents = 'fill';
+                btn.style.backgroundColor = '#0066cc';
+            } else {
+                btn.style.pointerEvents = 'none';
+                btn.style.backgroundColor = 'rgb(80, 80, 80)';
+            }
+        }
+    </script>
 </body>
 
 </html>

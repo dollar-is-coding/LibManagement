@@ -18,7 +18,8 @@ class PhieuPhat extends Model
         'so_luong',
         'ly_do',
         'tien_phat',
-        'tong_tien_phat'
+        'tong_tien_phat',
+        'tong_so_sach',
     ];
     public function fkThuThu()
     {
