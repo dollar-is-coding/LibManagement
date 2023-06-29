@@ -185,7 +185,8 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination pagination-lg justify-content-center mt-5">
                                     <h4>
-                                        <a href="" onMouseOver="this.style.textDecoration='underline'"
+                                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
+                                            onMouseOver="this.style.textDecoration='underline'"
                                             onMouseOut="this.style.textDecoration='none'">
                                             Xem tất cả</a>
                                     </h4>

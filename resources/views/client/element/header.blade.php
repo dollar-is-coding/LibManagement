@@ -9,8 +9,7 @@
             <div class="input-group input-group-lg">
                 <input name="search" type="search" class="form-control" id="search" placeholder="Tìm kiếm sách"
                     aria-label="Search" autocomplete="off" />
-
-                <button type="submit" class="form-control" id="submit">
+                <button type="submit" class="form-control" id="submit" onclick="onSubmit(event)">
                     <i class="bi-search"></i>
                 </button>
             </div>
@@ -57,3 +56,13 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function onSubmit(event) {
+        var search = document.getElementById('search');
+        var submit = document.getElementById('submit')
+        if (search.value.trim() === '') {
+            event.preventDefault();
+        }
+    }
+</script>
