@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="d-flex align-items-center sono bi-dot">
                                         <p class="m-0">Đã mượn:&nbsp;</p>
-                                        <div>{{ $da_tra->count() }} quyển</div>
+                                        <div>{{ $sach_da_muon }} quyển</div>
                                     </div>
                                 </div>
                             </div>

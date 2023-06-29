@@ -47,13 +47,10 @@
             </div>
         </header>
 
-        <section class="about-section section-padding pt-2 {{ $tin_tuc->count() > 0 ? 'pb-5' : '' }}" id="section_2">
-            <div class="container">
-                @if ($tin_tuc->count() <= 0)
-                    <div class="d-flex justify-content-center">
-                        <h6>Chưa có tin tức!</h6>
-                    </div>
-                @else
+        @if ($noi_bat)
+            <section class="about-section section-padding pt-2 {{ $tin_tuc->count() > 0 ? 'pb-5' : '' }}"
+                id="section_2">
+                <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-12 mx-auto">
                             <div class="pb-5 mb-5">
@@ -75,9 +72,9 @@
                             </div>
                         </div>
                     </div>
-                @endif
-            </div>
-        </section>
+                </div>
+            </section>
+        @endif
 
         @if ($tin_tuc->count() > 0)
             <section class="trending-podcast-section section-padding pt-0">

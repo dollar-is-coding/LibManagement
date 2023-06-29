@@ -162,6 +162,11 @@ strong {
     font-size: 18px;
 }
 
+.sono-label {
+    font-family: "Sono";
+    font-size: 14px;
+}
+
 .section-title-wrap::after {
     content: "";
     background: var(--section-bg-color);
@@ -240,6 +245,20 @@ main {
     pointer-events: none; 
     background-color: #dddddd !important; 
     color: rgb(80, 80, 80) !important;
+}
+
+.no-comment {
+    font-family: 'sono';
+    background-color: #ededed !important; 
+    color: rgb(139, 138, 138) !important;
+}
+
+.more-info:hover {
+    background-color: black;
+}
+
+.chat-reply {
+    color: #717275
 }
 
 .slide {

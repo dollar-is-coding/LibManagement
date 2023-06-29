@@ -19,7 +19,7 @@ class BinhLuan extends Model
 
     public function hasReply()
     {
-        return $this->hasMany(BinhLuan::class,'binh_luan_id');
+        return $this->hasMany(BinhLuan::class,'binh_luan_id')->orderBy('created_at','ASC');
     }
 
     public function fkBinhLuan()
