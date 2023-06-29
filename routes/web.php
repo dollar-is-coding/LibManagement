@@ -131,6 +131,17 @@ Route::get('/chi-tiet-tai-khoan/{id}', [AdminController::class, 'chiTietTaiKhoan
 Route::post('/thay-doi-thong-tin-tai-khoan/{id}', [AdminController::class, 'xuLyDoiThongTinNguoiDung'])->name('xu-ly-doi-thong-tin-tai-khoan')->middleware('auth');
 
 Route::post('/thanh-toan-sach', [AdminController::class, 'handleThanhToan'])->name('thanh-toan')->middleware('auth');
+
+
+Route::get('/bao-cao-sach-hu', [AdminController::class, 'sachHu'])->name('bao-cao-sach-hu')->middleware('auth');
+Route::post('/xu-ly-bo-sach-vao-kho', [AdminController::class, 'xuLyBoSachVaoKho'])->name('xu-ly-bo-sach-vao-kho')->middleware('auth');
+
+Route::get('/quan-ly-kho-sach', [AdminController::class, 'quanLyKhoSach'])->name('quan-ly-kho-sach')->middleware('auth');
+
+Route::get('/quan-ly-lien-he', [AdminController::class, 'quanLyLienHe'])->name('quan-ly-lien-he')->middleware('auth');
+Route::post('/quan-ly-lien-he/{id}', [AdminController::class, 'xuLyDangChuY'])->name('xu-ly-chu-y')->middleware('auth');
+
+Route::get('/xoa-lien-he/{id}', [AdminController::class, 'xoaLienHe'])->name('xoa-lien-he')->middleware('auth');
 });
 Route::middleware('user')->group(function () {
     Route::get('/nguoi-dung',function(){

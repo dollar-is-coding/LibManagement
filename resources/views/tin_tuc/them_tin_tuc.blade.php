@@ -76,7 +76,7 @@
                     <span>Tin tức</span>
                     <span>Thêm tin tức</span>
                 </div>
-                <div class="border">
+                <div class="">
                     <h3 class="ml-3 mt-3">Thêm tin tức</h3>
                     <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data" class="ml-3">
                         @csrf

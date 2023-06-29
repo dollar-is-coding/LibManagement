@@ -23,6 +23,8 @@
                     <nav class="az-menu-sub">
                         <a href="{{ route('hien-thi-sach') }}" class="nav-link">Tra cứu</a>
                         <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">Thêm sách</a>
+                        <a href="{{ route('bao-cao-sach-hu') }}" class="nav-link">Báo cáo sách</a>
+                        <a href="{{ route('quan-ly-kho-sach') }}" class="nav-link">Quản lí kho sách</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
@@ -46,6 +48,12 @@
                         <a href="{{route('them-tin-tuc')}}" class="nav-link">Thêm tin tức</a>
                         <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
                     </nav>
+                </li>
+                <li class="nav-item {{ $view == 6 ? 'active show' : '' }}">
+                    <a href="{{route('quan-ly-lien-he')}}" class="nav-link">
+                        <i class="fas fa-mail-bulk mr-1"></i>
+                        Quản lý phản hồi
+                    </a>
                 </li>
             </ul>
         </div><!-- az-header-menu -->

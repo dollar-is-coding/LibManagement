@@ -32,7 +32,7 @@ use Illuminate\Support\Arr;
 use App\Models\KhoSach;
 
 use App\Imports\ExcelImport;
-
+use App\Models\LienHe;
 use App\Models\NguoiDung;
 use App\Models\PhieuPhat;
 use App\Models\PhieuTraSach;
@@ -298,6 +298,7 @@ class AdminController extends Controller
         $dexuat = Sach::where('de_xuat', 1)->count();
         $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
+        $de_xuat = $request->has('de_xuat') ? 1 : 0;
         if ($tangsl) {
             if (strval($tangsl->id) === strval($request->id_sach)) {
                 if ($dexuat < 7) {
@@ -308,7 +309,7 @@ class AdminController extends Controller
                     'nha_xuat_ban_id' => $request->nha_xuat_ban,
                     'nam_xuat_ban' => $request->nam_xuat_ban,
                     'mo_ta' => $request->mo_ta,
-                    'de_xuat'=>$request->de_xuat ? 1 : 0,
+                    'de_xuat'=>$de_xuat,
                     'gia_tien'=>$request->gia_tien,
                 ]);
                 }else{
@@ -321,7 +322,7 @@ class AdminController extends Controller
                         'nha_xuat_ban_id' => $request->nha_xuat_ban,
                         'nam_xuat_ban' => $request->nam_xuat_ban,
                         'mo_ta' => $request->mo_ta,
-                        'de_xuat' => $request->de_xuat ? 1 : 0,
+                        'de_xuat' => $de_xuat,
                         'gia_tien' => $request->gia_tien,
                     ]);
                 }
@@ -359,7 +360,7 @@ class AdminController extends Controller
                     'nha_xuat_ban_id' => $request->nha_xuat_ban,
                     'nam_xuat_ban' => $request->nam_xuat_ban,
                     'mo_ta' => $request->mo_ta,
-                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                    'de_xuat' => $de_xuat,
                     'gia_tien' => $request->gia_tien,
                 ]);
             } else {
@@ -372,7 +373,7 @@ class AdminController extends Controller
                     'nha_xuat_ban_id' => $request->nha_xuat_ban,
                     'nam_xuat_ban' => $request->nam_xuat_ban,
                     'mo_ta' => $request->mo_ta,
-                    'de_xuat' => $request->de_xuat ? 1 : 0,
+                    'de_xuat' => $de_xuat,
                     'gia_tien' => $request->gia_tien,
                 ]);
             }
@@ -726,9 +727,14 @@ class AdminController extends Controller
     }
     public function xuLySuaTinTuc($id, Request $request)
     {
+        $noi_bat = $request->has('noi_bat') ? 1 : 0;
+        if ($noi_bat == 1) {
+            TinTuc::where('noi_bat', 1)->update(['noi_bat' => 0]);
+        }
         TinTuc::find($id)->update([
             'tieu_de' => $request->tieu_de,
             'noi_dung' => $request->noi_dung,
+            'noi_bat' => $noi_bat,
         ]);
         $img = TinTuc::find($id);
         if ($request->has('file')) {
@@ -798,6 +804,7 @@ class AdminController extends Controller
         PhieuMuonSach::where('ma_phieu_muon', $id)->update([
             'trang_thai' => 2,
             'thu_thu_id' => Auth::id(),
+            'han_tra'=> date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
@@ -965,6 +972,51 @@ class AdminController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         $img->save();
 
+        return back();
+    }
+    public function sachHu(){
+        $sach = ThuVien::where('sl_con_lai', '>', 0)->get();
+        return view('sach.sach_hu',['sach'=>$sach]);
+    }
+    public function xuLyBoSachVaoKho(Request $request){
+        $so_luong_tong = ThuVien::where('sach_id', $request->ten_sach)->first();
+        $sl = intval($so_luong_tong->sl_con_lai);
+        $so_luong_tru = intval($request->so_luong);
+        $sl_con_lai = $sl - $so_luong_tru;
+        if($sl<$so_luong_tru){
+            return back()->with('error', 'Số lượng sách cần bỏ vào kho vượt quá số lượng sách hiện có !!!');
+        }else{
+            KhoSach::create([
+                'sach_id' => $request->ten_sach,
+                'thu_thu_id' => Auth::id(),
+                'ly_do' => $request->ly_do,
+                'so_luong' => $request->so_luong,
+            ]);
+            ThuVien::where('sach_id', $request->ten_sach)->update([
+                'sl_con_lai' => $sl_con_lai,
+            ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return back();
+        }
+    }
+    public function quanLyKhoSach(){
+        $khosach = KhoSach::where('so_luong','>',0)->get();
+        return view('sach.quan_ly_kho',['khosach'=>$khosach]);
+    }
+    public function quanLyLienHe(){
+        $lienhe = LienHe::all();
+        $sl = LienHe::all()->count();
+        return view('lien_he.quan_ly_phan_hoi',['lienhe'=>$lienhe,'sl'=>$sl]);
+    }
+    public function xuLyDangChuY(Request $request,$id){
+        $dangChuY = $request->has('dang_chu_y') ? 1 : 0;
+            LienHe::where('id', $id)->update([
+                'dang_chu_y' => $dangChuY
+            ]);
+        return back();
+    }
+    public function xoaLienHe($id){
+        LienHe::find($id)->delete();
         return back();
     }
 }

@@ -50,45 +50,50 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
-                <form class="row az-signin-header" action="{{route('tim-kiem-theo-tac-gia')}}" method="get">
-                    <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
-                    </div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
-                    </div>
-                </form>
-
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
-
-                @if($slsach>0)
-                <h4 class="mt-3">Số lượng sách {{$slsach}}</h4>
-                @endif
-                @if($slsach==0)
-                <p class="mt-2">Hiện không có sách nào !!!</p>
-                @endif
-                <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
-                    @foreach($sach as $item)
-                    <div class="card" style="margin: 10px;">
-                        @if($item->hinh_anh == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->hinh_anh != '')
-                        <img src="/img/books/{{$item->hinh_anh}}" class="card-img-top">
-                        @endif
-                        <div class="card-body">
-                            <h5 style="height: 50px;" class="card-title">{{$item->ten}}</h5>
-                            <p class="card-text">Số lượng {{$item->hasThuVien->sl_con_lai}}</p>
-                            <a href="{{route('chi-tiet-sach',['id' => $item->id])}}" class="btn btn-primary">Xem chi tiết</a>
+                <h3>Báo cáo sách hư</h3>
+                <div class="table-responsive">
+                    <form action="{{route('xu-ly-bo-sach-vao-kho')}}" method="post">
+                        @csrf
+                        <div style="display: grid;grid-template-columns: auto;">
+                            <div>
+                                <label for="selectBox" class="form-label">Chọn sách</label>
+                                <select required class="form-control select2" name="ten_sach" id="selectBox" tabindex="1">
+                                    <option disabled selected>Chọn sách bị hư</option>
+                                    @foreach($sach as $item)
+                                    <option value="{{$item->sach_id}}">{{$item->fkSach->ten}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="exampleFormControlInput1" class="form-label">Số lượng</label>
+                                <input tabindex="2" name="so_luong" required type="number" min="1" class="form-control" id="exampleFormControlInput1" placeholder="Số lượng">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Lý do</label>
+                                <textarea name="ly_do" tabindex="3" placeholder="Lý do" required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
                         </div>
+
+                        <div class="mb-3" style="display: flex;justify-content: end;">
+                            <button type="submit" class="btn btn-success">Bỏ vào kho</button>
+                        </div>
+                    </form>
+                    @if (session('error'))
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('error') }}</span>
+                        </span>
                     </div>
-                    @endforeach
+                    @endif
                 </div><!-- az-content-body -->
-                <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>
+
                 @include('../common/footer')
             </div>
 

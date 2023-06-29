@@ -71,8 +71,8 @@
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
 
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column border">
-                <div class="az-content-breadcrumb">
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+                <div class="az-content-breadcrumb mt-1">
                     <span>Tin tức</span>
                     <span>Sửa tin tức</span>
                 </div>
@@ -80,6 +80,10 @@
                 @foreach($tintuc as $item)
                 <form action="{{route('xu-ly-sua-tin-tuc',['id'=>$item->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                        <input name="noi_bat" value="{{$item->noi_bat}}" style="width: 17px;height: 17px;" {{$item->noi_bat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
+                        <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat">Nổi bật</label>
+                    </div>
                     <div style="display: flex;">
                         <div style="flex-basis: 30%;">
                             @if($item->anh_bia == '')

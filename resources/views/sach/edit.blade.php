@@ -80,7 +80,7 @@
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <input name="de_xuat" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
+                            <input name="de_xuat" value="{{$item->fkSach->de_xuat}}" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
                             <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> {{$item->fkSach->de_xuat == 1 ? 'Đề xuất' : 'Không đề xuất'}}</label>
                             <script>
                                 let check = document.getElementById('checkDeXuat');
@@ -171,7 +171,6 @@
                                     <div class="form-group mr-3">
                                         <label class="m-0">&nbsp;Tủ sách</label>
                                         <select required id="tuSachSelect" name="tu_sach" class="form-control select2-no-search" tabindex="6">
-
                                             @foreach ($khu_vuc as $khu_vuc_item)
                                             <optgroup label="{{ $khu_vuc_item->ten }} gồm các tủ" data-khu-vuc="{{ $khu_vuc_item->id }}" class="tuSachOptgroup">
                                                 <option hidden value="{{ $item->fkTusach->fkKhuVuc->khu_vuc_id }}" selected>
@@ -363,27 +362,6 @@
             $('.tuSachOptgroup[data-khu-vuc="' + selectedVal + '"]').show();
             $("#tuSachSelect").val("");
             // $('.result').html('');
-        });
-
-        $(document).ready(function() {
-            $(".tusach-group").hide();
-            $("#khuVucSelect1").change(function() {
-                var selectedVal = $(this).val();
-                $(".tusach-group").hide();
-                $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
-                // $('.result').html('');
-            });
-        });
-        $(document).ready(function() {
-            $(".tusach-group").hide();
-            $("#khuVucSelect1")
-                .change(function() {
-                    var selectedVal = $(this).val();
-                    $(".tusach-group").hide();
-                    $('.tusach-group[data-khu-vuc="' + selectedVal + '"]').show();
-                    // $('.result').html('');
-                })
-                .change(); // Gọi hàm change() ở đây để khởi tạo giá trị ban đầu
         });
     </script>
     <script>
