@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
+
     <!--Template Mo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
@@ -255,6 +256,7 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="jquery-3.6.4.min.js"></script>
 <script>
     var commentInput = document.getElementById('comment-input');
     commentInput.addEventListener('input', function() {
