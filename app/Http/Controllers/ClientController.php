@@ -66,6 +66,14 @@ class ClientController extends Controller
     public function chiTietSach()
     {
         $id = request()->input('id');
+        $matrix = PhieuMuonSach::where('sach_id', $id)->get();
+        $relative = [];
+        foreach ($matrix as $key => $value) {
+            $relative[] = $value->ma_phieu_muon;
+        }
+        $lien_quan = PhieuMuonSach::whereIn('ma_phieu_muon', $relative)->where('sach_id', '!=', $id)->groupBy('sach_id')
+            ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
+            ->orderBy('total', 'desc')->take(6)->get();
         $sach = Sach::find($id);
         $da_xem = LichSu::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])->first();
         $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
@@ -87,12 +95,23 @@ class ClientController extends Controller
                 ->update(['da_xem' => 1]);
         }
         $binh_luan = BinhLuan::where([['sach_id', $id], ['binh_luan_id', 0]])->get();
+        $phan_hoi = BinhLuan::where([['sach_id', $id], ['binh_luan_id', '!=', 0]])->orderBy('created_at', 'DESC')->get();
+        $can_comment = 0;
+        foreach ($sach->hasPhieuMuon as $key => $value) {
+            if ($value->doc_gia_id == Auth::id() && $value->trang_thai == 3) {
+                $can_comment = 1;
+                break;
+            }
+        }
         return view('client.chi_tiet_sach', [
             'sach' => $sach,
             'gio_sach' => $gio_sach,
             'cung_tac_gia' => $cung_tac_gia,
             'ds_da_xem' => $ds_da_xem,
-            'binh_luan' => $binh_luan
+            'binh_luan' => $binh_luan,
+            'da_muon' => $can_comment,
+            'lien_quan' => $lien_quan,
+            'phan_hoi' => $phan_hoi
         ]);
     }
 
@@ -364,13 +383,20 @@ class ClientController extends Controller
             'nguoi_dung_id' => Auth::user()->id,
             'noi_dung' => $request->binh_luan
         ]);
-        return back();
+        $new_binh_luan = BinhLuan::latest()->first();
+        if (request()->input('tra_loi')) {
+            $url = url('/thong-tin-sach?id=' . $sach . '&binh_luan=' . request()->input('tra_loi') . '&phan_hoi=' . $new_binh_luan->id . '#binh_luan_' . $new_binh_luan->id);
+        } else {
+            $url = url('/thong-tin-sach?id=' . $sach . '&binh_luan=' . $new_binh_luan->id . '&phan_hoi=0' . '#binh_luan_' . $new_binh_luan->id);
+        }
+        return redirect($url);
     }
 
 
     // Info
     public function showCaNhan()
     {
+        $da_muon_sl = PhieuMuonSach::where([['doc_gia_id', Auth::id()], ['trang_thai', 3]])->distinct('sach_id')->select('sach_id')->get();
         $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
         $phieu_huy = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 0]])->get();
         $cho_duyet = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 1]])->get();
@@ -383,7 +409,8 @@ class ClientController extends Controller
             'cho_duyet' => $cho_duyet,
             'dang_muon' => $dang_muon,
             'da_tra' => $da_tra,
-            'phieu_phat' => $phieu_phat
+            'phieu_phat' => $phieu_phat,
+            'sach_da_muon' => $da_muon_sl->count()
         ]);
     }
     public function handleCapNhatThongTin(Request $request)

@@ -44,6 +44,7 @@
                 </div>
             </div>
         </header>
+
         <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
@@ -131,20 +132,21 @@
                 </div>
             </div>
         </section>
+
         @if ($cung_tac_gia->count() > 1)
             <section class="related-podcast-section section-padding pt-0 pb-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-12">
                             <div class="section-title-wrap mb-5">
-                                <h4 class="section-title">Cùng tác giả</h4>
+                                <h4 class="section-title" id="scroll-here">Cùng tác giả</h4>
                             </div>
                         </div>
                         @foreach ($cung_tac_gia as $key => $item)
                             <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <a href="detail-page.html">
+                                        <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
                                             @if ($sach->hinh_anh != '')
                                                 <img src="../img/books/{{ $sach->hinh_anh }}"
                                                     class="custom-block-image img-fluid" />
@@ -156,28 +158,21 @@
                                     </div>
                                     <div class="custom-block-info">
                                         <h5 class="mb-2">
-                                            <a href="detail-page.html">{{ $item->ten }}</a>
+                                            <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
+                                                {{ $item->ten }}</a>
                                         </h5>
                                         <div class="profile-block d-flex">
                                             <img src="../img/default/author.png"
                                                 class="profile-block-image img-fluid" />
                                             <p>
                                                 Tác giả
-                                                <strong><a href=""
-                                                        class="author">{{ $item->fkTacGia->ten }}</a></strong>
+                                                <strong>
+                                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
+                                                        class="author">{{ $item->fkTacGia->ten }}</a>
+                                                </strong>
                                             </p>
                                         </div>
-                                        <div class="custom-block-bottom d-flex justify-content-between">
-                                            <a href="#" class="bi-eye me-1">
-                                                <span>{{ $item->luot_xem }}</span>
-                                            </a>
-                                            <a href="#" class="bi-heart me-1">
-                                                <span>{{ $item->luot_thich }}</span>
-                                            </a>
-                                            <a href="#" class="bi-chat me-1">
-                                                <span>{{ $item->luot_binh_luan }}</span>
-                                            </a>
-                                        </div>
+                                        @include('client.element.interact_bar', ['sach' => $item])
                                     </div>
                                 </div>
                             </div>
@@ -210,48 +205,39 @@
                             <h4 class="section-title">Liên quan</h4>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block custom-block-full">
-                            <div class="custom-block-image-wrap">
-                                <a href="detail-page.html">
-                                    <img src="images/podcast/27376480_7326766.jpg"
-                                        class="custom-block-image img-fluid" />
-                                </a>
-                            </div>
-                            <div class="custom-block-info">
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html"> Vintage Show </a>
-                                </h5>
-                                <div class="profile-block d-flex">
-                                    <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                        class="profile-block-image img-fluid" />
-                                    <p>
-                                        Elsa
-                                        <strong>Influencer</strong>
-                                    </p>
-                                </div>
-                                <div class="custom-block-bottom d-flex justify-content-between">
-                                    <a href="#" class="bi-headphones me-1">
-                                        <span>100k</span>
-                                    </a>
-                                    <a href="#" class="bi-heart me-1">
-                                        <span>2.5k</span>
-                                    </a>
-                                    <a href="#" class="bi-chat me-1">
-                                        <span>924k</span>
+                    @foreach ($lien_quan as $key => $item)
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }} ">
+                            <div class="custom-block custom-block-full">
+                                <div class="custom-block-image-wrap">
+                                    <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
+                                        @if ($item->fkSach->hinh_anh != '')
+                                            <img src="../img/books/{{ $item->fkSach->hinh_anh }}"
+                                                class="custom-block-image img-fluid" />
+                                        @else
+                                            <img src="../img/default/no_book.jpg"
+                                                class="custom-block-image img-fluid border" />
+                                        @endif
                                     </a>
                                 </div>
-                            </div>
-                            <div class="social-share d-flex flex-column ms-auto">
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-heart"></i>
-                                </a>
-                                <a href="#" class="badge ms-auto">
-                                    <i class="bi-bookmark"></i>
-                                </a>
+                                <div class="custom-block-info">
+                                    <h5 class="mb-2">
+                                        <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
+                                            {{ $item->fkSach->ten }}</a>
+                                    </h5>
+                                    <div class="profile-block d-flex">
+                                        <img src="../img/default/author.png"
+                                            class="profile-block-image img-fluid" />
+                                        <p>
+                                            Tác giả
+                                            <strong><a
+                                                    href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}">
+                                                    {{ $item->fkSach->fkTacGia->ten }}</a></strong>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -291,8 +277,7 @@
             document.getElementById('btn_' + reply).style.display = 'none';
         }
     }
-</script>
-<script>
+
     function reply(id) {
         var x = document.getElementById(id);
         if (document.getElementById(id).style.visibility == "hidden") {
@@ -371,6 +356,15 @@
         }
         console.log(like.value + ', ' + luotThich);
     }
+
+    window.addEventListener('DOMContentLoaded', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var shouldScroll = urlParams.get('binh_luan');
+        var element = document.getElementById('binh_luan_' + shouldScroll).offsetTop;
+        element.scrollIntoView({
+            behavior: 'smooth',
+        });
+    });
 </script>
 </body>
 
