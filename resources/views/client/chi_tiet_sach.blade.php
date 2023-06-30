@@ -124,7 +124,7 @@
                                         ])
                                     </h2>
                                     <h6>Mô tả</h6>
-                                    <p>{{ $sach->mo_ta }}</p>
+                                    <p>@php echo $sach->mo_ta; @endphp</p>
                                     @include('client.element.comment_box', ['binh_luan' => $binh_luan])
                                 </div>
                             </div>
@@ -252,11 +252,11 @@
 @include('client.element.footer')
 
 <!-- JAVASCRIPT FILES -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="jquery-3.6.4.min.js"></script>
 <script>
     var commentInput = document.getElementById('comment-input');
     commentInput.addEventListener('input', function() {
@@ -363,10 +363,12 @@
     window.addEventListener('DOMContentLoaded', function() {
         var urlParams = new URLSearchParams(window.location.search);
         var shouldScroll = urlParams.get('binh_luan');
-        var element = document.getElementById('binh_luan_' + shouldScroll).offsetTop;
-        element.scrollIntoView({
-            behavior: 'smooth',
-        });
+        var element = document.getElementById('binh_luan_' + shouldScroll);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+            });
+        }
     });
 </script>
 </body>

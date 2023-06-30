@@ -242,14 +242,14 @@ main {
 }
 
 .disable {
-    pointer-events: none; 
-    background-color: #dddddd !important; 
+    pointer-events: none;
+    background-color: #dddddd !important;
     color: rgb(80, 80, 80) !important;
 }
 
 .no-comment {
-    font-family: 'sono';
-    background-color: #ededed !important; 
+    font-family: "sono";
+    background-color: #ededed !important;
     color: rgb(139, 138, 138) !important;
 }
 
@@ -258,7 +258,7 @@ main {
 }
 
 .chat-reply {
-    color: #717275
+    color: #717275;
 }
 
 .slide {
@@ -270,7 +270,7 @@ main {
 }
 
 .danger-btn {
-    background: #DC1F16;
+    background: #dc1f16;
     border: 2px solid transparent;
     border-radius: var(--border-radius-large);
     color: var(--white-color);

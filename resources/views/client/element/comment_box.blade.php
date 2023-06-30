@@ -43,7 +43,10 @@
                     <a href="#" class="bi-three-dots chat-reply" data-bs-toggle="dropdown" aria-expanded="false"
                         style="margin-left: 10px" onclick="return false"></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Xóa</a></li>
+                        <li>
+                            <a class="dropdown-item" href=""
+                                onclick="readyToDelete({{ $item->id }},0); return false;">Xóa</a>
+                        </li>
                         <li><a class="dropdown-item" href="#">Chỉnh sửa</a></li>
                     </ul>
                 </div>
@@ -51,13 +54,14 @@
             <div class="d-flex align-items-center mt-1" style="margin-left:10px;">
                 @if ($da_muon == 1)
                     <a href="#" class="bi-chat custom-icon chat-reply"
-                        onclick="reply({{ $key }}); return false;">
-                        <span>&nbsp;{{ $item->hasReply->count() }}</span>
-                    @else
-                        <a href="#" class="bi-chat custom-icon chat-reply" onclick="return false;">
-                            <span>&nbsp;{{ $item->hasReply->count() }}</span>
+                        onclick="reply({{ $key }}); return false;" id="has_reply_{{ $item->id }}">
+                        {{ $item->hasReply->count() }}</a>
+                @else
+                    <a href="#" class="bi-chat custom-icon chat-reply" onclick="return false;"
+                        id="has_reply_{{ $item->id }}">
+                        {{ $item->hasReply->count() }}</a>
                 @endif
-                </a>
+
                 <div class="bi-dot" style="margin-left: 4px; margin-right: 4px; color:#717275">
                 </div>
                 <a style="color:#717275">
@@ -112,7 +116,10 @@
                                 <a href="#" class="bi-three-dots chat-reply" data-bs-toggle="dropdown"
                                     aria-expanded="false" style="margin-left: 10px" onclick="return false;"></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Xóa</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href=""
+                                            onclick="readyToDelete({{ $reply->id }},{{ $item->id }}); return false;">Xóa</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Chỉnh sửa</a></li>
                                 </ul>
                             </div>
@@ -145,13 +152,11 @@
     function showMore(id) {
         var comment = document.getElementById('more_' + id);
         comment.style.visibility = 'visible';
-        console.log(id);
     }
 
     function hideMore(id) {
         var comment = document.getElementById('more_' + id);
         comment.style.visibility = 'hidden';
-        console.log(id);
     }
 
     function showReplies(key) {
@@ -161,6 +166,40 @@
             element.style.display = 'block'
         });
         show.style.display = 'none';
-        console.log('block');
+    }
+</script>
+<script>
+    function readyToDelete(id, isComment) {
+        var comment = document.getElementById('binh_luan_' + id);
+        var mainComment = document.getElementById('has_reply_' + isComment);
+        Swal.fire({
+            title: 'Xóa bình luận?',
+            text: 'Bạn có chắc chắn muốn xóa bình luận này không?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            cancelButtonText: "Không",
+            confirmButtonText: "Xóa",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/xoa-binh-luan?id=' + encodeURIComponent(id), true);
+                request.send();
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        comment.style.visibility = 'hidden';
+                        comment.style.height = '0px';
+                        comment.style.opacity = '0';
+                        comment.classList.remove('pt-3');
+                        comment.firstElementChild.classList.remove('mt-3');
+                        if (Number(isComment) !== 0) {
+                            mainComment.innerHTML = Number(mainComment.innerHTML) - 1;
+                        }
+
+                    }
+                }
+            }
+        });
     }
 </script>

@@ -392,6 +392,12 @@ class ClientController extends Controller
         return redirect($url);
     }
 
+    public function xoaBinhLuan()
+    {
+        BinhLuan::find(request()->input('id'))->delete();
+        return response()->json(['message' => 'success']);
+    }
+
 
     // Info
     public function showCaNhan()

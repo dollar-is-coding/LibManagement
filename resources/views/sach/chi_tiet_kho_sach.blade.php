@@ -56,22 +56,42 @@
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
-                <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto;">
-                    @foreach($khosach as $item)
-                    <div class="card" style="margin: 10px;">
-                        @if($item->fkSach->hinh_anh == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->fkSach->hinh_anh != '')
-                        <img src="/img/books/{{$item->hinh_anh}}" class="card-img-top">
-                        @endif
-                        <div class="card-body">
-                            <h5 style="height: 50px;" class="card-title">{{$item->fkSach->ten}}</h5>
-                            <!-- <p>Lý do {{$item->ly_do}}</p>
-                            <p class="card-text">Số lượng {{$item->so_luong}}</p> -->
-                            <a href="{{route('chi-tiet-kho',['id'=>$item->id])}}" class="btn btn-primary">Xem chi tiết</a>
+                <h3>Chi tiết sách hư</h3>
+                <div class="table-responsive">
+                    <form action="{{route('xu-ly-bo-sach-vao-kho')}}" method="post">
+                        @csrf
+                        <div style="display: grid;grid-template-columns: auto;">
+                            <div>
+                                <label for="selectBox" class="form-label">Chọn sách</label>
+                                <select required class="form-control select2" name="ten_sach" id="selectBox" tabindex="1">
+                                    <option selected>{{$kho->fkSach->ten}}</option>
+                                    @foreach($sach as $item)
+                                    <option value="{{$item->sach_id}}">{{$item->fkSach->ten}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="exampleFormControlInput1" class="form-label">Số lượng</label>
+                                <input value="{{$kho->so_luong}}" tabindex="2" name="so_luong" required type="number" min="1" class="form-control" id="exampleFormControlInput1" placeholder="Số lượng">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Lý do</label>
+                                <textarea name="ly_do" tabindex="3" placeholder="Lý do" required class="form-control" id="exampleFormControlTextarea1" rows="3">{{$kho->ly_do}}</textarea>
+                            </div>
                         </div>
+
+                        <div class="mb-3" style="display: flex;justify-content: end;">
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
+                        </div>
+                    </form>
+                    @if (session('error'))
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('error') }}</span>
+                        </span>
                     </div>
-                    @endforeach
+                    @endif
                 </div><!-- az-content-body -->
 
                 @include('../common/footer')

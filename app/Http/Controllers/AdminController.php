@@ -1019,4 +1019,9 @@ class AdminController extends Controller
         LienHe::find($id)->delete();
         return back();
     }
+    public function chiTietKhoSach($id){
+        $sach = ThuVien::where('sl_con_lai', '>', 0)->get();
+        $kho = KhoSach::find($id)->first();
+        return view('sach.chi_tiet_kho_sach',['kho'=>$kho,'sach'=>$sach]);
+    }
 }
