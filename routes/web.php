@@ -142,6 +142,9 @@ Route::get('/quan-ly-lien-he', [AdminController::class, 'quanLyLienHe'])->name('
 Route::post('/quan-ly-lien-he/{id}', [AdminController::class, 'xuLyDangChuY'])->name('xu-ly-chu-y')->middleware('auth');
 
 Route::get('/xoa-lien-he/{id}', [AdminController::class, 'xoaLienHe'])->name('xoa-lien-he')->middleware('auth');
+
+Route::get('/chi-tiet-kho/{id}', [AdminController::class, 'chiTietKhoSach'])->name('chi-tiet-kho')->middleware('auth');
+
 });
 Route::middleware('user')->group(function () {
     Route::get('/nguoi-dung',function(){

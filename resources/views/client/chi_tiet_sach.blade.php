@@ -15,9 +15,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -57,21 +55,18 @@
                                 <div class="custom-block-icon-wrap">
                                     <div class="custom-block-image-wrap custom-block-image-detail-page">
                                         @if ($sach->hinh_anh != '')
-                                            <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                class="custom-block-image img-fluid" />
+                                        <img src="../img/books/{{ $sach->hinh_anh }}" class="custom-block-image img-fluid" />
                                         @else
-                                            <img src="../img/default/no_book.jpg"
-                                                class="custom-block-image img-fluid border" />
+                                        <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border" />
                                         @endif
                                     </div>
                                 </div>
-                                <div class="custom-block-bottom d-flex justify-content-between"
-                                    style="margin: 16px 8px">
+                                <div class="custom-block-bottom d-flex justify-content-between" style="margin: 16px 8px">
                                     <a class="bi-eye">
                                         <span>{{ $sach->luot_xem }}</span>
                                     </a>
                                     @include('client.element.love_btn', [
-                                        'yeu_thich' => $sach->hasYeuThich,
+                                    'yeu_thich' => $sach->hasYeuThich,
                                     ])
                                     <a class="bi-chat">
                                         <span>{{ $sach->luot_binh_luan }}</span>
@@ -118,12 +113,12 @@
                                     </div>
                                     <h2 class="mb-2">{{ $sach->ten }}
                                         @include('client.element.muon_sach_btn', [
-                                            'sach' => $sach,
-                                            'btn' => 1,
+                                        'sach' => $sach,
+                                        'btn' => 1,
                                         ])
                                     </h2>
                                     <h6>Mô tả</h6>
-                                    <p>{{ $sach->mo_ta }}</p>
+                                    <p>@php echo $sach->mo_ta; @endphp</p>
                                     @include('client.element.comment_box', ['binh_luan' => $binh_luan])
                                 </div>
                             </div>
@@ -134,70 +129,64 @@
         </section>
 
         @if ($cung_tac_gia->count() > 1)
-            <section class="related-podcast-section section-padding pt-0 pb-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-12">
-                            <div class="section-title-wrap mb-5">
-                                <h4 class="section-title" id="scroll-here">Cùng tác giả</h4>
+        <section class="related-podcast-section section-padding pt-0 pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="section-title-wrap mb-5">
+                            <h4 class="section-title" id="scroll-here">Cùng tác giả</h4>
+                        </div>
+                    </div>
+                    @foreach ($cung_tac_gia as $key => $item)
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                        <div class="custom-block custom-block-full">
+                            <div class="custom-block-image-wrap">
+                                <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
+                                    @if ($sach->hinh_anh != '')
+                                    <img src="../img/books/{{ $sach->hinh_anh }}" class="custom-block-image img-fluid" />
+                                    @else
+                                    <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border" />
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="custom-block-info">
+                                <h5 class="mb-2">
+                                    <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
+                                        {{ $item->ten }}</a>
+                                </h5>
+                                <div class="profile-block d-flex">
+                                    <img src="../img/default/author.png" class="profile-block-image img-fluid" />
+                                    <p>
+                                        Tác giả
+                                        <strong>
+                                            <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}" class="author">{{ $item->fkTacGia->ten }}</a>
+                                        </strong>
+                                    </p>
+                                </div>
+                                @include('client.element.interact_bar', ['sach' => $item])
                             </div>
                         </div>
-                        @foreach ($cung_tac_gia as $key => $item)
-                            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                                <div class="custom-block custom-block-full">
-                                    <div class="custom-block-image-wrap">
-                                        <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
-                                            @if ($sach->hinh_anh != '')
-                                                <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                    class="custom-block-image img-fluid" />
-                                            @else
-                                                <img src="../img/default/no_book.jpg"
-                                                    class="custom-block-image img-fluid border" />
-                                            @endif
-                                        </a>
-                                    </div>
-                                    <div class="custom-block-info">
-                                        <h5 class="mb-2">
-                                            <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
-                                                {{ $item->ten }}</a>
-                                        </h5>
-                                        <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png"
-                                                class="profile-block-image img-fluid" />
-                                            <p>
-                                                Tác giả
-                                                <strong>
-                                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
-                                                        class="author">{{ $item->fkTacGia->ten }}</a>
-                                                </strong>
-                                            </p>
-                                        </div>
-                                        @include('client.element.interact_bar', ['sach' => $item])
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($key == 2)
-                            @break
-                        @endif
+                    </div>
+                    @if ($key == 2)
+                    @break
+                    @endif
                     @endforeach
                     @if ($cung_tac_gia->count() > 3)
-                        <div class="col-lg-4 col-12 mx-auto">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination pagination-lg justify-content-center mt-5">
-                                    <h4>
-                                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
-                                            onMouseOver="this.style.textDecoration='underline'"
-                                            onMouseOut="this.style.textDecoration='none'">
-                                            Xem tất cả</a>
-                                    </h4>
-                                </ul>
-                            </nav>
-                        </div>
+                    <div class="col-lg-4 col-12 mx-auto">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-lg justify-content-center mt-5">
+                                <h4>
+                                    <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}" onMouseOver="this.style.textDecoration='underline'" onMouseOut="this.style.textDecoration='none'">
+                                        Xem tất cả</a>
+                                </h4>
+                            </ul>
+                        </nav>
+                    </div>
                     @endif
                 </div>
             </div>
         </section>
-    @else
+        @else
         <section class="related-podcast-section section-padding pt-0 pb-5">
             <div class="container">
                 <div class="row">
@@ -207,166 +196,163 @@
                         </div>
                     </div>
                     @foreach ($lien_quan as $key => $item)
-                        <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }} ">
-                            <div class="custom-block custom-block-full">
-                                <div class="custom-block-image-wrap">
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0 {{ $key > 2 ? 'mt-4' : '' }} ">
+                        <div class="custom-block custom-block-full">
+                            <div class="custom-block-image-wrap">
+                                <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
+                                    @if ($item->fkSach->hinh_anh != '')
+                                    <img src="../img/books/{{ $item->fkSach->hinh_anh }}" class="custom-block-image img-fluid" />
+                                    @else
+                                    <img src="../img/default/no_book.jpg" class="custom-block-image img-fluid border" />
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="custom-block-info">
+                                <h5 class="mb-2">
                                     <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
-                                        @if ($item->fkSach->hinh_anh != '')
-                                            <img src="../img/books/{{ $item->fkSach->hinh_anh }}"
-                                                class="custom-block-image img-fluid" />
-                                        @else
-                                            <img src="../img/default/no_book.jpg"
-                                                class="custom-block-image img-fluid border" />
-                                        @endif
-                                    </a>
-                                </div>
-                                <div class="custom-block-info">
-                                    <h5 class="mb-2">
-                                        <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
-                                            {{ $item->fkSach->ten }}</a>
-                                    </h5>
-                                    <div class="profile-block d-flex">
-                                        <img src="../img/default/author.png"
-                                            class="profile-block-image img-fluid" />
-                                        <p>
-                                            Tác giả
-                                            <strong><a
-                                                    href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}">
-                                                    {{ $item->fkSach->fkTacGia->ten }}</a></strong>
-                                        </p>
-                                    </div>
+                                        {{ $item->fkSach->ten }}</a>
+                                </h5>
+                                <div class="profile-block d-flex">
+                                    <img src="../img/default/author.png" class="profile-block-image img-fluid" />
+                                    <p>
+                                        Tác giả
+                                        <strong><a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}">
+                                                {{ $item->fkSach->fkTacGia->ten }}</a></strong>
+                                    </p>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
         </section>
-    @endif
-    @if ($ds_da_xem)
+        @endif
+        @if ($ds_da_xem)
         @include('client.element.history', ['ds_da_xem' => $ds_da_xem])
-    @endif
-</main>
+        @endif
+    </main>
 
-@include('client.element.footer')
+    @include('client.element.footer')
 
-<!-- JAVASCRIPT FILES -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/custom.js"></script>
-<script>
-    var commentInput = document.getElementById('comment-input');
-    commentInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-    });
-
-    function showButton() {
-        if (commentInput.value.trim() !== '') {
-            document.getElementById('binh_luan').style.display = 'block';
-        } else {
-            document.getElementById('binh_luan').style.display = 'none';
-        }
-    }
-
-    function showReply(reply) {
-        var replyInput = document.getElementById('reply_' + reply);
-        if (replyInput.value.trim() !== '') {
-            document.getElementById('btn_' + reply).style.display = 'block';
-        } else {
-            document.getElementById('btn_' + reply).style.display = 'none';
-        }
-    }
-
-    function reply(id) {
-        var x = document.getElementById(id);
-        if (document.getElementById(id).style.visibility == "hidden") {
-            document.getElementById(id).style.visibility = "visible";
-            document.getElementById(id).style.maxHeight = "initial";
-            document.getElementById(id).style.marginTop = "10px";
-        }
-        var array = <?php echo json_encode($binh_luan); ?>;
-        for (let index = 0; index < array.length; index++) {
-            if (id != index) {
-                if (document.getElementById(index).style.visibility != "hidden") {
-                    document.getElementById(index).style.visibility = "hidden";
-                    document.getElementById(index).style.maxHeight = "0";
-                    document.getElementById(index).style.marginTop = "0px";
-                }
-            }
-        }
-    }
-
-    function handleGioSach(sach) {
-        var option = document.getElementById('sach_' + sach).innerHTML;
-        var request = new XMLHttpRequest();
-        request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
-            option), true);
-        request.send();
-        if (option == 'Chọn sách') {
-            request.onreadystatechange = function() {
-                if (request.readyState == 4 && request.status == 200) {
-                    var data = JSON.parse(request.responseText);
-                    document.getElementById('sach_' + sach).innerHTML = 'Bỏ chọn';
-                    document.getElementById('sach_' + sach).classList.remove('custom-btn');
-                    document.getElementById('sach_' + sach).classList.add('danger-btn');
-                    document.getElementById('gio_sach_hien_tai').value = ++document.getElementById(
-                        'gio_sach_hien_tai').value;
-                    document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
-                        'gio_sach_hien_tai').value + ')';
-                }
-            }
-        } else {
-            request.onreadystatechange = function() {
-                if (request.readyState == 4 && request.status == 200) {
-                    var data = JSON.parse(request.responseText);
-                    document.getElementById('sach_' + sach).innerHTML = 'Chọn sách';
-                    document.getElementById('sach_' + sach).classList.add('custom-btn');
-                    document.getElementById('sach_' + sach).classList.remove('danger-btn');
-                    document.getElementById('gio_sach_hien_tai').value = --document.getElementById(
-                        'gio_sach_hien_tai').value;
-                    document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
-                        'gio_sach_hien_tai').value + ')';
-                }
-            }
-        }
-    }
-
-    function handleLike(sach) {
-        var like = document.getElementById('like_not_like');
-        var loveBtn = document.getElementById('love_btn');
-        var luotThich = document.getElementById('luot_thich').innerHTML;
-        var request = new XMLHttpRequest();
-        request.open('GET', '/yeu-thich?sach=' + encodeURIComponent(sach), true);
-        request.send();
-        request.onreadystatechange = function() {
-            if (request.readyState == 4 && request.status == 200) {
-                if (like.value == 1) {
-                    loveBtn.classList.add('bi-heart');
-                    loveBtn.classList.remove('bi-heart-fill');
-                    like.value = 0;
-                    document.getElementById('luot_thich').innerHTML = --luotThich;
-                } else {
-                    loveBtn.classList.add('bi-heart-fill');
-                    loveBtn.classList.remove('bi-heart');
-                    like.value = 1;
-                    document.getElementById('luot_thich').innerHTML = ++luotThich;
-                }
-            }
-        }
-        console.log(like.value + ', ' + luotThich);
-    }
-
-    window.addEventListener('DOMContentLoaded', function() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var shouldScroll = urlParams.get('binh_luan');
-        var element = document.getElementById('binh_luan_' + shouldScroll).offsetTop;
-        element.scrollIntoView({
-            behavior: 'smooth',
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        var commentInput = document.getElementById('comment-input');
+        commentInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
         });
-    });
-</script>
+
+        function showButton() {
+            if (commentInput.value.trim() !== '') {
+                document.getElementById('binh_luan').style.display = 'block';
+            } else {
+                document.getElementById('binh_luan').style.display = 'none';
+            }
+        }
+
+        function showReply(reply) {
+            var replyInput = document.getElementById('reply_' + reply);
+            if (replyInput.value.trim() !== '') {
+                document.getElementById('btn_' + reply).style.display = 'block';
+            } else {
+                document.getElementById('btn_' + reply).style.display = 'none';
+            }
+        }
+
+        function reply(id) {
+            var x = document.getElementById(id);
+            if (document.getElementById(id).style.visibility == "hidden") {
+                document.getElementById(id).style.visibility = "visible";
+                document.getElementById(id).style.maxHeight = "initial";
+                document.getElementById(id).style.marginTop = "10px";
+            }
+            var array = <?php echo json_encode($binh_luan); ?>;
+            for (let index = 0; index < array.length; index++) {
+                if (id != index) {
+                    if (document.getElementById(index).style.visibility != "hidden") {
+                        document.getElementById(index).style.visibility = "hidden";
+                        document.getElementById(index).style.maxHeight = "0";
+                        document.getElementById(index).style.marginTop = "0px";
+                    }
+                }
+            }
+        }
+
+        function handleGioSach(sach) {
+            var option = document.getElementById('sach_' + sach).innerHTML;
+            var request = new XMLHttpRequest();
+            request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
+                option), true);
+            request.send();
+            if (option == 'Chọn sách') {
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var data = JSON.parse(request.responseText);
+                        document.getElementById('sach_' + sach).innerHTML = 'Bỏ chọn';
+                        document.getElementById('sach_' + sach).classList.remove('custom-btn');
+                        document.getElementById('sach_' + sach).classList.add('danger-btn');
+                        document.getElementById('gio_sach_hien_tai').value = ++document.getElementById(
+                            'gio_sach_hien_tai').value;
+                        document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
+                            'gio_sach_hien_tai').value + ')';
+                    }
+                }
+            } else {
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var data = JSON.parse(request.responseText);
+                        document.getElementById('sach_' + sach).innerHTML = 'Chọn sách';
+                        document.getElementById('sach_' + sach).classList.add('custom-btn');
+                        document.getElementById('sach_' + sach).classList.remove('danger-btn');
+                        document.getElementById('gio_sach_hien_tai').value = --document.getElementById(
+                            'gio_sach_hien_tai').value;
+                        document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
+                            'gio_sach_hien_tai').value + ')';
+                    }
+                }
+            }
+        }
+
+        function handleLike(sach) {
+            var like = document.getElementById('like_not_like');
+            var loveBtn = document.getElementById('love_btn');
+            var luotThich = document.getElementById('luot_thich').innerHTML;
+            var request = new XMLHttpRequest();
+            request.open('GET', '/yeu-thich?sach=' + encodeURIComponent(sach), true);
+            request.send();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    if (like.value == 1) {
+                        loveBtn.classList.add('bi-heart');
+                        loveBtn.classList.remove('bi-heart-fill');
+                        like.value = 0;
+                        document.getElementById('luot_thich').innerHTML = --luotThich;
+                    } else {
+                        loveBtn.classList.add('bi-heart-fill');
+                        loveBtn.classList.remove('bi-heart');
+                        like.value = 1;
+                        document.getElementById('luot_thich').innerHTML = ++luotThich;
+                    }
+                }
+            }
+            console.log(like.value + ', ' + luotThich);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var shouldScroll = urlParams.get('binh_luan');
+            var element = document.getElementById('binh_luan_' + shouldScroll).offsetTop;
+            element.scrollIntoView({
+                behavior: 'smooth',
+            });
+        });
+    </script>
 </body>
 
 </html>
