@@ -54,8 +54,8 @@
             <div class="az-content-body">
                 <form class="row az-signin-header" action="{{ route('tim-kiem-theo-tac-gia') }}" method="get">
                     <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value=""
-                            autocomplete="off">
+                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text"
+                            value="{{ old('tim_kiem') }}" autocomplete="off">
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
