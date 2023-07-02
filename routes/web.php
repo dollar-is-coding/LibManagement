@@ -38,7 +38,7 @@ Route::post('/doi-mat-khau-moi', [HomeController::class, 'xuLyNhapMaXacThucQuenM
 Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 // XEM, TÌM KIẾM & CHI TIẾT SÁCH
 Route::get('/danh-sach-cac-cuon-sach', [AdminController::class, 'dsSach'])->name('hien-thi-sach')->middleware('auth');
-Route::post('/xu-ly-de-xuat/{id}', [AdminController::class, 'xuLyCapNhatDeXuat'])->name('xu-ly-de-xuat')->middleware('auth');
+Route::get('/xu-ly-de-xuat', [AdminController::class, 'xuLyCapNhatDeXuat'])->name('xu-ly-de-xuat')->middleware('auth');
 
 Route::get('/chi-tiet-sach/{id}', [AdminController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
@@ -141,7 +141,8 @@ Route::post('/xu-ly-bo-sach-vao-kho', [AdminController::class, 'xuLyBoSachVaoKho
 Route::get('/quan-ly-kho-sach', [AdminController::class, 'quanLyKhoSach'])->name('quan-ly-kho-sach')->middleware('auth');
 
 Route::get('/quan-ly-lien-he', [AdminController::class, 'quanLyLienHe'])->name('quan-ly-lien-he')->middleware('auth');
-Route::post('/quan-ly-lien-he/{id}', [AdminController::class, 'xuLyDangChuY'])->name('xu-ly-chu-y')->middleware('auth');
+Route::get('/dang-chu-y', [AdminController::class, 'xuLyDangChuY'])->name('dang-chu-y')->middleware('auth');
+
 
 Route::get('/xoa-lien-he/{id}', [AdminController::class, 'xoaLienHe'])->name('xoa-lien-he')->middleware('auth');
 

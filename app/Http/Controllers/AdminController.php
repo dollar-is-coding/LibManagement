@@ -1018,11 +1018,10 @@ class AdminController extends Controller
         $sl = LienHe::all()->count();
         return view('lien_he.quan_ly_phan_hoi', ['lienhe' => $lienhe, 'sl' => $sl]);
     }
-    public function xuLyDangChuY(Request $request, $id)
+    public function xuLyDangChuY()
     {
-        $dangChuY = $request->has('dang_chu_y') ? 1 : 0;
-        LienHe::where('id', $id)->update([
-            'dang_chu_y' => $dangChuY
+        LienHe::where('id', request()->input('id'))->update([
+            'dang_chu_y' => request()->input('check')
         ]);
         return back();
     }
@@ -1052,10 +1051,10 @@ class AdminController extends Controller
         KhoSach::find($id)->delete();
         return redirect()->route('quan-ly-kho-sach');
     }
-    public function xuLyCapNhatDeXuat(Request $request,$id){
-        $de_xuat = $request->has('de_xuat') ? 1 : 0;
-        Sach::where('id',$id)->update([
-            'de_xuat'=>$de_xuat,
+    public function xuLyCapNhatDeXuat()
+    {
+        Sach::where('id', request()->input('sach'))->update([
+            'de_xuat' => request()->input('check'),
         ]);
         return redirect()->route('hien-thi-sach');
     }
