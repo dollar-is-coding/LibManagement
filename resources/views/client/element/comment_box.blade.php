@@ -11,7 +11,7 @@
         <div class="comment-container">
             <textarea id="comment-input" name="binh_luan" rows="1"
                 placeholder="{{ $da_muon == 1 ? 'Suy nghĩ về cuốn sách này...' : 'Chỉ những ai đã mượn sách này mới có thể bình luận...' }}"
-                oninput="showButton()" {{ $da_muon == 1 ? '' : 'readonly' }}></textarea>
+                oninput="showButton()" style="pointer-events:{{ $da_muon == 1 ? 'fill' : 'none' }}"></textarea>
         </div>
     </div>
 

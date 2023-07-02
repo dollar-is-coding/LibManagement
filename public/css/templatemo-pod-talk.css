@@ -1318,9 +1318,39 @@ main {
     transition: background 0.2s, color 0.2s;
 }
 
-.social-icon-link:hover {
+.social-icon-link:hover,
+.social-icon-link-remove:hover {
     background: var(--primary-color);
     color: var(--white-color);
+}
+
+.social-icon-link-disable {
+    background: var(--p-color);
+    border-radius: var(--border-radius-large);
+    color: var(--white-color);
+    font-size: var(--p-font-size);
+    display: block;
+    margin-right: 10px;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    transition: background 0.2s, color 0.2s;
+    pointer-events: none;
+}
+
+.social-icon-link-remove {
+    background: #dc1f16;
+    border-radius: var(--border-radius-large);
+    color: var(--white-color);
+    font-size: var(--p-font-size);
+    display: block;
+    margin-right: 10px;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    transition: background 0.2s, color 0.2s;
 }
 
 /*---------------------------------------

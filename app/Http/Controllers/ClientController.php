@@ -230,20 +230,20 @@ class ClientController extends Controller
         GioSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', request()->input('sach')]])->delete();
         return response()->json(['data' => 'success']);
     }
-    public function themSachVaoGio()
-    {
-        $gio_sach = GioSach::where([
-            ['sach_id', request()->input('sach')],
-            ['doc_gia_id', Auth::user()->id]
-        ])->first();
-        if (!$gio_sach) {
-            GioSach::create([
-                'doc_gia_id' => Auth::user()->id,
-                'sach_id' => request()->input('sach')
-            ]);
-        }
-        return response()->json(['data' => 'Bỏ chọn']);
-    }
+    // public function themSachVaoGio()
+    // {
+    //     $gio_sach = GioSach::where([
+    //         ['sach_id', request()->input('sach')],
+    //         ['doc_gia_id', Auth::user()->id]
+    //     ])->first();
+    //     if (!$gio_sach) {
+    //         GioSach::create([
+    //             'doc_gia_id' => Auth::user()->id,
+    //             'sach_id' => request()->input('sach')
+    //         ]);
+    //     }
+    //     return response()->json(['data' => 'Bỏ chọn']);
+    // }
     public function loaiKhoiGioSach()
     {
         $sach = request()->input('id');
@@ -455,5 +455,10 @@ class ClientController extends Controller
     {
         LienHe::create(['tieu_de' => $request->tieu_de, 'noi_dung' => $request->noi_dung]);
         return back();
+    }
+
+    public function showThayDoiMatKhau()
+    {
+        return view('client.thay_doi_mat_khau');
     }
 }

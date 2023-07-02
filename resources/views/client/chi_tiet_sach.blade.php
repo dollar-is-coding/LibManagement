@@ -131,8 +131,12 @@
                                             'btn' => 1,
                                         ])
                                     </h2>
-                                    <h6>Mô tả</h6>
-                                    <p>@php echo $sach->mo_ta; @endphp</p>
+                                    @if ($sach->mo_ta != '<p><br></p>')
+                                        <h6>Mô tả</h6>
+                                        <p>@php echo $sach->mo_ta; @endphp</p>
+                                    @else
+                                        <div class="mb-5"></div>
+                                    @endif
                                     @include('client.element.comment_box', ['binh_luan' => $binh_luan])
                                 </div>
                             </div>
@@ -206,7 +210,7 @@
                 </div>
             </div>
         </section>
-    @else
+    @elseif($lien_quan->count() > 0)
         <section class="related-podcast-section section-padding pt-0 pb-5">
             <div class="container">
                 <div class="row">
