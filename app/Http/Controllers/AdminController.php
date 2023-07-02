@@ -440,12 +440,13 @@ class AdminController extends Controller
     public function timKiemTheoTacGia(Request $request)
     {
         $timKiem = $request->tim_kiem;
+        $tim_kiem = $request->old('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
             ->orderBy('ten', 'asc')
             ->paginate(20);
         $slsach = $sach->count();
-        if ($sach->count() === 0) {
-            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        if ($sach->count() == 0) {
+            return back()->withInput()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
             return view('sach.index', [
                 'sach' => $sach,
