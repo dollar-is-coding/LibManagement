@@ -42,6 +42,23 @@
                     <form action="" method="post" class="custom-form contact-form" role="form">
                         @csrf
                         <div class="row">
+                            @if(Auth::user())
+                            <div class="col-lg-12 col-12">
+                                <div class="form-floating">
+                                    <input value="{{Auth::user()->email}}" type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('thay-doi-mat-khau') }}" style="margin-left:10px" class="d-flex align-items-center">
+                                    <i class="bi bi-caret-left-fill"></i>
+                                    <span class="h7">Quay lại</span>
+                                </a>
+                                <div class="col-lg-4 col-12 ms-auto">
+                                    <button type="submit" class="form-control">Gửi</button>
+                                </div>
+                            </div>
+                            @else
                             <div class="col-lg-12 col-12">
                                 <div class="form-floating">
                                     <input type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
@@ -57,6 +74,7 @@
                                     <button type="submit" class="form-control">Gửi</button>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </form>
                     @if (session('error'))

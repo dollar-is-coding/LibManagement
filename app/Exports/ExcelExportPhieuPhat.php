@@ -37,7 +37,7 @@ class ExcelExportPhieuPhat implements FromQuery, WithMapping, WithTitle, WithHea
             $phieuphat->ly_do,
             $phieuphat->tong_tien_phat,
             $created = Carbon::parse($phieuphat->created_at)->format('Y-m-d'),
-            $phieuphat->created,
+            $phieuphat->$created,
            
         ];
     }
