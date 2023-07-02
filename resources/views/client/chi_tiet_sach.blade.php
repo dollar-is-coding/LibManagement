@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Pod Talk Free CSS Template by TemplateMo</title>
+    <title>Libro - {{ $sach->ten }}</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -74,25 +74,33 @@
                                     @include('client.element.love_btn', [
                                         'yeu_thich' => $sach->hasYeuThich,
                                     ])
-                                    <a class="bi-chat">
-                                        <span>{{ $sach->luot_binh_luan }}</span>
-                                    </a>
+                                    <a class="bi-chat" id="tong_binh_luan"> {{ $sach->hasBinhLuan->count() }}</a>
                                 </div>
-                                <div class="sach-info">
-                                    <ul class="first">
-                                        <li>Vị trí</li>
-                                        <li>Có sẵn</li>
-                                        <li>Đang mượn</li>
-                                        <li>Đã mượn</li>
-                                    </ul>
-                                    <ul class="second">
-                                        <li>
+                                <div class="sono">
+                                    <ul class="d-flex mb-2 p-0" style="list-style: none;">
+                                        <li class="p-2"><small>Vị trí:</small></li>
+                                        <li class="shadow-sm border rounded p-2 flex-fill">
                                             {{ $sach->hasThuVien->fkTuSach->ten }},
                                             {{ $sach->hasThuVien->fkTuSach->ten }}
                                         </li>
-                                        <li class="li">{{ $sach->hasThuVien->sl_con_lai }} quyển</li>
-                                        <li>{{ $sach->hasThuVien->dang_muon }} quyển</li>
-                                        <li class="li">{{ $sach->hasThuVien->da_muon }} lần</li>
+                                    </ul>
+                                    <ul class="d-flex mb-2 p-0" style="list-style: none;">
+                                        <li class="p-2"><small>Có sẵn:</small></li>
+                                        <li class="shadow-sm border rounded p-2 flex-fill">
+                                            {{ $sach->hasThuVien->sl_con_lai }} quyển
+                                        </li>
+                                    </ul>
+                                    <ul class="d-flex mb-2 p-0" style="list-style: none;">
+                                        <li class="p-2"><small>Đang mượn:</small></li>
+                                        <li class="shadow-sm border rounded p-2 flex-fill">
+                                            {{ $sach->hasThuVien->dang_muon }} quyển
+                                        </li>
+                                    </ul>
+                                    <ul class="d-flex mb-2 p-0" style="list-style: none;">
+                                        <li class="p-2"><small>Đã mượn:</small></li>
+                                        <li class="shadow-sm border rounded p-2 flex-fill">
+                                            {{ $sach->hasThuVien->da_muon }} lần
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -358,6 +366,44 @@
             }
         }
         console.log(like.value + ', ' + luotThich);
+    }
+
+    function readyToDelete(id, isComment, isMainComment) {
+        var comment = document.getElementById('binh_luan_' + id);
+        var mainComment = document.getElementById('has_reply_' + isComment);
+        var tongBinhLuan = document.getElementById('tong_binh_luan');
+        Swal.fire({
+            title: 'Xóa bình luận?',
+            text: 'Bạn có chắc chắn muốn xóa bình luận này không?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            cancelButtonText: "Không",
+            confirmButtonText: "Xóa",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/xoa-binh-luan?id=' + encodeURIComponent(id) + '&binh_luan_chinh=' +
+                    encodeURIComponent(isMainComment), true);
+                request.send();
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var data = JSON.parse(request.responseText);
+                        comment.style.visibility = 'hidden';
+                        comment.style.height = '0px';
+                        comment.style.opacity = '0';
+                        comment.classList.remove('pt-3');
+                        comment.firstElementChild.classList.remove('mt-3');
+                        if (Number(isComment) !== 0) {
+                            mainComment.innerHTML = Number(mainComment.innerHTML) - 1;
+                        }
+                        tongBinhLuan.innerHTML = Number(tongBinhLuan.innerHTML) - data.rows;
+                        console.log('đã xóa ' + data.rows);
+                    }
+                }
+            }
+        });
     }
 
     window.addEventListener('DOMContentLoaded', function() {

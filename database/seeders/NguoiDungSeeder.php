@@ -39,8 +39,8 @@ class NguoiDungSeeder extends Seeder
             'ma_hs'=>'',
         ]);
         NguoiDung::create([
-            'ho' => 'Dinh',
-            'ten' => 'Dinh',
+            'ho' => 'Nguyễn',
+            'ten' => 'Đô',
             'mat_khau' => Hash::make('12345678'),
             'email' => '123@gmail.com',
             'dien_thoai' => null,
@@ -48,7 +48,19 @@ class NguoiDungSeeder extends Seeder
             'ngay_sinh' => '2002/01/22',
             'vai_tro' => 3,
             'hinh_anh'=>'',
-            'ma_hs' => '',
+            'ma_hs' => '023045187',
+        ]);
+        NguoiDung::create([
+            'ho' => 'Nguyễn',
+            'ten' => 'Đô',
+            'mat_khau' => Hash::make('12345678'),
+            'email' => '465@gmail.com',
+            'dien_thoai' => null,
+            'gioi_tinh' => 1,
+            'ngay_sinh' => '2002/01/22',
+            'vai_tro' => 3,
+            'hinh_anh'=>'',
+            'ma_hs' => '023045189',
         ]);
     }
 }

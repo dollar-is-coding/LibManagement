@@ -394,8 +394,13 @@ class ClientController extends Controller
 
     public function xoaBinhLuan()
     {
-        BinhLuan::find(request()->input('id'))->delete();
-        return response()->json(['message' => 'success']);
+        $binh_luan = request()->input('id');
+        if (request()->input('binh_luan_chinh')) {
+            $rows=BinhLuan::where('id', $binh_luan)->orWhere('binh_luan_id', $binh_luan)->delete();
+        } else {
+            $rows=BinhLuan::find($binh_luan)->delete();
+        }
+        return response()->json(['rows' => $rows]);
     }
 
 
