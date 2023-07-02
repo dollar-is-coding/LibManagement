@@ -59,16 +59,13 @@
                         <div class="owl-carousel owl-theme">
                             @foreach ($de_xuat as $sach)
                                 <div class="owl-carousel-info-wrap item">
-                                    <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
-                                        class="custom-block-image-wrap">
-                                        @if ($sach->hinh_anh == '')
-                                            <img src="../img/default/no_book_slider.png"
-                                                class="owl-carousel-image img-fluid" />
-                                        @else
-                                            <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                class="owl-carousel-image img-fluid" />
-                                        @endif
-                                    </a>
+                                    @if ($sach->hinh_anh == '')
+                                        <img src="../img/default/no_book_slider.png"
+                                            class="owl-carousel-image img-fluid" />
+                                    @else
+                                        <img src="../img/books/{{ $sach->hinh_anh }}"
+                                            class="owl-carousel-image img-fluid" />
+                                    @endif
                                     <div class="owl-carousel-info">
                                         <h4 class="mb-2">
                                             <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"

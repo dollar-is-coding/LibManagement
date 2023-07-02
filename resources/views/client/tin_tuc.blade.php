@@ -47,6 +47,16 @@
             </div>
         </header>
 
+        @if (!$noi_bat && $tin_tuc->count() == 0)
+            <section class="trending-podcast-section section-padding pt-0">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <h6>Chưa có tin tức!</h6>
+                    </div>
+                </div>
+            </section>
+        @endif
+
         @if ($noi_bat)
             <section class="about-section section-padding pt-2 {{ $tin_tuc->count() > 0 ? 'pb-5' : '' }}"
                 id="section_2">
@@ -57,7 +67,6 @@
                                 <div class="section-title-wrap mb-4">
                                     <h4 class="section-title">Nổi bật</h4>
                                 </div>
-
                                 <h6 class="mb-3">{{ $noi_bat->ten }}</h6>
 
                                 <div style="text-align: justify;">

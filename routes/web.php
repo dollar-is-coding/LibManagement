@@ -170,7 +170,7 @@ Route::middleware('user')->group(function () {
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
     Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');
     Route::get('/tim-kiem', [ClientController::class, 'timKiem'])->name('tim-kiem');
-    Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
+    // Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
     Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
     Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');
     Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('muon-sach')->middleware('auth');
@@ -178,10 +178,12 @@ Route::middleware('user')->group(function () {
     Route::get('/lien-he', [ClientController::class, 'showLienHe'])->name('lien-he')->middleware('auth');
     Route::get('/yeu-thich', [ClientController::class, 'showLove'])->name('yeu-thich')->middleware('auth');
     Route::post('/binh-luan', [ClientController::class, 'handleBinhLuan'])->name('binh-luan')->middleware('auth');
+    Route::get('/xoa-binh-luan', [ClientController::class, 'xoaBinhLuan'])->name('xoa-binh-luan')->middleware('auth');
     Route::get('/sach-theo-chu-de', [ClientController::class, 'sachTheoChuDe'])->name('sach-theo-chu-de')->middleware('auth');
     Route::get('/tin-tuc', [ClientController::class, 'showTinTuc'])->name('tin-tuc')->middleware('auth');
     Route::post('/cap-nhat-thong-tin', [ClientController::class, 'handleCapNhatThongTin'])->name('cap-nhat-thong-tin')->middleware('auth');
     Route::get('/tai-khoan-cua-toi', [ClientController::class, 'showCaNhan'])->name('tai-khoan-cua-toi')->middleware('auth');
     Route::get('/xu-ly-gio-sach', [ClientController::class, 'handleGioSach'])->name('xu-ly-gio-sach')->middleware('auth');
     Route::post('/gui-lien-he', [ClientController::class, 'sendLienHe'])->name('gui-lien-he')->middleware('auth');
+    Route::get('/thay-doi-mat-khau', [ClientController::class, 'showThayDoiMatKhau'])->name('thay-doi-mat-khau')->middleware('auth');
 });

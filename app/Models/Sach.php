@@ -42,6 +42,11 @@ class Sach extends Model
         return $this->hasMany(PhieuMuonSach::class,'sach_id');
     }
 
+    public function hasBinhLuan()
+    {
+        return $this->hasMany(BinhLuan::class,'sach_id');
+    }
+
     public function hasYeuThich()
     {
         return $this->hasMany(LichSu::class,'sach_id');

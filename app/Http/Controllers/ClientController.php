@@ -230,20 +230,20 @@ class ClientController extends Controller
         GioSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', request()->input('sach')]])->delete();
         return response()->json(['data' => 'success']);
     }
-    public function themSachVaoGio()
-    {
-        $gio_sach = GioSach::where([
-            ['sach_id', request()->input('sach')],
-            ['doc_gia_id', Auth::user()->id]
-        ])->first();
-        if (!$gio_sach) {
-            GioSach::create([
-                'doc_gia_id' => Auth::user()->id,
-                'sach_id' => request()->input('sach')
-            ]);
-        }
-        return response()->json(['data' => 'Bỏ chọn']);
-    }
+    // public function themSachVaoGio()
+    // {
+    //     $gio_sach = GioSach::where([
+    //         ['sach_id', request()->input('sach')],
+    //         ['doc_gia_id', Auth::user()->id]
+    //     ])->first();
+    //     if (!$gio_sach) {
+    //         GioSach::create([
+    //             'doc_gia_id' => Auth::user()->id,
+    //             'sach_id' => request()->input('sach')
+    //         ]);
+    //     }
+    //     return response()->json(['data' => 'Bỏ chọn']);
+    // }
     public function loaiKhoiGioSach()
     {
         $sach = request()->input('id');
@@ -392,6 +392,17 @@ class ClientController extends Controller
         return redirect($url);
     }
 
+    public function xoaBinhLuan()
+    {
+        $binh_luan = request()->input('id');
+        if (request()->input('binh_luan_chinh')) {
+            $rows=BinhLuan::where('id', $binh_luan)->orWhere('binh_luan_id', $binh_luan)->delete();
+        } else {
+            $rows=BinhLuan::find($binh_luan)->delete();
+        }
+        return response()->json(['rows' => $rows]);
+    }
+
 
     // Info
     public function showCaNhan()
@@ -444,5 +455,10 @@ class ClientController extends Controller
     {
         LienHe::create(['tieu_de' => $request->tieu_de, 'noi_dung' => $request->noi_dung]);
         return back();
+    }
+
+    public function showThayDoiMatKhau()
+    {
+        return view('client.thay_doi_mat_khau');
     }
 }
