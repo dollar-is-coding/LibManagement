@@ -82,7 +82,20 @@
                         @endif
                         <div class="card-body">
                             <h5 style="height: 50px;" class="card-title">{{$item->ten}}</h5>
-                            <p class="card-text">Số lượng {{$item->hasThuVien->sl_con_lai}}</p>
+                            <form id="form{{$item->id}}" action="{{route('xu-ly-de-xuat',['id'=>$item->id])}}" method="post">
+                                @csrf
+                                <div class="form-group d-flex align-items-center">
+                                    <input {{$item->de_xuat == 1 ? 'checked' : ''}} class="mb-0" style="width: 17px;height: 17px;" type="checkbox" name="de_xuat" id="checkDeXuat{{$item->id}}">
+                                    <label class="mb-0 pl-1" id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat{{$item->id}}">Đề xuất</label>
+                                </div>
+                            </form>
+                            <script>
+                                var checkbox = document.getElementById('checkDeXuat{{$item->id}}');
+                                checkbox.addEventListener('change', function() {
+                                    // Gửi form khi checkbox thay đổi
+                                    document.getElementById(`form{{$item->id}}`).submit();
+                                });
+                            </script>
                             <a href="{{route('chi-tiet-sach',['id' => $item->id])}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>

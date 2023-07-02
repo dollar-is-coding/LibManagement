@@ -32,6 +32,7 @@ use Illuminate\Support\Arr;
 use App\Models\KhoSach;
 
 use App\Imports\ExcelImport;
+use App\Models\BinhLuan;
 use App\Models\LienHe;
 use App\Models\NguoiDung;
 use App\Models\PhieuPhat;
@@ -54,8 +55,9 @@ class AdminController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-    public function export(){
-        return Excel::download(new MultiSheetExport , 'thong_ke.xlsx');
+    public function export()
+    {
+        return Excel::download(new MultiSheetExport, 'thong_ke.xlsx');
     }
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
@@ -94,10 +96,10 @@ class AdminController extends Controller
             $tu_sach = $request->old('tu_sach');
             $mo_ta = $request->old('mo_ta');
             $gia_tien = $request->old('gia_tien');
-            
-            $dexuat = Sach::where('de_xuat',1)->count();
-            $dexuatend = Sach::where('de_xuat',1)->orderBy('created_at','desc')->first();
-            if($dexuat<7){
+
+            $dexuat = Sach::where('de_xuat', 1)->count();
+            $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
+            if ($dexuat < 7) {
                 Sach::create([
                     'ma_sach' => $randomTime,
                     'ten' => $request->ten_sach,
@@ -110,7 +112,7 @@ class AdminController extends Controller
                     'gia_tien' => $request->gia_tien,
                     'de_xuat' => $request->de_xuat ? 1 : 0,
                 ]);
-            }else{
+            } else {
                 $dexuatend->de_xuat = 0;
                 $dexuatend->save();
                 Sach::create([
@@ -302,17 +304,17 @@ class AdminController extends Controller
         if ($tangsl) {
             if (strval($tangsl->id) === strval($request->id_sach)) {
                 if ($dexuat < 7) {
-                Sach::find($id)->update([
-                    'ten' => $request->ten_sach,
-                    'tac_gia_id' => $request->tac_gia,
-                    'the_loai_id' => $request->the_loai,
-                    'nha_xuat_ban_id' => $request->nha_xuat_ban,
-                    'nam_xuat_ban' => $request->nam_xuat_ban,
-                    'mo_ta' => $request->mo_ta,
-                    'de_xuat'=>$de_xuat,
-                    'gia_tien'=>$request->gia_tien,
-                ]);
-                }else{
+                    Sach::find($id)->update([
+                        'ten' => $request->ten_sach,
+                        'tac_gia_id' => $request->tac_gia,
+                        'the_loai_id' => $request->the_loai,
+                        'nha_xuat_ban_id' => $request->nha_xuat_ban,
+                        'nam_xuat_ban' => $request->nam_xuat_ban,
+                        'mo_ta' => $request->mo_ta,
+                        'de_xuat' => $de_xuat,
+                        'gia_tien' => $request->gia_tien,
+                    ]);
+                } else {
                     $dexuatend->de_xuat = 0;
                     $dexuatend->save();
                     Sach::find($id)->update([
@@ -457,8 +459,10 @@ class AdminController extends Controller
 
     public function chiTietSach($id)
     {
+        $tongbl = Sach::where('id', $id)->first();
+        $binhluan = BinhLuan::where('sach_id', $id)->where('binh_luan_id', 0)->get();
         $sach = ThuVien::where('sach_id', $id)->get();
-        return view('sach.detail', ['sach' => $sach]);
+        return view('sach.detail', ['sach' => $sach, 'binhluan' => $binhluan, 'tongbl' => $tongbl]);
     }
 
 
@@ -664,7 +668,7 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro', 1)->where('id','!=',Auth::id())->get();
+        $admin = NguoiDung::where('vai_tro', 1)->where('id', '!=', Auth::id())->get();
         $thuthu = NguoiDung::where('vai_tro', 2)->where('id', '!=', Auth::id())->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
         return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
@@ -804,7 +808,7 @@ class AdminController extends Controller
         PhieuMuonSach::where('ma_phieu_muon', $id)->update([
             'trang_thai' => 2,
             'thu_thu_id' => Auth::id(),
-            'han_tra'=> date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
+            'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
@@ -819,13 +823,13 @@ class AdminController extends Controller
             if ($key != '_token' && $key != 'all') {
                 PhieuPhat::create([
                     'doc_gia_id' => $request->doc_gia_id,
-                    'thu_thu_id'=>Auth::id(),
+                    'thu_thu_id' => Auth::id(),
                     'ma_phieu' => $request->ma_phieu_muon,
                     'sach_id' => $request->sach_id,
                     'ly_do' => $request->ly_do,
-                    'so_luong'=>$request->so_luong,
+                    'so_luong' => $request->so_luong,
                     'tien_phat' => $request->$key,
-                    'ly_do'=>'',
+                    'ly_do' => '',
                     'tong_tien_phat' => $request->tong_tien_phat,
                 ]);
             }
@@ -846,106 +850,108 @@ class AdminController extends Controller
     }
     public function chiTietPhieu($id)
     {
-        $tong_tien = PhieuPhat::where('ma_phieu',$id)->first();
+        $tong_tien = PhieuPhat::where('ma_phieu', $id)->first();
         $chi_tiet_sach = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
         $chitiet = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
-        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet, 'chi_tiet_sach'=> $chi_tiet_sach,'tong_tien'=> $tong_tien]);
+        return view('muon_sach.chi_tiet', ['chitiet' => $chitiet, 'chi_tiet_sach' => $chi_tiet_sach, 'tong_tien' => $tong_tien]);
     }
     public function thanhToanSach($id)
     {
-        $charge=0;
-        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon',$id)->get();
+        $charge = 0;
+        $thanhtoan = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
-        if (Carbon::now('Asia/Ho_Chi_Minh')>Carbon::parse($detail->han_tra)) {
-            $expired=Carbon::parse($detail->han_tra)->diffIndays(Carbon::now('Asia/Ho_Chi_Minh'))+1;
-            if ($expired<=3) {
-                $charge=$thanhtoan->count()*5000;
+        if (Carbon::now('Asia/Ho_Chi_Minh') > Carbon::parse($detail->han_tra)) {
+            $expired = Carbon::parse($detail->han_tra)->diffIndays(Carbon::now('Asia/Ho_Chi_Minh')) + 1;
+            if ($expired <= 3) {
+                $charge = $thanhtoan->count() * 5000;
             } else {
-                $charge=$thanhtoan->count()*10000;
+                $charge = $thanhtoan->count() * 10000;
             }
         }
-        return view('muon_sach.thanh_toan',['thanhtoan'=> $thanhtoan,'detail'=> $detail,'tien_phat_het_han'=>$charge]);
+        return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail, 'tien_phat_het_han' => $charge]);
     }
 
     public function handleThanhToan(Request $request)
     {
-        $all_requests=$request->all();
-        $tong_so_sach=0;
+        $all_requests = $request->all();
+        $tong_so_sach = 0;
         PhieuTraSach::create([
-            'ma_phieu_muon'=>$request->ma_phieu,
-            'thu_thu_id'=>Auth::id(),
-            'trang_thai'=>$request->het_han==1?1:0 // Kiểm tra 1 là quá hạn, 0 là đúng hạn
+            'ma_phieu_muon' => $request->ma_phieu,
+            'thu_thu_id' => Auth::id(),
+            'trang_thai' => $request->het_han == 1 ? 1 : 0 // Kiểm tra 1 là quá hạn, 0 là đúng hạn
         ]);
-        PhieuMuonSach::where('ma_phieu_muon',$request->ma_phieu)->update(['trang_thai'=>3]);
+        PhieuMuonSach::where('ma_phieu_muon', $request->ma_phieu)->update(['trang_thai' => 3]);
         foreach ($all_requests as $key => $value) {
             // Nếu khác '_token' và key là số
-            if ($key!='_token'&&is_numeric($key)) {
-                $array=explode('|',$value);
+            if ($key != '_token' && is_numeric($key)) {
+                $array = explode('|', $value);
                 // Nguyên vẹn
-                if ($array[1]==1) {
-                    if ($all_requests['het_han']==1) {
+                if ($array[1] == 1) {
+                    if ($all_requests['het_han'] == 1) {
                         PhieuPhat::create([
-                            'doc_gia_id'=>$request->doc_gia,
-                            'thu_thu_id'=>Auth::id(),
-                            'ma_phieu'=>$all_requests['ma_phieu'],
-                            'sach_id'=>$key,
-                            'so_luong'=>1,
-                            'ly_do'=>'Hết hạn',
-                            'tien_phat'=>20000,
-                            'tong_tien_phat'=>$all_requests['tong_tien_phat'],
-                            'tong_so_sach'=>0
+                            'doc_gia_id' => $request->doc_gia,
+                            'thu_thu_id' => Auth::id(),
+                            'ma_phieu' => $all_requests['ma_phieu'],
+                            'sach_id' => $key,
+                            'so_luong' => 1,
+                            'ly_do' => 'Hết hạn',
+                            'tien_phat' => 20000,
+                            'tong_tien_phat' => $all_requests['tong_tien_phat'],
+                            'tong_so_sach' => 0
                         ]);
                         $tong_so_sach++;
                     }
-                    $this_book=ThuVien::where('sach_id',$key)->first();
-                    ThuVien::where('sach_id',$key)->update(['sl_con_lai'=>$this_book->sl_con_lai+1]);
-                // Mất sách
-                } elseif($array[1]==2) {
+                    $this_book = ThuVien::where('sach_id', $key)->first();
+                    ThuVien::where('sach_id', $key)->update(['sl_con_lai' => $this_book->sl_con_lai + 1]);
+                    // Mất sách
+                } elseif ($array[1] == 2) {
                     PhieuPhat::create([
-                        'doc_gia_id'=>$request->doc_gia,
-                        'thu_thu_id'=>Auth::id(),
-                        'ma_phieu'=>$all_requests['ma_phieu'],
-                        'sach_id'=>$key,
-                        'so_luong'=>1,
-                        'ly_do'=>$all_requests['het_han']==1?'Hết hạn + Mất sách':'Mất sách',
-                        'tien_phat'=>$all_requests['het_han']==1?$array[0]+20000:$array[0],
-                        'tong_tien_phat'=>$all_requests['tong_tien_phat'],
-                        'tong_so_sach'=>0
+                        'doc_gia_id' => $request->doc_gia,
+                        'thu_thu_id' => Auth::id(),
+                        'ma_phieu' => $all_requests['ma_phieu'],
+                        'sach_id' => $key,
+                        'so_luong' => 1,
+                        'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Mất sách' : 'Mất sách',
+                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + 20000 : $array[0],
+                        'tong_tien_phat' => $all_requests['tong_tien_phat'],
+                        'tong_so_sach' => 0
                     ]);
                     $tong_so_sach++;
-                // Hư hỏng
+                    // Hư hỏng
                 } else {
                     PhieuPhat::create([
-                        'doc_gia_id'=>$request->doc_gia,
-                        'thu_thu_id'=>Auth::id(),
-                        'ma_phieu'=>$all_requests['ma_phieu'],
-                        'sach_id'=>$key,
-                        'so_luong'=>1,
-                        'ly_do'=>$all_requests['het_han']==1?'Hết hạn + Hư hỏng ('.$all_requests['hu_hong_'.$key].')':'Hư hỏng ('.$all_requests['hu_hong_'.$key].')',
-                        'tien_phat'=>$all_requests['het_han']==1?$array[0]+20000:$array[0],
-                        'tong_tien_phat'=>$all_requests['tong_tien_phat'],
-                        'tong_so_sach'=>0
+                        'doc_gia_id' => $request->doc_gia,
+                        'thu_thu_id' => Auth::id(),
+                        'ma_phieu' => $all_requests['ma_phieu'],
+                        'sach_id' => $key,
+                        'so_luong' => 1,
+                        'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')' : 'Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')',
+                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + 20000 : $array[0],
+                        'tong_tien_phat' => $all_requests['tong_tien_phat'],
+                        'tong_so_sach' => 0
                     ]);
                     KhoSach::create([
-                        'sach_id'=>$key,
-                        'thu_thu_id'=>Auth::id(),
-                        'ly_do'=>'Độc giả làm hư ('.$all_requests['hu_hong_'.$key].')',
-                        'so_luong'=>1
+                        'sach_id' => $key,
+                        'thu_thu_id' => Auth::id(),
+                        'ly_do' => 'Độc giả làm hư (' . $all_requests['hu_hong_' . $key] . ')',
+                        'so_luong' => 1
                     ]);
                     $tong_so_sach++;
                 }
             }
         }
-        PhieuPhat::where('ma_phieu',$all_requests['ma_phieu'])->update(['tong_so_sach'=>$tong_so_sach]);
+        PhieuPhat::where('ma_phieu', $all_requests['ma_phieu'])->update(['tong_so_sach' => $tong_so_sach]);
         return redirect()->route('da-muon-sach');
     }
-    public function chiTietTaiKhoan($id){
+    public function chiTietTaiKhoan($id)
+    {
         $detail = NguoiDung::find($id);
-        return view('tai_khoan.detail',['detail'=>$detail]);
+        return view('tai_khoan.detail', ['detail' => $detail]);
     }
-    public function xuLyDoiThongTinNguoiDung($id,Request $request){
-        $vaitro = NguoiDung::where('id',$id)->first();
-        if($vaitro->vai_tro == 1 || $vaitro->vai_tro == 2){
+    public function xuLyDoiThongTinNguoiDung($id, Request $request)
+    {
+        $vaitro = NguoiDung::where('id', $id)->first();
+        if ($vaitro->vai_tro == 1 || $vaitro->vai_tro == 2) {
             NguoiDung::find($id)->update([
                 'ho' => $request->ho,
                 'ten' => $request->ten,
@@ -953,7 +959,7 @@ class AdminController extends Controller
                 'ngay_sinh' => $request->ngay_sinh,
                 'gioi_tinh' => $request->gioi_tinh,
             ]);
-        }else if($vaitro->vai_tro == 3){
+        } else if ($vaitro->vai_tro == 3) {
             NguoiDung::find($id)->update([
                 'ho' => $request->ho,
                 'ten' => $request->ten,
@@ -974,18 +980,20 @@ class AdminController extends Controller
 
         return back();
     }
-    public function sachHu(){
+    public function sachHu()
+    {
         $sach = ThuVien::where('sl_con_lai', '>', 0)->get();
-        return view('sach.sach_hu',['sach'=>$sach]);
+        return view('sach.sach_hu', ['sach' => $sach]);
     }
-    public function xuLyBoSachVaoKho(Request $request){
+    public function xuLyBoSachVaoKho(Request $request)
+    {
         $so_luong_tong = ThuVien::where('sach_id', $request->ten_sach)->first();
         $sl = intval($so_luong_tong->sl_con_lai);
         $so_luong_tru = intval($request->so_luong);
         $sl_con_lai = $sl - $so_luong_tru;
-        if($sl<$so_luong_tru){
+        if ($sl < $so_luong_tru) {
             return back()->with('error', 'Số lượng sách cần bỏ vào kho vượt quá số lượng sách hiện có !!!');
-        }else{
+        } else {
             KhoSach::create([
                 'sach_id' => $request->ten_sach,
                 'thu_thu_id' => Auth::id(),
@@ -999,29 +1007,56 @@ class AdminController extends Controller
             return back();
         }
     }
-    public function quanLyKhoSach(){
-        $khosach = KhoSach::where('so_luong','>',0)->get();
-        return view('sach.quan_ly_kho',['khosach'=>$khosach]);
+    public function quanLyKhoSach()
+    {
+        $khosach = KhoSach::where('so_luong', '>', 0)->get();
+        return view('sach.quan_ly_kho', ['khosach' => $khosach]);
     }
-    public function quanLyLienHe(){
+    public function quanLyLienHe()
+    {
         $lienhe = LienHe::all();
         $sl = LienHe::all()->count();
-        return view('lien_he.quan_ly_phan_hoi',['lienhe'=>$lienhe,'sl'=>$sl]);
+        return view('lien_he.quan_ly_phan_hoi', ['lienhe' => $lienhe, 'sl' => $sl]);
     }
-    public function xuLyDangChuY(Request $request,$id){
+    public function xuLyDangChuY(Request $request, $id)
+    {
         $dangChuY = $request->has('dang_chu_y') ? 1 : 0;
-            LienHe::where('id', $id)->update([
-                'dang_chu_y' => $dangChuY
-            ]);
+        LienHe::where('id', $id)->update([
+            'dang_chu_y' => $dangChuY
+        ]);
         return back();
     }
-    public function xoaLienHe($id){
+    public function xoaLienHe($id)
+    {
         LienHe::find($id)->delete();
         return back();
     }
-    public function chiTietKhoSach($id){
+    public function chiTietKhoSach($id)
+    {
         $sach = ThuVien::where('sl_con_lai', '>', 0)->get();
         $kho = KhoSach::find($id)->first();
-        return view('sach.chi_tiet_kho_sach',['kho'=>$kho,'sach'=>$sach]);
+        return view('sach.chi_tiet_kho_sach', ['kho' => $kho, 'sach' => $sach]);
+    }
+    public function xyLyChinhSuaSachkho(Request $request, $id)
+    {
+        KhoSach::find($id)->update([
+            'sach_id' => $request->ten_sach,
+            'thu_thu_id' => Auth::id(),
+            'ly_do' => $request->ly_do,
+            'so_luong' => $request->so_luong,
+        ]);
+        return back();
+    }
+    public function xoaSachKho($id)
+    {
+        KhoSach::find($id)->delete();
+        return redirect()->route('quan-ly-kho-sach');
+    }
+    public function xuLyCapNhatDeXuat(Request $request,$id){
+        $de_xuat = $request->has('de_xuat') ? 1 : 0;
+        Sach::where('id',$id)->update([
+            'de_xuat'=>$de_xuat,
+        ]);
+        return redirect()->route('hien-thi-sach');
     }
 }

@@ -55,7 +55,7 @@
                 <p>Hiện tại không có phản hồi nào !!!</p>
                 @endif
                 @foreach($lienhe as $item)
-                <form action="{{route('xu-ly-chu-y',['id' => $item->id])}}" method="post" id="formSubmit">
+                <form action="{{route('xu-ly-chu-y',['id' => $item->id])}}" method="post" id="formSubmit{{$item->id}}">
                     @csrf
                     <div class="border rounded mb-2 mt-2" style="display: flex;">
                         <div style="flex-basis: 100%;">
@@ -67,8 +67,8 @@
                         <div style="flex-basis: 13%;">
                             <div style="display: flex;">
                                 <div class="form-check mt-4 mr-3">
-                                    <input name="dang_chu_y" value="{{$item->dang_chu_y}}" style="width: 20px;height: 20px;" class="form-check-input" type="checkbox" {{$item->dang_chu_y == 1 ? 'checked' : ''}} id="flexCheckDefault">
-                                    <label style="padding-top: 5px;padding-left: 2px;user-select: none;" class="form-check-label" for="flexCheckDefault">
+                                    <input name="dang_chu_y" value="{{$item->dang_chu_y}}" style="width: 20px;height: 20px;" class="form-check-input" type="checkbox" {{$item->dang_chu_y == 1 ? 'checked' : ''}} id="flexCheckDefault{{$item->id}}">
+                                    <label style="padding-top: 5px;padding-left: 2px;user-select: none;" class="form-check-label" for="flexCheckDefault{{$item->id}}">
                                         Đáng Chú ý
                                     </label>
                                 </div>
@@ -79,18 +79,19 @@
                         </div>
                     </div><!-- az-content-body -->
                 </form>
+                <script>
+                    var checkbox = document.getElementById(`flexCheckDefault{{$item->id}}`);
+                    checkbox.addEventListener('change', function() {
+                        // Gửi form khi checkbox thay đổi
+                        document.getElementById(`formSubmit{{$item->id}}`).submit();
+                    });
+                </script>
                 @endforeach
                 @include('../common/footer')
             </div>
         </div><!-- az-content -->
     </div>
-    <script>
-        var checkbox = document.getElementById('flexCheckDefault');
-        checkbox.addEventListener('change', function() {
-            // Gửi form khi checkbox thay đổi
-            document.getElementById('formSubmit').submit();
-        });
-    </script>
+
     <script src="/lib/jquery/jquery.min.js"></script>
     <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
