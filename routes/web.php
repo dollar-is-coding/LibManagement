@@ -153,18 +153,6 @@ Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('
 
 });
 Route::middleware('user')->group(function () {
-    Route::get('/nguoi-dung',function(){
-        return view('client.dang_nhap');
-    });
-    Route::get('/email',function(){
-        return view('client.email_xac_thuc');
-    });
-    Route::get('/xac-thuc',function(){
-        return view('client.xac_thuc');
-    });
-    Route::get('/mat-khau-moi',function(){
-        return view('client.mat_khau_moi');
-    });
     Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
     Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('the-loai-sach');
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
@@ -186,4 +174,5 @@ Route::middleware('user')->group(function () {
     Route::get('/xu-ly-gio-sach', [ClientController::class, 'handleGioSach'])->name('xu-ly-gio-sach')->middleware('auth');
     Route::post('/gui-lien-he', [ClientController::class, 'sendLienHe'])->name('gui-lien-he')->middleware('auth');
     Route::get('/thay-doi-mat-khau', [ClientController::class, 'showThayDoiMatKhau'])->name('thay-doi-mat-khau')->middleware('auth');
+    Route::post('/xu-ly-doi-mat-khau', [HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
 });

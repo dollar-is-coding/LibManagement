@@ -24,21 +24,22 @@ class ExcelExportKhoSach implements FromQuery, WithMapping, WithTitle, WithHeadi
         return KhoSach::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $latestMonth);
     }
 
-    public function map($phieuTraSach): array
+    public function map($khosach): array
     {
         return [
-            $phieuTraSach->id,
-            $phieuTraSach->ma_phieu_muon,
-            $phieuTraSach->fkNguoiDung->ten,
-            $created = Carbon::parse($phieuTraSach->created_at)->format('Y-m-d'),
-            $phieuTraSach->created,
+            $khosach->id,
+            $khosach->fkSach->ten,
+            $khosach->so_luong,
+            $khosach->ly_do,
+            $created = Carbon::parse($khosach->created_at)->format('Y-m-d'),
+            $khosach->$created,
             // Thêm các trường dữ liệu khác tương ứng với cột trong file Excel
         ];
     }
 
     public function title(): string
     {
-        return 'Danh sách Phiếu Trả Sách';
+        return 'Danh Sách Kho Sách';
     }
 
     public function headings(): array
@@ -48,6 +49,7 @@ class ExcelExportKhoSach implements FromQuery, WithMapping, WithTitle, WithHeadi
             'Sách',
             'Số lượng',
             'Lý do',
+            'Thời gian'
             // Thêm các tiêu đề cho các cột khác tại đây
         ];
     }

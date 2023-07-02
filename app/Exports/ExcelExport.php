@@ -30,7 +30,7 @@ class ExcelExport implements FromQuery, WithMapping, WithTitle, WithHeadings
             $phieuTraSach->ma_phieu_muon,
             $phieuTraSach->fkNguoiDung->ten,
             $created = Carbon::parse($phieuTraSach->created_at)->format('Y-m-d'),
-            $phieuTraSach->created,
+            $phieuTraSach->$created,
             // Thêm các trường dữ liệu khác tương ứng với cột trong file Excel
         ];
     }
