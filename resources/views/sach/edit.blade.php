@@ -79,9 +79,9 @@
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <input name="de_xuat" value="{{$item->fkSach->de_xuat}}" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
-                            <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> {{$item->fkSach->de_xuat == 1 ? 'Đề xuất' : 'Không đề xuất'}}</label>
+                        <div class="form-group d-flex  align-items-center">
+                            <input class="m-0" name="de_xuat" value="{{$item->fkSach->de_xuat}}" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
+                            <label class="m-0 ml-1" id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> {{$item->fkSach->de_xuat == 1 ? 'Đề xuất' : 'Không đề xuất'}}</label>
                             <script>
                                 let check = document.getElementById('checkDeXuat');
                                 let text = document.getElementById('changeContext');

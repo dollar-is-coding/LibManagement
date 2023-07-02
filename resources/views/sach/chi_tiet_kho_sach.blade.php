@@ -58,7 +58,7 @@
                 @endif
                 <h3>Chi tiết sách hư</h3>
                 <div class="table-responsive">
-                    <form action="{{route('xu-ly-bo-sach-vao-kho')}}" method="post">
+                    <form action="{{route('xu-ly-sua-sach-kho',['id'=>$kho->id])}}" method="post">
                         @csrf
                         <div style="display: grid;grid-template-columns: auto;">
                             <div>
@@ -81,6 +81,7 @@
                         </div>
 
                         <div class="mb-3" style="display: flex;justify-content: end;">
+                            <a class="btn btn-danger mr-3" href="{{route('xoa-sach-kho',['id'=>$kho->id])}}">Xóa</a>
                             <button type="submit" class="btn btn-success">Cập nhật</button>
                         </div>
                     </form>

@@ -129,10 +129,27 @@
                                 </div>
                             </div>
                         </div>
+
                         @endforeach
                     </div>
                 </div><!-- az-card-signin -->
-
+                <!-- binh luan -->
+                <div style="display: grid;grid-template-columns: auto auto auto;text-align: center;" class="mt-3">
+                    <p>Lượt thích ({{$tongbl->luot_thich}})</p>
+                    <p>Tổng lượt bình luận ({{$tongbl->luot_binh_luan}})</p>
+                    <p>Lượt xem ({{$tongbl->luot_xem}})</p>
+                </div>
+                <div style="overflow: scroll;overflow-x: hidden;height: 300px;">
+                    @foreach($binhluan as $bl)
+                    <div class="border rounded mt-2">
+                        <a href="{{route('chi-tiet-tai-khoan',['id'=>$bl->nguoi_dung_id])}}">{{$bl->fkNguoiDung->ten}}</a>
+                        <p>{{$bl->noi_dung}}</p>
+                        @foreach($bl->hasReply as $bl_rep)
+                        <p class="ml-3">{{$bl_rep->noi_dung}}</p>
+                        @endforeach
+                    </div>
+                    @endforeach
+                </div>
                 <div class="ht-40"></div>
 
                 @include('../common/footer')

@@ -38,6 +38,8 @@ Route::post('/doi-mat-khau-moi', [HomeController::class, 'xuLyNhapMaXacThucQuenM
 Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
 // XEM, TÌM KIẾM & CHI TIẾT SÁCH
 Route::get('/danh-sach-cac-cuon-sach', [AdminController::class, 'dsSach'])->name('hien-thi-sach')->middleware('auth');
+Route::post('/xu-ly-de-xuat/{id}', [AdminController::class, 'xuLyCapNhatDeXuat'])->name('xu-ly-de-xuat')->middleware('auth');
+
 Route::get('/chi-tiet-sach/{id}', [AdminController::class, 'chiTietSach'])->name('chi-tiet-sach')->middleware('auth');
 Route::get('/tim-kiem-theo-tac-gia',[AdminController::class, 'timKiemTheoTacGia'])->name('tim-kiem-theo-tac-gia')->middleware('auth');
 // THÊM MỚI SÁCH CÁC LOẠI
@@ -144,6 +146,10 @@ Route::post('/quan-ly-lien-he/{id}', [AdminController::class, 'xuLyDangChuY'])->
 Route::get('/xoa-lien-he/{id}', [AdminController::class, 'xoaLienHe'])->name('xoa-lien-he')->middleware('auth');
 
 Route::get('/chi-tiet-kho/{id}', [AdminController::class, 'chiTietKhoSach'])->name('chi-tiet-kho')->middleware('auth');
+Route::post('/chi-tiet-kho/{id}', [AdminController::class, 'xyLyChinhSuaSachkho'])->name('xu-ly-sua-sach-kho')->middleware('auth');
+
+Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('xoa-sach-kho')->middleware('auth');
+
 
 });
 Route::middleware('user')->group(function () {

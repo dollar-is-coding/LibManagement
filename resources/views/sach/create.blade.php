@@ -154,9 +154,9 @@
                         @endif
                         <form action="{{ route('xu-ly-them-sach') }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <input style="width: 17px;height: 17px;" type="checkbox" name="de_xuat" id="checkDeXuat">
-                                <label id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> Không đề xuất</label>
+                            <div class="form-group d-flex  align-items-center">
+                                <input class=" mb-0" style="width: 17px;height: 17px;" type="checkbox" name="de_xuat" id="checkDeXuat">
+                                <label class=" mb-0 pl-1" id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> Không đề xuất</label>
                                 <script>
                                     let check = document.getElementById('checkDeXuat');
                                     let text = document.getElementById('changeContext');
@@ -964,24 +964,24 @@
                 });
             });
         //
-        $(document).on("click", ".delete-link", function(event) {
-            event.preventDefault();
-            var link = this;
+        // $(document).on("click", ".delete-link", function(event) {
+        //     event.preventDefault();
+        //     var link = this;
 
-            Swal.fire({
-                title: "Bạn có muốn xóa không?",
-                imageUrl: "/img/war.png",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link.href;
-                }
-            });
-        });
+        //     Swal.fire({
+        //         title: "Bạn có muốn xóa không?",
+        //         imageUrl: "/img/war.png",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#d33",
+        //         cancelButtonColor: "#3085d6",
+        //         confirmButtonText: "Xóa",
+        //         cancelButtonText: "Hủy",
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             window.location.href = link.href;
+        //         }
+        //     });
+        // });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
