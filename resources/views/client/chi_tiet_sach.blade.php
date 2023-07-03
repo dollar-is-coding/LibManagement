@@ -159,9 +159,9 @@
                             <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
-                                            @if ($sach->hinh_anh != '')
-                                                <img src="../img/books/{{ $sach->hinh_anh }}"
+                                        <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
+                                            @if ($item->hinh_anh != '')
+                                                <img src="../img/books/{{ $item->hinh_anh }}"
                                                     class="custom-block-image img-fluid" />
                                             @else
                                                 <img src="../img/default/no_book.jpg"
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="custom-block-info">
                                         <h5 class="mb-2">
-                                            <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}">
+                                            <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
                                                 {{ $item->ten }}</a>
                                         </h5>
                                         <div class="profile-block d-flex">
