@@ -531,6 +531,7 @@ class AdminController extends Controller
                 $this->taoTaiKhoan($user);
                 return redirect()->route('tao-tai-khoan');
             }
+            FacadesSession::flash('success', 'Xử lý thành công');
         } else {
             return back()->with('errorMail', 'Không thể tạo tài khoản do email đã tồn tại');
         }
@@ -751,6 +752,7 @@ class AdminController extends Controller
                 $charge = $thanhtoan->count() * 10000;
             }
         }
+        FacadesSession::flash('success', 'Xử lý thành công');
         return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail, 'tien_phat_het_han' => $charge]);
     }
 
@@ -824,6 +826,7 @@ class AdminController extends Controller
             }
         }
         PhieuPhat::where('ma_phieu', $all_requests['ma_phieu'])->update(['tong_so_sach' => $tong_so_sach]);
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('da-muon-sach');
     }
     public function chiTietTaiKhoan($id)
@@ -936,9 +939,19 @@ class AdminController extends Controller
     }
     public function xuLyCapNhatDeXuat()
     {
-        Sach::where('id', request()->input('sach'))->update([
-            'de_xuat' => request()->input('check'),
-        ]);
+        $dexuat = Sach::where('de_xuat', 1)->count();
+        $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
+        if($dexuat<7){
+            Sach::where('id', request()->input('sach'))->update([
+                'de_xuat' => request()->input('check'),
+            ]);
+        }else{
+            $dexuatend->de_xuat = 0;
+            $dexuatend->save();
+            Sach::where('id', request()->input('sach'))->update([
+                'de_xuat' => request()->input('check'),
+            ]); 
+        }
         return redirect()->route('hien-thi-sach');
     }
     public function xuLyXoaBinhLuan($id){
@@ -949,6 +962,7 @@ class AdminController extends Controller
         }else{
             BinhLuan::where('id', $id)->delete();
         }
+        FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
 }

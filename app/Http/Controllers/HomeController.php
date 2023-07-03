@@ -17,7 +17,6 @@ use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\MuonSachRequest;
-use App\Models\LienHe;
 use App\Models\Sach;
 use App\Models\TinTuc;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -32,8 +31,7 @@ class HomeController extends Controller
         $slthuthu = NguoiDung::where('vai_tro', 2)->count();
         $sltintuc = TinTuc::all()->count();
         $slsachduyet = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
-        $slphanhoi = LienHe::all()->count();
-        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi]);
+        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet]);
     }
 
 
@@ -44,13 +42,6 @@ class HomeController extends Controller
     }
     public function xuLyDangNhap(DangNhapRequest $request)
     {
-        // $admin=['email'=>$request->email,'password'=>$request->password];
-        // if(Auth::attempt($admin)) {
-        //     session()->put('email_user',$admin['email']);
-        //     return redirect()->route('trang-chu');
-        // } 
-        // return redirect()->back()->with('error','Đăng nhập thất bại');
-        //start 
         $admin = [
             'email' => $request->email,
             'password' => $request->password,

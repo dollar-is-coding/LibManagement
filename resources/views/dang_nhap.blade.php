@@ -46,21 +46,23 @@
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-12">
+                                @error('email')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
-                                    @error('email')
-                                    <div style="font-style: italic;" class="text-danger">
-                                        {{ $message }} *&nbsp;
-                                    </div>
-                                    @enderror
+
                                     <input type="text" name="email" id="name" class="form-control" placeholder="Nhập email" value="{{ old('email') }}" />
                                     <label for="floatingInput">Email</label>
                                 </div>
+                                @error('password')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
-                                    @error('password')
-                                    <div style="font-style: italic;" class="text-danger">
-                                        {{ $message }} *&nbsp;
-                                    </div>
-                                    @enderror
+
                                     <style>
                                         .password-toggle {
                                             position: absolute;
