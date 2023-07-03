@@ -431,7 +431,7 @@ class AdminController extends Controller
 
 
     // XEM, TÌM KIẾM & CHI TIẾT sách
-    public function dsSach(Request $request)
+    public function dsSach()
     {
         $slsach = Sach::all()->count();
         $sach = Sach::orderBy('ten', 'asc')->paginate(20);
@@ -442,20 +442,24 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $tim_kiem = $request->old('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
-            ->orderBy('ten', 'asc')
+        ->orderBy('ten', 'asc')
             ->paginate(20);
         $slsach = $sach->count();
         if ($sach->count() == 0) {
             return back()->withInput()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
+            $queryString = http_build_query(['tim_kiem' => $timKiem]);
+            $sach->appends(['tim_kiem' => $timKiem]);
             return view('sach.index', [
                 'sach' => $sach,
                 'search' => '',
                 'selected' => 'asc_name',
                 'slsach' => $slsach,
+                'queryString' => $queryString,
             ]);
         }
     }
+
 
 
     public function chiTietSach($id)
@@ -694,12 +698,12 @@ class AdminController extends Controller
             $file = $request->file_upload;
             if ($file->isValid()) {
                 $file_name = $file->getClientOriginalName();
-                $file->move(public_path('img/avt'), $file_name);
-                $request->merge(['hinh_anh' => $file_name]);
+                $file->move(public_path('img/news'), $file_name);
+                $request->merge(['anh_bia' => $file_name]);
             }
         } else {
             $file_name = "";
-            $request->merge(['hinh_anh' => $file_name]);
+            $request->merge(['anh_bia' => $file_name]);
         }
         if ($request->tieu_de != '') {
             TinTuc::create([
@@ -745,8 +749,8 @@ class AdminController extends Controller
         if ($request->has('file')) {
             $file = $request->file_upload;
             $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/avt'), $filename);
-            $img->hinh_anh = $filename;
+            $file->move(public_path('img/news'), $filename);
+            $img->anh_bia = $filename;
         }
         $img->save();
         FacadesSession::flash('success', 'Xử lý thành công');

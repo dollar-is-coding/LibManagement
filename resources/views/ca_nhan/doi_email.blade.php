@@ -29,7 +29,7 @@
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
 

@@ -39,7 +39,7 @@
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
 </head>
 
 <body>
@@ -80,10 +80,10 @@
                 <h3 style="text-align: center;" class="mb-3">{{$item->ten}}</h3>
                 <div style="display: flex;">
                     <div style="flex-basis: 30%;">
-                        @if ($item->anh_bia)
+                        @if ($item->anh_bia == "")
                         <img src="../img/default/no_image_available.jpg" width="240em" height="320em" style="object-fit: cover">
                         @else
-                        <img src="../img/avt/{{ $item->anh_bia }}" width="240em" height="320em" style="object-fit: cover">
+                        <img src="/img/news/{{ $item->anh_bia }}" width="240em" height="320em" style="object-fit: cover">
                         @endif
                     </div>
                     <div style="flex-basis: 70%;" class="pr-3">
@@ -100,12 +100,7 @@
                     <p style="width: 33%;">Lượt bình luận</p>
                 </div>
                 @endforeach
-
-
-
             </div>
-
-
         </div><!-- container -->
         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
             @include('../common/footer')

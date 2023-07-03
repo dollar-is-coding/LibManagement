@@ -9,7 +9,7 @@
     <meta name="author" content="" />
 
     <title>Đăng nhập</title>
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 

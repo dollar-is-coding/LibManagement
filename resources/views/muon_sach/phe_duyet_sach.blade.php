@@ -22,7 +22,7 @@
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <title>libro - Tạo tài khoản</title>
 
     <!-- vendor css -->

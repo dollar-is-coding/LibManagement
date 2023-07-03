@@ -18,7 +18,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
@@ -185,8 +185,8 @@
                                         tongtien.value = `${tong_tien_sach}`;
                                         tongtiendv.innerHTML = tongtien.value + ' VNĐ';
 
-                                        tienhusach.innerHTML = 'Tiền hư sách '+ tien.hu + ' VNĐ';
-                                        tienmatsach.innerHTML = 'Tiền mất sách '+ tien.mat+ ' VNĐ';
+                                        tienhusach.innerHTML = 'Tiền hư sách ' + tien.hu + ' VNĐ';
+                                        tienmatsach.innerHTML = 'Tiền mất sách ' + tien.mat + ' VNĐ';
 
                                     }
 

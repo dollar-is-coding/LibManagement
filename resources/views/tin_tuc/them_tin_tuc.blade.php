@@ -37,7 +37,7 @@
     <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
     <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
 
@@ -59,6 +59,11 @@
         }, 100);
     </script>
     @endif
+    <style>
+        textarea {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+    </style>
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
