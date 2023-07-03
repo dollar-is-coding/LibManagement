@@ -94,7 +94,7 @@
                                 <p>Thời gian: <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('Y-m-d') }}</b> -- <b>{{$chi_tiet_sach->han_tra}}</b></p>
                                 <div class="mt-2" style="margin-right: 40px;">
                                     @if($tong_tien)
-                                    <p style="text-align: end;">Tổng tiền phạt: <b>{{$tong_tien->tong_tien_phat}} VNĐ</b></p>
+                                    <p style="text-align: end;">Tổng tiền phạt: <b>{{ number_format($tong_tien->tong_tien_phat, 0, ',', '.') }} VNĐ</b></p>
                                     @endif
                                 </div>
                             </div>
