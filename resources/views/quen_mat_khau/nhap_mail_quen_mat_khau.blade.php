@@ -9,7 +9,7 @@
     <meta name="author" content="" />
 
     <title>Đăng nhập</title>
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('thay-doi-mat-khau') }}" style="margin-left:10px" class="d-flex align-items-center">
+                                <a href="#" style="margin-left:10px;visibility: hidden;" class="d-flex align-items-center">
                                     <i class="bi bi-caret-left-fill"></i>
                                     <span class="h7">Quay lại</span>
                                 </a>

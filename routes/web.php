@@ -71,19 +71,6 @@ Route::get('/xoa-khu-vuc/{id}', [AdminController::class, 'xoaKhuVuc'])->name('xo
 Route::get('/xoa-tu-sach/{id}', [AdminController::class, 'xoaTuSach'])->name('xoa-tu-sach')->middleware('auth');
 Route::get('/xoa-tac-gia/{id}', [AdminController::class, 'xoaTacGia'])->name('xoa-tac-gia')->middleware('auth');
 
-// CẤP THẺ, XEM, TÌM KIẾM & CHI TIẾT ĐỘC GIẢ
-Route::get('/cap-the-doc-gia',[AdminController::class, 'showCapThe'])->name('cap-the-doc-gia')->middleware('auth');
-Route::post('/xu-ly-cap-the',[AdminController::class, 'handleCapThe'])->name('xu-ly-cap-the')->middleware('auth');
-Route::get('/hien-thi-doc-gia',[AdminController::class, 'showDocGiaList'])->name('hien-thi-doc-gia')->middleware('auth');
-Route::get('/tim-kiem-doc-gia',[AdminController::class, 'HandleDocGiaSearch'])->name('tim-kiem-doc-gia')->middleware('auth');
-Route::get('/hien-thi-chi-tiet-doc-gia/{id}',[AdminController::class, 'showChiTietDocGia'])->name('hien-thi-chi-tiet-doc-gia')->middleware('auth');
-Route::get('/tra-sach/{id}',[AdminController::class, 'return'])->name('tra-sach')->middleware('auth');
-
-// MƯỢN SÁCH
-Route::get('/hien-thi-muon-sach-giao-khoa', [HomeController::class, 'showMuonSGK'])->name('hien-thi-muon-sach-giao-khoa')->middleware('auth');
-Route::post('/xu-ly-muon-sach-giao-khoa', [HomeController::class, 'handleMuonSGK'])->name('xu-ly-muon-sach-giao-khoa')->middleware('auth');
-Route::get('/hien-thi-muon-sach-khac', [HomeController::class, 'showMuonSachKhac'])->name('hien-thi-muon-sach-khac')->middleware('auth');
-Route::post('/xu-ly-muon-sach-khac', [HomeController::class, 'handleMuonSachKhac'])->name('xu-ly-muon-sach-khac')->middleware('auth');
 
 // QUYỀN ADMIN
 Route::get('/tao-tai-khoan',[AdminController::class, 'capTaiKhoan'])->name('tao-tai-khoan')->middleware('auth');
@@ -150,6 +137,8 @@ Route::get('/chi-tiet-kho/{id}', [AdminController::class, 'chiTietKhoSach'])->na
 Route::post('/chi-tiet-kho/{id}', [AdminController::class, 'xyLyChinhSuaSachkho'])->name('xu-ly-sua-sach-kho')->middleware('auth');
 
 Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('xoa-sach-kho')->middleware('auth');
+
+Route::get('/xoa-binh-luan/{id}', [AdminController::class, 'xuLyXoaBinhLuan'])->name('xu-ly-xoa-binh-luan')->middleware('auth');
 
 
 });

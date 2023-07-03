@@ -23,7 +23,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Link tới jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

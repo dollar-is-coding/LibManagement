@@ -17,6 +17,7 @@ use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\MuonSachRequest;
+use App\Models\LienHe;
 use App\Models\Sach;
 use App\Models\TinTuc;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -31,7 +32,8 @@ class HomeController extends Controller
         $slthuthu = NguoiDung::where('vai_tro', 2)->count();
         $sltintuc = TinTuc::all()->count();
         $slsachduyet = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
-        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet]);
+        $slphanhoi = LienHe::all()->count();
+        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi]);
     }
 
 
@@ -127,72 +129,6 @@ class HomeController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         return back()->with('error','Thay đổi mật khẩu thất bại');
     }
-
-
-    // Mượn sách
-    // public function showMuonSGK()
-    // {
-    //     $doc_gia=DocGia::where('sach_khac','<',2)->get();
-    //     $sgk=ThuVien::where('so_luong','>',0)->get();
-    //     return view('doc_gia.muon_sgk',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
-    // }
-
-    // public function handleMuonSGK(MuonSachRequest $request)
-    // {
-    //     $ma_so=$request->old('ma_so');
-    //     $sach=$request->old('sach');
-    //     $ngay_tra=$request->old('ngay_tra');
-    //     foreach ($request->sach as $key => $value) {
-    //         $ngay_muon=explode('/', $request->ngay_muon);
-    //         $ngay_tra=explode('/', $request->ngay_tra);
-    //         PhieuMuonSach::create([
-    //             'doc_gia_id'=>$request->ma_so,
-    //             'sach_id'=>$value,
-    //             'so_luong'=>1,
-    //             'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
-    //             'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
-    //             'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
-    //         ]);
-    //         ThuVien::where('sach_id',$request->sach)->update([
-    //             'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-1)
-    //         ]);
-    //         DocGia::find($request->ma_so)->update([
-    //             'sgk'=>DocGia::find($request->ma_so)->sgk+1
-    //         ]);
-    //     }
-    //     return back();
-    // }
-
-    // public function showMuonSachKhac()
-    // {
-    //     $doc_gia=DocGia::where([['sgk',0],['sach_khac','<',2]])->orWhere([['sgk','>',0],['sach_khac','<',1]])->get();
-    //     $sgk=ThuVien::where('so_luong','>',0)->get();
-    //     return view('doc_gia.muon_sach_khac',['ds_doc_gia'=>$doc_gia,'sgk'=>$sgk]);
-    // }
-
-    // public function handleMuonSachKhac(MuonSachRequest $request)
-    // {
-    //     $ma_so=$request->old('ma_so');
-    //     $sach=$request->old('sach');
-    //     $ngay_muon=explode('/', $request->ngay_muon);
-    //     $ngay_tra=explode('/', $request->ngay_tra);
-    //     PhieuMuonSach::create([
-    //         'doc_gia_id'=>$request->ma_so,
-    //         'sach_id'=>$request->sach,
-    //         'so_luong'=>$request->so_luong,
-    //         'ngay_muon'=>date('Y/m/d', strtotime($ngay_muon[2].'/'.$ngay_muon[1].'/'.$ngay_muon[0])),
-    //         'ngay_tra'=>date('Y/m/d', strtotime($ngay_tra[2].'/'.$ngay_tra[1].'/'.$ngay_tra[0])),
-    //         'thuc_tra'=>date('Y/m/d',strtotime('2020/01/01'))
-    //     ]);
-    //     ThuVien::where('sach_id',$request->sach)->update([
-    //         'so_luong'=>(ThuVien::where('sach_id',$request->sach)->first()->so_luong-$request->so_luong)
-    //     ]);
-    //     DocGia::find($request->ma_so)->update([
-    //         'sach_khac'=>DocGia::find($request->ma_so)->sach_khac+$request->so_luong
-    //     ]);
-    //     return back();
-    // }
-
 
     // Quên mật khẩu ( nhập mail, nhập mã xác minh, đặt lại mật khẩu)
     public function hienThiNhapMailQuenMatKhau()

@@ -36,7 +36,7 @@
     <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
     <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
 
@@ -86,7 +86,7 @@
                             @if($item->anh_bia == '')
                             <img src="/img/avt/income.jpg" class="card-img-top">
                             @elseif($item->anh_bia != '')
-                            <img src="/img/avt/{{$item->anh_bia}}" class="card-img-top">
+                            <img src="/img/news/{{$item->anh_bia}}" class="card-img-top">
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{$item->ten}}</h5>

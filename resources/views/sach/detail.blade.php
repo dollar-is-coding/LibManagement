@@ -29,7 +29,7 @@
     <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- azia CSS -->
     <link rel="stylesheet" href="/css/azia.css">
 
@@ -139,13 +139,30 @@
                     <p>Tổng lượt bình luận ({{$tongbl->luot_binh_luan}})</p>
                     <p>Lượt xem ({{$tongbl->luot_xem}})</p>
                 </div>
-                <div style="overflow: scroll;overflow-x: hidden;height: 300px;">
+                <div class="border rounded" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                     @foreach($binhluan as $bl)
-                    <div class="border rounded mt-2">
-                        <a href="{{route('chi-tiet-tai-khoan',['id'=>$bl->nguoi_dung_id])}}">{{$bl->fkNguoiDung->ten}}</a>
-                        <p>{{$bl->noi_dung}}</p>
+                    <div class="mt-2">
+                        <div class="border rounded ml-2" style="display: flex;">
+                            <div style="flex-basis: 97%;">
+                                <a class="ml-3" style="color:black" href="{{route('chi-tiet-tai-khoan',['id'=>$bl->nguoi_dung_id])}}">Đọc giả {{$bl->fkNguoiDung->ten}}</a>
+                                <p class="ml-3">{{$bl->noi_dung}}</p>
+                            </div>
+                            <div class="pt-2" style="flex-basis: 3%;">
+                                <a style="color: grey;font-size: 16px;" href="{{route('xu-ly-xoa-binh-luan',['id'=>$bl->id])}}">
+                                    <i class="fas fa-times"></i></a>
+                            </div>
+                        </div>
                         @foreach($bl->hasReply as $bl_rep)
-                        <p class="ml-3">{{$bl_rep->noi_dung}}</p>
+                        <div class="border rounded mt-2 ml-5" style="display: flex;">
+                            <div style="flex-basis: 97%;">
+                                <a style="color:black" class="ml-3 mt-3" href="{{route('chi-tiet-tai-khoan',['id'=>$bl_rep->nguoi_dung_id])}}">Đọc giả {{$bl_rep->fkNguoiDung->ten}}</a>
+                                <p class="ml-3">{{$bl_rep->noi_dung}}</p>
+                            </div>
+                            <div class="pt-2" style="flex-basis: 3%;">
+                                <a style="color: grey;font-size: 16px;" href="{{route('xu-ly-xoa-binh-luan',['id'=>$bl_rep->id])}}">
+                                    <i class="fas fa-times"></i></a>
+                            </div>
+                        </div>
                         @endforeach
                     </div>
                     @endforeach

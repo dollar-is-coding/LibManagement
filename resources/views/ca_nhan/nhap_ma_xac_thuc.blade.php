@@ -18,7 +18,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
@@ -74,7 +74,7 @@
                                 <label class="mt-2">&nbsp;Nhập mã xác thực</label>
                             </div>
                             <input type="text" name="xac_thuc" class="form-control col-lg-7" placeholder="Nhập mã xác thực">
-                            <button class="btn btn-az-primary mt-3"  type="submit">Xác thực</button>
+                            <button class="btn btn-az-primary mt-3" type="submit">Xác thực</button>
                         </div><!-- form-group -->
                     </form>
                     @if (session('error'))

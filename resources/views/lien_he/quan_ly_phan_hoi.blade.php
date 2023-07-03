@@ -18,13 +18,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
     <title>libro - Tra cứu</title>
 
@@ -54,37 +53,31 @@
             <div class="az-content-body">
                 <h4>Quản lý phản hồi</h4>
                 @if ($sl == 0)
-                    <p>Hiện tại không có phản hồi nào !!!</p>
+                <p>Hiện tại không có phản hồi nào !!!</p>
                 @endif
                 @foreach ($lienhe as $item)
-                    <div class="border rounded mb-2 mt-2" style="display: flex;">
-                        <div style="flex-basis: 100%;">
-                            <div class=" mt-2 ml-2">
-                                <h5>{{ $item->tieu_de }}</h5>
-                                <p class="ml-3">{{ $item->noi_dung }}</p>
-                            </div>
+                <div class="border rounded mb-2 mt-2" style="display: flex;">
+                    <div style="flex-basis: 100%;">
+                        <div class=" mt-2 ml-2">
+                            <h5>{{ $item->tieu_de }}</h5>
+                            <p class="ml-3">{{ $item->noi_dung }}</p>
                         </div>
-                        <div style="flex-basis: 13%;">
-                            <div style="display: flex;">
-                                <div class="form-check mt-4 mr-3">
-                                    <input name="dang_chu_y" value="{{ $item->dang_chu_y }}"
-                                        style="width: 20px;height: 20px;" class="form-check-input" type="checkbox"
-                                        id="flexCheckDefault{{ $item->id }}"
-                                        {{ $item->dang_chu_y == 1 ? 'checked' : '' }}
-                                        onclick="checkBox({{ $item->id }})">
-                                    <label style="padding-top: 5px;padding-left: 2px;user-select: none;"
-                                        class="form-check-label" for="flexCheckDefault{{ $item->id }}">
-                                        Đáng Chú ý
-                                    </label>
-                                </div>
-                                <div>
-                                    <a style="color: black;font-size: 22px;"
-                                        href="{{ route('xoa-lien-he', ['id' => $item->id]) }}">
-                                        <i class="fas fa-times"></i></a>
-                                </div>
+                    </div>
+                    <div style="flex-basis: 13%;">
+                        <div style="display: flex;">
+                            <div class="form-check mt-4 mr-3">
+                                <input name="dang_chu_y" value="{{ $item->dang_chu_y }}" style="width: 18px;height: 18px;" class="form-check-input" type="checkbox" id="flexCheckDefault{{ $item->id }}" {{ $item->dang_chu_y == 1 ? 'checked' : '' }} onclick="checkBox({{ $item->id }})">
+                                <label style="padding-top: 5px;padding-left: 2px;user-select: none;" class="form-check-label" for="flexCheckDefault{{ $item->id }}">
+                                    Đáng Chú ý
+                                </label>
+                            </div>
+                            <div>
+                                <a style="color: grey;font-size: 16px;" href="{{ route('xoa-lien-he', ['id' => $item->id]) }}">
+                                    <i class="fas fa-times"></i></a>
                             </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
                 @include('../common/footer')
             </div>

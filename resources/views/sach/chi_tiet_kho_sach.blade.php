@@ -14,7 +14,7 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-
+    <link rel='shortcut icon' href='/img/LIBRO.png'/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

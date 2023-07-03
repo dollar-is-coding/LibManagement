@@ -15,7 +15,7 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +40,11 @@
 <body>
 
     @include('../common/header', ['view' => 2])
-
+    <style>
+        textarea {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+    </style>
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">

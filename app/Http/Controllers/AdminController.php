@@ -430,7 +430,7 @@ class AdminController extends Controller
 
 
     // XEM, TÌM KIẾM & CHI TIẾT sách
-    public function dsSach(Request $request)
+    public function dsSach()
     {
         $slsach = Sach::all()->count();
         $sach = Sach::orderBy('ten', 'asc')->paginate(20);
@@ -441,20 +441,24 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $tim_kiem = $request->old('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
-            ->orderBy('ten', 'asc')
+        ->orderBy('ten', 'asc')
             ->paginate(20);
         $slsach = $sach->count();
         if ($sach->count() == 0) {
             return back()->withInput()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
+            $queryString = http_build_query(['tim_kiem' => $timKiem]);
+            $sach->appends(['tim_kiem' => $timKiem]);
             return view('sach.index', [
                 'sach' => $sach,
                 'search' => '',
                 'selected' => 'asc_name',
                 'slsach' => $slsach,
+                'queryString' => $queryString,
             ]);
         }
     }
+
 
 
     public function chiTietSach($id)
@@ -464,127 +468,6 @@ class AdminController extends Controller
         $sach = ThuVien::where('sach_id', $id)->get();
         return view('sach.detail', ['sach' => $sach, 'binhluan' => $binhluan, 'tongbl' => $tongbl]);
     }
-
-
-    // CẤP THẺ độc giả
-    // public function showCapThe()
-    // {
-    //     return view('doc_gia.create',['date'=>Carbon::now()]);
-    // }
-    // public function handleCapThe(CapTheRequest $request)
-    // {
-    //     $existed_reader=DocGia::where('email',$request->email)->orWhere('so_dien_thoai',$request->so_dien_thoai)->first();
-    //     $ho=$request->old('ho');
-    //     $ten=$request->old('ten');
-    //     $lop=$request->old('lop');
-    //     $so_dien_thoai=$request->old('so_dien_thoai');
-    //     $ngay_sinh=$request->old('ngay_sinh');
-    //     $dia_chi=$request->old('dia_chi');
-    //     $email=$request->old('email');
-    //     $gioi_tinh=$request->old('gioi_tinh');
-    //     if (!$existed_reader) {
-    //         $array=explode('/', $request->ngay_sinh);
-    //         if (blank(DocGia::latest()->first())) {
-    //             $ma_so=date('y').date('m').'0001';
-    //         } else {
-    //             $latest_month_db=substr(DocGia::latest()->first()->ma_so,2,2);
-    //             $latest_people_db=intval(substr(DocGia::latest()->first()->ma_so,4,4));
-    //             if ($latest_month_db==date('m')) {
-    //                 $ma_so=date('y').date('m').str_pad($latest_people_db+1, 4, '0', STR_PAD_LEFT);
-    //             } else {
-    //                 $ma_so=date('y').date('m').'0001';
-    //             }
-    //         }
-    //         $path = 'img/qr/';
-    //         $file = $path . 'qr.png';
-    //         QRCode::text($ma_so)
-    //             ->setErrorCorrectionLevel('H')
-    //             ->setSize(4)
-    //             ->setMargin(2)
-    //             ->setOutfile($file)
-    //             ->png();
-    //         $path = $file;
-    //         $type = pathinfo($path, PATHINFO_EXTENSION);
-    //         switch ($type) {
-    //             case 'png':
-    //                 $ctype = 'image/png';
-    //                 break;
-    //             case 'jpeg':
-    //             case 'jpg':
-    //                 $ctype = 'image/jpeg';
-    //                 break;
-    //             default:
-    //                 $ctype = 'application/octet-stream';
-    //         }
-    //         $data = file_get_contents($path);
-    //         $base64 = 'data:' . $ctype . ';base64,' . base64_encode($data);
-    //         $validate=DocGia::create([
-    //             'ma_so'=>$ma_so,
-    //             'ho'=>$request->ho,
-    //             'ten'=>$request->ten,
-    //             'gioi_tinh'=>(int)$request->gioi_tinh,
-    //             'so_dien_thoai'=>$request->so_dien_thoai,
-    //             'email'=>$request->email,
-    //             'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
-    //             'dia_chi'=>$request->dia_chi,
-    //             'lop'=>$request->lop,
-    //             'sgk'=>0,
-    //             'sach_khac'=>0
-    //         ]);
-    //         $mailData = [
-    //             'title' => 'Chào mừng bạn đến với Libro',
-    //             'ma_so'=>$ma_so,
-    //             'ho'=>$request->ho,
-    //             'ten'=>$request->ten,
-    //             'gioi_tinh'=>(int)$request->gioi_tinh,
-    //             'ngay_sinh'=>date('Y/m/d', strtotime($array[2].'/'.$array[1].'/'.$array[0])),
-    //             'lop'=>$request->lop,
-    //             'dia_chi'=>$request->dia_chi,
-    //             'qrcode'=> $base64
-    //         ];
-    //         $mailable=new SendCreateReaderCardMail($mailData);
-    //         Mail::to($request->email)->send($mailable);
-    //         return back()->with('success','Tạo thẻ mới thành công');
-    //     } else {
-    //         return back()->with('error','Số điện thoại hoặc email đã được sử dụng');
-    //     }
-    // }
-
-
-    // XEM, TÌM KIẾM & CHI TIẾT độc giả
-    // public function showDocGiaList()
-    // {
-    //     $ds_doc_gia=DocGia::paginate(10);
-    //     return view('doc_gia.index',['ds_doc_gia'=>$ds_doc_gia,'tim_kiem'=>'','sap_xep'=>'all']);
-    // }
-    // public function handleDocGiaSearch(Request $request)
-    // {
-    //     $doc_gia=DocGia::where('ma_so','like','%'.$request->tim_kiem.'%')
-    //         ->orderBy('ma_so','asc')
-    //         ->paginate(10);
-    //     if ($request->sap_xep=='borrowing') {
-    //         $doc_gia=DocGia::where([['ma_so','like','%'.$request->tim_kiem.'%'],['sach_khac','>',0]])
-    //             ->orWhere([['ma_so','like','%'.$request->tim_kiem.'%'],['sgk','>',0]])
-    //             ->paginate(10);
-    //     }
-    //     return view('doc_gia.index',
-    //         ['ds_doc_gia'=>$doc_gia,'tim_kiem'=>$request->tim_kiem,'sap_xep'=>$request->sap_xep]);
-    // }
-
-    // public function showChiTietDocGia($id)
-    // {
-    //     $doc_gia=DocGia::find($id);
-    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-    //     return view('doc_gia.detail',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    // }
-
-    // public function return($id)
-    // {
-    //     $doc_gia=DocGia::find($id);
-    //     $sach_muon=PhieuMuonSach::where('doc_gia_id',$id)->get();
-    //     return view('doc_gia.return',['doc_gia'=>$doc_gia,'sach'=>$sach_muon]);
-    // }
-
 
     // Cấp tài khoản - quản lý tài khoản
     public function capTaiKhoan()
@@ -625,7 +508,7 @@ class AdminController extends Controller
                     'hinh_anh' => '',
                     'vai_tro' => $request->vai_tro,
                     'gioi_tinh' => $request->gioi_tinh,
-                    'ngay_sinh' => '2000/1/1',
+                    'ngay_sinh' => date('Y-m-d', strtotime($request->ngay_sinh)),
                     'dien_thoai' => '',
                     'ma_hs' => ''
                 ]);
@@ -641,7 +524,7 @@ class AdminController extends Controller
                     'hinh_anh' => '',
                     'vai_tro' => $request->vai_tro,
                     'gioi_tinh' => $request->gioi_tinh,
-                    'ngay_sinh' => '2000/1/1',
+                    'ngay_sinh' =>  date('Y-m-d', strtotime($request->ngay_sinh)),
                     'dien_thoai' => '',
                     'ma_hs' => $request->ma_hs,
                 ]);
@@ -693,12 +576,12 @@ class AdminController extends Controller
             $file = $request->file_upload;
             if ($file->isValid()) {
                 $file_name = $file->getClientOriginalName();
-                $file->move(public_path('img/avt'), $file_name);
-                $request->merge(['hinh_anh' => $file_name]);
+                $file->move(public_path('img/news'), $file_name);
+                $request->merge(['anh_bia' => $file_name]);
             }
         } else {
             $file_name = "";
-            $request->merge(['hinh_anh' => $file_name]);
+            $request->merge(['anh_bia' => $file_name]);
         }
         if ($request->tieu_de != '') {
             TinTuc::create([
@@ -744,8 +627,8 @@ class AdminController extends Controller
         if ($request->has('file')) {
             $file = $request->file_upload;
             $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/avt'), $filename);
-            $img->hinh_anh = $filename;
+            $file->move(public_path('img/news'), $filename);
+            $img->anh_bia = $filename;
         }
         $img->save();
         FacadesSession::flash('success', 'Xử lý thành công');
@@ -1057,5 +940,15 @@ class AdminController extends Controller
             'de_xuat' => request()->input('check'),
         ]);
         return redirect()->route('hien-thi-sach');
+    }
+    public function xuLyXoaBinhLuan($id){
+        $binhluan_con = BinhLuan::where('binh_luan_id',$id)->where('id',$id)->get();
+        if($binhluan_con){
+            BinhLuan::where('binh_luan_id',$id)->delete();
+            BinhLuan::where('id',$id)->delete();
+        }else{
+            BinhLuan::where('id', $id)->delete();
+        }
+        return back();
     }
 }
