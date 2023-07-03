@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TinTuc extends Model
+class LichSuTinTuc extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table='tin_tuc';
-    protected $fillable=['ten','anh_bia','noi_dung','noi_bat','luot_xem'];
+    protected $table='lich_su_tin_tuc';
+    protected $fillable=['doc_gia_id','tin_tuc_id'];
 }

@@ -153,13 +153,13 @@ Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('
 
 
 });
+
 Route::middleware('user')->group(function () {
     Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
     Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('the-loai-sach');
     Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
     Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');
     Route::get('/tim-kiem', [ClientController::class, 'timKiem'])->name('tim-kiem');
-    // Route::get('/them-sach-vao-gio', [ClientController::class, 'themSachVaoGio'])->name('them-sach-vao-gio');
     Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
     Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');
     Route::post('/muon-sach', [ClientController::class, 'handleMuonSach'])->name('muon-sach')->middleware('auth');
