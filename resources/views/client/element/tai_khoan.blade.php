@@ -50,7 +50,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('thay-doi-mat-khau') }}">Thay đổi mật khẩu</a></li>
-                        <li><a class="dropdown-item" href="#">Quên mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="{{ route('nhap-mail-quen-mat-khau') }}">Quên mật khẩu</a>
+                        </li>
                     </ul>
                 </div>
             </div>

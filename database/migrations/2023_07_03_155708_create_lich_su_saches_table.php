@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tin_tuc', function (Blueprint $table) {
+        Schema::create('lich_su_sach', function (Blueprint $table) {
             $table->id();
-            $table->string('ten');
-            $table->string('anh_bia');
-            $table->text('noi_dung');
-            $table->boolean('noi_bat');
-            $table->integer('luot_xem')->default(0);
+            $table->integer('doc_gia_id');
+            $table->integer('sach_id');
+            $table->boolean('da_xem');
+            $table->boolean('da_thich');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tin_tuc');
+        Schema::dropIfExists('lich_su_sach');
     }
 };

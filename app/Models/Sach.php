@@ -49,7 +49,7 @@ class Sach extends Model
 
     public function hasYeuThich()
     {
-        return $this->hasMany(LichSu::class,'sach_id');
+        return $this->hasMany(LichSuSach::class,'sach_id');
     }
 
     public function fkTacGia()
