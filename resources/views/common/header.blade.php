@@ -15,11 +15,11 @@
                 <li class="nav-item {{ $view == 1 ? 'active show' : '' }}">
                     <a href="{{ $view == 1 ? '#' : route('trang-chu') }}" class="nav-link">
                         <i class="typcn typcn-chart-area"></i>
-                        Trang chủ
+                        TRANG CHỦ
                     </a>
                 </li>
                 <li class="nav-item {{ $view == 2 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Sách</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>SÁCH</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('hien-thi-sach') }}" class="nav-link">Tra cứu</a>
                         <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">Thêm sách</a>
@@ -30,12 +30,12 @@
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
                     <a href="{{ $view == 3 ? '#' : route('phe-duyet-muon-sach') }}" class="nav-link">
                         <i class="typcn typcn-book"></i>
-                        Mượn sách
+                        MƯỢN SÁCH
                     </a>
                 </li>
                 @if(Auth::user()->vai_tro == 1)
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>Quản trị viên</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>QUẢN TRỊ VIÊN</a>
                     <nav class="az-menu-sub">
                         <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
@@ -43,7 +43,7 @@
                 </li>
                 @endif
                 <li class="nav-item {{ $view == 5 ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>Tin tức</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>TIN TỨC</a>
                     <nav class="az-menu-sub">
                         <a href="{{route('them-tin-tuc')}}" class="nav-link">Thêm tin tức</a>
                         <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
@@ -52,7 +52,7 @@
                 <li class="nav-item {{ $view == 6 ? 'active show' : '' }}">
                     <a href="{{route('quan-ly-lien-he')}}" class="nav-link">
                         <i class="fas fa-mail-bulk mr-1"></i>
-                        Quản lý phản hồi
+                        QUẢN LÝ PHẢN HỒI
                     </a>
                 </li>
             </ul>

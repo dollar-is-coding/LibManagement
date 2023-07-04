@@ -140,7 +140,7 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/xoa-binh-luan/{id}', [AdminController::class, 'xuLyXoaBinhLuan'])->name('xu-ly-xoa-binh-luan')->middleware('auth');
 });
-Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
+
 Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');
 Route::get('/tim-kiem', [ClientController::class, 'timKiem'])->name('tim-kiem');
 Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');
@@ -148,6 +148,7 @@ Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('th
 Route::get('/sach-theo-chu-de', [ClientController::class, 'sachTheoChuDe'])->name('sach-theo-chu-de');
 Route::get('/tin-tuc', [ClientController::class, 'showTinTuc'])->name('tin-tuc');
 Route::get('/lien-he', [ClientController::class, 'showLienHe'])->name('lien-he');
+Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
 Route::middleware('user')->group(function () {
     Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
     Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');

@@ -84,7 +84,7 @@
                                 <?= htmlspecialchars_decode($noi_bat->noi_dung) ?>
                                 @if ($noi_bat->anh_bia)
                                     <div class="d-flex justify-content-center">
-                                        <img src="../img/avt/{{ $noi_bat->anh_bia }}"
+                                        <img src="../img/news/{{ $noi_bat->anh_bia }}"
                                             class="about-image mt-3 img-fluid" />
                                     </div>
                                 @endif
@@ -112,7 +112,7 @@
                                     <div class="custom-block-image-wrap">
                                         <a href="{{ route('tin-tuc', ['tin_tuc' => $item->id]) }}">
                                             @if ($item->anh_bia != '')
-                                                <img src="../img/avt/{{ $item->anh_bia }}"
+                                                <img src="../img/news/{{ $item->anh_bia }}"
                                                     class="custom-block-image img-fluid" alt="" />
                                             @else
                                                 <img src="../img/default/no_book.jpg"
