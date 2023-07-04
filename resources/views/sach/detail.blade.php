@@ -139,6 +139,7 @@
                     <p>Tổng lượt bình luận ({{$tongbl->luot_binh_luan}})</p>
                     <p>Lượt xem ({{$tongbl->luot_xem}})</p>
                 </div>
+                @if($tongbl->luot_binh_luan >0)
                 <div class="border rounded" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                     @foreach($binhluan as $bl)
                     <div class="mt-2">
@@ -167,6 +168,7 @@
                     </div>
                     @endforeach
                 </div>
+                @endif
                 <div class="ht-40"></div>
 
                 @include('../common/footer')

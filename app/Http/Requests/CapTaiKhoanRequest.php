@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CapTaiKhoanRequest extends FormRequest
 {
@@ -22,11 +23,13 @@ class CapTaiKhoanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ho'=>'required',
-            'ten'=>'required',
-            'vai_tro'=>'required',
-            'email'=>'required|email:rfc,dns',
-            'ma_hs'=>'required'
+            'ho' => 'required',
+            'ten' => 'required',
+            'vai_tro' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'ma_hs' => Rule::requiredIf(function () {
+                return in_array(request()->input('vai_tro'), [3]);
+            })
         ];
     }
 

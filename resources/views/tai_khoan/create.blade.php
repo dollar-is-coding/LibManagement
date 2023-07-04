@@ -197,7 +197,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <input class="form-control" name="ma_hs" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
+                                        <input class="form-control" name="ma_hs" id="ma_hoc_sinh" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
                                     </div><!-- col -->
                                 </div>
                                 <script>
@@ -229,12 +229,7 @@
                                 <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{ old('email') }}" autocomplete="off">
                             </div><!-- form-group -->
                         </div>
-                        @if (session('errorMail'))
-                        <span class="rounded-lg p-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                            <span class="text-danger">{{ session('errorMail') }}</span>
-                        </span>
-                        @endif
+
                         <!-- ngày sinh -->
                         <div class="col-lg form-group p-0 mt-2" style="width: 100%;">
                             <div class="d-flex justify-content-between">
@@ -243,10 +238,16 @@
                             <input id="ngay_sinh" required type="date" name="ngay_sinh" class="form-control" autocomplete="off">
 
                         </div><!-- form-group -->
-
+                        @if (session('errorMail'))
+                        <span class="rounded-lg p-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('errorMail') }}</span>
+                        </span>
+                        @endif
                         <div class="col-sm-6 col-md-3 p-0">
                             <button id="button" class="btn btn-primary btn-block">Tạo tài khoản mới</button>
                         </div>
+
                     </form>
                 </div><!-- az-card-signin -->
 

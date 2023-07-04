@@ -513,6 +513,7 @@ class AdminController extends Controller
                     'ma_hs' => ''
                 ]);
                 $this->taoTaiKhoan($user);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('tao-tai-khoan');
             } else {
                 session()->put('mat_khau', $randomString);
@@ -529,6 +530,7 @@ class AdminController extends Controller
                     'ma_hs' => $request->ma_hs,
                 ]);
                 $this->taoTaiKhoan($user);
+                FacadesSession::flash('success', 'Xử lý thành công');
                 return redirect()->route('tao-tai-khoan');
             }
             FacadesSession::flash('success', 'Xử lý thành công');
@@ -620,13 +622,13 @@ class AdminController extends Controller
             TinTuc::where('noi_bat', 1)->update(['noi_bat' => 0]);
         }
         TinTuc::find($id)->update([
-            'tieu_de' => $request->tieu_de,
+            'ten' => $request->tieu_de,
             'noi_dung' => $request->noi_dung,
             'noi_bat' => $noi_bat,
         ]);
         $img = TinTuc::find($id);
         if ($request->has('file')) {
-            $file = $request->file_upload;
+            $file = $request->file;
             $filename = $file->getClientOriginalName();
             $file->move(public_path('img/news'), $filename);
             $img->anh_bia = $filename;
@@ -694,7 +696,6 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
-        FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
     public function xuLyTraSach(Request $request, $id)
@@ -752,7 +753,6 @@ class AdminController extends Controller
                 $charge = $thanhtoan->count() * 10000;
             }
         }
-        FacadesSession::flash('success', 'Xử lý thành công');
         return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail, 'tien_phat_het_han' => $charge]);
     }
 
@@ -914,6 +914,7 @@ class AdminController extends Controller
     public function xoaLienHe($id)
     {
         LienHe::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
     public function chiTietKhoSach($id)
@@ -924,17 +925,19 @@ class AdminController extends Controller
     }
     public function xyLyChinhSuaSachkho(Request $request, $id)
     {
-        KhoSach::find($id)->update([
+        KhoSach::where('id',$id)->update([
             'sach_id' => $request->ten_sach,
             'thu_thu_id' => Auth::id(),
             'ly_do' => $request->ly_do,
             'so_luong' => $request->so_luong,
         ]);
+        FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
     public function xoaSachKho($id)
     {
         KhoSach::find($id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('quan-ly-kho-sach');
     }
     public function xuLyCapNhatDeXuat()

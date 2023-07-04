@@ -81,7 +81,7 @@ Route::get('/quan-ly-tai-khoan',[AdminController::class, 'quanLyTaiKhoan'])->nam
 Route::get('/xem-thong-tin', [HomeController::class, 'xemThongTin'])->name('xem-thong-tin')->middleware('auth');
 Route::post('/xu-ly-doi-thong-tin', [HomeController::class, 'xuLySuaThongTin'])->name('xu-ly-doi-thong-tin')->middleware('auth');
 Route::get('/doi-mat-khau', [HomeController::class, 'doiMatKhau'])->name('doi-mat-khau')->middleware('auth');
-Route::post('/xu-ly-doi-mat-khau', [HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau')->middleware('auth');
+Route::post('/xu-ly-doi-mat-khau-admin', [HomeController::class, 'xuLyDoiMatKhau'])->name('xu-ly-doi-mat-khau-admin')->middleware('auth');
 Route::get('/xac-minh-doi-email', [HomeController::class, 'xacMinhMail'])->name('xac-minh-email')->middleware('auth');
 Route::post('/xac-minh-doi-email', [HomeController::class, 'xulyXacMinhEmail'])->name('xac-minh-gui-mail')->middleware('auth');
 Route::get('/doi-email', [HomeController:: class, 'doiEmail'])->name('doi-email')->middleware('auth');
