@@ -11,7 +11,7 @@ class ThuVien extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='thu_vien';
-    protected $fillable=['sach_id','tu_sach_id','khu_vuc_id','dang_muon','da_muon','sl_con_lai'];
+    protected $fillable=['sach_id','tu_sach_id','khu_vuc_id','sl_con_lai'];
 
     public function fkSach()
     {

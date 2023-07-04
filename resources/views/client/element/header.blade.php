@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand me-lg-5 me-0" href="{{ route('trang-chu') }}">
-            <img src="../img/LIBRO.png" class="logo-image img-fluid" alt="templatemo pod talk" />
+            <img src="../img/header.png" class="logo-image img-fluid" alt="templatemo pod talk" />
         </a>
 
         <form action="{{ route('tim-kiem') }}" method="get" role="search"

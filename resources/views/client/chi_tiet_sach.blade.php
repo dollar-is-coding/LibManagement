@@ -57,7 +57,7 @@
                             <div class="col-lg-3 col-12">
                                 <div class="custom-block-icon-wrap">
                                     <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                        @if ($sach->hinh_anh != '')
+                                        @if ($sach->hinh_anh != '' && Auth::check())
                                             <img src="../img/books/{{ $sach->hinh_anh }}"
                                                 class="custom-block-image img-fluid" />
                                         @else
@@ -93,13 +93,13 @@
                                     <ul class="d-flex mb-2 p-0" style="list-style: none;">
                                         <li class="p-2"><small>Đang mượn:</small></li>
                                         <li class="shadow-sm border rounded p-2 flex-fill">
-                                            {{ $sach->hasThuVien->dang_muon }} quyển
+                                            {{ $dang_muon }} quyển
                                         </li>
                                     </ul>
                                     <ul class="d-flex mb-2 p-0" style="list-style: none;">
                                         <li class="p-2"><small>Đã mượn:</small></li>
                                         <li class="shadow-sm border rounded p-2 flex-fill">
-                                            {{ $sach->hasThuVien->da_muon }} lần
+                                            {{ $da_muon }} lần
                                         </li>
                                     </ul>
                                 </div>
