@@ -129,7 +129,7 @@
                     </div>
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng sách mượn cần duyệt</h5>
+                            <h5 class="card-title">Số lượng phiếu cần duyệt</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slsachduyet}}</p>
                             <a href="{{route('phe-duyet-muon-sach')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>

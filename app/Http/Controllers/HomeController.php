@@ -19,6 +19,7 @@ use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\DatLaiMatKhauRequest;
 use App\Http\Requests\MuonSachRequest;
 use App\Models\LienHe;
+use App\Models\PhieuTraSach;
 use App\Models\Sach;
 use App\Models\TinTuc;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -34,18 +35,18 @@ class HomeController extends Controller
         $sltintuc = TinTuc::all()->count();
         $slsachduyet = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
         $slphanhoi = LienHe::all()->count();
-        $thang1 = PhieuMuonSach::whereMonth('created_at', '=', 1)->count();
-        $thang2 = PhieuMuonSach::whereMonth('created_at', '=', 2)->count();
-        $thang3 = PhieuMuonSach::whereMonth('created_at', '=', 3)->count();
-        $thang4 = PhieuMuonSach::whereMonth('created_at', '=', 4)->count();
-        $thang5 = PhieuMuonSach::whereMonth('created_at', '=', 5)->count();
-        $thang6 = PhieuMuonSach::whereMonth('created_at', '=', 6)->count();
-        $thang7 = PhieuMuonSach::whereMonth('created_at', '=', 7)->count();
-        $thang8 = PhieuMuonSach::whereMonth('created_at', '=', 8)->count();
-        $thang9 = PhieuMuonSach::whereMonth('created_at', '=', 9)->count();
-        $thang10 = PhieuMuonSach::whereMonth('created_at', '=', 10)->count();
-        $thang11 = PhieuMuonSach::whereMonth('created_at', '=', 11)->count();
-        $thang12 = PhieuMuonSach::whereMonth('created_at', '=', 12)->count();
+        $thang1 = PhieuTraSach::whereMonth('created_at', '=', 1)->count();
+        $thang2 = PhieuTraSach::whereMonth('created_at', '=', 2)->count();
+        $thang3 = PhieuTraSach::whereMonth('created_at', '=', 3)->count();
+        $thang4 = PhieuTraSach::whereMonth('created_at', '=', 4)->count();
+        $thang5 = PhieuTraSach::whereMonth('created_at', '=', 5)->count();
+        $thang6 = PhieuTraSach::whereMonth('created_at', '=', 6)->count();
+        $thang7 = PhieuTraSach::whereMonth('created_at', '=', 7)->count();
+        $thang8 = PhieuTraSach::whereMonth('created_at', '=', 8)->count();
+        $thang9 = PhieuTraSach::whereMonth('created_at', '=', 9)->count();
+        $thang10 = PhieuTraSach::whereMonth('created_at', '=', 10)->count();
+        $thang11 = PhieuTraSach::whereMonth('created_at', '=', 11)->count();
+        $thang12 = PhieuTraSach::whereMonth('created_at', '=', 12)->count();
         return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi, 
             'thang1'=> $thang1,
             'thang2' => $thang2,
