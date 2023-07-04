@@ -268,7 +268,9 @@
                                                 </strong>
                                             </p>
                                         </div>
-                                        @include('client.element.interact_bar', ['sach' => $item->fkSach])
+                                        @include('client.element.interact_bar', [
+                                            'sach' => $item->fkSach,
+                                        ])
                                     </div>
                                 </div>
                             </div>

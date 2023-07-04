@@ -47,7 +47,7 @@
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 col-12">
@@ -61,7 +61,8 @@
                                 <div class="">
                                     <div class="custom-block-icon-wrap">
                                         <div class="section-overlay"></div>
-                                        <a href="" class="custom-block-image-wrap">
+                                        <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}"
+                                            class="custom-block-image-wrap">
                                             @if ($item->hinh_anh != '')
                                                 <img src="../img/books/{{ $item->hinh_anh }}"
                                                     class="custom-block-image img-fluid" alt="" />

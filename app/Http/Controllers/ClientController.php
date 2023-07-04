@@ -25,8 +25,10 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
-
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         // Book recc
         $book_recc = Sach::where('de_xuat', 1)->get();
 
@@ -75,26 +77,30 @@ class ClientController extends Controller
         $lien_quan = PhieuMuonSach::whereIn('ma_phieu_muon', $relative)->where('sach_id', '!=', $id)->groupBy('sach_id')
             ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
             ->orderBy('total', 'desc')->take(6)->get();
+        $gio_sach = null;
+        $ds_da_xem = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+            $da_xem = LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])->first();
+            $ds_da_xem = LichSuSach::where('doc_gia_id', Auth::user()->id)->orderBy('updated_at', 'desc')->take(6)->get();
+            if (!$da_xem) {
+                LichSuSach::create([
+                    'doc_gia_id' => Auth::user()->id,
+                    'sach_id' => $id,
+                    'da_xem' => 1,
+                    'da_thich' => 0
+                ]);
+                Sach::find($id)->update([
+                    'luot_xem' => Sach::find($id)->luot_xem + 1
+                ]);
+            } else {
+                LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])
+                    ->update(['da_xem' => 1]);
+            }
+        }
         $sach = Sach::find($id);
-        $da_xem = LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])->first();
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
         $tac_gia = Sach::find($id)->tac_gia_id;
         $cung_tac_gia = Sach::where('tac_gia_id', $tac_gia)->get();
-        $ds_da_xem = LichSuSach::where('doc_gia_id', Auth::user()->id)->orderBy('updated_at', 'desc')->take(6)->get();
-        if (!$da_xem) {
-            LichSuSach::create([
-                'doc_gia_id' => Auth::user()->id,
-                'sach_id' => $id,
-                'da_xem' => 1,
-                'da_thich' => 0
-            ]);
-            Sach::find($id)->update([
-                'luot_xem' => Sach::find($id)->luot_xem + 1
-            ]);
-        } else {
-            LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])
-                ->update(['da_xem' => 1]);
-        }
         $binh_luan = BinhLuan::where([['sach_id', $id], ['binh_luan_id', 0]])->get();
         $phan_hoi = BinhLuan::where([['sach_id', $id], ['binh_luan_id', '!=', 0]])->orderBy('created_at', 'DESC')->get();
         $can_comment = 0;
@@ -104,6 +110,8 @@ class ClientController extends Controller
                 break;
             }
         }
+        $dang_muon = PhieuMuonSach::where([['sach_id', $id], ['trang_thai', 2]])->get();
+        $da_muon = PhieuMuonSach::where([['sach_id', $id], ['trang_thai', 3]])->get();
         return view('client.chi_tiet_sach', [
             'sach' => $sach,
             'gio_sach' => $gio_sach,
@@ -112,7 +120,9 @@ class ClientController extends Controller
             'binh_luan' => $binh_luan,
             'da_muon' => $can_comment,
             'lien_quan' => $lien_quan,
-            'phan_hoi' => $phan_hoi
+            'phan_hoi' => $phan_hoi,
+            'dang_muon' => $dang_muon->count(),
+            'da_muon' => $da_muon->count()
         ]);
     }
 
@@ -120,8 +130,11 @@ class ClientController extends Controller
     // List of Book
     public function danhMucSach()
     {
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         $the_loai = TheLoai::all();
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
         return view('client.ds_sach.the_loai_sach', [
             'gio_sach' => $gio_sach,
             'the_loai' => $the_loai,
@@ -129,8 +142,11 @@ class ClientController extends Controller
     }
     public function sachTheoChuDe()
     {
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         $dieu_kien = request()->input('dieu_kien');
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
         // 1. Sách mới hàng tuần
         if ($dieu_kien == 1) {
             $start_of_week = Carbon::now()->startOfWeek();
@@ -184,7 +200,10 @@ class ClientController extends Controller
     }
     public function thangNayDocGi()
     {
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         $start_of_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth();
         $end_of_month = Carbon::now('Asia/Ho_Chi_Minh')->endOfMonth();
         $xu_huong = PhieuMuonSach::where([
@@ -199,7 +218,10 @@ class ClientController extends Controller
     }
     public function timKiem(Request $request)
     {
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         $key_word = $request->search;
         $sach = Sach::where('ten', 'like', "%$key_word%")->orWhere('mo_ta', 'like', "%$key_word%")->paginate('20');
         $so_luong = Sach::where('ten', 'like', "%$key_word%")->orWhere('mo_ta', 'like', "%$key_word%")->get();
@@ -231,20 +253,6 @@ class ClientController extends Controller
         GioSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', request()->input('sach')]])->delete();
         return response()->json(['data' => 'success']);
     }
-    // public function themSachVaoGio()
-    // {
-    //     $gio_sach = GioSach::where([
-    //         ['sach_id', request()->input('sach')],
-    //         ['doc_gia_id', Auth::user()->id]
-    //     ])->first();
-    //     if (!$gio_sach) {
-    //         GioSach::create([
-    //             'doc_gia_id' => Auth::user()->id,
-    //             'sach_id' => request()->input('sach')
-    //         ]);
-    //     }
-    //     return response()->json(['data' => 'Bỏ chọn']);
-    // }
     public function loaiKhoiGioSach()
     {
         $sach = request()->input('id');
@@ -444,30 +452,38 @@ class ClientController extends Controller
 
     public function showLienHe()
     {
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         return view('client.lien_he', ['gio_sach' => $gio_sach]);
     }
     public function showTinTuc()
     {
-        $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        $gio_sach = null;
+        if (Auth::check()) {
+            $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
+        }
         if (request()->input('tin_tuc')) {
             $isNoiBat = 0;
             $noi_bat = TinTuc::find(request()->input('tin_tuc'));
             $tin_tuc = TinTuc::where('noi_bat', 0)->where('id', '!=', request()->input('tin_tuc'))
                 ->orderBy('created_at', 'DESC')->take(6)->get();
-            $da_xem = LichSuTinTuc::where([
-                ['doc_gia_id', Auth::id()],
-                ['tin_tuc_id', request()->input('tin_tuc')]
-            ])->first();
-            if (!$da_xem) {
-                LichSuTinTuc::create(['doc_gia_id' => Auth::id(), 'tin_tuc_id' => request()->input('tin_tuc')]);
-                TinTuc::find(request()->input('tin_tuc'))->update(['luot_xem' => $noi_bat->luot_xem + 1]);
+            if (Auth::check()) {
+                $da_xem = LichSuTinTuc::where([
+                    ['doc_gia_id', Auth::id()],
+                    ['tin_tuc_id', request()->input('tin_tuc')]
+                ])->first();
+                if (!$da_xem) {
+                    LichSuTinTuc::create(['doc_gia_id' => Auth::id(), 'tin_tuc_id' => request()->input('tin_tuc')]);
+                    TinTuc::find(request()->input('tin_tuc'))->update(['luot_xem' => $noi_bat->luot_xem + 1]);
+                }
             }
         } else {
             $noi_bat = TinTuc::where('noi_bat', 1)->first();
             $tin_tuc = TinTuc::where('noi_bat', 0)->orderBy('created_at', 'DESC')->take(6)->get();
             $isNoiBat = 1;
-            if ($noi_bat) {
+            if ($noi_bat && Auth::check()) {
                 $da_xem = LichSuTinTuc::where([['doc_gia_id', Auth::id()], ['tin_tuc_id', $noi_bat->id]])->first();
                 if (!$da_xem) {
                     LichSuTinTuc::create(['doc_gia_id' => Auth::id(), 'tin_tuc_id' => $noi_bat->id]);

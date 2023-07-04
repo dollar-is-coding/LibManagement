@@ -55,7 +55,7 @@
                             <h3 class="mb-4">Thông tin liện hệ</h3>
                             <p class="d-flex border-bottom pb-3 mb-4">
                                 <strong class="d-inline me-4">Số điện thoại:</strong>
-                                <span>099-232-9999</span>
+                                <span>038-325-9886</span>
                             </p>
                             <p class="d-flex border-bottom pb-3 mb-4">
                                 <strong class="d-inline me-4">Email:</strong>
@@ -84,8 +84,8 @@
                         <div class="section-title-wrap mb-5">
                             <h4 class="section-title">Mẫu liên hệ</h4>
                         </div>
-                        <form action="{{ route('gui-lien-he') }}" method="post" class="custom-form contact-form"
-                            role="form">
+                        <form action="{{ Auth::check() ? route('gui-lien-he') : route('dang-nhap') }}"
+                            method="{{ Auth::check() ? 'POST' : 'GET' }}" class="custom-form contact-form" role="form">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12 col-12">
