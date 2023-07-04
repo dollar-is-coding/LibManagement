@@ -261,7 +261,6 @@ class ClientController extends Controller
     }
     public function showGioSach()
     {
-        return Sach::orderBy('id','DESC')->latest()->first()->id;
         $phieu_muon = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 1]])
             ->orWhere([['doc_gia_id', Auth::user()->id], ['trang_thai', 2]])->get();
         $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->paginate('10');
