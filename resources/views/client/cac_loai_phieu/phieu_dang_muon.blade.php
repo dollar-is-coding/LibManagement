@@ -1,5 +1,5 @@
 @if ($dang_muon->count() <= 0)
-    <div class="sono d-flex justify-content-center mt-5 mb-5 ">
+    <div class="sono d-flex justify-content-center mt-5 mb-5">
         <div class="disable-text"><strong>Không có phiếu đang mượn nào!</strong></div>
     </div>
 @else

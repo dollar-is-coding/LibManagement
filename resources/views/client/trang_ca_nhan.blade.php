@@ -48,7 +48,7 @@
             </div>
         </header>
 
-        <section class="about-section section-padding pt-2 pb-5" id="section_2">
+        <section class="about-section section-padding pt-2 mb-4" id="section_2">
             <div class="container">
                 <div class="row">
                     @include('client.element.tai_khoan')

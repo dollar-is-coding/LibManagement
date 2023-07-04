@@ -420,11 +420,11 @@ class ClientController extends Controller
         $da_muon_sl = PhieuMuonSach::where([['doc_gia_id', Auth::id()], ['trang_thai', 3]])
             ->distinct('sach_id')->select('sach_id')->get();
         $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
-        $phieu_huy = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 0]])->get();
+        $phieu_huy = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 0]])->orderBy('ma_phieu_muon','DESC')->get();
         $cho_duyet = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 1]])->get();
-        $dang_muon = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 2]])->get();
-        $da_tra = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 3]])->get();
-        $phieu_phat = PhieuPhat::where('doc_gia_id', Auth::id())->get();
+        $dang_muon = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 2]])->orderBy('ma_phieu_muon','DESC')->get();
+        $da_tra = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 3]])->orderBy('ma_phieu_muon','DESC')->get();
+        $phieu_phat = PhieuPhat::where('doc_gia_id', Auth::id())->orderBy('ma_phieu','DESC')->get();
         return view('client.trang_ca_nhan', [
             'gio_sach' => $gio_sach,
             'phieu_huy' => $phieu_huy,

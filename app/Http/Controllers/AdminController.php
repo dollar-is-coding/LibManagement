@@ -71,10 +71,10 @@ class AdminController extends Controller
     public function themSachThuVien(SachRequest $request)
     {
         $get_id = Sach::orderBy('id', 'DESC')->latest()->first();
-        $id = $get_id->id +1;
-        $ma ='';
-        switch($request->the_loai){
-            case 1:{
+        $id = $get_id->id + 1;
+        $ma = '';
+        switch ($request->the_loai) {
+            case 1: {
                     if ($id < 10) {
                         $ma = 'GK' . '000' . $id;
                     } elseif ($id < 100) {
@@ -82,9 +82,9 @@ class AdminController extends Controller
                     } else {
                         $ma = 'GK' . '0' . $id;
                     }
-                break;
-            }
-            case 2:{
+                    break;
+                }
+            case 2: {
                     if ($id < 10) {
                         $ma = 'TK' . '000' . $id;
                     } elseif ($id < 100) {
@@ -92,8 +92,8 @@ class AdminController extends Controller
                     } else {
                         $ma = 'TK' . '0' . $id;
                     }
-                break;
-            }
+                    break;
+                }
             case 3: {
                     if ($id < 10) {
                         $ma = 'VH' . '000' . $id;
@@ -102,9 +102,9 @@ class AdminController extends Controller
                     } else {
                         $ma = 'VH' . '0' . $id;
                     }
-                break;
-            }
-            case 4:{
+                    break;
+                }
+            case 4: {
                     if ($id < 10) {
                         $ma = 'KH' . '000' . $id;
                     } elseif ($id < 100) {
@@ -112,9 +112,9 @@ class AdminController extends Controller
                     } else {
                         $ma = 'KH' . '0' . $id;
                     }
-                break;
-            }
-            case 5:{
+                    break;
+                }
+            case 5: {
                     if ($id < 10) {
                         $ma = 'KN' . '000' . $id;
                     } elseif ($id < 100) {
@@ -122,9 +122,9 @@ class AdminController extends Controller
                     } else {
                         $ma = 'KN' . '0' . $id;
                     }
-                break;
-            }
-            case 6:{
+                    break;
+                }
+            case 6: {
                     if ($id < 10) {
                         $ma = 'BC' . '000' . $id;
                     } elseif ($id < 100) {
@@ -132,8 +132,8 @@ class AdminController extends Controller
                     } else {
                         $ma = 'BC' . '0' . $id;
                     }
-                break;
-            }
+                    break;
+                }
             default:
                 if ($id < 10) {
                     $ma = 'NO' . '000' . $id;
@@ -142,7 +142,7 @@ class AdminController extends Controller
                 } else {
                     $ma = 'NO' . '0' . $id;
                 }
-            break;
+                break;
         }
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
         if (!$tangsl) {
@@ -513,7 +513,7 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $tim_kiem = $request->old('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
-        ->orderBy('ten', 'asc')
+            ->orderBy('ten', 'asc')
             ->paginate(20);
         $slsach = $sach->count();
         if ($sach->count() == 0) {
@@ -818,12 +818,7 @@ class AdminController extends Controller
         $thanhtoan = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
         $detail = PhieuMuonSach::where('ma_phieu_muon', $id)->first();
         if (Carbon::now('Asia/Ho_Chi_Minh') > Carbon::parse($detail->han_tra)) {
-            $expired = Carbon::parse($detail->han_tra)->diffIndays(Carbon::now('Asia/Ho_Chi_Minh')) + 1;
-            if ($expired <= 3) {
-                $charge = $thanhtoan->count() * 5000;
-            } else {
-                $charge = $thanhtoan->count() * 10000;
-            }
+            $charge = $thanhtoan->count() * expiredCharge(Carbon::parse($detail->han_tra));
         }
         return view('muon_sach.thanh_toan', ['thanhtoan' => $thanhtoan, 'detail' => $detail, 'tien_phat_het_han' => $charge]);
     }
@@ -852,7 +847,7 @@ class AdminController extends Controller
                             'sach_id' => $key,
                             'so_luong' => 1,
                             'ly_do' => 'Hết hạn',
-                            'tien_phat' => 20000,
+                            'tien_phat' => expiredCharge($request->han_tra),
                             'tong_tien_phat' => $all_requests['tong_tien_phat'],
                             'tong_so_sach' => 0
                         ]);
@@ -869,7 +864,7 @@ class AdminController extends Controller
                         'sach_id' => $key,
                         'so_luong' => 1,
                         'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Mất sách' : 'Mất sách',
-                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + 20000 : $array[0],
+                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + expiredCharge($request->han_tra) : $array[0],
                         'tong_tien_phat' => $all_requests['tong_tien_phat'],
                         'tong_so_sach' => 0
                     ]);
@@ -883,7 +878,7 @@ class AdminController extends Controller
                         'sach_id' => $key,
                         'so_luong' => 1,
                         'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')' : 'Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')',
-                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + 20000 : $array[0],
+                        'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + expiredCharge($request->han_tra) : $array[0],
                         'tong_tien_phat' => $all_requests['tong_tien_phat'],
                         'tong_so_sach' => 0
                     ]);
@@ -997,7 +992,7 @@ class AdminController extends Controller
     }
     public function xyLyChinhSuaSachkho(Request $request, $id)
     {
-        KhoSach::where('id',$id)->update([
+        KhoSach::where('id', $id)->update([
             'sach_id' => $request->ten_sach,
             'thu_thu_id' => Auth::id(),
             'ly_do' => $request->ly_do,
@@ -1016,25 +1011,26 @@ class AdminController extends Controller
     {
         $dexuat = Sach::where('de_xuat', 1)->count();
         $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
-        if($dexuat<7){
+        if ($dexuat < 7) {
             Sach::where('id', request()->input('sach'))->update([
                 'de_xuat' => request()->input('check'),
             ]);
-        }else{
+        } else {
             $dexuatend->de_xuat = 0;
             $dexuatend->save();
             Sach::where('id', request()->input('sach'))->update([
                 'de_xuat' => request()->input('check'),
-            ]); 
+            ]);
         }
         return redirect()->route('hien-thi-sach');
     }
-    public function xuLyXoaBinhLuan($id){
-        $binhluan_con = BinhLuan::where('binh_luan_id',$id)->where('id',$id)->get();
-        if($binhluan_con){
-            BinhLuan::where('binh_luan_id',$id)->delete();
-            BinhLuan::where('id',$id)->delete();
-        }else{
+    public function xuLyXoaBinhLuan($id)
+    {
+        $binhluan_con = BinhLuan::where('binh_luan_id', $id)->where('id', $id)->get();
+        if ($binhluan_con) {
+            BinhLuan::where('binh_luan_id', $id)->delete();
+            BinhLuan::where('id', $id)->delete();
+        } else {
             BinhLuan::where('id', $id)->delete();
         }
         FacadesSession::flash('success', 'Xử lý thành công');

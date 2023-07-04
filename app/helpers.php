@@ -22,3 +22,18 @@ function commentDate($date)
     }
     return $now->diffInDays($date) . ' ngày';
 }
+
+function expiredCharge($return_date)
+{
+    $now = Carbon::now('Asia/Ho_Chi_Minh');
+    if ($now->diffInDays($return_date) <= 7) {
+        return $now->diffInDays($return_date) * 4000;
+    }
+    return $now->diffInWeeks($return_date) * 30000 + $now->diffInDays($return_date) % 7 * 5000;
+}
+
+function soNgayHetHan($return_date)
+{
+    $now = Carbon::now('Asia/Ho_Chi_Minh');
+    return $now->diffInWeeks($return_date) . ' tuần + ' . $now->diffInDays($return_date) % 7 . ' ngày';
+}
