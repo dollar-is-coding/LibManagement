@@ -75,7 +75,7 @@
                     <span>Tin tức</span>
                     <span>Quản lý tin tức</span>
                 </div>
-                <div class="border">
+                <div class="">
                     <h3 class="ml-3 mt-3">Quản lý tin tức ({{$sltintuc}})</h3>
                     @if($sltintuc == 0)
                     <p class="ml-3">Hiện không có tin tức nào</p>
