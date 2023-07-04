@@ -100,6 +100,12 @@
                         </style>
                         <form action="{{ route('xu-ly-dat-lai-mat-khau') }}" class="col-lg" method="POST">
                             @csrf
+
+                            @error('new_pass')
+                            <div style="font-style: italic;" class="text-danger">
+                                {{ $message }} *&nbsp;
+                            </div>
+                            @enderror
                             <div class="form-group password-container">
                                 <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
                                     <label class="m-0">&nbsp;Mật khẩu mới</label>
@@ -107,6 +113,11 @@
                                 <input type="password" name="new_pass" class="form-control col-lg-7" placeholder="Nhập Mật Khẩu Mới">
                                 <i class="password-toggle_1 far fa-eye"></i>
                             </div><!-- form-group -->
+                            @error('confirm_pass')
+                            <div style="font-style: italic;" class="text-danger">
+                                {{ $message }} *&nbsp;
+                            </div>
+                            @enderror
                             <div class="form-group">
                                 <div class="row row-sm ml-0 pl-0 pr-0 mr-0 justify-content-between col-lg-7">
                                     <label class="m-0">&nbsp;Nhập lại mật khẩu</label>

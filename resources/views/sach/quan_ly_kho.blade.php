@@ -56,11 +56,11 @@
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
-                <h4>Quản lý kho sách</h4>
+                
                 @if($khosach->count()==0)
                 <p>Hiện tại trong kho không có sách nào !!!</p>
                 @else
-                <h4>Số lượng sách trong kho ({{$khosach->count()}})</h4>
+                <h4>Quản lý kho sách ({{$khosach->count()}})</h4>
                 @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto;">
                     @foreach($khosach as $item)

@@ -70,7 +70,7 @@
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
 
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column border">
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
                     <span>Tin tức</span>
                     <span>Quản lý tin tức</span>
@@ -95,9 +95,9 @@
                     </div>
                 </div>
                 <div style="display: flex;" class="pt-3">
-                    <p style="width: 33%;">Lượt xem</p>
-                    <p style="width: 33%;">Lượt thích</p>
-                    <p style="width: 33%;">Lượt bình luận</p>
+                    <p style="width: 33%;">Lượt xem {{$item->luot_xem}}</p>
+                    <p style="width: 33%;"></p>
+                    <p style="width: 33%;"></p>
                 </div>
                 @endforeach
             </div>

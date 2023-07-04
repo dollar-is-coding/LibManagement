@@ -144,32 +144,32 @@
                 </div>
                 <!-- end thong ke -->
                 <div class="row row-sm mg-b-20">
-                    <div class="col-lg-7 ht-lg-100p">
+                    <!-- <div class="col-lg-7 ht-lg-100p">
                         <div class="card card-dashboard-one">
                             <div class="card-header">
                                 <div>
                                     <p style="font-size: 20px;" class="card-title">Bảng thống kê</p>
                                 </div>
-                            </div><!-- card-header -->
+                            </div>
                             <div class="card-body">
                                 <div class="card-body-top">
                                     <div>
                                         <label class="mg-b-0">Số lượng sách</label>
-                                        <h2>{{$slsach}}</h2>
+                                       
                                     </div>
                                     <div>
                                         <label class="mg-b-0">Số lượng độc giả</label>
-                                        <h2>{{$sldocgia}}</h2>
+                                        
                                     </div>
 
-                                </div><!-- card-body-top -->
+                                </div>
                                 <div class="flot-chart-wrapper">
                                     <div id="flotChart" class="flot-chart"></div>
-                                </div><!-- flot-chart-wrapper -->
-                            </div><!-- card-body -->
-                        </div><!-- card -->
-                    </div><!-- col -->
-                    <div class="col-lg-5 mg-t-20 mg-lg-t-0">
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-lg-5 mg-t-20 mg-lg-t-0">
                         <div class="row row-sm">
                             <div class="col-sm-6">
                                 <div class="card card-dashboard-two">
@@ -178,14 +178,14 @@
                                             <small>18.02%</small>
                                         </h6>
                                         <p>Bounce Rate</p>
-                                    </div><!-- card-header -->
+                                    </div>
                                     <div class="card-body">
                                         <div class="chart-wrapper">
                                             <div id="flotChart1" class="flot-chart"></div>
-                                        </div><!-- chart-wrapper -->
-                                    </div><!-- card-body -->
-                                </div><!-- card -->
-                            </div><!-- col -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-6 mg-t-20 mg-sm-t-0">
                                 <div class="card card-dashboard-two">
                                     <div class="card-header">
@@ -193,14 +193,14 @@
                                             <small>0.86%</small>
                                         </h6>
                                         <p>Total Users</p>
-                                    </div><!-- card-header -->
+                                    </div>
                                     <div class="card-body">
                                         <div class="chart-wrapper">
                                             <div id="flotChart2" class="flot-chart"></div>
-                                        </div><!-- chart-wrapper -->
-                                    </div><!-- card-body -->
-                                </div><!-- card -->
-                            </div><!-- col -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12 mg-t-20">
                                 <div class="card card-dashboard-three">
                                     <div class="card-header">
@@ -209,13 +209,17 @@
                                                 2.87%</small></h6>
                                         <small>The total number of sessions within the date range. It is the period time
                                             a user is actively engaged with your website, page or app, etc.</small>
-                                    </div><!-- card-header -->
+                                    </div>
                                     <div class="card-body">
                                         <div class="chart"><canvas id="chartBar5"></canvas></div>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- row -->
+                        </div>
+                    </div> -->
+                    <h4 class="mt-2">Bảng thống kê</h4>
+                    <div class="border" style="width: 100%;">
+                        <canvas id="barChart"></canvas>
                     </div>
                     <!--col -->
                 </div>
@@ -240,13 +244,39 @@
     <script src="../lib/ionicons/ionicons.js"></script>
     <script src="../lib/jquery.flot/jquery.flot.js"></script>
     <script src="../lib/jquery.flot/jquery.flot.resize.js"></script>
-    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+    <!-- <script src="../lib/chart.js/Chart.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../lib/peity/jquery.peity.min.js"></script>
 
     <script src="../js/azia.js"></script>
     <script src="../js/chart.flot.sampledata.js"></script>
     <script src="../js/dashboard.sampledata.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        var data = [{{$thang1}},{{$thang2}}, {{$thang3}}, {{$thang4}}, {{$thang5}}, {{$thang6}}, {{$thang7}}, {{$thang8}}, {{$thang9}},{{$thang10}}, {{$thang11}}, {{$thang12}}];
+
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                datasets: [{
+                    label: 'Số lượng',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     <script>
         $(function() {
             'use strict'

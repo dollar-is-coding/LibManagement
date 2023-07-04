@@ -93,20 +93,20 @@
                         <div style="flex-basis: 30%;">
                             @if($item->anh_bia == '')
                             <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
-                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                 <div id="preview-container" class="preview-container">
                                 </div>
                             </div>
                             @else
-                            <div class="upload-container border rounded" style="background-image: url('/img/avt/{{$item->anh_bia}}');margin-top: 30px;">
-                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                            <div class="upload-container border rounded" style="background-image: url('/img/news/{{$item->anh_bia}}');margin-top: 30px;">
+                                <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                 <div id="preview-container" class="preview-container">
                                 </div>
                             </div>
                             @endif
                         </div>
                         <div style="flex-basis: 70%;">
-                            <label for="">Tiêu đề</label>
+                            <label for="exampleFormControlInput1">Tiêu đề</label>
                             <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" value="{{$item->ten}}">
                             <label class="pt-3" for="">Nội dung</label>
                             <div class="form-floating">

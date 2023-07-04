@@ -50,14 +50,29 @@
                                     <input type="password" name="old_pass" class="form-control" placeholder="Nhập mật khẩu">
                                     <label for="floatingInput">Mật khẩu cũ</label>
                                 </div>
+                                @error('old_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
                                     <input type="password" name="new_pass" class="form-control" placeholder="Nhập mật khẩu">
                                     <label for="floatingInput">Mật khẩu mới</label>
                                 </div>
+                                @error('new_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
                                     <input type="password" name="confirm_pass" class="form-control" placeholder="Nhập mật khẩu">
                                     <label for="floatingInput">Nhập lại mật khẩu mới</label>
                                 </div>
+                                @error('confirm_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="h7" style="margin-left:10px">

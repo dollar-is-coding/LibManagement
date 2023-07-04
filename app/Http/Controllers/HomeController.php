@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\TaiKhoanRequest;
 use App\Http\Requests\MatKhauRequest;
 use App\Http\Requests\DangNhapRequest;
+use App\Http\Requests\DatLaiMatKhauRequest;
 use App\Http\Requests\MuonSachRequest;
 use App\Models\LienHe;
 use App\Models\Sach;
@@ -33,7 +34,32 @@ class HomeController extends Controller
         $sltintuc = TinTuc::all()->count();
         $slsachduyet = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
         $slphanhoi = LienHe::all()->count();
-        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi]);
+        $thang1 = PhieuMuonSach::whereMonth('created_at', '=', 1)->count();
+        $thang2 = PhieuMuonSach::whereMonth('created_at', '=', 2)->count();
+        $thang3 = PhieuMuonSach::whereMonth('created_at', '=', 3)->count();
+        $thang4 = PhieuMuonSach::whereMonth('created_at', '=', 4)->count();
+        $thang5 = PhieuMuonSach::whereMonth('created_at', '=', 5)->count();
+        $thang6 = PhieuMuonSach::whereMonth('created_at', '=', 6)->count();
+        $thang7 = PhieuMuonSach::whereMonth('created_at', '=', 7)->count();
+        $thang8 = PhieuMuonSach::whereMonth('created_at', '=', 8)->count();
+        $thang9 = PhieuMuonSach::whereMonth('created_at', '=', 9)->count();
+        $thang10 = PhieuMuonSach::whereMonth('created_at', '=', 10)->count();
+        $thang11 = PhieuMuonSach::whereMonth('created_at', '=', 11)->count();
+        $thang12 = PhieuMuonSach::whereMonth('created_at', '=', 12)->count();
+        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi, 
+            'thang1'=> $thang1,
+            'thang2' => $thang2,
+            'thang3' => $thang3,
+            'thang4' => $thang4,
+            'thang5' => $thang5,
+            'thang6' => $thang6,
+            'thang7' => $thang7,
+            'thang8' => $thang8,
+            'thang9' => $thang9,
+            'thang10' => $thang10,
+            'thang11' => $thang11,
+            'thang12' => $thang12,
+    ]);
     }
 
 
@@ -44,13 +70,6 @@ class HomeController extends Controller
     }
     public function xuLyDangNhap(DangNhapRequest $request)
     {
-        // $admin=['email'=>$request->email,'password'=>$request->password];
-        // if(Auth::attempt($admin)) {
-        //     session()->put('email_user',$admin['email']);
-        //     return redirect()->route('trang-chu');
-        // } 
-        // return redirect()->back()->with('error','Đăng nhập thất bại');
-        //start 
         $admin = [
             'email' => $request->email,
             'password' => $request->password,
@@ -118,15 +137,15 @@ class HomeController extends Controller
     {
         return view('ca_nhan.doi_mat_khau');
     }
-    public function xuLyDoiMatKhau(Request $request)
+    public function xuLyDoiMatKhau(MatKhauRequest $request)
     {
         if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
             NguoiDung::find(Auth::id())->update([
                 'mat_khau'=>Hash::make($request->new_pass),
             ]);
-            return redirect()->back();
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return back();
         }
-        FacadesSession::flash('success', 'Xử lý thành công');
         return back()->with('error','Thay đổi mật khẩu thất bại');
     }
 
@@ -203,13 +222,14 @@ class HomeController extends Controller
     public function datLaiMatKhau(){
         return view('quen_mat_khau.dat_lai_mat_khau');
     }
-    public function xuLyDatLaiMatKhau(Request $request)
+    public function xuLyDatLaiMatKhau(DatLaiMatKhauRequest $request)
     {
         $email=session()->get('emailTo');
         if ($request->new_pass == $request->confirm_pass) {
             NguoiDung::where('email',$email)->update([
                 'mat_khau' => Hash::make($request->new_pass),
             ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
             return redirect()->route('dang-nhap');
         }
         return back()->with('error', 'Mật khẩu không trùng nhau!');

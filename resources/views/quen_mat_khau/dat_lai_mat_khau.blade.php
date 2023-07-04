@@ -67,11 +67,21 @@
                         </style>
                         <div class="row">
                             <div class="col-lg-12 col-12">
+                                @error('new_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
                                     <input type="password" name="new_pass" id="name" class="form-control" placeholder="Nhập email" required />
                                     <i class="password-toggle far fa-eye"></i>
                                     <label for="floatingInput">Mật khẩu mới</label>
                                 </div>
+                                @error('confirm_pass')
+                                <div style="font-style: italic;" class="text-danger">
+                                    {{ $message }} *&nbsp;
+                                </div>
+                                @enderror
                                 <div class="form-floating">
                                     <input type="password" name="confirm_pass" id="name" class="form-control" placeholder="Nhập email" required />
                                     <label for="floatingInput">Xác nhận mật khẩu mới</label>

@@ -14,7 +14,7 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-    <link rel='shortcut icon' href='/img/LIBRO.png'/>
+    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,6 +27,7 @@
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
@@ -46,7 +47,19 @@
 <body>
 
     @include('../common/header', ['view' => 2])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
+    @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
@@ -64,7 +77,7 @@
                             <div>
                                 <label for="selectBox" class="form-label">Chọn sách</label>
                                 <select required class="form-control select2" name="ten_sach" id="selectBox" tabindex="1">
-                                    <option selected>{{$kho->fkSach->ten}}</option>
+                                    <option value="{{$kho->sach_id}}" selected>{{$kho->fkSach->ten}}</option>
                                     @foreach($sach as $item)
                                     <option value="{{$item->sach_id}}">{{$item->fkSach->ten}}</option>
                                     @endforeach

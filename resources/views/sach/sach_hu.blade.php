@@ -27,6 +27,7 @@
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
@@ -46,7 +47,19 @@
 <body>
 
     @include('../common/header', ['view' => 2])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
+    @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
