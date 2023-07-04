@@ -70,9 +70,81 @@ class AdminController extends Controller
     }
     public function themSachThuVien(SachRequest $request)
     {
+        $get_id = Sach::orderBy('id', 'DESC')->latest()->first();
+        $id = $get_id->id +1;
+        $ma ='';
+        switch($request->the_loai){
+            case 1:{
+                    if ($id < 10) {
+                        $ma = 'GK' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'GK' . '00' . $id;
+                    } else {
+                        $ma = 'GK' . '0' . $id;
+                    }
+                break;
+            }
+            case 2:{
+                    if ($id < 10) {
+                        $ma = 'TK' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'TK' . '00' . $id;
+                    } else {
+                        $ma = 'TK' . '0' . $id;
+                    }
+                break;
+            }
+            case 3: {
+                    if ($id < 10) {
+                        $ma = 'VH' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'VH' . '00' . $id;
+                    } else {
+                        $ma = 'VH' . '0' . $id;
+                    }
+                break;
+            }
+            case 4:{
+                    if ($id < 10) {
+                        $ma = 'KH' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'KH' . '00' . $id;
+                    } else {
+                        $ma = 'KH' . '0' . $id;
+                    }
+                break;
+            }
+            case 5:{
+                    if ($id < 10) {
+                        $ma = 'KN' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'KN' . '00' . $id;
+                    } else {
+                        $ma = 'KN' . '0' . $id;
+                    }
+                break;
+            }
+            case 6:{
+                    if ($id < 10) {
+                        $ma = 'BC' . '000' . $id;
+                    } elseif ($id < 100) {
+                        $ma = 'BC' . '00' . $id;
+                    } else {
+                        $ma = 'BC' . '0' . $id;
+                    }
+                break;
+            }
+            default:
+                if ($id < 10) {
+                    $ma = 'NO' . '000' . $id;
+                } elseif ($id < 100) {
+                    $ma = 'NO' . '00' . $id;
+                } else {
+                    $ma = 'NO' . '0' . $id;
+                }
+            break;
+        }
         $tangsl = Sach::where('ten', $request->ten_sach)->where('tac_gia_id', $request->tac_gia)->where('the_loai_id', $request->the_loai)->where('nha_xuat_ban_id', $request->nha_xuat_ban)->where('nam_xuat_ban', $request->nam_xuat_ban)->first();
-        $randomDateTime = Carbon::now()->addDays(random_int(0, 30));
-        $randomTime = $randomDateTime->format('YmdHis');
         if (!$tangsl) {
             if ($request->hasFile('file_upload')) {
                 $file = $request->file_upload;
@@ -100,7 +172,7 @@ class AdminController extends Controller
             $dexuatend = Sach::where('de_xuat', 1)->orderBy('created_at', 'desc')->first();
             if ($dexuat < 7) {
                 Sach::create([
-                    'ma_sach' => $randomTime,
+                    'ma_sach' => $ma,
                     'ten' => $request->ten_sach,
                     'tac_gia_id' => $request->tac_gia,
                     'the_loai_id' => $request->the_loai,
@@ -115,7 +187,7 @@ class AdminController extends Controller
                 $dexuatend->de_xuat = 0;
                 $dexuatend->save();
                 Sach::create([
-                    'ma_sach' => $randomTime,
+                    'ma_sach' => $ma,
                     'ten' => $request->ten_sach,
                     'tac_gia_id' => $request->tac_gia,
                     'the_loai_id' => $request->the_loai,
