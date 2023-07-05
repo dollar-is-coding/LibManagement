@@ -98,6 +98,7 @@
                             <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
                                 <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
                                 <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
+                                <a id="xuat-hoa-don" href="{{route('export-pdf',['id'=>$item->ma_phieu_muon])}}">dâ muon</a>
                                 <p style="text-align: right;" class="mt-1 mr-2">{{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} - {{$item->han_tra}}</p>
                             </div>
                             <p class="ml-2" style="font-weight: bold;">Người duyệt: {{$item->fkNguoiDung->ten}}</p>

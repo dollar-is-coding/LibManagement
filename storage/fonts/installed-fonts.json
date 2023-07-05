@@ -1,0 +1,8 @@
+{
+    "dejavu sans": {
+        "bold": "D:\\DO_AN_TOT_NGHIEP\\LibManagement\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-Bold",
+        "bold_italic": "D:\\DO_AN_TOT_NGHIEP\\LibManagement\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-BoldOblique",
+        "italic": "D:\\DO_AN_TOT_NGHIEP\\LibManagement\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-Oblique",
+        "normal": "dejavu_sans_normal_e01a2ca2bf2f6117e58c8d7dc1dc85a1"
+    }
+}

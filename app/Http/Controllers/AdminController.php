@@ -37,16 +37,44 @@ use App\Models\NguoiDung;
 use App\Models\PhieuPhat;
 use App\Models\PhieuTraSach;
 use App\Models\TinTuc;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Dompdf\Options;
 use Exception;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 use Illuminate\Support\Facades\Session as FacadesSession;
+use Elibyy\TCPDF\Facades\Tcpdf;
+
 
 class AdminController extends Controller
 {
-
+    public function export_pdf_hoa_don($id)
+    {
+        $phieu_phat = PhieuPhat::where('ma_phieu', $id)->get();
+        if ($phieu_phat->count() > 0) {
+            $documentFileName = "thanh-toan.pdf";
+            $data = [
+                'phieu_phat' => $phieu_phat,
+            ];
+            $view = view()->make('muon_sach.phieu_thanh_toan_phat', $data);
+            $html = $view->render();
+            $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+            $pdf::SetDefaultMonospacedFont('helvetica', 'B', 14, '', true, 'UTF-8');
+            $pdf::SetTitle('Hóa Đơn Thanh Toán');
+            $pdf::AddPage();
+            $pdf::SetFont('dejavusans', '', 12, '', true);
+            $pdf::writeHTML($html, true, false, true, false, '');
+            $pdf::Output(public_path($documentFileName), 'F');
+            $pdf::setCellHeightRatio(0.2);
+            return response()->download(public_path($documentFileName))->deleteFileAfterSend(true);
+        } else {
+            return back();
+        }
+    }
     public function import_csv(Request $request)
     {
         $path = $request->file('file')->getRealPath();
@@ -743,13 +771,13 @@ class AdminController extends Controller
     public function timKiemDocGiaDaMuonSach(Request $request)
     {
         $timKiem = $request->tim_kiem;
-        $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
+        $da_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
             ->orderBy('ma_phieu_muon', 'asc')->get();
-        if ($dang_muon->count() === 0) {
+        if ($da_muon->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
             return view('muon_sach.da_muon_sach', [
-                'dang_muon' => $dang_muon,
+                'da_muon' => $da_muon,
                 'search' => '',
                 'selected' => 'asc_name',
             ]);
@@ -894,6 +922,10 @@ class AdminController extends Controller
         }
         PhieuPhat::where('ma_phieu', $all_requests['ma_phieu'])->update(['tong_so_sach' => $tong_so_sach]);
         FacadesSession::flash('success', 'Xử lý thành công');
+        if ($request->export == TRUE) {
+            $this->export_pdf_hoa_don($all_requests['ma_phieu']);
+        }
+        //dd();
         return redirect()->route('da-muon-sach');
     }
     public function chiTietTaiKhoan($id)
