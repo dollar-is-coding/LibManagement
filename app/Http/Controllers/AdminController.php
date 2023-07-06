@@ -785,7 +785,7 @@ class AdminController extends Controller
                 'da_muon' => $da_muon,
                 'search' => '',
                 'selected' => 'asc_name',
-                'so_luong'=> $so_luong,
+                'so_luong' => $so_luong,
             ]);
         }
     }
@@ -793,7 +793,7 @@ class AdminController extends Controller
     {
         $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
         $so_luong = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
-        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet,'so_luong'=>$so_luong]);
+        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet, 'so_luong' => $so_luong]);
     }
     public function xuLyMuonSach($id)
     {
@@ -841,7 +841,7 @@ class AdminController extends Controller
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 2)->distinct('ma_phieu_muon')->count();
         $dang_muon = PhieuMuonSach::where('trang_thai', 2)->get();
-        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon,'so_luong'=>$so_luong]);
+        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon, 'so_luong' => $so_luong]);
     }
 
     public function daMuonSach()
@@ -1088,10 +1088,11 @@ class AdminController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-    public function phieuPhat(){
+    public function phieuPhat()
+    {
         $phieu_phat = PhieuPhat::all();
-        $so_luong = PhieuPhat::where('ma_phieu','>',0)->distinct('ma_phieu')->count();
-        return view('muon_sach.phieu_phat',['phieu_phat'=> $phieu_phat,'so_luong'=>$so_luong]);
+        $so_luong = PhieuPhat::where('ma_phieu', '>', 0)->distinct('ma_phieu')->count();
+        return view('muon_sach.phieu_phat', ['phieu_phat' => $phieu_phat, 'so_luong' => $so_luong]);
     }
     public function timKiemPhieuPhat(Request $request)
     {
