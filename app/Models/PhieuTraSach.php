@@ -15,9 +15,4 @@ class PhieuTraSach extends Model
     {
         return $this->belongsTo(NguoiDung::class, 'thu_thu_id');
     }
-
-    public function hasPhieuMuon()
-    {
-        return $this->hasMany(PhieuMuonSach::class, 'ma_phieu_muon', 'ma_phieu_muon');
-    }
 }
