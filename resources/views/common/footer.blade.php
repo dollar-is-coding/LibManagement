@@ -1,4 +1,4 @@
-<div class="az-footer ht-40">
+{{-- <div class="az-footer ht-40">
     <div class="container">
         <div style="display: flex;width: 100%;">
             <div style="flex-basis: 50%;" class="border-right">
@@ -18,5 +18,16 @@
                 <h5 style="text-align: center;">Copyright © 2023 Designed by D.A.D</h5>
             </div>
         </div>
+    </div><!-- container -->
+</div><!-- az-footer --> --}}
+
+<div class="az-footer ht-40">
+    <div class="container ht-100p pd-t-0-f">
+        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+            THƯ VIỆN LÀ NƠI KHÁM PHÁ TRI THỨC, QUẢN LÝ LÀ NHIỆM VỤ CỦA CHÚNG TA
+        </span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+            Đồ án website Quản lý thư viện bởi Nguyễn Văn Đô & Phạm Nguyễn Quang Vinh
+        </span>
     </div><!-- container -->
 </div><!-- az-footer -->

@@ -23,7 +23,8 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
     @include('/common/link')
 </head>
@@ -31,50 +32,56 @@
 <body>
 
     @include('../common/header', ['view' => 6])
-    @if(Session::has('success'))
-    <script>
-        setTimeout(function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công',
-                text: `{{ Session::get('success') }}`,
-                showConfirmButton: false,
-                timer: 1000 // Hiển thị trong 5 giây
-            });
-        }, 100);
-    </script>
+    @if (Session::has('success'))
+        <script>
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `{{ Session::get('success') }}`,
+                    showConfirmButton: false,
+                    timer: 1000 // Hiển thị trong 5 giây
+                });
+            }, 100);
+        </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
                 @if ($sl == 0)
-                <h4>HIỆN TẠI KHÔNG CÓ PHẢN HỒI NÀO !!</h4>
+                    <h4>HIỆN TẠI KHÔNG CÓ PHẢN HỒI NÀO !!</h4>
                 @else
-                <h4>QUẢN LÝ PHẢN HỒI ({{$sl}})</h4>
-                @foreach ($lienhe as $item)
-                <div class="border rounded mb-2 mt-2" style="display: flex;">
-                    <div style="flex-basis: 100%;">
-                        <div class=" mt-2 ml-2">
-                            <h5>{{ $item->tieu_de }}</h5>
-                            <p class="ml-3">{{ $item->noi_dung }}</p>
-                        </div>
-                    </div>
-                    <div style="flex-basis: 13%;">
-                        <div style="display: flex;">
-                            <div class="form-check mt-4 mr-3">
-                                <input name="dang_chu_y" value="{{ $item->dang_chu_y }}" style="width: 18px;height: 18px;" class="form-check-input" type="checkbox" id="flexCheckDefault{{ $item->id }}" {{ $item->dang_chu_y == 1 ? 'checked' : '' }} onclick="checkBox({{ $item->id }})">
-                                <label style="padding-top: 5px;padding-left: 2px;user-select: none;" class="form-check-label" for="flexCheckDefault{{ $item->id }}">
-                                    Đáng Chú ý
-                                </label>
+                    <h4>QUẢN LÝ PHẢN HỒI ({{ $sl }})</h4>
+                    @foreach ($lienhe as $item)
+                        <div class="rounded mb-2 mt-2 pl-2 border" style="display: flex;">
+                            <div class="flex-fill">
+                                <div class="mt-2 ml-2">
+                                    <h5>{{ $item->tieu_de }}</h5>
+                                    <p class="mb-2">{{ $item->noi_dung }}</p>
+                                </div>
                             </div>
-                            <div>
-                                <a style="color: grey;font-size: 16px;" href="{{ route('xoa-lien-he', ['id' => $item->id]) }}">
-                                    <i class="fas fa-times"></i></a>
+                            <div class="d-flex m-2 mr-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input name="dang_chu_y" value="{{ $item->dang_chu_y }}"
+                                            style="width: 18px;height: 18px;" class="form-check-input" type="checkbox"
+                                            id="flexCheckDefault{{ $item->id }}"
+                                            {{ $item->dang_chu_y == 1 ? 'checked' : '' }}
+                                            onclick="checkBox({{ $item->id }})">
+                                        <label style="padding-top: 5px;padding-left: 2px;user-select: none;"
+                                            class="form-check-label" for="flexCheckDefault{{ $item->id }}">
+                                            Đáng Chú ý
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <a style="color: grey;font-size: 16px;"
+                                        href="{{ route('xoa-lien-he', ['id' => $item->id]) }}">
+                                        <i class="fas fa-times"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
                 @endif
             </div>
         </div><!-- az-content -->

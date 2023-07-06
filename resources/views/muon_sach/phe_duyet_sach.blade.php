@@ -29,98 +29,107 @@
 
 <body>
     @include('../common/header', ['view' => 3])
-    @if(Session::has('success'))
-    <script>
-        setTimeout(function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công',
-                text: `{{ Session::get('success') }}`,
-                showConfirmButton: false,
-                timer: 1000 // Hiển thị trong 5 giây
-            });
-        }, 100);
-    </script>
+    @if (Session::has('success'))
+        <script>
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `{{ Session::get('success') }}`,
+                    showConfirmButton: false,
+                    timer: 1000 // Hiển thị trong 5 giây
+                });
+            }, 100);
+        </script>
     @endif
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <form class="row az-signin-header" action="{{route('tim-kiem-duyet-sach')}}" method="get">
+            <div class="az-content-body d-flex flex-column">
+                <form class="row az-signin-header" action="{{ route('tim-kiem-duyet-sach') }}" method="get">
                     <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
+                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value=""
+                            autocomplete="off">
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
                 @if (session('error'))
-                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                    <span class="text-danger">{{ session('error') }}</span>
-                </div>
+                    <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm"
+                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                        <span class="text-danger">{{ session('error') }}</span>
+                    </div>
                 @endif
                 <style>
                     .mumu {
                         margin: 15px 50px 15px 15px !important;
                     }
                 </style>
-                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
+                <div class="az-content-left az-content-left-components"
+                    style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link active mumu">CHỜ DUYỆT</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">ĐANG MƯỢN</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">ĐÃ MƯỢN</a>
+                            <a href="{{ route('phe-duyet-muon-sach') }}" class="nav-link active mumu">CHỜ DUYỆT</a>
+                            <a href="{{ route('dang-muon-sach') }}" class="nav-link mumu">ĐANG MƯỢN</a>
+                            <a href="{{ route('da-muon-sach') }}" class="nav-link mumu">ĐÃ MƯỢN</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
                 <div class="">
-                    @if($so_luong >0)
-                    <h4 class="ml-3 mt-3">PHÊ DUYỆT MƯỢN SÁCH ({{$so_luong}})</h4>
-                    <div style="display: flex;justify-content: end;" class="mr-4">
-                        <a class="btn btn-success mb-2 rounded" href="{{route('xu-ly-muon-tat-ca-sach')}}">Duyệt tất cả</a>
-                    </div>
+                    @if ($so_luong > 0)
+                        <h4 class="mt-3">PHÊ DUYỆT MƯỢN SÁCH ({{ $so_luong }})</h4>
+                        <div style="display: flex;justify-content: end;" class="mr-4">
+                            <a class="btn btn-success mb-2 rounded" href="{{ route('xu-ly-muon-tat-ca-sach') }}">
+                                Duyệt tất cả</a>
+                        </div>
                     @else
-                    <h4 class="mt-2">HIỆN KHÔNG CÓ SÁCH NÀO ĐỂ DUYỆT !!</h4>
+                        <h4 class="mt-3">HIỆN KHÔNG CÓ SÁCH NÀO ĐỂ DUYỆT !!</h4>
                     @endif
                     <div class="table-responsive">
                         @foreach ($cho_duyet as $key => $item)
-                        @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
-                        <div class="container border rounded ml-3 mb-3" style="width: 96%;display: grid;grid-template-columns: auto;">
-                            <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
-                                <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
-                                <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
-                                <p style="text-align: right;" class="mt-1 mr-2">{{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} - {{$item->han_tra}}</p>
-                            </div>
-                            <p class="ml-2">Tổng số lượng: {{$item->tong_so_luong-1}}</p>
+                            @if ($key == 0 || $item->ma_phieu_muon != $cho_duyet[$key - 1]->ma_phieu_muon)
+                                <div class="container border rounded ml-3 mb-3"
+                                    style="width: 96%;display: grid;grid-template-columns: auto;">
+                                    <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
+                                        <h5 class="ml-2 mt-1">Đọc giả: {{ $item->fkNguoiDung->ten }}</h5>
+                                        <p class="mt-1">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</p>
+                                        <p style="text-align: right;" class="mt-1 mr-2">
+                                            {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} -
+                                            {{ $item->han_tra }}</p>
+                                    </div>
+                                    <p class="ml-2">Tổng số lượng: {{ $item->tong_so_luong - 1 }}</p>
                             @endif
                             @if (
-                            ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
-                            $key == $cho_duyet->count() - 1)
-                            <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
-                                <div style="display: flex;">
-                                    <div class="ml-3">
-                                        <p><b>{{ $item->fkSach->ten }} </b>({{ $item->so_luong }} quyển)</p>
+                                ($key != $cho_duyet->count() - 1 && $item->ma_phieu_muon != $cho_duyet[$key + 1]->ma_phieu_muon) ||
+                                    $key == $cho_duyet->count() - 1)
+                                <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
+                                    <div style="display: flex;">
+                                        <div class="ml-3">
+                                            <p><b>{{ $item->fkSach->ten }} </b>({{ $item->so_luong }} quyển)</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex;flex-direction: row-reverse;height: 50px;">
+                                        <a href="{{ route('xu-ly-muon-sach', ['id' => $item->ma_phieu_muon]) }}"
+                                            style="width: 25%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Duyệt</a>
+                                        <a href="{{ route('chi-tiet-phieu', ['id' => $item->ma_phieu_muon]) }}"
+                                            style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
                                     </div>
                                 </div>
-                                <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                    <a href="{{route('xu-ly-muon-sach',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Duyệt</a>
-                                    <a href="{{route('chi-tiet-phieu',['id'=>$item->ma_phieu_muon])}}" style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                        @else
-                        <div class="ml-2">
-                            <div class="ml-3">
-                                <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
-                            </div>
-                        </div>
-                        @endif
-                        @endforeach
                     </div>
+                @else
+                    <div class="ml-2">
+                        <div class="ml-3">
+                            <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
                 </div>
             </div>
-        </div><!-- container -->
+        </div>
+    </div><!-- container -->
     </div><!-- az-content -->
     @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
