@@ -48,7 +48,7 @@
                     <span>Cá nhân</span>
                     <span>Quản lý tài khoản</span>
                 </div>
-
+                @if(Auth::user()->vai_tro == 1)
                 <div class="table-responsive">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -57,6 +57,7 @@
                         <li class="nav-item mr-2 ml-2" role="presentation">
                             <button class="nav-link border" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Thủ thư</button>
                         </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link border" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Độc giả</button>
                         </li>
@@ -97,6 +98,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                             <table class="table mg-b-0 mg-t-20 az-table-reference">
                                 <thead>
@@ -132,6 +134,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                             <table class="table mg-b-0 mg-t-20 az-table-reference">
                                 <thead>
@@ -168,16 +171,46 @@
                             </table>
                         </div>
 
+
+
                     </div>
-                    <!-- <div class="mt-5 d-flex justify-content-center">
-                        <div>
-                             $ds_tai_khoan->links() 
-                        </div>
-                    </div> -->
                 </div><!-- bd -->
+                @else
+                <h4 class="mt-2">QUẢN LÝ TÀI KHOẢN ĐỌC GIẢ</h4>
+                <table class="table mg-b-0 mg-t-20 az-table-reference">
+                    <thead>
+                        <tr>
+                            <td class="wd-5p">STT</td>
+                            <th>Họ</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Vị trí</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($docgia as $key => $item)
+                        <tr>
+                            <th scope="row">{{ ++$key }}</th>
+                            <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
+                            <td>{{ $item->ten }}</td>
+                            <td>{{ $item->email }}</td>
 
-
-
+                            <td>
+                                <?php
+                                if ($item->vai_tro == 2) {
+                                    echo 'Thủ thư';
+                                } elseif ($item->vai_tro == 1) {
+                                    echo 'Quản trị viên';
+                                } else {
+                                    echo 'Độc giả';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
