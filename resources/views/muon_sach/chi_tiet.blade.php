@@ -61,27 +61,33 @@
                                 <div class="d-flex">
                                     <p class="m-0 mr-5">Độc giả: <b>{{ $chi_tiet_sach->fkNguoiDung->ho }}
                                             {{ $chi_tiet_sach->fkNguoiDung->ten }}</b></p>
-                                    @if ($chi_tiet_sach->thu_thu_id != '')
+                                    @if ($chi_tiet_sach->thu_thu_id != '' && $chi_tiet_sach->trang_thai == 2)
                                         <p class="m-0 mr-5">Thủ thư: <b>
                                                 {{ $chi_tiet_sach->fkThuThu->ho }} {{ $chi_tiet_sach->fkThuThu->ten }}
+                                            </b></p>
+                                    @elseif($chi_tiet_sach->trang_thai == 3)
+                                        <p class="m-0 mr-5">Thủ thư: <b>
+                                                {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ho }}
+                                                {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ten }}
                                             </b></p>
                                     @endif
                                 </div>
                                 <p class="m-0 mr-5">Ngày mượn:
                                     <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('d/m/Y') }}</b>
                                 </p>
-                                <p class="m-0 mr-5">Ngày cần trả:
-                                    <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->han_tra)->format('d/m/Y') }}</b>
-                                </p>
+                                @if ($chi_tiet_sach->trang_thai != 3)
+                                    <p class="m-0 mr-5">Ngày cần trả:
+                                        <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->han_tra)->format('d/m/Y') }}</b>
+                                    </p>
+                                @else
+                                    <p class="m-0 mr-5">Ngày trả:
+                                        <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->hasPhieuTraSach->created_at)->format('d/m/Y') }}</b>
+                                    </p>
+                                @endif
                             </div>
                             <p class="m-0 mt-2">
                                 Tổng số lượng sách: <b>{{ $chi_tiet_sach->tong_so_luong }} quyển
                                 </b></p>
-                            @if ($tong_tien)
-                                <p class="m-0 mt-2">Tổng tiền phạt:
-                                    <b>{{ number_format($tong_tien->tong_tien_phat, 0, ',', '.') }} VNĐ</b>
-                                </p>
-                            @endif
                         </div>
                         @foreach ($chitiet as $key => $item)
                             <div class="border rounded mt-3" style="display: flex;">

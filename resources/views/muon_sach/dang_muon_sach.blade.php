@@ -101,7 +101,7 @@
                                         {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('d/m/Y') }}
                                     </span>
                                 </p>
-                                <p class="mb-1">Ngày trả:
+                                <p class="mb-1">Ngày cần trả:
                                     <span style="font-weight: bold;">
                                         {{ \Carbon\Carbon::parse($item->han_tra)->format('d/m/Y') }}
                                     </span>
