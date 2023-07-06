@@ -33,17 +33,17 @@
 
     @include('../common/header', ['view' => 0])
     @if (Session::has('success'))
-        <script>
-            setTimeout(function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thành công',
-                    text: `{{ Session::get('success') }}`,
-                    showConfirmButton: false,
-                    timer: 1000 // Hiển thị trong 5 giây
-                });
-            }, 100);
-        </script>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -90,27 +90,27 @@
                                 </b></p>
                         </div>
                         @foreach ($chitiet as $key => $item)
-                            <div class="border rounded mt-3" style="display: flex;">
-                                <div style="flex-basis: 100%;" class="mt-3 ml-3 mr-3">
-                                    <div class="d-flex justify-content-between">
-                                        <h4>{{ $item->fkSach->ten }}</h4>
-                                        <div style="display: flex;">
-                                            <p>Mã sách: <b>{{ $item->fkSach->ma_sach }}</b></p>
-                                            <p class="ml-4">Số lượng: <b>{{ $item->so_luong }}</b></p>
-                                            <p class="ml-4">Khu vực:
-                                                <b>{{ $item->fkSach->hasThuVien->fkTuSach->ten }},
-                                                    {{ $item->fkSach->hasThuVien->fkKhuVuc->ten }}</b>
-                                            </p>
-                                        </div>
+                        <div class="border rounded mt-3" style="display: flex;">
+                            <div style="flex-basis: 100%;" class="mt-3 ml-3 mr-3">
+                                <div class="d-flex justify-content-between">
+                                    <h4>{{ $item->fkSach->ten }}</h4>
+                                    <div style="display: flex;">
+                                        <p>Mã sách: <b>{{ $item->fkSach->ma_sach }}</b></p>
+                                        <p class="ml-4">Số lượng: <b>{{ $item->so_luong }}</b></p>
+                                        <p class="ml-4">Khu vực:
+                                            <b>{{ $item->fkSach->hasThuVien->fkTuSach->ten }},
+                                                {{ $item->fkSach->hasThuVien->fkKhuVuc->ten }}</b>
+                                        </p>
                                     </div>
-                                    <p class="m-0 mb-2">Tác giả: <b>{{ $item->fkSach->fkTacGia->ten }}</b></p>
-                                    <p class="m-0 mb-2">Thể loại: <b>{{ $item->fkSach->fkTheLoai->ten }}</b></p>
-                                    <p class="m-0 mb-2">Năm xuất bản: <b>{{ $item->fkSach->nam_xuat_ban }}</b></p>
-                                    <p class="m-0 mb-3">
-                                        Nhà xuất bản: <b>{{ $item->fkSach->fkNhaXuatBan->ten }}</b>
-                                    </p>
                                 </div>
+                                <p class="m-0 mb-2">Tác giả: <b>{{ $item->fkSach->fkTacGia->ten }}</b></p>
+                                <p class="m-0 mb-2">Thể loại: <b>{{ $item->fkSach->fkTheLoai->ten }}</b></p>
+                                <p class="m-0 mb-2">Năm xuất bản: <b>{{ $item->fkSach->nam_xuat_ban }}</b></p>
+                                <p class="m-0 mb-3">
+                                    Nhà xuất bản: <b>{{ $item->fkSach->fkNhaXuatBan->ten }}</b>
+                                </p>
                             </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>

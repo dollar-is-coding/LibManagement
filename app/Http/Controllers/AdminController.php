@@ -654,8 +654,8 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro', 1)->where('id', '!=', Auth::id())->get();
-        $thuthu = NguoiDung::where('vai_tro', 2)->where('id', '!=', Auth::id())->get();
+        $admin = NguoiDung::where('vai_tro', 1)->get();
+        $thuthu = NguoiDung::where('vai_tro', 2)->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
         return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
         // return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
@@ -847,8 +847,8 @@ class AdminController extends Controller
     public function daMuonSach()
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();
-        $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'desc')->get();
-        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon, 'so_luong' => $so_luong]);
+        $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'asc')->get();
+        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon,'so_luong'=>$so_luong]);
     }
     public function chiTietPhieu($id)
     {
