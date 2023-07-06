@@ -10,8 +10,8 @@ class PhieuMuonSach extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table='phieu_muon_sach';
-    protected $fillable=[
+    protected $table = 'phieu_muon_sach';
+    protected $fillable = [
         'ma_phieu_muon',
         'doc_gia_id',
         'thu_thu_id',
@@ -24,7 +24,7 @@ class PhieuMuonSach extends Model
 
     public function fkSach()
     {
-        return $this->belongsTo(Sach::class,'sach_id');
+        return $this->belongsTo(Sach::class, 'sach_id');
     }
     public function fkNguoiDung()
     {
@@ -33,5 +33,9 @@ class PhieuMuonSach extends Model
     public function fkThuThu()
     {
         return $this->belongsTo(NguoiDung::class, 'thu_thu_id');
+    }
+    public function hasPhieuTraSach()
+    {
+        return $this->hasOne(PhieuTraSach::class, 'ma_phieu_muon', 'ma_phieu_muon');
     }
 }
