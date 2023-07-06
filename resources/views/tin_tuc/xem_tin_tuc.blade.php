@@ -71,9 +71,9 @@
                         @foreach ($tintuc as $key => $item)
                         <div class="card" style="width: 18rem;margin: 10px;">
                             @if($item->anh_bia == '')
-                            <img src="/img/avt/income.jpg" class="card-img-top">
+                            <img height="310px" src="/img/avt/income.jpg" class="card-img-top">
                             @elseif($item->anh_bia != '')
-                            <img src="/img/news/{{$item->anh_bia}}" class="card-img-top">
+                            <img height="310px" src="/img/news/{{$item->anh_bia}}" class="card-img-top">
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{$item->ten}}</h5>

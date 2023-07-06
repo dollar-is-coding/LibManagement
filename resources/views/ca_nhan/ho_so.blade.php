@@ -32,7 +32,7 @@
 
 <body>
 
-    @include('../common/header', ['view' => 4])
+    @include('../common/header', ['view' => 9])
     @if(Session::has('success'))
     <script>
         setTimeout(function() {

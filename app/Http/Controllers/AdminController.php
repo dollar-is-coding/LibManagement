@@ -743,6 +743,7 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $cho_duyet = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 1)
             ->orderBy('ma_phieu_muon', 'asc')->get();
+        $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 1)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
         if ($cho_duyet->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
@@ -750,6 +751,7 @@ class AdminController extends Controller
                 'cho_duyet' => $cho_duyet,
                 'search' => '',
                 'selected' => 'asc_name',
+                'so_luong' => $so_luong,
             ]);
         }
     }
@@ -758,6 +760,7 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)
             ->orderBy('ma_phieu_muon', 'asc')->get();
+        $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
         if ($dang_muon->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
@@ -765,6 +768,7 @@ class AdminController extends Controller
                 'dang_muon' => $dang_muon,
                 'search' => '',
                 'selected' => 'asc_name',
+                'so_luong' => $so_luong,
             ]);
         }
     }
@@ -773,6 +777,7 @@ class AdminController extends Controller
         $timKiem = $request->tim_kiem;
         $da_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
             ->orderBy('ma_phieu_muon', 'asc')->get();
+        $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
         if ($da_muon->count() === 0) {
             return back()->with('error', 'Không tìm thấy kết quả nào!!!');
         } else {
@@ -780,6 +785,7 @@ class AdminController extends Controller
                 'da_muon' => $da_muon,
                 'search' => '',
                 'selected' => 'asc_name',
+                'so_luong'=> $so_luong,
             ]);
         }
     }
