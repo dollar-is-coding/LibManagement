@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             @else
-                            <div class="upload-container border rounded" style="background-image: url('/img/news/{{$item->anh_bia}}');margin-top: 30px;">
+                            <div class="upload-container border rounded" style="background-image: url('/img/news/{{$item->anh_bia}}');margin-top: 30px;background-size:cover;">
                                 <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                 <div id="preview-container" class="preview-container">
                                 </div>
@@ -143,9 +143,6 @@
                         object-fit: cover;
                     }
                 </style>
-
-
-                @include('../common/footer')
             </div><!-- az-content-body -->
 
         </div><!-- container -->
