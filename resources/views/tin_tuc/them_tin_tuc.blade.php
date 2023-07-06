@@ -30,18 +30,18 @@
 <body>
 
     @include('../common/header', ['view' => 5])
-    @if(Session::has('success'))
-    <script>
-        setTimeout(function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công',
-                text: `{{ Session::get('success') }}`,
-                showConfirmButton: false,
-                timer: 1000 // Hiển thị trong 5 giây
-            });
-        }, 100);
-    </script>
+    @if (Session::has('success'))
+        <script>
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `{{ Session::get('success') }}`,
+                    showConfirmButton: false,
+                    timer: 1000 // Hiển thị trong 5 giây
+                });
+            }, 100);
+        </script>
     @endif
     <style>
         textarea {
@@ -54,7 +54,7 @@
                 <div class="component-item">
                     <label>Tin tức</label>
                     <nav class="nav flex-column">
-                        <a href="{{route('them-tin-tuc')}}" class="nav-link active">Thêm tin tức</a>
+                        <a href="{{ route('them-tin-tuc') }}" class="nav-link active">Thêm tin tức</a>
                         <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link ">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
@@ -65,27 +65,32 @@
                     <span>Tin tức</span>
                     <span>Thêm tin tức</span>
                 </div>
-                <div class="">
-                    <h3 class="ml-3 mt-3">THÊM TIN TỨC</h3>
-                    <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data" class="ml-3">
+                <div class="border shadow-sm rounded p-4 pr-5">
+                    <form action="{{ route('xu-ly-them-tin-tuc') }}" method="post" enctype="multipart/form-data"
+                        class="ml-3">
                         @csrf
                         <div class="form-check">
-                            <input style="width: 18px; height: 18px;" class="form-check-input" name="noi_bat" type="checkbox" id="flexCheckDefault">
-                            <label style="user-select: none;font-size: 18px;" class="form-check-label" for="flexCheckDefault">
-                                Nổi bật
+                            <input style="width: 18px; height: 18px;" class="form-check-input" name="noi_bat"
+                                type="checkbox" id="flexCheckDefault">
+                            <label style="user-select: none;font-size: 18px;" class="form-check-label"
+                                for="flexCheckDefault">Nổi bật
                             </label>
                         </div>
                         <div style="display: flex;">
                             <div style="flex-basis: 30%;">
-                                <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 30px;">
-                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
+                                <div class="upload-container border rounded"
+                                    style="background-image: url('/img/avt/income.jpg');margin-top: 10px;">
+                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
+                                        name="file_upload" accept="image/*" onchange="chooseFile(this)"
+                                        tabindex="10" />
                                     <div id="preview-container" class="preview-container">
                                     </div>
                                 </div>
                             </div>
                             <div style="flex-basis: 70%;">
                                 <label for="">Tiêu đề</label>
-                                <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
+                                <input required name="tieu_de" type="text" class="form-control"
+                                    id="exampleFormControlInput1" placeholder="Tiêu đề">
                                 <label class="pt-3" for="">Nội dung</label>
                                 <div class="form-floating">
                                     <textarea id="sample" style="height: 200px;" name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>
@@ -93,7 +98,7 @@
                             </div>
                         </div>
 
-                        <div style="display: flex; justify-content: end;" class="mt-3 mr-2 mb-3">
+                        <div style="display: flex; justify-content: end;" class="mt-3 mb-3">
                             <a href="" class="btn btn-danger" style="margin-right: 2%">Làm mới</a>
                             <button class="btn btn-success" type="submit">
                                 Thêm

@@ -73,7 +73,7 @@
                         <nav style="display: flex">
                             <a href="{{ route('phe-duyet-muon-sach') }}" class="nav-link active mumu">CHỜ DUYỆT</a>
                             <a href="{{ route('dang-muon-sach') }}" class="nav-link mumu">ĐANG MƯỢN</a>
-                            <a href="{{ route('da-muon-sach') }}" class="nav-link mumu">ĐÃ MƯỢN</a>
+                            <a href="{{ route('da-muon-sach') }}" class="nav-link mumu">ĐÃ TRẢ</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                     @else
-                        <h4 class="mt-3">HIỆN KHÔNG CÓ SÁCH NÀO ĐỂ DUYỆT !!</h4>
+                        <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU CHỜ DUYỆT NÀO !!</h4>
                     @endif
                     <div class="table-responsive">
                         @foreach ($cho_duyet as $key => $item)
