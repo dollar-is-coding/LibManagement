@@ -48,7 +48,7 @@ use Maatwebsite\Excel\Validators\ValidationException;
 
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Elibyy\TCPDF\Facades\Tcpdf;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -830,7 +830,8 @@ class AdminController extends Controller
 
     public function daMuonSach()
     {
-        $da_muon = PhieuMuonSach::where('trang_thai', 3)->get();
+        
+        $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'desc')->get();
         return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon]);
     }
     public function chiTietPhieu($id)
@@ -923,9 +924,12 @@ class AdminController extends Controller
         PhieuPhat::where('ma_phieu', $all_requests['ma_phieu'])->update(['tong_so_sach' => $tong_so_sach]);
         FacadesSession::flash('success', 'Xử lý thành công');
         if ($request->export == TRUE) {
-            $this->export_pdf_hoa_don($all_requests['ma_phieu']);
+            $exportPath = $this->export_pdf_hoa_don($all_requests['ma_phieu']);
+            if ($exportPath) {
+                $fileName = 'thanh-toan.pdf';
+                return redirect()->route('da-muon-sach')->with('export_path', $fileName);
+            }
         }
-        //dd();
         return redirect()->route('da-muon-sach');
     }
     public function chiTietTaiKhoan($id)

@@ -127,7 +127,31 @@
                                 <p style="text-align: end;font-size: 20px;">Tổng tiền</p>
                                 <input hidden class="mb-3" name="tong_tien_phat" id="tongtien" style="pointer-events: none;border: none;font-size: 18px;">
                                 <p style="font-size: 15px;text-align: end;" id="tongtiendv"></p>
+                                <div style="display: flex;justify-content: end;">
+                                    <button class="btn btn-success abbutton" type="submit">Thanh Toán</button>
+                                </div>
                                 <script>
+                                    function button_click(event) {
+                                        event.preventDefault();
+
+                                        Swal.fire({
+                                            title: 'Bạn có muốn xuất hóa đơn không?',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            cancelButtonText: 'Không',
+
+                                        }).then((result) => {
+                                            if (result.value) {
+                                                var form = document.getElementById('payment-form');
+                                                var exportUrl = form.action + "?export=true";
+                                                form.action = exportUrl;
+                                                form.submit();
+                                            } else {
+                                                document.getElementById('payment-form').submit();
+                                            }
+                                        });
+                                    }
                                     let tienmatsach = document.getElementById('tienmatsach');
                                     let tienhusach = document.getElementById('tienhusach');
 
@@ -190,6 +214,16 @@
                                         tienhusach.innerHTML = 'Tiền hư sách ' + tien.hu + ' VNĐ';
                                         tienmatsach.innerHTML = 'Tiền mất sách ' + tien.mat + ' VNĐ';
 
+                                        const buttom_thanh_toan = document.querySelector('.abbutton');
+                                        if (Number(tongtien.value) > 0) {
+                                            buttom_thanh_toan.onclick = button_click;
+                                            // buttom_thanh_toan.setAttribute("id", "submit-btn");
+                                        } else {
+
+                                            buttom_thanh_toan.onclick = undefined;
+                                            // buttom_thanh_toan.setAttribute("id", " ");
+                                        }
+
                                     }
 
                                     for (i of a) {
@@ -202,39 +236,9 @@
                                     tongtiendv.innerHTML = tongtien.value + ' VNĐ';
                                 </script>
                             </div>
-                            <div style="display: flex;justify-content: end;">
-                                <button id="submit-btn" class="btn btn-success" type="submit">Thanh Toán</button>
-                            </div>
+
                         </form>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            document.getElementById('submit-btn').addEventListener('click', function(event) {
-                                event.preventDefault();
-
-                                Swal.fire({
-                                    title: 'Bạn có muốn xuất hóa đơn không?',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    //  confirmButtonText: ' < a href = "{{ route("thanh-toan") }}?export=true" > Xuất hóa đơn < /a>',
-                                    cancelButtonText: 'Không',
-
-                                }).then((result) => {
-                                    if (result.value) {
-                                        var form = document.getElementById('payment-form');
-                                        var exportUrl = form.action + "?export=true";
-                                        form.action = exportUrl;
-                                        form.submit();
-
-                                    } else {
-
-                                        document.getElementById('payment-form').submit();
-                                    }
-                                });
-                            });
-                        });
-                    </script>
 
                 </div><!-- container -->
             </div><!-- az-content -->

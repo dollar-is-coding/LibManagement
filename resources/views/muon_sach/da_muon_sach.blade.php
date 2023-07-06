@@ -69,6 +69,13 @@
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
+                @if (session('export_path'))
+                <a id="download-link" href="/{{ session('export_path') }}" style="display: none;" download></a>
+                <script>
+                    // Trigger the download using JavaScript
+                    document.getElementById('download-link').click();
+                </script>
+                @endif
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
@@ -98,7 +105,6 @@
                             <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
                                 <h5 class="ml-2 mt-1">Đọc giả: {{$item->fkNguoiDung->ten}}</h5>
                                 <p class="mt-1">Mã phiếu mượn #{{$item->ma_phieu_muon}}</p>
-                                <a id="xuat-hoa-don" href="{{route('export-pdf',['id'=>$item->ma_phieu_muon])}}">dâ muon</a>
                                 <p style="text-align: right;" class="mt-1 mr-2">{{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} - {{$item->han_tra}}</p>
                             </div>
                             <p class="ml-2" style="font-weight: bold;">Người duyệt: {{$item->fkNguoiDung->ten}}</p>
