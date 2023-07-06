@@ -35,11 +35,15 @@
                 </li>
 
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
+                    @if(Auth::user()->vai_tro == 1)
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>QUẢN TRỊ VIÊN</a>
+                    @else
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>THỦ THƯ</a>
+                    @endif
                     <nav class="az-menu-sub">
-                        @if(Auth::user()->vai_tro == 1)
+
                         <a href="{{ route('tao-tai-khoan') }}" class="nav-link">CẤP TÀI KHOẢN</a>
-                        @endif
+
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">QUẢN LÝ TÀI KHOẢN</a>
                     </nav>
                 </li>

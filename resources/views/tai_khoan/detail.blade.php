@@ -103,7 +103,7 @@
             </style>
 
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <a href="{{ url()->previous() }}">Quay lại</a>
+                <a style="font-size: 16px;" href="{{ url()->previous() }}"><i class="typcn typcn-arrow-back"></i>Quay lại</a>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <h4 class="az-content-label mg-b-5 ml-3">Chi tiết hồ sơ của {{$detail->ten}}</h4>
                     <p class="mg-b-5 ml-3 ">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>

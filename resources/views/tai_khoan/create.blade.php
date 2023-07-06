@@ -31,30 +31,30 @@
 
     @include('../common/header', ['view' => 4])
     @if (Session::has('success'))
-        <script>
-            setTimeout(function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thành công',
-                    text: `{{ Session::get('success') }}`,
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-            }, 100);
-        </script>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }, 100);
+    </script>
     @endif
     @if (Session::has('error'))
-        <script>
-            setTimeout(function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Thất bại',
-                    text: `{{ Session::get('error') }}`,
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-            }, 100);
-        </script>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Thất bại',
+                text: `{{ Session::get('error') }}`,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }, 100);
+    </script>
     @endif
     <div style="margin-bottom: 65px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
@@ -79,8 +79,7 @@
                         <form action="{{ route('import-sach') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <label class="custom-file-upload">
-                                <input required type="file" name="file" accept=".xlsx"
-                                    onchange="showFileName(event)">
+                                <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
                                 <span id="file-name">Chọn tệp</span>
                             </label>
 
@@ -106,8 +105,7 @@
                                     fileNameSpan.textContent = fileName;
                                 }
                             </script>
-                            <button style="margin-top: 0px;" type="submit" name="import_csv"
-                                class="btn btn-success ">Tải lên</button>
+                            <button style="margin-top: 0px;" type="submit" name="import_csv" class="btn btn-success ">Tải lên</button>
                         </form>
                     </div>
                     <!-- end import -->
@@ -124,25 +122,23 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="m-0">&nbsp;Họ</label>
                                     @error('ho')
-                                        <div style="font-style: italic;" class="text-danger">
-                                            {{ $message }} *&nbsp;
-                                        </div>
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
                                     @enderror
                                 </div>
-                                <input class="form-control" name="ho" value="{{ old('ho') }}"
-                                    placeholder="Nhập họ" type="text" autocomplete="off">
+                                <input class="form-control" name="ho" value="{{ old('ho') }}" placeholder="Nhập họ" type="text" autocomplete="off">
                             </div><!-- col -->
                             <div class="col-lg form-group m-0">
                                 <div class="d-flex justify-content-between">
                                     <label class="m-0">&nbsp;Tên</label>
                                     @error('ten')
-                                        <div style="font-style: italic;" class="text-danger">
-                                            {{ $message }} *&nbsp;
-                                        </div>
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
                                     @enderror
                                 </div>
-                                <input class="form-control" name="ten" value="{{ old('ten') }}"
-                                    placeholder="Nhập tên" type="text" autocomplete="off">
+                                <input class="form-control" name="ten" value="{{ old('ten') }}" placeholder="Nhập tên" type="text" autocomplete="off">
                             </div><!-- col -->
                             <div class="mb-1">
                                 <label class="rdiobox">
@@ -152,8 +148,7 @@
                             </div><!-- col-3 -->
                             <div class="mb-1">
                                 <label class="rdiobox">
-                                    <input name="gioi_tinh" value="2" type="radio"
-                                        {{ old('gioi_tinh') == 2 ? 'checked' : '' }}>
+                                    <input name="gioi_tinh" value="2" type="radio" {{ old('gioi_tinh') == 2 ? 'checked' : '' }}>
                                     <span>Nữ</span>
                                 </label>
                             </div><!-- col-3 -->
@@ -164,16 +159,17 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="m-0">&nbsp;Vai trò</label>
                                     @error('vai_tro')
-                                        <div style="font-style: italic;" class="text-danger">
-                                            {{ $message }} *&nbsp;
-                                        </div>
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
                                     @enderror
                                 </div>
                                 <select name="vai_tro" id="vai_tro" class="form-control select2-no-search">
                                     <option value="" selected></option>
-                                    <option value="1" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên
-                                    </option>
+                                    @if(Auth::user()->vai_tro == 1)
+                                    <option value="1" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
                                     <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
+                                    @endif
                                     <option value="3" {{ old('vai_tro') == 3 ? 'selected' : '' }}>Độc giả</option>
                                 </select>
 
@@ -182,13 +178,12 @@
                                         <div class="d-flex justify-content-between">
                                             <label class="m-0">&nbsp;Mã học sinh</label>
                                             @error('ma_hs')
-                                                <div style="font-style: italic;" class="text-danger">
-                                                    {{ $message }} *&nbsp;
-                                                </div>
+                                            <div style="font-style: italic;" class="text-danger">
+                                                {{ $message }} *&nbsp;
+                                            </div>
                                             @enderror
                                         </div>
-                                        <input class="form-control" name="ma_hs" id="ma_hoc_sinh" value=""
-                                            placeholder="Nhập mã học sinh" type="number" autocomplete="off">
+                                        <input class="form-control" name="ma_hs" id="ma_hoc_sinh" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
                                     </div><!-- col -->
                                 </div>
                             </div><!-- col-4 -->
@@ -196,20 +191,18 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="m-0">&nbsp;Email</label>
                                     @error('email')
-                                        <div style="font-style: italic;" class="text-danger">
-                                            {{ $message }} *&nbsp;
-                                        </div>
+                                    <div style="font-style: italic;" class="text-danger">
+                                        {{ $message }} *&nbsp;
+                                    </div>
                                     @enderror
                                 </div>
-                                <input type="text" name="email" class="form-control" placeholder="Nhập email"
-                                    value="{{ old('email') }}" autocomplete="off">
+                                <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{ old('email') }}" autocomplete="off">
                                 <!-- ngay sinh -->
                                 <div style="display: none;" class="mt-3" id="ngaysinhantren">
                                     <label for="ngay_sinh" class="m-0">&nbsp;Ngày sinh</label>
                                     <div class="mg-b-20">
                                         <div class="input-group">
-                                            <input id="for_tren" type="text" class="form-control fc-datepicker"
-                                                placeholder="DD/MM/YYYY" autocomplete="off">
+                                            <input id="for_tren" type="text" class="form-control fc-datepicker" placeholder="DD/MM/YYYY" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -220,18 +213,16 @@
                             <label for="ngay_sinh" class="m-0">&nbsp;Ngày sinh</label>
                             <div class="mg-b-20">
                                 <div class="input-group">
-                                    <input id="for_duoi" type="text" class="form-control fc-datepicker"
-                                        placeholder="DD/MM/YYYY">
+                                    <input id="for_duoi" type="text" class="form-control fc-datepicker" placeholder="DD/MM/YYYY">
                                 </div>
                             </div>
                         </div>
 
                         @if (session('errorMail'))
-                            <span class="rounded-lg p-2"
-                                style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                                <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                                <span class="text-danger">{{ session('errorMail') }}</span>
-                            </span>
+                        <span class="rounded-lg p-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                            <span class="text-danger">{{ session('errorMail') }}</span>
+                        </span>
                         @endif
                         <div class="col-sm-6 col-md-3 p-0">
                             <button id="button" class="btn btn-primary btn-block">Tạo tài khoản mới</button>
