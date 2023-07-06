@@ -25,20 +25,7 @@
 
     <title>libro - Tạo tài khoản</title>
 
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -76,10 +63,10 @@
                     <span>Quản lý tin tức</span>
                 </div>
                 <div class="">
-                    <h3 class="ml-3 mt-3">Quản lý tin tức ({{$sltintuc}})</h3>
                     @if($sltintuc == 0)
-                    <p class="ml-3">Hiện không có tin tức nào</p>
-                    @endif
+                    <h4>HIỆN KHÔNG CÓ TIN TỨC NÀO !!</h4>
+                    @else
+                    <h3 class="ml-3 mt-3">QUẢN LÝ TIN TỨC ({{$sltintuc}})</h3>
                     <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto;">
                         @foreach ($tintuc as $key => $item)
                         <div class="card" style="width: 18rem;margin: 10px;">
@@ -97,15 +84,13 @@
                         </div>
                         @endforeach
                     </div>
+                    @endif
                 </div>
             </div>
-            <!-- <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-                @include('../common/footer')
-            </div> -->
 
         </div><!-- container -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

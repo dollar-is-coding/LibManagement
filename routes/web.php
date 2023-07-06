@@ -106,6 +106,8 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-duyet-muon-sach')->middleware('auth');
     Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
+    Route::get('/muon-sach-tat-ca', [AdminController::class, 'xuLyMuonSachAll'])->name('xu-ly-muon-tat-ca-sach')->middleware('auth');
+
 
     Route::get('/dang-muon-sach', [AdminController::class, 'dangMuonSach'])->name('dang-muon-sach')->middleware('auth');
     Route::post('/dang-muon-sach/{id}', [AdminController::class, 'xuLyTraSach'])->name('xu-ly-tra-sach')->middleware('auth');

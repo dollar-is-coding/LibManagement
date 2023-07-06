@@ -23,22 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Tạo tài khoản</title>
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -83,14 +68,18 @@
                 <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link active mumu">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">Đã mượn</a>
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">CHỜ DUYỆT</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link active mumu">ĐANG MƯỢN<Nav></Nav></a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">ĐÃ MƯỢN</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
                 <div class="">
-                    <h3 class="ml-3 mt-3">Sách đang mượn sách</h3>
+                    @if($so_luong > 0)
+                    <h4 class="ml-3 mt-3">SÁCH ĐANG MƯỢN ({{$so_luong}})</h4>
+                    @else
+                    <h4>HIỆN TẠI KHÔNG CÓ AI ĐANG MƯỢN SÁCH !!</h4>
+                    @endif
                     <div class="table-responsive">
                         @foreach ($dang_muon as $key => $item)
                         @if ($key == 0 || $item->ma_phieu_muon != $dang_muon[$key - 1]->ma_phieu_muon)
@@ -132,6 +121,7 @@
 
         </div><!-- container -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

@@ -28,19 +28,7 @@
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
-    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="/lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="/lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="/lib/pickerjs/picker.min.css" rel="stylesheet">
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="/css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -68,10 +56,10 @@
                 @endif
 
                 @if ($slsach > 0)
-                <h4 class="mt-3">Số lượng sách {{ $slsach }}</h4>
+                <h4 class="mt-3">SỐ LƯỢNG SÁCH HIỆN CÓ ({{ $slsach }})</h4>
                 @endif
                 @if ($slsach == 0)
-                <p class="mt-2">Hiện không có sách nào !!!</p>
+                <h4 class="mt-2">HIỆN KHÔNG CÓ SÁCH NÀO !!</h4>
                 @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach ($sach as $item)
@@ -94,10 +82,10 @@
                     @endforeach
                 </div><!-- az-content-body -->
                 <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>
-                @include('../common/footer')
+
             </div>
         </div><!-- az-content -->
-
+        @include('../common/footer')
 
         <script src="/lib/jquery/jquery.min.js"></script>
         <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>

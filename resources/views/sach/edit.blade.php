@@ -24,17 +24,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Sách</title>
-
-    <!-- vendor css -->
-    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="/css/azia.css">
-
+        @include('/common/link')
 </head>
 
 <body>
@@ -264,11 +254,12 @@
 
                 <div class="ht-40"></div>
 
-                @include('../common/footer')
+
 
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <style>
         .upload-container {
             position: relative;

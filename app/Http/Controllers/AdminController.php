@@ -786,17 +786,26 @@ class AdminController extends Controller
     public function duyetMuonSach()
     {
         $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
-        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet]);
+        $so_luong = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
+        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet,'so_luong'=>$so_luong]);
     }
     public function xuLyMuonSach($id)
     {
-        $so_luong = PhieuMuonSach::where('trang_thai', 1)->where('ma_phieu_muon', $id)->count();
         PhieuMuonSach::where('ma_phieu_muon', $id)->update([
             'trang_thai' => 2,
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
         return back();
+    }
+    public function xuLyMuonSachAll()
+    {
+        PhieuMuonSach::where('trang_thai', 1)->update([
+            'trang_thai' => 2,
+            'thu_thu_id' => Auth::id(),
+            'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
+        ]);
+        return redirect()->route('dang-muon-sach');
     }
     public function xuLyTraSach(Request $request, $id)
     {
@@ -824,15 +833,16 @@ class AdminController extends Controller
     }
     public function dangMuonSach()
     {
+        $so_luong = PhieuMuonSach::where('trang_thai', 2)->distinct('ma_phieu_muon')->count();
         $dang_muon = PhieuMuonSach::where('trang_thai', 2)->get();
-        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon]);
+        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon,'so_luong'=>$so_luong]);
     }
 
     public function daMuonSach()
     {
-        
+        $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();
         $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'desc')->get();
-        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon]);
+        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon,'so_luong'=>$so_luong]);
     }
     public function chiTietPhieu($id)
     {

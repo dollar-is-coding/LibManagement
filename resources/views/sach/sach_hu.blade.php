@@ -27,24 +27,13 @@
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="/lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="/lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="/lib/pickerjs/picker.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="/css/azia.css">
-
+    @include('/common/link')
 </head>
 
-<body>
+<body style="margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;">
 
     @include('../common/header', ['view' => 2])
     @if(Session::has('success'))
@@ -69,8 +58,8 @@
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
                 @endif
-                <h3>Báo cáo sách hư</h3>
-                <div class="table-responsive">
+                <h4>BÁO CÁO SÁCH HƯ</h4>
+                <div class="table-responsive" style="margin-bottom: 220px;">
                     <form action="{{route('xu-ly-bo-sach-vao-kho')}}" method="post">
                         @csrf
                         <div style="display: grid;grid-template-columns: auto;">
@@ -107,11 +96,12 @@
                     @endif
                 </div><!-- az-content-body -->
 
-                @include('../common/footer')
+
             </div>
 
-        </div><!-- az-content -->
 
+        </div><!-- az-content -->
+        @include('../common/footer')
 
         <script src="/lib/jquery/jquery.min.js"></script>
         <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>

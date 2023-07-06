@@ -24,23 +24,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Tạo tài khoản</title>
-
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
-
+    @include('/common/link')
 </head>
 
 <body>
@@ -64,7 +48,7 @@
             font-family: 'Montserrat', sans-serif !important;
         }
     </style>
-    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div style="margin-bottom: 50px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
@@ -82,7 +66,7 @@
                     <span>Thêm tin tức</span>
                 </div>
                 <div class="">
-                    <h3 class="ml-3 mt-3">Thêm tin tức</h3>
+                    <h3 class="ml-3 mt-3">THÊM TIN TỨC</h3>
                     <form action="{{route('xu-ly-them-tin-tuc')}}" method="post" enctype="multipart/form-data" class="ml-3">
                         @csrf
                         <div class="form-check">
@@ -154,11 +138,12 @@
                 </style>
 
 
-                @include('../common/footer')
+
             </div><!-- az-content-body -->
 
         </div><!-- container -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

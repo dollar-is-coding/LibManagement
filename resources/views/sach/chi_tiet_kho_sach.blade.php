@@ -24,23 +24,7 @@
     <meta name="author" content="BootstrapDash">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <title>libro - Tra cứu</title>
-
-    <!-- vendor css -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link href="/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="/lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="/lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="/lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="/lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="/lib/pickerjs/picker.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="/css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -60,7 +44,7 @@
         }, 100);
     </script>
     @endif
-    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div style="margin-bottom: 190px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body">
                 @if (session('error'))
@@ -108,11 +92,12 @@
                     @endif
                 </div><!-- az-content-body -->
 
-                @include('../common/footer')
+               
             </div>
+        </div>
 
         </div><!-- az-content -->
-
+ @include('../common/footer')
 
         <script src="/lib/jquery/jquery.min.js"></script>
         <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
