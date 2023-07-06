@@ -33,15 +33,17 @@
                         MƯỢN SÁCH
                     </a>
                 </li>
-                @if(Auth::user()->vai_tro == 1)
+
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>QUẢN TRỊ VIÊN</a>
                     <nav class="az-menu-sub">
+                        @if(Auth::user()->vai_tro == 1)
                         <a href="{{ route('tao-tai-khoan') }}" class="nav-link">CẤP TÀI KHOẢN</a>
+                        @endif
                         <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">QUẢN LÝ TÀI KHOẢN</a>
                     </nav>
                 </li>
-                @endif
+
                 <li class="nav-item {{ $view == 5 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>TIN TỨC</a>
                     <nav class="az-menu-sub">
