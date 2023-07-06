@@ -126,10 +126,7 @@
                                         </div>
                                     </div>
                                     <h2 class="mb-2">{{ $sach->ten }}
-                                        @include('client.element.muon_sach_btn', [
-                                            'sach' => $sach,
-                                            'btn' => 1,
-                                        ])
+                                        @include('client.element.muon_sach_btn', ['sach' => $sach])
                                     </h2>
                                     @if ($sach->mo_ta != '<p><br></p>')
                                         <h6>Mô tả</h6>
@@ -147,7 +144,7 @@
         </section>
 
         @if ($cung_tac_gia->count() > 1)
-            <section class="related-podcast-section section-padding pt-0 pb-5">
+            <section class="related-podcast-section section-padding pt-0 {{ $ds_da_xem ? 'pb-5' : '' }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-12">

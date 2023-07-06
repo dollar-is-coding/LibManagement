@@ -37,7 +37,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/doi-mat-khau-moi', [HomeController::class, 'hienDoiMatKhau'])->name('hien-doi-mat-khau-moi');
     Route::post('/doi-mat-khau-moi', [HomeController::class, 'xuLyNhapMaXacThucQuenMatKhau'])->name('nhap-ma-xac-thuc-quen-mat-khau');
     // DASHBOARD
-    Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
+    Route::get('/trang-chu', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
     // XEM, TÌM KIẾM & CHI TIẾT SÁCH
     Route::get('/danh-sach-cac-cuon-sach', [AdminController::class, 'dsSach'])->name('hien-thi-sach')->middleware('auth');
     Route::get('/xu-ly-de-xuat', [AdminController::class, 'xuLyCapNhatDeXuat'])->name('xu-ly-de-xuat')->middleware('auth');
@@ -155,7 +155,7 @@ Route::get('/the-loai-sach', [ClientController::class, 'danhMucSach'])->name('th
 Route::get('/sach-theo-chu-de', [ClientController::class, 'sachTheoChuDe'])->name('sach-theo-chu-de');
 Route::get('/tin-tuc', [ClientController::class, 'showTinTuc'])->name('tin-tuc');
 Route::get('/lien-he', [ClientController::class, 'showLienHe'])->name('lien-he');
-Route::get('/trang-chu', [ClientController::class, 'index'])->name('trang-chu-client');
+Route::get('/', [ClientController::class, 'index'])->name('trang-chu-client');
 Route::middleware('user')->group(function () {
     Route::get('/loai-khoi-gio-sach', [ClientController::class, 'loaiKhoiGioSach'])->name('loai-khoi-gio-sach')->middleware('auth');
     Route::get('/gio-sach', [ClientController::class, 'showGioSach'])->name('hien-thi-gio-sach')->middleware('auth');

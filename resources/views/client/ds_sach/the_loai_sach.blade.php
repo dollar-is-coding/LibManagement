@@ -46,9 +46,10 @@
             </div>
         </header>
 
-        @foreach ($the_loai as $item)
+        @foreach ($the_loai as $key => $item)
             @if ($item->hasSach->count() > 0)
-                <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+                <section class="latest-podcast-section section-padding pt-2 {{ $key == $the_loai->count() - 1 ? '' : 'pb-5' }}"
+                    id="section_2">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-12 col-12">

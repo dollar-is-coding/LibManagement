@@ -1,4 +1,4 @@
-<section class="related-podcast-section section-padding pt-0">
+<section class="related-podcast-section section-padding pt-0 mb-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12">

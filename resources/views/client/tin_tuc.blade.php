@@ -96,7 +96,7 @@
         @endif
 
         @if ($tin_tuc->count() > 0)
-            <section class="trending-podcast-section section-padding pt-0">
+            <section class="trending-podcast-section section-padding pt-0 mb-4">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-12">

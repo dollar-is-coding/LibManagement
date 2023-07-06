@@ -47,7 +47,7 @@
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding pt-2" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2 mb-5" id="section_2">
             <div class="container">
                 <div class="row justify-content-start">
                     <div class="col-lg-12 col-12">
