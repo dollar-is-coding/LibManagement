@@ -122,7 +122,7 @@
                                         </p>
                                         <p class="mb-1">Ngày trả:
                                             <span style="font-weight: bold;">
-                                                {{ \Carbon\Carbon::parse($item->han_tra)->format('d/m/Y') }}
+                                                {{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}
                                             </span>
                                         </p>
                                     </div>
