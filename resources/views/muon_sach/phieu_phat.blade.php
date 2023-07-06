@@ -49,7 +49,7 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body d-flex flex-column">
-                <form class="row az-signin-header" action="{{ route('tim-kiem-da-muon-sach') }}" method="get">
+                <form class="row az-signin-header" action="{{ route('tim-kiem-phieu-phat') }}" method="get">
                     <div class="col-lg">
                         <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
                     </div>
@@ -80,23 +80,23 @@
                         <nav style="display: flex">
                             <a href="{{ route('phe-duyet-muon-sach') }}" class="nav-link mumu">CHỜ DUYỆT</a>
                             <a href="{{ route('dang-muon-sach') }}" class="nav-link mumu">ĐANG MƯỢN</a>
-                            <a href="{{ route('da-muon-sach') }}" class="nav-link active mumu">ĐÃ TRẢ</a>
-                            <a href="{{route('phieu-phat')}}" class="nav-link mumu">PHIẾU PHẠT</a>
+                            <a href="{{ route('da-muon-sach') }}" class="nav-link mumu">ĐÃ TRẢ</a>
+                            <a href="{{route('phieu-phat')}}" class="nav-link mumu active">PHIẾU PHẠT</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
                 <div class="">
                     @if ($so_luong > 0)
-                    <h4 class="mt-3">PHIẾU TRẢ SÁCH ({{ $so_luong }})</h4>
+                    <h4 class="mt-3">PHIẾU PHẠT ({{ $so_luong }})</h4>
                     @else
-                    <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU TRẢ SÁCH NÀO !!</h4>
+                    <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU PHẠT NÀO !!</h4>
                     @endif
                     <div class="table-responsive">
-                        @foreach ($da_muon as $key => $item)
-                        @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
+                        @foreach ($phieu_phat as $key => $item)
+                        @if ($key == 0 || $item->ma_phieu != $phieu_phat[$key - 1]->ma_phieu)
                         <div class="container border rounded pt-3 pl-4 pr-3 pb-2 mb-2" style="display: grid;grid-template-columns: auto;">
                             <div class="d-flex">
-                                <h5 class="mr-4">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</h5>
+                                <h5 class="mr-4">Mã phiếu #{{ $item->ma_phieu }}</h5>
                                 <p class="mb-1 mr-4">
                                     Độc giả:
                                     <span style="font-weight: bold;">
@@ -112,34 +112,38 @@
                                     </span>
                                 </p>
                                 <p class="mb-1 mr-4">
-                                    Ngày mượn:
+                                    Ngày trả:
                                     <span style="font-weight: bold;">
-                                        {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('d/m/Y') }}
+                                        {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}
                                     </span>
                                 </p>
-                                <p class="mb-1">Ngày trả:
+                                <p class="mb-1">
+                                    Tổng tiền phạt:
                                     <span style="font-weight: bold;">
-                                        {{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}
+                                        <b>{{ number_format($item->tong_tien_phat, 0, ',', '.') }} VNĐ</b>
                                     </span>
                                 </p>
                             </div>
                             <div style="font-style: italic; text-decoration:underline">
-                                Các quyển sách ({{ $item->tong_so_luong }}):</div>
+                                Các quyển sách ({{ $item->tong_so_sach }}):</div>
                             @endif
                             @if (
-                            ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
-                            $key == $da_muon->count() - 1)
+                            ($key != $phieu_phat->count() - 1 && $item->ma_phieu != $phieu_phat[$key + 1]->ma_phieu) ||
+                            $key == $phieu_phat->count() - 1)
                             <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
                                 <div style="display: flex;">
                                     <div class="ml-3">
                                         <p class="mt-1 mb-0">
                                             <b>&bull; {{ $item->fkSach->ten }}</b>
                                             <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                            <span class="ml-4">Tiền phạt: <b>{{ number_format($item->tien_phat, 0, ',', '.') }} VNĐ</b></span>
+                                            <span class="ml-4">Lý do: <b>{{$item->ly_do }}</b></span>
                                         </p>
                                     </div>
+
                                 </div>
                                 <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                    <a href="{{ route('chi-tiet-phieu', ['id' => $item->ma_phieu_muon]) }}" style="width: 25%;" class="btn btn-indigo rounded m-1">Chi tiết</a>
+                                    <a href="{{route('export-pdf',['id'=>$item->ma_phieu])}}" style="width: 30%;" class="btn btn-indigo rounded m-1">In phiếu</a>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +153,8 @@
                                 <p class="mt-1 mb-0">
                                     <b>&bull; {{ $item->fkSach->ten }}</b>
                                     <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                    <span class="ml-4">Tiền phạt: <b>{{ number_format($item->tien_phat, 0, ',', '.') }} VNĐ</b></span>
+                                    <span class="ml-4">Lý do: <b>{{$item->ly_do }}</b></span>
                                 </p>
                             </div>
                         </div>

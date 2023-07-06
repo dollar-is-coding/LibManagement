@@ -785,7 +785,7 @@ class AdminController extends Controller
                 'da_muon' => $da_muon,
                 'search' => '',
                 'selected' => 'asc_name',
-                'so_luong'=> $so_luong,
+                'so_luong' => $so_luong,
             ]);
         }
     }
@@ -793,7 +793,7 @@ class AdminController extends Controller
     {
         $cho_duyet = PhieuMuonSach::where('trang_thai', 1)->get();
         $so_luong = PhieuMuonSach::where('trang_thai', 1)->distinct('ma_phieu_muon')->count();
-        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet,'so_luong'=>$so_luong]);
+        return view('muon_sach.phe_duyet_sach', ['cho_duyet' => $cho_duyet, 'so_luong' => $so_luong]);
     }
     public function xuLyMuonSach($id)
     {
@@ -841,14 +841,14 @@ class AdminController extends Controller
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 2)->distinct('ma_phieu_muon')->count();
         $dang_muon = PhieuMuonSach::where('trang_thai', 2)->get();
-        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon,'so_luong'=>$so_luong]);
+        return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon, 'so_luong' => $so_luong]);
     }
 
     public function daMuonSach()
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();
         $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'desc')->get();
-        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon,'so_luong'=>$so_luong]);
+        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon, 'so_luong' => $so_luong]);
     }
     public function chiTietPhieu($id)
     {
@@ -1087,5 +1087,27 @@ class AdminController extends Controller
         }
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
+    }
+    public function phieuPhat()
+    {
+        $phieu_phat = PhieuPhat::all();
+        $so_luong = PhieuPhat::where('ma_phieu', '>', 0)->distinct('ma_phieu')->count();
+        return view('muon_sach.phieu_phat', ['phieu_phat' => $phieu_phat, 'so_luong' => $so_luong]);
+    }
+    public function timKiemPhieuPhat(Request $request)
+    {
+        $timKiem = $request->tim_kiem;
+        $phieu_phat = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->get();
+        $so_luong = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->where('ma_phieu', '>', 0)->orderBy('ma_phieu', 'asc')->distinct('ma_phieu')->count();
+        if ($phieu_phat->count() === 0) {
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        } else {
+            return view('muon_sach.phieu_phat', [
+                'phieu_phat' => $phieu_phat,
+                'search' => '',
+                'selected' => 'asc_name',
+                'so_luong' => $so_luong,
+            ]);
+        }
     }
 }

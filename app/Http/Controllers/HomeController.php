@@ -47,8 +47,9 @@ class HomeController extends Controller
         $thang10 = PhieuTraSach::whereMonth('created_at', '=', 10)->count();
         $thang11 = PhieuTraSach::whereMonth('created_at', '=', 11)->count();
         $thang12 = PhieuTraSach::whereMonth('created_at', '=', 12)->count();
-        return view('trang_chu', ['slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu,'sltintuc'=>$sltintuc,'ten'=>$ten, 'slsachduyet'=> $slsachduyet, 'slphanhoi'=> $slphanhoi, 
-            'thang1'=> $thang1,
+        return view('trang_chu', [
+            'slsach' => $slsach, 'sldocgia' => $sldocgia, 'slthuthu' => $slthuthu, 'sltintuc' => $sltintuc, 'ten' => $ten, 'slsachduyet' => $slsachduyet, 'slphanhoi' => $slphanhoi,
+            'thang1' => $thang1,
             'thang2' => $thang2,
             'thang3' => $thang3,
             'thang4' => $thang4,
@@ -60,7 +61,7 @@ class HomeController extends Controller
             'thang10' => $thang10,
             'thang11' => $thang11,
             'thang12' => $thang12,
-    ]);
+        ]);
     }
 
 
@@ -98,11 +99,10 @@ class HomeController extends Controller
             return redirect()->route('trang-chu-client');
         }
         return back()->with('error', 'Đăng nhập thất bại');
-
     }
     public function xuLyDangXuat()
     {
-  
+
         Auth::logout();
         session()->flush();
         return redirect()->route('dang-nhap');
@@ -115,14 +115,14 @@ class HomeController extends Controller
     }
     public function xuLySuaThongTin(TaiKhoanRequest $request)
     {
-        $ho=$request->old('ho');
-        $ten=$request->old('ten');
-        $nguoiDung=NguoiDung::where('id',Auth::id())->update([
-            'ho'=>$request->ho,
-            'ten'=>$request->ten,
-            'gioi_tinh'=>(int)$request->gioi_tinh,
+        $ho = $request->old('ho');
+        $ten = $request->old('ten');
+        $nguoiDung = NguoiDung::where('id', Auth::id())->update([
+            'ho' => $request->ho,
+            'ten' => $request->ten,
+            'gioi_tinh' => (int)$request->gioi_tinh,
         ]);
-        $img =NguoiDung::find(Auth::id());
+        $img = NguoiDung::find(Auth::id());
         if ($request->has('file')) {
             $file = $request->file;
             $filename = $file->getClientOriginalName();
@@ -131,7 +131,7 @@ class HomeController extends Controller
         }
         FacadesSession::flash('success', 'Xử lý thành công');
         $img->save();
-        
+
         return redirect()->back();
     }
     public function doiMatKhau()
@@ -140,14 +140,14 @@ class HomeController extends Controller
     }
     public function xuLyDoiMatKhau(MatKhauRequest $request)
     {
-        if ($request->new_pass==$request->confirm_pass&&Hash::check($request->old_pass,Auth::user()->mat_khau)) {
+        if ($request->new_pass == $request->confirm_pass && Hash::check($request->old_pass, Auth::user()->mat_khau)) {
             NguoiDung::find(Auth::id())->update([
-                'mat_khau'=>Hash::make($request->new_pass),
+                'mat_khau' => Hash::make($request->new_pass),
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');
             return back();
         }
-        return back()->with('error','Thay đổi mật khẩu thất bại');
+        return back()->with('error', 'Thay đổi mật khẩu thất bại');
     }
 
     // Quên mật khẩu ( nhập mail, nhập mã xác minh, đặt lại mật khẩu)
@@ -175,10 +175,12 @@ class HomeController extends Controller
             return back()->with('error', 'Email không tồn tại');
         }
     }
-    public function hienNhapXacThucQuenMatKhau(){
+    public function hienNhapXacThucQuenMatKhau()
+    {
         return view('ca_nhan.nhap_ma_xac_thuc');
     }
-    public function hienDoiMatKhau(){
+    public function hienDoiMatKhau()
+    {
         return view('ca_nhan.doi_mat_khau_moi');
     }
     public function xuLyGuiMaQuenMatKhau()
@@ -220,14 +222,15 @@ class HomeController extends Controller
             return back()->with('error', 'Mã không hợp lệ');
         }
     }
-    public function datLaiMatKhau(){
+    public function datLaiMatKhau()
+    {
         return view('quen_mat_khau.dat_lai_mat_khau');
     }
     public function xuLyDatLaiMatKhau(DatLaiMatKhauRequest $request)
     {
-        $email=session()->get('emailTo');
+        $email = session()->get('emailTo');
         if ($request->new_pass == $request->confirm_pass) {
-            NguoiDung::where('email',$email)->update([
+            NguoiDung::where('email', $email)->update([
                 'mat_khau' => Hash::make($request->new_pass),
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');
