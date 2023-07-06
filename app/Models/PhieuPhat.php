@@ -33,4 +33,8 @@ class PhieuPhat extends Model
     {
         return $this->belongsTo(Sach::class, 'sach_id');
     }
+    public function fkNguoiDung()
+    {
+        return $this->belongsTo(NguoiDung::class, 'doc_gia_id');
+    }
 }

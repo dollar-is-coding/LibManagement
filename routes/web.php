@@ -102,7 +102,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/tim-kiem-duyet-sach', [AdminController::class, 'timKiemDocGiaDuyetSach'])->name('tim-kiem-duyet-sach')->middleware('auth');
     Route::get('/tim-kiem-dang-muon-sach', [AdminController::class, 'timKiemDocGiaDangMuonSach'])->name('tim-kiem-dang-muon-sach')->middleware('auth');
     Route::get('/tim-kiem-da-muon-sach', [AdminController::class, 'timKiemDocGiaDaMuonSach'])->name('tim-kiem-da-muon-sach')->middleware('auth');
-
+    Route::get('/tim-kiem-phieu-phat', [AdminController::class, 'timKiemPhieuPhat'])->name('tim-kiem-phieu-phat')->middleware('auth');
 
     Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-duyet-muon-sach')->middleware('auth');
     Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
@@ -143,6 +143,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('xoa-sach-kho')->middleware('auth');
 
     Route::get('/xoa-binh-luan/{id}', [AdminController::class, 'xuLyXoaBinhLuan'])->name('xu-ly-xoa-binh-luan')->middleware('auth');
+
+    Route::get('/phieu-phat', [AdminController::class, 'phieuPhat'])->name('phieu-phat')->middleware('auth');
+
 });
 
 Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');

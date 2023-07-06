@@ -1088,4 +1088,25 @@ class AdminController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
+    public function phieuPhat(){
+        $phieu_phat = PhieuPhat::all();
+        $so_luong = PhieuPhat::where('ma_phieu','>',0)->distinct('ma_phieu')->count();
+        return view('muon_sach.phieu_phat',['phieu_phat'=> $phieu_phat,'so_luong'=>$so_luong]);
+    }
+    public function timKiemPhieuPhat(Request $request)
+    {
+        $timKiem = $request->tim_kiem;
+        $phieu_phat = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->get();
+        $so_luong = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->where('ma_phieu', '>', 0)->orderBy('ma_phieu', 'asc')->distinct('ma_phieu')->count();
+        if ($phieu_phat->count() === 0) {
+            return back()->with('error', 'Không tìm thấy kết quả nào!!!');
+        } else {
+            return view('muon_sach.phieu_phat', [
+                'phieu_phat' => $phieu_phat,
+                'search' => '',
+                'selected' => 'asc_name',
+                'so_luong' => $so_luong,
+            ]);
+        }
+    }
 }
