@@ -73,7 +73,7 @@
                         <nav style="display: flex">
                             <a href="{{ route('phe-duyet-muon-sach') }}" class="nav-link mumu">CHỜ DUYỆT</a>
                             <a href="{{ route('dang-muon-sach') }}" class="nav-link active mumu">ĐANG MƯỢN<Nav></Nav>
-                                </a>
+                            </a>
                             <a href="{{ route('da-muon-sach') }}" class="nav-link mumu">ĐÃ MƯỢN</a>
                         </nav>
                     </div><!-- component-item -->
@@ -87,17 +87,31 @@
                     <div class="table-responsive">
                         @foreach ($dang_muon as $key => $item)
                             @if ($key == 0 || $item->ma_phieu_muon != $dang_muon[$key - 1]->ma_phieu_muon)
-                                <div class="container border rounded ml-3 mb-3"
-                                    style="width: 96%;display: grid;grid-template-columns: auto;">
-                                    <div style="display: grid;grid-template-columns: auto auto auto;width: 100%;">
-                                        <h5 class="ml-2 mt-1">Đọc giả: {{ $item->fkNguoiDung->ten }}</h5>
-                                        <p class="mt-1">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</p>
-                                        <p style="text-align: right;" class="mt-1 mr-2">
-                                            {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('Y-m-d') }} -
-                                            {{ $item->han_tra }}</p>
+                                <div class="container border rounded pt-3 pl-4 pr-3 pb-2 mb-2"
+                                    style="display: grid;grid-template-columns: auto;">
+                                    <div class="d-flex">
+                                        <h5 class="mr-4">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</h5>
+                                        <p class="mb-1 mr-4">
+                                            Độc giả:
+                                            <span style="font-weight: bold;">
+                                                {{ $item->fkNguoiDung->ho }}
+                                                {{ $item->fkNguoiDung->ten }}
+                                            </span>
+                                        </p>
+                                        <p class="mb-1 mr-4">
+                                            Ngày mượn:
+                                            <span style="font-weight: bold;">
+                                                {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('d/m/Y') }}
+                                            </span>
+                                        </p>
+                                        <p class="mb-1">Ngày trả:
+                                            <span style="font-weight: bold;">
+                                                {{ \Carbon\Carbon::parse($item->han_tra)->format('d/m/Y') }}
+                                            </span>
+                                        </p>
                                     </div>
-                                    <p class="ml-2" style="font-weight: bold;">Người duyệt:
-                                        {{ $item->fkNguoiDung->ten }}</p>
+                                    <div style="font-style: italic; text-decoration:underline">
+                                        Các quyển sách ({{ $item->tong_so_luong }}):</div>
                             @endif
                             @if (
                                 ($key != $dang_muon->count() - 1 && $item->ma_phieu_muon != $dang_muon[$key + 1]->ma_phieu_muon) ||
@@ -105,22 +119,28 @@
                                 <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
                                     <div style="display: flex;">
                                         <div class="ml-3">
-                                            <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
+                                            <p class="mt-1 mb-0">
+                                                <b>&bull; {{ $item->fkSach->ten }}</b>
+                                                <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                            </p>
                                         </div>
                                     </div>
                                     <div style="display: flex;flex-direction: row-reverse;height: 50px;">
                                         <a href="{{ route('thanh-toan-sach', ['id' => $item->ma_phieu_muon]) }}"
-                                            style="width: 30%;" class="btn btn-success rounded mb-3 mr-2 ml-2">Xác
+                                            style="width: 30%;" class="btn btn-success rounded m-1">Xác
                                             nhận</a>
                                         <a href="{{ route('chi-tiet-phieu', ['id' => $item->ma_phieu_muon]) }}"
-                                            style="width: 25%;" class="btn btn-indigo rounded mb-3">Chi tiết</a>
+                                            style="width: 25%;" class="btn btn-indigo rounded m-1">Chi tiết</a>
                                     </div>
                                 </div>
                     </div>
                 @else
                     <div class="ml-2">
                         <div class="ml-3">
-                            <p><b>{{ $item->fkSach->ten }}</b> ({{ $item->so_luong }} quyển)</p>
+                            <p class="mt-1 mb-0">
+                                <b>&bull; {{ $item->fkSach->ten }}</b>
+                                <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                            </p>
                         </div>
                     </div>
                     @endif

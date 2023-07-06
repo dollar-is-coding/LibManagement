@@ -96,7 +96,7 @@
                     <div class="table-responsive">
                         @foreach ($da_muon as $key => $item)
                             @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
-                                <div class="container border rounded pt-3 pl-4 pr-4 pb-2 mb-2"
+                                <div class="container border rounded pt-3 pl-4 pr-3 pb-2 mb-2"
                                     style="display: grid;grid-template-columns: auto;">
                                     <div class="d-flex">
                                         <h5 class="mr-4">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</h5>
@@ -127,7 +127,7 @@
                                         </p>
                                     </div>
                                     <div style="font-style: italic; text-decoration:underline">
-                                        Các quyển sách:</div>
+                                        Các quyển sách ({{ $item->tong_so_luong }}):</div>
                             @endif
                             @if (
                                 ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
@@ -151,7 +151,8 @@
                     <div class="ml-2">
                         <div class="ml-3">
                             <p class="mt-1 mb-0">
-                                <b>&bull; {{ $item->fkSach->ten }}</b> <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                <b>&bull; {{ $item->fkSach->ten }}</b>
+                                <span class="ml-3">x{{ $item->so_luong }} quyển</span>
                             </p>
                         </div>
                     </div>
