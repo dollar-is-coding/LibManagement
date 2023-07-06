@@ -117,7 +117,7 @@
                                     <div class="custom-block-image-wrap">
                                         <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
                                             @if ($item->fkSach->hinh_anh != '')
-                                                <img src="../img/books/{{ $sach->fkSach->hinh_anh }}"
+                                                <img src="../img/books/{{ $item->fkSach->hinh_anh }}"
                                                     class="custom-block-image img-fluid" alt="" />
                                             @else
                                                 <img src="../img/default/no_book.jpg"
