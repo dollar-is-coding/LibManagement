@@ -184,22 +184,6 @@
                                         <input class="form-control" name="ma_hs" id="ma_hoc_sinh" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
                                     </div><!-- col -->
                                 </div>
-                                <script>
-                                    let select = document.getElementById('vai_tro');
-                                    let show = document.getElementById('show');
-                                    let show_import = document.getElementById('import_doc_gia');
-
-                                    function hide_show() {
-                                        if (select.value == 3) {
-                                            show.style.display = 'block';
-                                            show_import.style.display = 'block';
-                                        } else if (select.value == 1 || select.value == 2) {
-                                            show.style.display = 'none';
-                                            show_import.style.display = 'none';
-                                        }
-                                    }
-                                    select.onchange = hide_show;
-                                </script>
                             </div><!-- col-4 -->
                             <div class="col-lg form-group">
                                 <div class="d-flex justify-content-between">
@@ -211,17 +195,27 @@
                                     @enderror
                                 </div>
                                 <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{ old('email') }}" autocomplete="off">
+                                <!-- ngay sinh -->
+                                <div style="display: none;" class="mt-3" id="ngaysinhantren">
+                                    <label for="ngay_sinh" class="m-0">&nbsp;Ngày sinh</label>
+                                    <div class="mg-b-20">
+                                        <div class="input-group">
+                                            <input id="for_tren" type="text" class="form-control fc-datepicker" placeholder="DD/MM/YYYY">
+                                        </div>
+                                    </div>
+                                </div>
                             </div><!-- form-group -->
                         </div>
-
                         <!-- ngày sinh -->
-                        <div class="col-lg form-group p-0 mt-2" style="width: 100%;">
-                            <div class="d-flex justify-content-between">
-                                <label for="ngay_sinh" class="m-0">&nbsp;Ngày sinh</label>
+                        <div class="mt-0" id="ngaysinhanduoi">
+                            <label for="ngay_sinh" class="m-0">&nbsp;Ngày sinh</label>
+                            <div class="mg-b-20">
+                                <div class="input-group">
+                                    <input id="for_duoi" type="text" class="form-control fc-datepicker" placeholder="DD/MM/YYYY">
+                                </div>
                             </div>
-                            <input id="ngay_sinh" required type="date" name="ngay_sinh" class="form-control" autocomplete="off">
+                        </div>
 
-                        </div><!-- form-group -->
                         @if (session('errorMail'))
                         <span class="rounded-lg p-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                             <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
@@ -258,6 +252,38 @@
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
     <script>
+        let select = document.getElementById('vai_tro');
+        let show = document.getElementById('show');
+        let show_import = document.getElementById('import_doc_gia');
+        let ngay_tren = document.getElementById('ngaysinhantren');
+        let ngay_duoi = document.getElementById('ngaysinhanduoi');
+        let tren = document.getElementById('for_tren');
+        let duoi = document.getElementById('for_duoi');
+
+        function hide_show() {
+            if (select.value == 3) {
+                show.style.display = 'block';
+                show_import.style.display = 'block';
+                ngay_tren.style.display = 'block';
+                ngay_duoi.style.display = 'none';
+                tren.setAttribute("name", "ngay_sinh");
+                tren.setAttribute("required", "");
+                duoi.removeAttribute("name");
+                duoi.removeAttribute("required");
+            } else if (select.value == 1 || select.value == 2) {
+                show.style.display = 'none';
+                show_import.style.display = 'none';
+                ngay_tren.style.display = 'none';
+                ngay_duoi.style.display = 'block';
+                duoi.setAttribute("name", "ngay_sinh");
+                duoi.setAttribute("required", "");
+                tren.removeAttribute("name");
+                tren.removeAttribute("required");
+            }
+        }
+        select.onchange = hide_show;
+    </script>
+    <script>
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: 'Choose one',
@@ -268,6 +294,13 @@
                 minimumResultsForSearch: Infinity,
                 placeholder: 'Chọn vai trò'
             });
+        });
+    </script>
+    <script>
+        $('.fc-datepicker').datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            dateFormat: 'dd/mm/yy'
         });
     </script>
 </body>

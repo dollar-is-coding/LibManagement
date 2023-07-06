@@ -28,11 +28,6 @@ class HomeController extends Controller
 {
     public function trangChu()
     {
-        $da_tra = PhieuMuonSach::where('ma_phieu_muon', '23070001')->get();
-
-        foreach ($da_tra as $key => $value) {
-            return  $value->hasPhieuTraSach;
-        }
         $ten = Auth::user()->ten;
         $slsach = Sach::all()->count();
         $sldocgia = NguoiDung::where('vai_tro', 3)->count();

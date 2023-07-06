@@ -654,8 +654,8 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro', 1)->where('id', '!=', Auth::id())->get();
-        $thuthu = NguoiDung::where('vai_tro', 2)->where('id', '!=', Auth::id())->get();
+        $admin = NguoiDung::where('vai_tro', 1)->get();
+        $thuthu = NguoiDung::where('vai_tro', 2)->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
         return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
         // return view('tai_khoan.index',['ds_tai_khoan'=>NguoiDung::paginate(10)]);
