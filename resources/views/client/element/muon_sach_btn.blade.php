@@ -7,7 +7,7 @@
         {{-- Kiểm tra đang mượn --}}
     @elseif ($sach->hasPhieuMuon->count() > 0)
         @foreach ($sach->hasPhieuMuon as $key => $phieu_muon)
-            @if ($phieu_muon->trang_thai == 1 || $phieu_muon->trang_thai == 2)
+            @if ($phieu_muon->doc_gia_id == Auth::id() && ($phieu_muon->trang_thai == 1 || $phieu_muon->trang_thai == 2))
                 <a class="btn custom-btn disable">Đang mượn</a>
                 @break
             @endif
@@ -23,5 +23,5 @@
             onclick="handleGioSach({{ $sach->id }}); return false;">Chọn sách</a>
     @endif
 @else
-    <a href="{{ route('dang-nhap') }}" class="btn custom-btn">Chọn sách</a>
+<a href="{{ route('dang-nhap') }}" class="btn custom-btn">Chọn sách</a>
 @endif

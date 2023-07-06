@@ -40,8 +40,7 @@
                             {{ Auth::user()->ho }} {{ Auth::user()->ten }}</a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                             <input type="text" id="gio_sach_hien_tai" value="{{ $gio_sach->count() }}" hidden>
-                            <li><a class="dropdown-item" id="gio_sach" href="{{ route('hien-thi-gio-sach') }}"
-                                    onclick="{{ $gio_sach->count() == 0 ? 'return false' : '' }}">
+                            <li><a class="dropdown-item" id="gio_sach" href="{{ route('hien-thi-gio-sach') }}">
                                     Giỏ sách ({{ $gio_sach->count() }})</a></li>
                             <li><a class="dropdown-item" href="{{ route('tai-khoan-cua-toi') }}">
                                     Tài khoản của tôi</a></li>

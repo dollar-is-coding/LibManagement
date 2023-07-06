@@ -77,11 +77,12 @@
                 </div><!-- az-content-left -->
                 <div>
                     @if ($so_luong > 0)
-                    <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
-                        <h4 class="m-0">PHÊ DUYỆT MƯỢN SÁCH ({{ $so_luong }})</h4>
-                        <div style="display: flex;justify-content: end;">
-                            <a class="btn btn-success rounded" href="{{ route('xu-ly-muon-tat-ca-sach') }}">
-                                Duyệt tất cả</a>
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <h4 class="m-0">PHÊ DUYỆT MƯỢN SÁCH ({{ $so_luong }})</h4>
+                            <div style="display: flex;justify-content: end;">
+                                <a class="btn btn-success rounded" href="{{ route('xu-ly-muon-tat-ca-sach') }}">
+                                    Duyệt tất cả</a>
+                            </div>
                         </div>
                     </div>
                     @else

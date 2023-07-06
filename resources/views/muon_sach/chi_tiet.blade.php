@@ -31,8 +31,8 @@
 
 <body>
 
-    @include('../common/header', ['view' => 3])
-    @if(Session::has('success'))
+    @include('../common/header', ['view' => 0])
+    @if (Session::has('success'))
     <script>
         setTimeout(function() {
             Swal.fire({
@@ -48,66 +48,61 @@
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <style>
-                    .mumu {
-                        margin: 15px 50px 15px 15px !important;
-                    }
-                </style>
-                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
-                    <div class="component-item" style="position: sticky;">
-                        <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link mumu">Đã mượn</a>
-                        </nav>
-                    </div><!-- component-item -->
-                </div><!-- az-content-left -->
-                <div class="">
-                    <a href="{{ url()->previous() }}" style="text-decoration: none;">Quay lại</a>
-                    <h3 class=" mt-3">Chi tiết</h3>
+                <div>
+                    <div class="d-flex mb-2">
+                        <a href="{{ url()->previous() }}" style="font-size: 20px" class="mr-2">
+                            <i class="typcn typcn-arrow-back"></i></a>
+                        <h3 class="m-0">Chi tiết phiếu</h3>
+                    </div>
                     <div class="table-responsive">
-                        <div class=" rounded" style="display: flex;background-color: whitesmoke;">
-                            <div style="flex-basis: 75%;margin:10px 0px 0px 20px;">
-                                <h5>Mã phiếu: {{$chi_tiet_sach->ma_phieu_muon}}</h5>
-                                <div style="display: flex;">
-                                    <p>Đọc giả: <b>{{$chi_tiet_sach->fkNguoiDung->ten}}</b></p>
-                                    @if($chi_tiet_sach->thu_thu_id != '')
-                                    <p class="ml-3">Thủ thư: <b>{{$chi_tiet_sach->fkThuThu->ten}}</b></p>
+                        <div class="rounded p-3" style="background-color: whitesmoke;">
+                            <div class="d-flex">
+                                <h5 class="m-0 mr-5">Mã phiếu: {{ $chi_tiet_sach->ma_phieu_muon }}</h5>
+                                <div class="d-flex">
+                                    <p class="m-0 mr-5">Độc giả: <b>{{ $chi_tiet_sach->fkNguoiDung->ho }}
+                                            {{ $chi_tiet_sach->fkNguoiDung->ten }}</b></p>
+                                    @if ($chi_tiet_sach->thu_thu_id != '')
+                                    <p class="m-0 mr-5">Thủ thư: <b>
+                                            {{ $chi_tiet_sach->fkThuThu->ho }} {{ $chi_tiet_sach->fkThuThu->ten }}
+                                        </b></p>
                                     @endif
                                 </div>
-                                <p>Tổng số lượng sách: <b>{{$chi_tiet_sach->tong_so_luong}}</b></p>
+                                <p class="m-0 mr-5">Ngày mượn:
+                                    <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('d/m/Y') }}</b>
+                                </p>
+                                <p class="m-0 mr-5">Ngày cần trả:
+                                    <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->han_tra)->format('d/m/Y') }}</b>
+                                </p>
                             </div>
-
-                            <div style="flex-basis: 25%;margin: 10px 0 0 0;">
-                                <p>Thời gian: <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('Y-m-d') }}</b> -- <b>{{$chi_tiet_sach->han_tra}}</b></p>
-                                <div class="mt-2" style="margin-right: 40px;">
-                                    @if($tong_tien)
-                                    <p style="text-align: end;">Tổng tiền phạt: <b>{{ number_format($tong_tien->tong_tien_phat, 0, ',', '.') }} VNĐ</b></p>
-                                    @endif
-                                </div>
-                            </div>
+                            <p class="m-0 mt-2">
+                                Tổng số lượng sách: <b>{{ $chi_tiet_sach->tong_so_luong }} quyển
+                                </b></p>
+                            @if ($tong_tien)
+                            <p class="m-0 mt-2">Ngày trả:
+                                <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->updated_at)->format('d/m/Y') }}</b>
+                            </p>
+                            @endif
                         </div>
-
                         @foreach ($chitiet as $key => $item)
                         <div class="border rounded mt-3" style="display: flex;">
-                            <div style="flex-basis: 75%;" class="mt-3 ml-3">
-                                <div style="display: flex;">
-                                    <p class="mr-3">Tên sách:
-                                        <b>{{$item->fkSach->ten}}</b>
-                                    </p>
-                                    <p>Mã sách: <b>{{$item->fkSach->ma_sach}}</b></p>
-                                    <p class="ml-3">Số lượng: <b>{{$item->so_luong}}</b></p>
+                            <div style="flex-basis: 100%;" class="mt-3 ml-3 mr-3">
+                                <div class="d-flex justify-content-between">
+                                    <h4>{{ $item->fkSach->ten }}</h4>
+                                    <div style="display: flex;">
+                                        <p>Mã sách: <b>{{ $item->fkSach->ma_sach }}</b></p>
+                                        <p class="ml-4">Số lượng: <b>{{ $item->so_luong }}</b></p>
+                                        <p class="ml-4">Khu vực:
+                                            <b>{{ $item->fkSach->hasThuVien->fkTuSach->ten }},
+                                                {{ $item->fkSach->hasThuVien->fkKhuVuc->ten }}</b>
+                                        </p>
+                                    </div>
                                 </div>
-
-                                <p>Tác giả: <b>{{$item->fkSach->fkTacGia->ten}}</b></p>
-                                <p>Nhà xuất bản: <b>{{$item->fkSach->fkNhaXuatBan->ten}}</b></p>
-                            </div>
-
-                            <div style="flex-basis: 25%;" class="mt-3">
-                                <div style="display: flex;">
-                                    <p class="mr-3">Khu vực: <b>{{$item->fkSach->hasThuVien->fkTuSach->ten}}</b></p>
-                                    <p><b>{{$item->fkSach->hasThuVien->fkKhuVuc->ten}}</b></p>
-                                </div>
+                                <p class="m-0 mb-2">Tác giả: <b>{{ $item->fkSach->fkTacGia->ten }}</b></p>
+                                <p class="m-0 mb-2">Thể loại: <b>{{ $item->fkSach->fkTheLoai->ten }}</b></p>
+                                <p class="m-0 mb-2">Năm xuất bản: <b>{{ $item->fkSach->nam_xuat_ban }}</b></p>
+                                <p class="m-0 mb-3">
+                                    Nhà xuất bản: <b>{{ $item->fkSach->fkNhaXuatBan->ten }}</b>
+                                </p>
                             </div>
                         </div>
                         @endforeach

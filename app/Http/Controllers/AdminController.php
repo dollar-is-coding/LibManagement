@@ -847,7 +847,7 @@ class AdminController extends Controller
     public function daMuonSach()
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();
-        $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'desc')->get();
+        $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'asc')->get();
         return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon,'so_luong'=>$so_luong]);
     }
     public function chiTietPhieu($id)
