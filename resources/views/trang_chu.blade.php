@@ -24,15 +24,8 @@
     <meta name="author" content="BootstrapDash">
 
     <title>libro - Trang chủ</title>
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+      @include('/common/link')
 
 </head>
 
@@ -52,7 +45,7 @@
                     <div>
                         <form action="{{route('export')}}" method="POST">
                             @csrf
-                            <input type="submit" value="Export Excel" name="export_csv" class="btn btn-success">
+                            <input title="THỐNG KÊ THEO THÁNG SÁCH ĐÃ MƯỢN, KHO SÁCH, PHẠT" type="submit" value="Export Excel" name="export_csv" class="btn btn-success">
                         </form>
                     </div>
                     <div style="display: none;" class="az-content-header-right">
@@ -94,24 +87,24 @@
                     </nav>
                 </div>
                 <!-- thong ke -->
-                <div style="display: flex;">
+                <div style="display: flex;" class="mb-2">
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng Sách</h5>
+                            <h5 class="card-title">SỐ LƯỢNG SÁCH</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slsach}}</p>
                             <a href="{{route('hien-thi-sach')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
-                    <div class="card" style="width: 400px;">
+                    <div class="card ml-2 mr-2" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng độc giả</h5>
+                            <h5 class="card-title">SỐ LƯỢNG ĐỌC GIẢ</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$sldocgia}}</p>
                             <a href="{{route('quan-ly-tai-khoan')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng thủ thư</h5>
+                            <h5 class="card-title">SỐ LƯỢNG THỦ THƯ</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slthuthu}}</p>
                             <a href="{{route('quan-ly-tai-khoan')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
@@ -122,25 +115,28 @@
                 <div style="display: flex;">
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng tin tức</h5>
+                            <h5 class="card-title">SỐ LƯỢNG TIN TỨC</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$sltintuc}}</p>
                             <a href="{{route('danh-sach-tin-tuc')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
-                    <div class="card" style="width: 400px;">
+                    <div class="card mr-2 ml-2" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng phiếu cần duyệt</h5>
+                            <h5 class="card-title">SỐ LƯỢNG PHIẾU CẦN DUYỆT</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slsachduyet}}</p>
                             <a href="{{route('phe-duyet-muon-sach')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
                     <div class="card" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">Số lượng Phản hồi</h5>
+                            <h5 class="card-title">SỐ LƯỢNG PHẢN HỒI</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$slphanhoi}}</p>
                             <a href="{{route('quan-ly-lien-he')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <h4 style="text-align: center;" class="mt-4">BẢNG THỐNG KÊ SÁCH ĐÃ MƯỢN THEO THÁNG</h4>
                 </div>
                 <!-- end thong ke -->
                 <div class="row row-sm mg-b-20">
@@ -217,7 +213,6 @@
                             </div>
                         </div>
                     </div> -->
-                    <h4 class="mt-2">Bảng thống kê</h4>
                     <div class="border" style="width: 100%;">
                         <canvas id="barChart"></canvas>
                     </div>
@@ -229,14 +224,7 @@
         </div>
     </div><!-- az-content -->
 
-    <div class="az-footer ht-40">
-        <div class="container ht-100p pd-t-0-f">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com
-                2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
-                    templates</a> from Bootstrapdash.com</span>
-        </div><!-- container -->
-    </div><!-- az-footer -->
+    @include('common.footer')
 
 
     <script src="../lib/jquery/jquery.min.js"></script>

@@ -26,19 +26,7 @@
     <title>libro - Tạo tài khoản</title>
     <link rel='shortcut icon' href='/img/LIBRO.png' />
     <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/spectrum-colorpicker/spectrum.css" rel="stylesheet">
-    <link href="../lib/select2/css/select2.min.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet">
-    <link href="../lib/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-    <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -69,6 +57,13 @@
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
+                @if (session('export_path'))
+                <a id="download-link" href="/{{ session('export_path') }}" style="display: none;" download></a>
+                <script>
+                    // Trigger the download using JavaScript
+                    document.getElementById('download-link').click();
+                </script>
+                @endif
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
@@ -83,14 +78,18 @@
                 <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
-                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">Chờ duyệt</a>
-                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">Đang mượn</a>
-                            <a href="{{route('da-muon-sach')}}" class="nav-link active mumu">Đã mượn</a>
+                            <a href="{{route('phe-duyet-muon-sach')}}" class="nav-link mumu">CHỜ DUYỆT</a>
+                            <a href="{{route('dang-muon-sach')}}" class="nav-link mumu">ĐANG MƯỢN</a>
+                            <a href="{{route('da-muon-sach')}}" class="nav-link active mumu">ĐÃ MƯỢN</a>
                         </nav>
                     </div><!-- component-item -->
                 </div><!-- az-content-left -->
                 <div class="">
-                    <h3 class="ml-3 mt-3">Sách đã mượn</h3>
+                    @if($so_luong >0)
+                    <h4 class="ml-3 mt-3">SÁCH ĐÃ MƯỢN ({{$so_luong}})</h4>
+                    @else
+                    <h4 class="ml-3 mt-3">HIỆN TẠI KHÔNG CÓ SÁCH NÀO !!</h4>
+                    @endif
                     <div class="table-responsive">
                         @foreach ($da_muon as $key => $item)
                         @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
@@ -131,6 +130,7 @@
 
         </div><!-- container -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

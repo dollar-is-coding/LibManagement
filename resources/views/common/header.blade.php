@@ -21,10 +21,10 @@
                 <li class="nav-item {{ $view == 2 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>SÁCH</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('hien-thi-sach') }}" class="nav-link">Tra cứu</a>
-                        <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">Thêm sách</a>
-                        <a href="{{ route('bao-cao-sach-hu') }}" class="nav-link">Báo cáo sách</a>
-                        <a href="{{ route('quan-ly-kho-sach') }}" class="nav-link">Quản lí kho sách</a>
+                        <a href="{{ route('hien-thi-sach') }}" class="nav-link">TRA CỨU</a>
+                        <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">THÊM SÁCH</a>
+                        <a href="{{ route('bao-cao-sach-hu') }}" class="nav-link">BÁO CÁO SÁCH</a>
+                        <a href="{{ route('quan-ly-kho-sach') }}" class="nav-link">QUẢN LÝ SÁCH</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">
@@ -37,16 +37,16 @@
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>QUẢN TRỊ VIÊN</a>
                     <nav class="az-menu-sub">
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
-                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">Quản lý tài khoản</a>
+                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">CẤP TÀI KHOẢN</a>
+                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link">QUẢN LÝ TÀI KHOẢN</a>
                     </nav>
                 </li>
                 @endif
                 <li class="nav-item {{ $view == 5 ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-news"></i>TIN TỨC</a>
                     <nav class="az-menu-sub">
-                        <a href="{{route('them-tin-tuc')}}" class="nav-link">Thêm tin tức</a>
-                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
+                        <a href="{{route('them-tin-tuc')}}" class="nav-link">THÊM TIN TỨC</a>
+                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">QUẢN LÝ TIN TỨC</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 6 ? 'active show' : '' }}">

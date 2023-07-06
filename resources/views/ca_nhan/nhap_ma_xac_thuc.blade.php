@@ -23,15 +23,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>libro - Hồ sơ</title>
-
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
+    @include('/common/link')
 
 </head>
 
@@ -51,7 +43,7 @@
         }, 100);
     </script>
     @endif
-    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div style="margin-bottom: 270px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
@@ -89,12 +81,12 @@
 
                 <div class="ht-40"></div>
 
-                @include('../common/footer')
+                
 
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
-
+@include('../common/footer')
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>

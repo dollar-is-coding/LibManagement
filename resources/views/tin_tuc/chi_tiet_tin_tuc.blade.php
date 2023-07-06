@@ -106,6 +106,7 @@
             @include('../common/footer')
         </div><!-- az-content-body -->
     </div><!-- az-content -->
+    @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

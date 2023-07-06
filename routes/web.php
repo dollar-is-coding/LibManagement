@@ -5,8 +5,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\QRcode;
+use App\Models\PhieuPhat;
 use Illuminate\Support\Facades\Route;
 use LaravelQRCode\Facades\QRCode as qrcodea;
+use Elibyy\TCPDF\Facades\Tcpdf;
 
 // DASHBOARD
 Route::get('/', [HomeController::class, 'trangChu'])->name('trang-chu')->middleware('auth');
@@ -24,10 +26,10 @@ Route::post('/xac-minh-quen-mat-khau', [HomeController::class, 'xuLyNhapMailQuen
 Route::get('/xac-minh', [HomeController::class, 'nhapMaXacMinh'])->name('nhap-ma-xac-minh');
 Route::post('/xac-minh', [HomeController::class, 'XuLyNhapMaXacMinh']);
 
-
-
 // Route::middleware('guest')->group(function () {
 Route::middleware('admin')->group(function () {
+    //export pdf
+    Route::get('/export-pdf/{id}', [AdminController::class, 'export_pdf_hoa_don'])->name('export-pdf')->middleware('auth');
     //quen mat khau
     Route::get('/xac-minh-quen-mat-khau-nguoi-dung', [HomeController::class, 'hienNhapXacThucQuenMatKhau'])->name('nhap-ma-quen-mat-khau');
     Route::post('/xac-minh-quen-mat-khau-nguoi-dung', [HomeController::class, 'xuLyGuiMaQuenMatKhau'])->name('xu-ly-gui-ma-quen-mat-khau');
@@ -104,6 +106,8 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-duyet-muon-sach')->middleware('auth');
     Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
+    Route::get('/muon-sach-tat-ca', [AdminController::class, 'xuLyMuonSachAll'])->name('xu-ly-muon-tat-ca-sach')->middleware('auth');
+
 
     Route::get('/dang-muon-sach', [AdminController::class, 'dangMuonSach'])->name('dang-muon-sach')->middleware('auth');
     Route::post('/dang-muon-sach/{id}', [AdminController::class, 'xuLyTraSach'])->name('xu-ly-tra-sach')->middleware('auth');
