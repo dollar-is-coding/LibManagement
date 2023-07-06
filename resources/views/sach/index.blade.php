@@ -63,11 +63,11 @@
                 @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto auto;">
                     @foreach ($sach as $item)
-                    <div class="card" style="margin: 10px;">
+                    <div class="card" style="margin: 10px;width: 208px;">
                         @if ($item->hinh_anh == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
+                        <img style="width: 207px !important;height: 250px !important;" src="/img/avt/income.jpg" class="card-img-top">
                         @elseif($item->hinh_anh != '')
-                        <img src="/img/books/{{ $item->hinh_anh }}" class="card-img-top">
+                        <img style="width: 207px !important;height: 250px !important;" src="/img/books/{{ $item->hinh_anh }}" class="card-img-top">
                         @endif
                         <div class="card-body">
                             <h5 style="height: 50px;" class="card-title">{{ $item->ten }}</h5>
