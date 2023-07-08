@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('ngay_sinh');
             $table->tinyInteger('gioi_tinh');
             $table->string('email');
-            $table->string('dien_thoai')->nullable();
             $table->string('mat_khau');
             $table->tinyInteger('vai_tro');
             $table->string('hinh_anh');

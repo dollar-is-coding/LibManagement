@@ -15,52 +15,15 @@ class NguoiDungSeeder extends Seeder
     public function run(): void
     {
         NguoiDung::create([
-            'ho' => 'Dinh',
-            'ten' => 'Dinh',
-            'mat_khau' => Hash::make('12345678'),
-            'email' => '0306201403@caothang.edu.vn',
-            'dien_thoai' => '0834578556',
+            'ho' => 'Nguyễn',
+            'ten' => 'Đô',
+            'mat_khau' => Hash::make('vando0705'),
+            'email' => '0306201322@caothang.edu.vn',
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',
             'vai_tro' => 1,
             'hinh_anh'=>'',
             'ma_hs' => '',
-        ]);
-        NguoiDung::create([
-            'ho' => 'Dinh',
-            'ten' => 'Dinh',
-            'mat_khau' => Hash::make('12345678'),
-            'email' => '1306201403@caothang.edu.vn',
-            'dien_thoai' => '0834578556',
-            'gioi_tinh' => 1,
-            'ngay_sinh' => '2002/01/22',
-            'vai_tro' => 2,
-            'hinh_anh'=>'',
-            'ma_hs'=>'',
-        ]);
-        NguoiDung::create([
-            'ho' => 'Nguyễn',
-            'ten' => 'Đô',
-            'mat_khau' => Hash::make('12345678'),
-            'email' => '123@gmail.com',
-            'dien_thoai' => null,
-            'gioi_tinh' => 1,
-            'ngay_sinh' => '2002/01/22',
-            'vai_tro' => 3,
-            'hinh_anh'=>'',
-            'ma_hs' => '023045187',
-        ]);
-        NguoiDung::create([
-            'ho' => 'Nguyễn',
-            'ten' => 'Đô',
-            'mat_khau' => Hash::make('12345678'),
-            'email' => '465@gmail.com',
-            'dien_thoai' => null,
-            'gioi_tinh' => 1,
-            'ngay_sinh' => '2002/01/22',
-            'vai_tro' => 3,
-            'hinh_anh'=>'',
-            'ma_hs' => '023045189',
         ]);
     }
 }
