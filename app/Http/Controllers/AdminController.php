@@ -99,7 +99,8 @@ class AdminController extends Controller
     public function themSachThuVien(SachRequest $request)
     {
         $get_id = Sach::orderBy('id', 'DESC')->latest()->first();
-        if($get_id){
+        $id = 1;
+        if ($get_id) {
             $id = $get_id->id + 1;
         }
         $ma = '';
@@ -850,7 +851,7 @@ class AdminController extends Controller
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();
         $da_muon = PhieuMuonSach::where('trang_thai', 3)->orderBy('created_at', 'asc')->get();
-        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon,'so_luong'=>$so_luong]);
+        return view('muon_sach.da_muon_sach', ['da_muon' => $da_muon, 'so_luong' => $so_luong]);
     }
     public function chiTietPhieu($id)
     {
@@ -1112,9 +1113,10 @@ class AdminController extends Controller
             ]);
         }
     }
-    public function xoaSach($id){
-        Sach::where('id',$id)->delete();
-        ThuVien::where('sach_id',$id)->delete();
+    public function xoaSach($id)
+    {
+        Sach::where('id', $id)->delete();
+        ThuVien::where('sach_id', $id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-sach');
     }
