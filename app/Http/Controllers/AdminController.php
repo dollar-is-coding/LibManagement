@@ -99,7 +99,9 @@ class AdminController extends Controller
     public function themSachThuVien(SachRequest $request)
     {
         $get_id = Sach::orderBy('id', 'DESC')->latest()->first();
-        $id = $get_id->id + 1;
+        if($get_id){
+            $id = $get_id->id + 1;
+        }
         $ma = '';
         switch ($request->the_loai) {
             case 1: {
