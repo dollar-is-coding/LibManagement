@@ -143,6 +143,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('xoa-sach-kho')->middleware('auth');
 
     Route::get('/xoa-binh-luan/{id}', [AdminController::class, 'xuLyXoaBinhLuan'])->name('xu-ly-xoa-binh-luan')->middleware('auth');
+    Route::get('/xoa-sach/{id}', [AdminController::class, 'xoaSach'])->name('xu-ly-xoa-sach')->middleware('auth');
+
 
     Route::get('/phieu-phat', [AdminController::class, 'phieuPhat'])->name('phieu-phat')->middleware('auth');
 

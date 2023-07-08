@@ -24,7 +24,7 @@
                         <a href="{{ route('hien-thi-sach') }}" class="nav-link">TRA CỨU</a>
                         <a href="{{ route('hien-thi-them-sach') }}" class="nav-link">THÊM SÁCH</a>
                         <a href="{{ route('bao-cao-sach-hu') }}" class="nav-link">BÁO CÁO SÁCH</a>
-                        <a href="{{ route('quan-ly-kho-sach') }}" class="nav-link">QUẢN LÝ SÁCH</a>
+                        <a href="{{ route('quan-ly-kho-sach') }}" class="nav-link">QUẢN LÝ KHO SÁCH</a>
                     </nav>
                 </li>
                 <li class="nav-item {{ $view == 3 ? 'active show' : '' }}">

@@ -1110,4 +1110,10 @@ class AdminController extends Controller
             ]);
         }
     }
+    public function xoaSach($id){
+        Sach::where('id',$id)->delete();
+        ThuVien::where('sach_id',$id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return redirect()->route('hien-thi-sach');
+    }
 }

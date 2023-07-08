@@ -30,7 +30,19 @@
 <body>
 
     @include('../common/header', ['view' => 2])
-
+    @if(Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
+    @endif
     <div style="margin-bottom: 60px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
@@ -93,6 +105,9 @@
                                         ' | (khuvuc) ' .
                                         Str::ascii($item->fkTuSach->fkKhuVuc->ten),
                                         ) !!}
+                                    </div>
+                                    <div>
+                                        <a class="dropdown-item delete-link" href="{{ route('xu-ly-xoa-sach',['id'=>$item->id]) }}"><i class="fas fa-times"></i></a>
                                     </div>
                                 </div>
                                 <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
@@ -177,6 +192,27 @@
     <script src="/js/azia.js"></script>
     <script src="/js/chart.chartjs.js"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        const deleteLinks = document.querySelectorAll(".delete-link");
+        deleteLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Bạn có muốn xóa không?",
+                    imageUrl: "/img/war.png",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link.href;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

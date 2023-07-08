@@ -48,7 +48,7 @@
             <div class="az-content-body d-flex flex-column">
                 <form class="row az-signin-header" action="{{ route('tim-kiem-duyet-sach') }}" method="get">
                     <div class="col-lg">
-                        <input class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value=""
+                        <input required class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value=""
                             autocomplete="off">
                     </div>
                     <div class="col-lg-2">
