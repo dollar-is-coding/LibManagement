@@ -925,7 +925,7 @@ class AdminController extends Controller
                         'ma_phieu' => $all_requests['ma_phieu'],
                         'sach_id' => $key,
                         'so_luong' => 1,
-                        'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')' : 'Hư hỏng (' . $all_requests['hu_hong_' . $key] . ')',
+                        'ly_do' => $all_requests['het_han'] == 1 ? 'Hết hạn + Hư hỏng (lý do: ' . $all_requests['hu_hong_' . $key] . ')' : 'Hư hỏng (lý do: ' . $all_requests['hu_hong_' . $key] . ')',
                         'tien_phat' => $all_requests['het_han'] == 1 ? $array[0] + expiredCharge($request->han_tra) : $array[0],
                         'tong_tien_phat' => $all_requests['tong_tien_phat'],
                         'tong_so_sach' => 0
@@ -933,7 +933,7 @@ class AdminController extends Controller
                     KhoSach::create([
                         'sach_id' => $key,
                         'thu_thu_id' => Auth::id(),
-                        'ly_do' => 'Độc giả làm hư (' . $all_requests['hu_hong_' . $key] . ')',
+                        'ly_do' => 'Độc giả làm hư (lý do: ' . $all_requests['hu_hong_' . $key] . ')',
                         'so_luong' => 1
                     ]);
                     $tong_so_sach++;

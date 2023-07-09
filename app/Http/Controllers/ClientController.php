@@ -275,17 +275,14 @@ class ClientController extends Controller
     public function handleMuonSach(Request $request)
     {
         // Kiểm tra đang có phiếu chờ nào không
-        $phieu_muon = PhieuMuonSach::where([['doc_gia_id', Auth::id()], ['trang_thai', 1]])->first();
+        $phieu_muon = PhieuMuonSach::latest()->first();
         $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
-
         // Kiểm tra có checkbox ALL hay không
+        $tong_so_luong = count($request->all()) - 1;
         if (Arr::has($request->all(), 'all')) {
             $tong_so_luong = count($request->all()) - 2;
-        } else {
-            $tong_so_luong = count($request->all()) - 1;
         }
-
-        if ($phieu_muon) {
+        if ($phieu_muon->doc_gia_id == Auth::id() && $phieu_muon->trang_thai == 1) {
             PhieuMuonSach::where('ma_phieu_muon', $phieu_muon->ma_phieu_muon)->update([
                 'tong_so_luong' => $tong_so_luong + $phieu_muon->tong_so_luong
             ]);
@@ -300,7 +297,7 @@ class ClientController extends Controller
                         'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
                         'tong_so_luong' => $tong_so_luong + $phieu_muon->tong_so_luong
                     ]);
-                    GioSach::where([['sach_id', $key],['doc_gia_id',Auth::id()]])->delete();
+                    GioSach::where([['sach_id', $key], ['doc_gia_id', Auth::id()]])->delete();
                     ThuVien::where('sach_id', $key)->update([
                         'sl_con_lai' => ThuVien::where('sach_id', $key)->first()->sl_con_lai - 1
                     ]);
@@ -329,7 +326,7 @@ class ClientController extends Controller
                         'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
                         'tong_so_luong' => $tong_so_luong
                     ]);
-                    GioSach::where([['sach_id', $key],['doc_gia_id',Auth::id()]])->delete();
+                    GioSach::where([['sach_id', $key], ['doc_gia_id', Auth::id()]])->delete();
                     ThuVien::where('sach_id', $key)->update([
                         'sl_con_lai' => ThuVien::where('sach_id', $key)->first()->sl_con_lai - 1
                     ]);
