@@ -23,7 +23,9 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
     <title>libro - Tra cứu</title>
 
     <!-- vendor css -->
@@ -39,32 +41,34 @@
         <div class="container">
             <div class="az-content-body">
                 @if (session('error'))
-                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                    <span class="text-danger">{{ session('error') }}</span>
-                </div>
+                    <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm"
+                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                        <span class="text-danger">{{ session('error') }}</span>
+                    </div>
                 @endif
 
-                @if($khosach->count()==0)
-                <h4>HIỆN TẠI TRONG KHO KHÔNG CÓ SÁCH NÀO!!</h4>
+                @if ($khosach->count() == 0)
+                    <h4>HIỆN TẠI TRONG KHO KHÔNG CÓ SÁCH NÀO!!</h4>
                 @else
-                <h4>QUẢN LÝ KHO SÁCH ({{$khosach->count()}})</h4>
+                    <h4>QUẢN LÝ KHO SÁCH ({{ $khosach->count() }})</h4>
                 @endif
                 <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto auto;">
-                    @foreach($khosach as $item)
-                    <div class="card" style="margin: 10px;">
-                        @if($item->fkSach->hinh_anh == '')
-                        <img src="/img/avt/income.jpg" class="card-img-top">
-                        @elseif($item->fkSach->hinh_anh != '')
-                        <img src="/img/books/{{$item->hinh_anh}}" class="card-img-top">
-                        @endif
-                        <div class="card-body">
-                            <h5 style="height: 50px;" class="card-title">{{$item->fkSach->ten}}</h5>
-                            <!-- <p>Lý do {{$item->ly_do}}</p>
-                            <p class="card-text">Số lượng {{$item->so_luong}}</p> -->
-                            <a href="{{route('chi-tiet-kho',['id'=>$item->id])}}" class="btn btn-primary">Xem chi tiết</a>
+                    @foreach ($khosach as $item)
+                        <div class="card" style="margin: 10px;">
+                            @if ($item->fkSach->hinh_anh == '')
+                                <img src="../img/default/no_book_admin.png" class="card-img-top">
+                            @elseif($item->fkSach->hinh_anh != '')
+                                <img src="/img/books/{{ $item->fkSach->hinh_anh }}" class="card-img-top">
+                            @endif
+                            <div class="card-body">
+                                <h5 style="height: 50px;" class="card-title">{{ $item->fkSach->ten }}</h5>
+                                <!-- <p>Lý do {{ $item->ly_do }}</p>
+                            <p class="card-text">Số lượng {{ $item->so_luong }}</p> -->
+                                <a href="{{ route('chi-tiet-kho', ['id' => $item->id]) }}" class="btn btn-primary">Xem chi
+                                    tiết</a>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                 </div><!-- az-content-body -->
 

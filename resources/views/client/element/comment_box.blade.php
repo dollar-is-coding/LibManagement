@@ -127,8 +127,13 @@
                     id="{{ $key }}" style="visibility:hidden;max-height:0;" class="d-flex flex-column">
                     @csrf
                     <div class="d-flex">
-                        <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                            style="width:44px;height:44px">
+                        @if (Auth::user()->hinh_anh == '')
+                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
+                                style="width:44px;height:44px">
+                        @else
+                            <img src="../img/avt/{{ Auth::user()->hinh_anh }}" class="profile-block-image img-fluid"
+                                style="width:44px;height:44px">
+                        @endif
                         <div class="comment-container">
                             <textarea class="reply-input" id="reply_{{ $key }}" name="binh_luan" rows="1"
                                 placeholder="Phản hồi..." oninput="showReply({{ $key }})"></textarea>

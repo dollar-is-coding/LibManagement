@@ -1,8 +1,17 @@
 @if (Auth::check())
     {{-- Kiểm tra đang trong giỏ --}}
     @if ($sach->hasGioSach->count() > 0)
-        <a href="" id="sach_{{ $sach->id }}" class="btn danger-btn"
-            onclick="handleGioSach({{ $sach->id }}); return false;">Bỏ chọn</a>
+        @foreach ($sach->hasGioSach as $key => $item)
+            @if ($item->doc_gia_id == Auth::id())
+                <a href="" id="sach_{{ $sach->id }}" class="btn danger-btn"
+                    onclick="handleGioSach({{ $sach->id }}); return false;">Bỏ chọn</a>
+                @break
+            @endif
+            @if ($sach->hasGioSach->count() - 1 == $key)
+                <a href="" id="sach_{{ $sach->id }}" class="btn custom-btn"
+                    onclick="handleGioSach({{ $sach->id }}); return false;">Chọn sách</a>
+            @endif
+        @endforeach
 
         {{-- Kiểm tra đang mượn --}}
     @elseif ($sach->hasPhieuMuon->count() > 0)
@@ -16,11 +25,10 @@
                     onclick="handleGioSach({{ $sach->id }}); return false;">Chọn sách</a>
             @endif
         @endforeach
-
-        {{-- Không có trong giỏ sách && không chờ chờ hoặc đang mượn --}}
+    {{-- Không có trong giỏ sách && không chờ chờ hoặc đang mượn --}}
     @else
-        <a href="" id="sach_{{ $sach->id }}" class="btn custom-btn"
-            onclick="handleGioSach({{ $sach->id }}); return false;">Chọn sách</a>
+    <a href="" id="sach_{{ $sach->id }}" class="btn custom-btn"
+        onclick="handleGioSach({{ $sach->id }}); return false;">Chọn sách</a>
     @endif
 @else
 <a href="{{ route('dang-nhap') }}" class="btn custom-btn">Chọn sách</a>

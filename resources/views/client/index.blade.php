@@ -57,18 +57,22 @@
 
                         <div class="owl-carousel owl-theme">
                             @foreach ($de_xuat as $sach)
-                            <div class="owl-carousel-info-wrap item">
-                                @if ($sach->hinh_anh == '')
-                                <img src="../img/default/no_book_slider.png" class="owl-carousel-image img-fluid" />
-                                @else
-                                <img src="../img/books/{{ $sach->hinh_anh }}" class="owl-carousel-image img-fluid" />
-                                @endif
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}" class="slide">{{ $sach->ten }}</a>
-                                    </h4>
-                                    <span class="badge">{{ $sach->fkTacGia->ten }}</span>
-                                    <span class="badge">#{{ $sach->ma_sach }}</span>
+                                <div class="owl-carousel-info-wrap item">
+                                    @if ($sach->hinh_anh == '')
+                                        <img src="../img/default/no_book_slider.png"
+                                            class="owl-carousel-image img-fluid" />
+                                    @else
+                                        <img src="../img/books/{{ $sach->hinh_anh }}"
+                                            class="owl-carousel-image img-fluid" width="150px"/>
+                                    @endif
+                                    <div class="owl-carousel-info">
+                                        <h4 class="mb-2">
+                                            <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
+                                                class="slide">{{ $sach->ten }}</a>
+                                        </h4>
+                                        <span class="badge">{{ $sach->fkTacGia->ten }}</span>
+                                        <span class="badge">#{{ $sach->ma_sach }}</span>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach

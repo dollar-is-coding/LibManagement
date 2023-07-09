@@ -239,8 +239,8 @@
                 </div>
             </div>
         </section>
-        @endif
-        @if ($ds_da_xem)
+    @endif
+    @if ($ds_da_xem->count() > 0)
         @include('client.element.history', ['ds_da_xem' => $ds_da_xem])
         @endif
     </main>
