@@ -27,7 +27,7 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
     <title>libro - Tra cứu</title>
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
+
     <!-- vendor css -->
     @include('/common/link')
 

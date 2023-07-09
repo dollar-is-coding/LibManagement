@@ -15,14 +15,17 @@ class ExcelExportKhoSach implements FromQuery, WithMapping, WithTitle, WithHeadi
 {
     public function query()
     {
-        // return PhieuTraSach::query();
+        // Lấy tháng mới nhất
         $latestDate = KhoSach::max('created_at');
         $latestMonth = Carbon::createFromFormat('Y-m-d H:i:s', $latestDate)->format('Y-m');
 
+        // Trừ đi 1 tháng từ tháng mới nhất
+        $previousMonth = Carbon::createFromFormat('Y-m', $latestMonth)->subMonth()->format('Y-m');
 
         // Lọc các bản ghi chỉ trong tháng mới nhất
-        return KhoSach::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $latestMonth);
+        return KhoSach::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $previousMonth);
     }
+
 
     public function map($khosach): array
     {

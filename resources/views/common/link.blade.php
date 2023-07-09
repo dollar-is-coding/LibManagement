@@ -9,8 +9,5 @@
     <link href="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
     <link href="/lib/pickerjs/picker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/azia.css">
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
+    <link rel='shortcut icon' href='/img/header.png' />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-   
-

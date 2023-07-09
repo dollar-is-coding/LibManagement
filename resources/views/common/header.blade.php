@@ -2,7 +2,7 @@
     <div class="container">
         <div class="az-header-left">
             <a href="{{ route('trang-chu') }}" class="az-logo"><span></span>
-                <img style="width: 60px;height: 60px;" src="/img/LIBRO.png" alt="">
+                <img style="width: 60px;height: 60px;" src="/img/header.png" alt="">
             </a>
             <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
         </div><!-- az-header-left -->

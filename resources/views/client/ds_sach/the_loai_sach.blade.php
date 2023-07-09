@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
+    <link rel='shortcut icon' href='/img/header.png' />
+
 
     <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
@@ -66,14 +68,8 @@
                                                 <div class="section-overlay"></div>
                                                 <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
                                                     class="custom-block-image-wrap">
-                                                    @if ($sach->hinh_anh != '')
-                                                        <img src="../img/books/{{ $sach->hinh_anh }}"
-                                                            class="custom-block-image img-fluid" alt="" />
-                                                    @else
-                                                        <img src="../img/default/no_book.jpg"
-                                                            class="custom-block-image img-fluid border"
-                                                            alt="" />
-                                                    @endif
+                                                    <img src="../img/default/no_book.jpg"
+                                                        class="custom-block-image img-fluid border" alt="" />
                                                 </a>
                                             </div>
                                             <div class="mt-2">

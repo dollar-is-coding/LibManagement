@@ -209,10 +209,10 @@ class ClientController extends Controller
         $xu_huong = PhieuMuonSach::where([
             ['updated_at', '>=', $start_of_month],
             ['updated_at', '<=', $end_of_month],
-            ['trang_thai', '>', 0]
+            ['trang_thai', '>', 1]
         ])
-            ->groupBy('sach_id', 'doc_gia_id')
-            ->select('sach_id', 'doc_gia_id', PhieuMuonSach::raw('count(*) as total'))
+            ->groupBy('sach_id')
+            ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))
             ->take(15)->get();
         return view('client.ds_sach.thang_nay_doc_gi', ['xu_huong' => $xu_huong, 'gio_sach' => $gio_sach]);
     }

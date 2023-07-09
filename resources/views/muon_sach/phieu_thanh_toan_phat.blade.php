@@ -15,20 +15,20 @@
         <table>
             <thead>
                 <tr>
-                    <th style="border-bottom: 2px solid black;">Mã số: <b>#{{ $item->ma_phieu }}</b></th>
-                    <th style="border-bottom: 2px solid black;">Tổng tiền phạt: <b>{{ number_format($item->tong_tien_phat, 0, ',', '.') }}đ</b></th>
+                    <th style="border-bottom: 0.5px solid black;">Mã số: <b>#{{ $item->ma_phieu }}</b></th>
+                    <th style="border-bottom: 0.5px solid black;">Tổng tiền phạt: <b>{{ number_format($item->tong_tien_phat, 0, ',', '.') }}đ</b></th>
                 </tr>
             </thead>
             @endif
             <tbody>
                 <tr>
-                    <td style="border-bottom: 1px solid black;">
+                    <td style="border-bottom: 0.5px solid black;">
                         <p>Tên sách: <b>{{ $item->fkSach->ten }}</b></p>
                         <p>Tác giả: <b>{{ $item->fkSach->fkTacGia->ten }}</b></p>
                         <p>Năm xuất bản: <b>{{ $item->fkSach->nam_xuat_ban }}</b></p>
                         <p>Lý do: <b>{{ $item->ly_do }}</b></p>
                     </td>
-                    <td style="border-bottom: 1px solid black;">
+                    <td style="border-bottom: 0.5px solid black;">
                         <p>1 x {{ number_format($item->tien_phat, 0, ',', '.') }}đ</p>
                     </td>
                 </tr>

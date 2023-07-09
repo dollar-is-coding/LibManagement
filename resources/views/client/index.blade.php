@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/jquery-3.6.0.min.js">
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
+    <link rel='shortcut icon' href='/img/header.png' />
 
     <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>

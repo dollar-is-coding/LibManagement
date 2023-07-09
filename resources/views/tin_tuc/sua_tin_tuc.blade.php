@@ -192,11 +192,17 @@
         const textarea = document.getElementById('sample');
 
         form.addEventListener('submit', function(event) {
-            // Lấy nội dung từ SunEditor
-            const content = editor.getContents();
-            // Gán nội dung vào trường textarea
-            textarea.value = content;
+            // Check if the textarea is empty
+            if (textarea.value.length === 0) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please fill in the required field.'); // Show an error message
+            } else {
+                // The textarea is not empty, continue with form submission
+                const content = editor.getContents();
+                textarea.value = content;
+            }
         });
+
 
 
 

@@ -18,9 +18,9 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel='shortcut icon' href='/img/header.png' />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -60,52 +60,37 @@
                         </style>
                         <nav class="d-flex justify-content-start shadow-sm border history-include">
                             <div class="nav nav-tabs" id="nav-tab" style="border: none;" role="tablist">
-                                <a class="nav-link active history" style="border: none;" id="nav-home-tab"
-                                    data-bs-toggle="tab" data-bs-target="#waiting-tab" type="button" role="tab"
-                                    aria-controls="nav-home" aria-selected="true">
+                                <a class="nav-link active history" style="border: none;" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#waiting-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                                     <strong>Đang chờ duyệt</strong></a>
-                                <a class="nav-link history" style="border: none;" id="nav-profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#borrowing-tab" type="button"
-                                    role="tab" aria-controls="nav-profile" aria-selected="false">
+                                <a class="nav-link history" style="border: none;" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#borrowing-tab" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                                     <strong>Đang mượn</strong></a>
-                                <a class="nav-link history" style="border: none;" id="nav-contact-tab"
-                                    data-bs-toggle="tab" data-bs-target="#returned-tab" type="button"
-                                    role="tab" aria-controls="nav-contact" aria-selected="false">
+                                <a class="nav-link history" style="border: none;" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#returned-tab" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                                     <strong>Đã trả</strong></a>
-                                <a class="nav-link history" style="border: none;" id="nav-contact-tab"
-                                    data-bs-toggle="tab" data-bs-target="#fined-tab" type="button" role="tab"
-                                    aria-controls="nav-contact" aria-selected="false">
+                                <a class="nav-link history" style="border: none;" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#fined-tab" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                                     <strong>Phiếu phạt</strong></a>
-                                <a class="nav-link history" style="border: none;" id="nav-contact-tab"
-                                    data-bs-toggle="tab" data-bs-target="#cancel-tab" type="button" role="tab"
-                                    aria-controls="nav-contact" aria-selected="false">
+                                <a class="nav-link history" style="border: none;" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#cancel-tab" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                                     <strong>Phiếu hủy</strong></a>
                             </div>
                         </nav>
                     </div>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="waiting-tab" role="tabpanel"
-                            aria-labelledby="nav-home-tab" tabindex="0">
+                        <div class="tab-pane fade show active" id="waiting-tab" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                             @include('client.cac_loai_phieu.phieu_cho_duyet', ['cho_duyet' => $cho_duyet])
                         </div>
 
-                        <div class="tab-pane fade" id="borrowing-tab" role="tabpanel"
-                            aria-labelledby="nav-profile-tab" tabindex="0">
+                        <div class="tab-pane fade" id="borrowing-tab" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                             @include('client.cac_loai_phieu.phieu_dang_muon', ['dang_muon' => $dang_muon])
                         </div>
 
-                        <div class="tab-pane fade" id="returned-tab" role="tabpanel"
-                            aria-labelledby="nav-contact-tab" tabindex="0">
+                        <div class="tab-pane fade" id="returned-tab" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
                             @include('client.cac_loai_phieu.phieu_tra', ['da_tra' => $da_tra])
                         </div>
 
-                        <div class="tab-pane fade" id="fined-tab" role="tabpanel" aria-labelledby="nav-contact-tab"
-                            tabindex="0">
+                        <div class="tab-pane fade" id="fined-tab" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
                             @include('client.cac_loai_phieu.phieu_phat', ['phieu_phat' => $phieu_phat])
                         </div>
 
-                        <div class="tab-pane fade" id="cancel-tab" role="tabpanel" aria-labelledby="nav-contact-tab"
-                            tabindex="0">
+                        <div class="tab-pane fade" id="cancel-tab" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
                             @include('client.cac_loai_phieu.phieu_huy', ['phieu_huy' => $phieu_huy])
                         </div>
                     </div>

@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
+    <link rel='shortcut icon' href='/img/header.png' />
+
     <link rel="stylesheet" href="css/bootstrap-icons.css" />
 
     <link rel="stylesheet" href="css/owl.carousel.min.css" />

@@ -30,6 +30,7 @@
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
+    <link rel='shortcut icon' href='/img/header.png' />
     <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 
 </head>

@@ -24,7 +24,7 @@
     <meta name="author" content="BootstrapDash">
 
     <title>libro - Tạo tài khoản</title>
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
+
     <!-- vendor css -->
     @include('/common/link')
 
