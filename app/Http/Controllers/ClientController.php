@@ -300,7 +300,7 @@ class ClientController extends Controller
                         'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
                         'tong_so_luong' => $tong_so_luong + $phieu_muon->tong_so_luong
                     ]);
-                    GioSach::where('sach_id', $key)->delete();
+                    GioSach::where([['sach_id', $key],['doc_gia_id',Auth::id()]])->delete();
                     ThuVien::where('sach_id', $key)->update([
                         'sl_con_lai' => ThuVien::where('sach_id', $key)->first()->sl_con_lai - 1
                     ]);
@@ -329,14 +329,13 @@ class ClientController extends Controller
                         'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
                         'tong_so_luong' => $tong_so_luong
                     ]);
-                    GioSach::where('sach_id', $key)->delete();
+                    GioSach::where([['sach_id', $key],['doc_gia_id',Auth::id()]])->delete();
                     ThuVien::where('sach_id', $key)->update([
                         'sl_con_lai' => ThuVien::where('sach_id', $key)->first()->sl_con_lai - 1
                     ]);
                 }
             }
         }
-
         $cho_duyet = PhieuMuonSach::where([['doc_gia_id', Auth::user()->id], ['trang_thai', 1]])->get();
         return redirect()->route('tai-khoan-cua-toi', ['gio_sach' => $gio_sach, 'cho_duyet' => $cho_duyet]);
     }

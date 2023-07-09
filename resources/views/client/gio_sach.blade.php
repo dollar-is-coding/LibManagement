@@ -76,9 +76,12 @@
                             <div class="mt-4" style="font-family: 'sono'" id="sach_{{ $sach->sach_id }}">
                                 <div class="custom-block">
                                     <div class="d-flex align-items-center">
-                                        <input style="width:1em;height:1em" type="checkbox" class="checkbox"
-                                            name="{{ $sach->sach_id }}">
-                                        <h6 class="m-0">&nbsp;{{ $sach->fkSach->ten }}</h6>
+                                        <input style="width:1em;height:1em" type="checkbox" name="{{ $sach->sach_id }}"
+                                            class="{{ $sach->fkSach->hasThuVien->sl_con_lai == 0 ? 'disabled' : 'checkbox' }}"
+                                            {{ $sach->fkSach->hasThuVien->sl_con_lai == 0 ? 'disabled' : '' }}>
+                                        <h6
+                                            class="m-0 {{ $sach->fkSach->hasThuVien->sl_con_lai == 0 ? 'text-muted' : '' }}">
+                                            &nbsp;{{ $sach->fkSach->ten }}</h6>
                                     </div>
                                     <hr>
                                     <div class="d-flex justify-content-between">
@@ -119,7 +122,8 @@
                                             <div>x1</div>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center" style="width:10%">
-                                            <div>
+                                            <div
+                                                class="{{ $sach->fkSach->hasThuVien->sl_con_lai == 0 ? 'text-danger fw-bold' : '' }}">
                                                 {{ $sach->fkSach->hasThuVien->sl_con_lai > 0 ? 'Có sẵn' : 'Đang hết' }}
                                             </div>
                                         </div>

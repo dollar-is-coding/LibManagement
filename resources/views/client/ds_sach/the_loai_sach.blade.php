@@ -146,13 +146,13 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/custom.js"></script>
 <script>
-    function handleGioSach(sach) {
+    function handleGioSach(sach, soLuong) {
         var option = document.getElementById('sach_' + sach).innerHTML;
         var request = new XMLHttpRequest();
         request.open('GET', '/xu-ly-gio-sach?sach=' + encodeURIComponent(sach) + '&gio_sach=' + encodeURIComponent(
             option), true);
         request.send();
-        if (option == 'Chọn sách') {
+        if (option.trim() == 'Chọn sách') {
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     var data = JSON.parse(request.responseText);
@@ -169,13 +169,18 @@
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     var data = JSON.parse(request.responseText);
-                    document.getElementById('sach_' + sach).innerHTML = 'Chọn sách';
                     document.getElementById('sach_' + sach).classList.add('custom-btn');
                     document.getElementById('sach_' + sach).classList.remove('danger-btn');
                     document.getElementById('gio_sach_hien_tai').value = --document.getElementById(
                         'gio_sach_hien_tai').value;
                     document.getElementById('gio_sach').innerHTML = 'Giỏ sách (' + document.getElementById(
                         'gio_sach_hien_tai').value + ')';
+                    if (Number(soLuong) > 0) {
+                        document.getElementById('sach_' + sach).innerHTML = 'Chọn sách';
+                    } else {
+                        document.getElementById('sach_' + sach).innerHTML = 'Hết sách';
+                        document.getElementById('sach_' + sach).classList.add('bg-secondary');
+                    }
                 }
             }
         }
