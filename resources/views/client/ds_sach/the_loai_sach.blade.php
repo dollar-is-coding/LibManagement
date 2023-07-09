@@ -48,7 +48,8 @@
 
         @foreach ($the_loai as $key => $item)
             @if ($item->hasSach->count() > 0)
-                <section class="latest-podcast-section section-padding pt-2 {{ $key == $the_loai->count() - 1 ? '' : 'pb-5' }}"
+                <section
+                    class="latest-podcast-section section-padding pt-2 {{ $key == $the_loai->count() - 1 ? '' : 'pb-5' }}"
                     id="section_2">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -65,8 +66,14 @@
                                                 <div class="section-overlay"></div>
                                                 <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
                                                     class="custom-block-image-wrap">
-                                                    <img src="../img/default/no_book.jpg"
-                                                        class="custom-block-image img-fluid border" alt="" />
+                                                    @if ($sach->hinh_anh != '')
+                                                        <img src="../img/books/{{ $sach->hinh_anh }}"
+                                                            class="custom-block-image img-fluid" alt="" />
+                                                    @else
+                                                        <img src="../img/default/no_book.jpg"
+                                                            class="custom-block-image img-fluid border"
+                                                            alt="" />
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="mt-2">

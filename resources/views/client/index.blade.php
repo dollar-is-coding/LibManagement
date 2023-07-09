@@ -64,7 +64,7 @@
                                             class="owl-carousel-image img-fluid" />
                                     @else
                                         <img src="../img/books/{{ $sach->hinh_anh }}"
-                                            class="owl-carousel-image img-fluid" />
+                                            class="owl-carousel-image img-fluid" width="150px"/>
                                     @endif
                                     <div class="owl-carousel-info">
                                         <h4 class="mb-2">
