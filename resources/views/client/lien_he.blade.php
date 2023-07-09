@@ -15,11 +15,11 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel='shortcut icon' href='/img/header.png' />
+
 
     <link rel="stylesheet" href="css/bootstrap-icons.css" />
 
@@ -68,10 +68,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-12 mt-5 mt-lg-0">
-                        <iframe class="google-map"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.7582617803375!2d106.70005877098545!3d10.77169511740364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEvhu7kgdGh14bqtdCBDYW8gVGjhuq9uZw!5e0!3m2!1svi!2s!4v1686839504732!5m2!1svi!2s"
-                            width="100%" height="300" style="border: 0" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.7582617803375!2d106.70005877098545!3d10.77169511740364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEvhu7kgdGh14bqtdCBDYW8gVGjhuq9uZw!5e0!3m2!1svi!2s!4v1686839504732!5m2!1svi!2s" width="100%" height="300" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -84,25 +81,21 @@
                         <div class="section-title-wrap mb-5">
                             <h4 class="section-title">Mẫu liên hệ</h4>
                         </div>
-                        <form action="{{ Auth::check() ? route('gui-lien-he') : route('dang-nhap') }}"
-                            method="{{ Auth::check() ? 'POST' : 'GET' }}" class="custom-form contact-form" role="form">
+                        <form action="{{ Auth::check() ? route('gui-lien-he') : route('dang-nhap') }}" method="{{ Auth::check() ? 'POST' : 'GET' }}" class="custom-form contact-form" role="form">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12 col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="tieu_de" id="tieu-de" class="form-control"
-                                            placeholder="Name" autocomplete="off" oninput="showSubmit()" />
+                                        <input type="text" name="tieu_de" id="tieu-de" class="form-control" placeholder="Name" autocomplete="off" oninput="showSubmit()" />
                                         <label for="floatingInput">Tiêu đề</label>
                                     </div>
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="noi-dung" name="noi_dung" placeholder="Describe message here"
-                                            oninput="showSubmit()"></textarea>
+                                        <textarea class="form-control" id="noi-dung" name="noi_dung" placeholder="Describe message here" oninput="showSubmit()"></textarea>
                                         <label for="floatingTextarea">Nội dung</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-12 ms-auto">
-                                    <button type="submit" id="submit-btn" class="form-control"
-                                        style="background-color:rgb(80, 80, 80);pointer-events:none">Gửi</button>
+                                    <button type="submit" id="submit-btn" class="form-control" style="background-color:rgb(80, 80, 80);pointer-events:none">Gửi</button>
                                 </div>
                             </div>
                         </form>

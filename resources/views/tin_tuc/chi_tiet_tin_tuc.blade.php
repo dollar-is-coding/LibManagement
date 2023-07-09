@@ -39,7 +39,7 @@
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
+    <link rel='shortcut icon' href='/img/header.png' />
 </head>
 
 <body>
