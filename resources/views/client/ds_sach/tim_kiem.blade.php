@@ -49,14 +49,15 @@
 
         <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="row justify-content-start">
                     <div class="col-lg-12 col-12">
                         <div class="section-title-wrap mb-5">
                             <h4 class="section-title">Tất cả ({{ $so_luong }})</h4>
                         </div>
                     </div>
                     @foreach ($sach as $key => $item)
-                        <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
+                        <div
+                            class="col-lg-6 col-12 mb-lg-0 {{ $key >= 2 ? 'mt-4 mb-4' : ($sach->count() < 4 ? 'mb-5' : 'mb-4') }}">
                             <div class="custom-block d-flex">
                                 <div class="">
                                     <div class="custom-block-icon-wrap">
@@ -107,6 +108,7 @@
                             </div>
                         </div>
                     @endforeach
+                    <div></div>
                     <div class="col-auto mr-auto mx-auto mt-5">
                         <nav aria-label="Page navigation example">
                             {{ $sach->appends(request()->input())->links() }}

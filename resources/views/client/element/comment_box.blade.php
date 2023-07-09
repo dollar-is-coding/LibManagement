@@ -136,7 +136,7 @@
                         @endif
                         <div class="comment-container">
                             <textarea class="reply-input" id="reply_{{ $key }}" name="binh_luan" rows="1"
-                                placeholder="Phản hồi..." oninput="showReply({{ $key }})"></textarea>
+                                placeholder="Phản hồi..." oninput="showReplyChat({{ $key }})"></textarea>
                         </div>
                     </div>
                     <button style="font-size: .9em; display:none" id="btn_{{ $key }}" type="submit"
@@ -166,5 +166,15 @@
             element.style.display = 'block'
         });
         show.style.display = 'none';
+    }
+
+    function showReplyChat(key) {
+        var showChat = document.getElementById('reply_' + key);
+        var chatBtn = document.getElementById('btn_' + key);
+        if (showChat.value.trim() != '') {
+            chatBtn.style.display = 'block';
+        } else {
+            chatBtn.style.display = 'none';
+        }
     }
 </script>

@@ -82,7 +82,7 @@ class ClientController extends Controller
         if (Auth::check()) {
             $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
             $da_xem = LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', $id]])->first();
-            $ds_da_xem = LichSuSach::where('doc_gia_id', Auth::user()->id)->orderBy('updated_at', 'desc')->take(6)->get();
+            $ds_da_xem = LichSuSach::where([['doc_gia_id', Auth::user()->id], ['sach_id', '!=', $id]])->orderBy('updated_at', 'desc')->take(6)->get();
             if (!$da_xem) {
                 LichSuSach::create([
                     'doc_gia_id' => Auth::user()->id,
@@ -105,7 +105,7 @@ class ClientController extends Controller
         $phan_hoi = BinhLuan::where([['sach_id', $id], ['binh_luan_id', '!=', 0]])->orderBy('created_at', 'DESC')->get();
         $can_comment = 0;
         foreach ($sach->hasPhieuMuon as $key => $value) {
-            if ($value->doc_gia_id == Auth::id() && $value->trang_thai == 3) {
+            if ($value->doc_gia_id == Auth::id() && $value->trang_thai == 3 && $value->sach_id == $id) {
                 $can_comment = 1;
                 break;
             }
@@ -122,7 +122,7 @@ class ClientController extends Controller
             'lien_quan' => $lien_quan,
             'phan_hoi' => $phan_hoi,
             'dang_muon' => $dang_muon->count(),
-            'da_muon' => $da_muon->count()
+            'so_lan_da_muon' => $da_muon->count()
         ]);
     }
 
@@ -223,6 +223,10 @@ class ClientController extends Controller
             $gio_sach = GioSach::where('doc_gia_id', Auth::user()->id)->get();
         }
         $key_word = $request->search;
+        $ma_sach = Sach::where('ma_sach', $request->search)->first();
+        if ($ma_sach) {
+            return redirect()->route('thong-tin-sach', ['id' => $ma_sach->id]);
+        }
         $sach = Sach::where('ten', 'like', "%$key_word%")->orWhere('mo_ta', 'like', "%$key_word%")->paginate('20');
         $so_luong = Sach::where('ten', 'like', "%$key_word%")->orWhere('mo_ta', 'like', "%$key_word%")->get();
         return view('client.ds_sach.tim_kiem', [
