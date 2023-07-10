@@ -48,7 +48,7 @@
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-10 col-12">
@@ -59,7 +59,7 @@
                             <div class="col-lg-3 col-12">
                                 <div class="custom-block-icon-wrap">
                                     <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                        @if ($sach->hinh_anh != '' && Auth::check())
+                                        @if ($sach->hinh_anh != '')
                                             <img src="../img/books/{{ $sach->hinh_anh }}"
                                                 class="custom-block-image img-fluid" />
                                         @else

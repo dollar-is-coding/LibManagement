@@ -28,16 +28,14 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css" />
 
     <link href="css/templatemo-pod-talk.css" rel="stylesheet" />
+
     <link rel='shortcut icon' href='/img/header.png' />
 
-
-    <!-- TemplateMo 584 Pod Talk https://templatemo.com/tm-584-pod-talk -->
 </head>
 
 <body>
     <main>
         @include('client.element.header', ['view' => 2])
-
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
                 <div class="row">
@@ -48,11 +46,9 @@
             </div>
         </header>
 
-        @foreach ($the_loai as $key => $item)
+        @foreach ($the_loai as $key_the_loai => $item)
             @if ($item->hasSach->count() > 0)
-                <section
-                    class="latest-podcast-section section-padding pt-2 {{ $key == $the_loai->count() - 1 ? '' : 'pb-5' }}"
-                    id="section_2">
+                <section id="section_2" class="latest-podcast-section section-padding pt-2 pb-5 {{ $key_the_loai == 5 ? 'mb-5' : '' }}">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-12 col-12">
@@ -68,8 +64,13 @@
                                                 <div class="section-overlay"></div>
                                                 <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
                                                     class="custom-block-image-wrap">
-                                                    <img src="../img/default/no_book.jpg"
-                                                        class="custom-block-image img-fluid border" alt="" />
+                                                    @if ($sach->hinh_anh != '')
+                                                        <img src="../img/books/{{ $sach->hinh_anh }}"
+                                                            class="custom-block-image img-fluid" />
+                                                    @else
+                                                        <img src="../img/default/no_book.jpg"
+                                                            class="custom-block-image img-fluid border" />
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="mt-2">
@@ -94,7 +95,7 @@
                                             </h5>
                                             <div class="profile-block d-flex">
                                                 <img src="../img/default/author.png"
-                                                    class="profile-block-image img-fluid" alt="" />
+                                                    class="profile-block-image img-fluid" />
                                                 <p>
                                                     Tác giả
                                                     <strong><a
@@ -109,30 +110,30 @@
                                     </div>
                                 </div>
                                 @if ($key == 3)
-                                @break
+                                    @break
+                                @endif
+                            @endforeach
+                            @if ($item->hasSach->count() > 4)
+                                <div></div>
+                                <div class="col-lg-4 col-12 mx-auto">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination pagination-lg justify-content-center mt-5">
+                                            <h4>
+                                                <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->id]) }}"
+                                                    onMouseOver="this.style.textDecoration='underline'"
+                                                    onMouseOut="this.style.textDecoration='none'">
+                                                    Xem tất cả</a>
+                                            </h4>
+                                        </ul>
+                                    </nav>
+                                </div>
                             @endif
-                        @endforeach
-                        @if ($item->hasSach->count() > 4)
-                            <div></div>
-                            <div class="col-lg-4 col-12 mx-auto">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination pagination-lg justify-content-center mt-5">
-                                        <h4>
-                                            <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 3, 'the_loai' => $item->id]) }}"
-                                                onMouseOver="this.style.textDecoration='underline'"
-                                                onMouseOut="this.style.textDecoration='none'" href="">
-                                                Xem tất cả</a>
-                                        </h4>
-                                    </ul>
-                                </nav>
-                            </div>
-                        @endif
+                        </div>
                     </div>
-                </div>
-            </section>
-        @endif
-    @endforeach
-</main>
+                </section>
+            @endif
+        @endforeach
+    </main>
 
 @include('client.element.footer')
 

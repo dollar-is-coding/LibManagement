@@ -20,7 +20,7 @@ function commentDate($date)
     if ($now->diffInWeeks($date) != 0) {
         return $now->diffInWeeks($date) . ' tuần';
     }
-    return $now->diffInDays($date) . ' ngày';
+    return $now->diffInDays($date) + 1 . ' ngày';
 }
 
 function expiredCharge($return_date)
