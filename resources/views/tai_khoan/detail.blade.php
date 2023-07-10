@@ -173,7 +173,7 @@
                             <div style="display: flex;">
                                 <div class="form-group mr-3" style="flex-basis: 50%;">
                                     <label class="m-0">&nbsp;Vai trò</label>
-                                    <input disabled name="vai_tro" class="form-control" value="{{ $detail->vai_tro == 1 ? 'Quản trị viên' : ($detail->vai_tro == 2 ? 'Thủ thư' : 'Đọc giả') }}">
+                                    <input disabled name="vai_tro" class="form-control" value="{{ $detail->vai_tro == 1 ? 'Quản trị viên cấp cao' : ($detail->vai_tro == 2 ? 'Thủ thư' : ($detail->vai_tro == 0 ? 'Quản trị viên' : 'Đọc giả')) }}">
                                 </div><!-- form-group -->
                                 <div class="form-group" style="flex-basis: 50%;">
                                     <label class="m-0">&nbsp;Ngày sinh</label>

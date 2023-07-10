@@ -21,7 +21,9 @@ class RedirectIfAuthenticated
             $user = $request->user();
             if ($user && $user->vai_tro === 1) { // Assuming 'user' role has id 1
                 return redirect()->route('trang-chu');
-            } else  if ($user && $user->vai_tro === 2) { // Assuming 'user' role has id 1
+            }else if ($user && $user->vai_tro === 0) { // Assuming 'user' role has id 1
+                return redirect()->route('trang-chu');
+            }else  if ($user && $user->vai_tro === 2) { // Assuming 'user' role has id 1
                 return redirect()->route('trang-chu');
             } else if ($user && $user->vai_tro === 3) { 
                 return redirect()->route('trang-chu-client');

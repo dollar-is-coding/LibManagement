@@ -35,7 +35,7 @@
                 </li>
 
                 <li class="nav-item {{ $view == 4 ? 'active show' : '' }}">
-                    @if(Auth::user()->vai_tro == 1)
+                    @if(Auth::user()->vai_tro == 1 || Auth::user()->vai_tro == 0 )
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>QUẢN TRỊ VIÊN</a>
                     @else
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-user"></i>THỦ THƯ</a>
@@ -86,7 +86,7 @@
                             @endif
                         </div><!-- az-img-user -->
                         <h6>{{ Auth::user()->ho }} {{ Auth::user()->ten }}</h6>
-                        <span>{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}</span>
+                        <span>{{ Auth::user()->vai_tro == 0 ? 'Quản trị viên' : (Auth::user()->vai_tro == 1 ? 'Quản trị viên cấp cao' : 'Thủ thư') }}</span>
                     </div><!-- az-header-profile -->
 
                     <a href="{{ route('xem-thong-tin') }}" class="dropdown-item">

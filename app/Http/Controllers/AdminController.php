@@ -575,7 +575,8 @@ class AdminController extends Controller
     // Cấp tài khoản - quản lý tài khoản
     public function capTaiKhoan()
     {
-        return view('tai_khoan.create');
+        $sl_adminup = NguoiDung::where('vai_tro',0)->count();
+        return view('tai_khoan.create',['sl_adminup'=> $sl_adminup]);
     }
     public function xuLyTaoTaiKhoan(CapTaiKhoanRequest $request)
     {
@@ -601,7 +602,7 @@ class AdminController extends Controller
         //random pas chu and so
         $user = NguoiDung::where('email', $request->email)->first();
         if (!$user) {
-            if ($request->vai_tro == 1 || $request->vai_tro == 2) {
+            if ($request->vai_tro == 0 || $request->vai_tro == 2) {
                 session()->put('mat_khau', $randomString);
                 $user = NguoiDung::create([
                     'email' => $request->email,
@@ -657,7 +658,7 @@ class AdminController extends Controller
     }
     public function quanLyTaiKhoan()
     {
-        $admin = NguoiDung::where('vai_tro', 1)->get();
+        $admin = NguoiDung::where('vai_tro', 1)->orWhere('vai_tro', 0)->get();
         $thuthu = NguoiDung::where('vai_tro', 2)->get();
         $docgia = NguoiDung::where('vai_tro', 3)->get();
         return view('tai_khoan.index', ['admin' => $admin, 'thuthu' => $thuthu, 'docgia' => $docgia]);
@@ -1120,5 +1121,10 @@ class AdminController extends Controller
         ThuVien::where('sach_id', $id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-sach');
+    }
+    public function xoaTaiKhoan($id){
+        NguoiDung::where('id',$id)->delete();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return back();
     }
 }

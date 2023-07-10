@@ -16,7 +16,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
-        if ($user && $user->vai_tro === 1 || $user->vai_tro === 2) { // Assuming 'user' role has id 1
+        if ($user && $user->vai_tro === 1 || $user->vai_tro === 2|| $user->vai_tro === 0) { // Assuming 'user' role has id 1
             return $next($request);
         }
         if (!$request->expectsJson()) {

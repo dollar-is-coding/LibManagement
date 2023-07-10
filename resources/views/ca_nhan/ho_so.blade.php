@@ -14,11 +14,11 @@
 
         gtag('config', 'UA-90680653-2');
     </script>
-    
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
@@ -26,7 +26,7 @@
     <title>libro - Hồ sơ</title>
 
     <!-- vendor css -->
-        @include('/common/link')
+    @include('/common/link')
 
 </head>
 
@@ -188,7 +188,7 @@
 
                             <div class="form-group">
                                 <label class="m-0">&nbsp;Vai trò</label>
-                                <input class="form-control" value="{{ Auth::user()->vai_tro == 1 ? 'Quản trị viên' : 'Thủ thư' }}" disabled>
+                                <input class="form-control" value="{{ Auth::user()->vai_tro == 0 ? 'Quản trị viên' : (Auth::user()->vai_tro == 1 ? 'Quản trị viên cấp cao' : 'Thủ thư') }}" disabled>
                             </div><!-- form-group -->
                             <button class="col-lg-3 btn btn-az-primary btn-block m-0 mt-2 border">Cập nhật</button>
                         </div>
