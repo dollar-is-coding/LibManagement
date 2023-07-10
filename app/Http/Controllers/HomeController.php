@@ -77,6 +77,11 @@ class HomeController extends Controller
             'password' => $request->password,
             'vai_tro' => 1,
         ];
+        $admin_up = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'vai_tro' => 0,
+        ];
         $thuthu = [
             'email' => $request->email,
             'password' => $request->password,
@@ -91,7 +96,11 @@ class HomeController extends Controller
         if (Auth::attempt($admin)) {
             session(['vai_tro' => $admin['vai_tro'], 'email_user' => $admin['email']]);
             return redirect()->route('trang-chu');
-        } else if (Auth::attempt($thuthu)) {
+        } else if (Auth::attempt($admin_up)) {
+            session(['vai_tro' => $admin_up['vai_tro'], 'email_user' => $admin_up['email']]);
+            return redirect()->route('trang-chu');
+        }
+         else if (Auth::attempt($thuthu)) {
             session(['vai_tro' => $thuthu['vai_tro'], 'email_user' => $thuthu['email']]);
             return redirect()->route('trang-chu');
         } else if (Auth::attempt($docgia)) {
@@ -144,8 +153,8 @@ class HomeController extends Controller
             NguoiDung::find(Auth::id())->update([
                 'mat_khau' => Hash::make($request->new_pass),
             ]);
-            FacadesSession::flash('success', 'Xử lý thành công');
-            return back();
+            // FacadesSession::flash('success', 'Xử lý thành công');
+            return back()->with('success', 'Thay đổi mật khẩu thành công');
         }
         return back()->with('error', 'Thay đổi mật khẩu thất bại');
     }

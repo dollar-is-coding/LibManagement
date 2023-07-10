@@ -94,6 +94,14 @@
                         </span>
                     </div>
                     @endif
+                    @if (session('success'))
+                    <div class="row justify-content-center">
+                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: blue;">
+                            <i class="typcn typcn-info text-primary h-4" style="font-size:16px"></i>
+                            <span class="text-primary">{{ session('success') }}</span>
+                        </span>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -45,7 +45,7 @@
                             @if(Auth::user())
                             <div class="col-lg-12 col-12">
                                 <div class="form-floating">
-                                    <input value="{{Auth::user()->email}}" type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
+                                    <input readonly value="{{Auth::user()->email}}" type="email" name="email" id="name" class="form-control" placeholder="Nhập email" required="" />
                                     <label for="floatingInput">Email</label>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
+
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
@@ -31,6 +31,19 @@
 <body>
 
     @include('../common/header', ['view' => 4])
+    @if (Session::has('success'))
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }, 100);
+    </script>
+    @endif
     <div style="margin-bottom: 300px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
@@ -48,7 +61,7 @@
                     <span>Cá nhân</span>
                     <span>Quản lý tài khoản</span>
                 </div>
-                @if(Auth::user()->vai_tro == 1)
+                @if(Auth::user()->vai_tro == 1 || Auth::user()->vai_tro == 0)
                 <div class="table-responsive">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -71,7 +84,12 @@
                                         <th>Họ</th>
                                         <th>Tên</th>
                                         <th>Email</th>
-                                        <th>Vị trí</th>
+                                        @if(Auth::user()->vai_tro == 1)
+                                        <th></th>
+                                        @elseif(Auth::user()->vai_tro == 0)
+                                        @else
+                                        <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,18 +99,18 @@
                                         <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
-
+                                        @if(Auth::user()->vai_tro == 1 && $item->id != Auth::id())
                                         <td>
-                                            <?php
-                                            if ($item->vai_tro == 2) {
-                                                echo 'Thủ thư';
-                                            } elseif ($item->vai_tro == 1) {
-                                                echo 'Quản trị viên';
-                                            } else {
-                                                echo 'Độc giả';
-                                            }
-                                            ?>
+                                            <div style="display: flex;justify-content: center;">
+                                                <a class="delete-link" href="{{route('xu-ly-xoa-tai-khoan',['id'=>$item->id])}}"><i style="font-size: 20px;color: red;" class="fas fa-times"></i></a>
+                                            </div>
                                         </td>
+                                        @elseif(Auth::user()->vai_tro == 0)
+                                        @else
+                                        <td>
+
+                                        </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -107,7 +125,9 @@
                                         <th>Họ</th>
                                         <th>Tên</th>
                                         <th>Email</th>
-                                        <th>Vị trí</th>
+                                        @if(Auth::user()->vai_tro == 1 || Auth::user()->vai_tro == 0)
+                                        <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,18 +137,13 @@
                                         <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
-
+                                        @if(Auth::user()->vai_tro == 1 || Auth::user()->vai_tro == 0)
                                         <td>
-                                            <?php
-                                            if ($item->vai_tro == 2) {
-                                                echo 'Thủ thư';
-                                            } elseif ($item->vai_tro == 1) {
-                                                echo 'Quản trị viên';
-                                            } else {
-                                                echo 'Độc giả';
-                                            }
-                                            ?>
+                                            <div style="display: flex;justify-content: center;">
+                                                <a class="delete-link" href="{{route('xu-ly-xoa-tai-khoan',['id'=>$item->id])}}"><i style="font-size: 20px;color: red;" class="fas fa-times"></i></a>
+                                            </div>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -143,7 +158,7 @@
                                         <th>Họ</th>
                                         <th>Tên</th>
                                         <th>Email</th>
-                                        <th>Vị trí</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,28 +170,19 @@
                                         <td>{{ $item->email }}</td>
 
                                         <td>
-                                            <?php
-                                            if ($item->vai_tro == 2) {
-                                                echo 'Thủ thư';
-                                            } elseif ($item->vai_tro == 1) {
-                                                echo 'Quản trị viên';
-                                            } else {
-                                                echo 'Độc giả';
-                                            }
-                                            ?>
+                                            <div style="display: flex;justify-content: center;">
+                                                <a class="delete-link" href="{{route('xu-ly-xoa-tai-khoan',['id'=>$item->id])}}"><i style="font-size: 20px;color: red;" class="fas fa-times"></i></a>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-
-
-
                     </div>
                 </div><!-- bd -->
                 @else
-                <h4 class="mt-2">QUẢN LÝ TÀI KHOẢN ĐỌC GIẢ</h4>
+                <h4 class="mt-2">QUẢN LÝ TÀI KHOẢN ĐỘC GIẢ</h4>
                 <table class="table mg-b-0 mg-t-20 az-table-reference">
                     <thead>
                         <tr>
@@ -184,7 +190,7 @@
                             <th>Họ</th>
                             <th>Tên</th>
                             <th>Email</th>
-                            <th>Vị trí</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -196,15 +202,9 @@
                             <td>{{ $item->email }}</td>
 
                             <td>
-                                <?php
-                                if ($item->vai_tro == 2) {
-                                    echo 'Thủ thư';
-                                } elseif ($item->vai_tro == 1) {
-                                    echo 'Quản trị viên';
-                                } else {
-                                    echo 'Độc giả';
-                                }
-                                ?>
+                                <div style="display: flex;justify-content: center;">
+                                    <a class="delete-link" href="{{route('xu-ly-xoa-tai-khoan',['id'=>$item->id])}}"><i style="font-size: 20px;color: red;" class="fas fa-times"></i></a>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -223,6 +223,27 @@
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        const deleteLinks = document.querySelectorAll(".delete-link");
+        deleteLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa tài khoản này không?",
+                    // imageUrl: "/img/war.png",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link.href;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

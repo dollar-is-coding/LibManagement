@@ -167,7 +167,12 @@
                                 <select name="vai_tro" id="vai_tro" class="form-control select2-no-search">
                                     <option value="" selected></option>
                                     @if(Auth::user()->vai_tro == 1)
-                                    <option value="1" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
+                                        @if($sl_adminup == 0)
+                                        <option value="0" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
+                                        @elseif($sl_adminup == 1)
+                                        @endif
+                                    <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
+                                    @else if(Auth::user()->vai_tro == 0)
                                     <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
                                     @endif
                                     <option value="3" {{ old('vai_tro') == 3 ? 'selected' : '' }}>Độc giả</option>
@@ -183,7 +188,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <input class="form-control" name="ma_hs" id="ma_hoc_sinh" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
+                                        <input min="8" max="8" class="form-control" name="ma_hs" id="ma_hoc_sinh" value="" placeholder="Nhập mã học sinh" type="number" autocomplete="off">
                                     </div><!-- col -->
                                 </div>
                             </div><!-- col-4 -->
