@@ -286,7 +286,9 @@ class ClientController extends Controller
         if (Arr::has($request->all(), 'all')) {
             $tong_so_luong = count($request->all()) - 2;
         }
-        if ($phieu_muon->doc_gia_id == Auth::id() && $phieu_muon->trang_thai == 1) {
+
+        // Cập nhật thêm sách vào phiếu chờ duyệt
+        if (PhieuMuonSach::first() && $phieu_muon->doc_gia_id == Auth::id() && $phieu_muon->trang_thai == 1) {
             PhieuMuonSach::where('ma_phieu_muon', $phieu_muon->ma_phieu_muon)->update([
                 'tong_so_luong' => $tong_so_luong + $phieu_muon->tong_so_luong
             ]);
@@ -307,6 +309,7 @@ class ClientController extends Controller
                     ]);
                 }
             }
+            // Tạo phiếu chờ duyệt mới
         } else {
             if (blank(PhieuMuonSach::latest()->first())) {
                 $ma_so = date('y') . date('m') . '0001';
