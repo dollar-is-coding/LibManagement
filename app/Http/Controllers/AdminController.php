@@ -851,6 +851,7 @@ class AdminController extends Controller
         return view('muon_sach.dang_muon_sach', ['dang_muon' => $dang_muon, 'so_luong' => $so_luong]);
     }
 
+
     public function daMuonSach()
     {
         $so_luong = PhieuMuonSach::where('trang_thai', 3)->distinct('ma_phieu_muon')->count();

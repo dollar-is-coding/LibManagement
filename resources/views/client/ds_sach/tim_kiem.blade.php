@@ -47,7 +47,7 @@
             </div>
         </header>
 
-        <section class="latest-podcast-section section-padding pt-2 pb-5" id="section_2">
+        <section class="latest-podcast-section section-padding pt-2" id="section_2">
             <div class="container">
                 <div class="row justify-content-start">
                     <div class="col-lg-12 col-12">
@@ -56,10 +56,9 @@
                         </div>
                     </div>
                     @foreach ($sach as $key => $item)
-                        <div
-                            class="col-lg-6 col-12 mb-lg-0 {{ $key >= 2 ? 'mt-4 mb-4' : ($sach->count() < 4 ? 'mb-5' : 'mb-4') }}">
+                        <div class="col-lg-6 col-12 mb-4 mb-lg-0 {{ $key >= 2 ? 'mt-4' : '' }}">
                             <div class="custom-block d-flex">
-                                <div class="">
+                                <div>
                                     <div class="custom-block-icon-wrap">
                                         <div class="section-overlay"></div>
                                         <a href="{{ route('thong-tin-sach', ['id' => $item->id]) }}"
