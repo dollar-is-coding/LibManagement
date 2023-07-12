@@ -29,10 +29,10 @@ class NguoiDungSeeder extends Seeder
             'ho' => 'Phạm',
             'ten' => 'Vinh',
             'mat_khau' => Hash::make('quangvinh2201'),
-            'email' => '0306201403@caothang.edu.vn',
+            'email' => '1306201403@caothang.edu.vn',
             'gioi_tinh' => 1,
             'ngay_sinh' => '2002/01/22',
-            'vai_tro' => 2,
+            'vai_tro' => 3,
             'hinh_anh' => '',
             'ma_hs' => '',
         ]);

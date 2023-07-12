@@ -80,7 +80,8 @@ class AdminController extends Controller
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
         FacadesSession::flash('success', 'Xử lý thành công');
-        return back();
+        // return back();
+        return redirect()->route('quan-ly-tai-khoan');
     }
     public function export()
     {
@@ -89,7 +90,8 @@ class AdminController extends Controller
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
     {
-        $tac_gia = TacGia::all();
+        // $tac_gia = TacGia::orderBy('ten', 'asc')->get();
+        $tac_gia = TacGia::orderByRaw("CASE WHEN ten = 'Nhiều tác giả' THEN 0 ELSE 1 END, ten ASC")->get();
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
@@ -390,7 +392,7 @@ class AdminController extends Controller
     public function suaSach($id)
     {
         $sach = ThuVien::where('sach_id', $id)->get();
-        $tac_gia = TacGia::all();
+        $tac_gia = TacGia::orderBy('ten', 'asc')->get();
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
@@ -542,7 +544,7 @@ class AdminController extends Controller
     public function timKiemTheoTacGia(Request $request)
     {
         $timKiem = $request->tim_kiem;
-        $tim_kiem = $request->old('tim_kiem');
+        $tim = $request->input('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
             ->orderBy('ten', 'asc')
             ->paginate(20);
@@ -558,6 +560,7 @@ class AdminController extends Controller
                 'selected' => 'asc_name',
                 'slsach' => $slsach,
                 'queryString' => $queryString,
+                'tim_kiem'=>$tim
             ]);
         }
     }
@@ -1021,6 +1024,7 @@ class AdminController extends Controller
         $khosach = KhoSach::where('so_luong', '>', 0)->get();
         return view('sach.quan_ly_kho', ['khosach' => $khosach]);
     }
+    
     public function quanLyLienHe()
     {
         $lienhe = LienHe::all();

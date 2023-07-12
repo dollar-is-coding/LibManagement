@@ -24,7 +24,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-        @include('/common/link')
+    @include('/common/link')
 </head>
 
 <body>
@@ -37,18 +37,7 @@
     </style>
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-left az-content-left-components">
-                <div class="component-item">
-                    @foreach ($sach as $item)
-                    <label>{{ $item->fkSach->ten }}</label>
-                    <nav class="nav flex-column">
-                        <a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" class="nav-link">
-                            Chi tiết</a>
-                        <a href="" class="nav-link active">Chỉnh sửa</a>
-                    </nav>
-                    @endforeach
-                </div><!-- component-item -->
-            </div><!-- az-content-left -->
+
             @if(Session::has('success'))
             <script>
                 setTimeout(function() {
@@ -64,29 +53,16 @@
             @endif
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <!-- đây mục trỏ-->
-                <div class="az-content-breadcrumb">
-                    @foreach ($sach as $item)
-                    <span>{{ $item->fkSach->ten }}</span>
-                    @endforeach
-                    <span>Sửa sách</span>
-                </div>
+                @foreach ($sach as $item)
+                <h3><a href="{{ route('chi-tiet-sach', ['id' => $item->id]) }}" style="font-size: 22px;color: black;" class="mr-2">
+                        <i class="typcn typcn-arrow-back"></i></a>Chỉnh sửa sách</h3>
+               
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group d-flex  align-items-center">
-                            <input class="m-0" name="de_xuat" value="{{$item->fkSach->de_xuat}}" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
-                            <label class="m-0 ml-1" id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> {{$item->fkSach->de_xuat == 1 ? 'Đề xuất' : 'Không đề xuất'}}</label>
-                            <script>
-                                let check = document.getElementById('checkDeXuat');
-                                let text = document.getElementById('changeContext');
-                                check.onchange = function() {
-                                    if (check.checked === true) {
-                                        text.innerHTML = 'Đề xuất'
-                                    } else {
-                                        text.innerHTML = 'Không đề xuất'
-                                    }
-                                }
-                            </script>
+                            <input class="ml-3" name="de_xuat" value="{{$item->fkSach->de_xuat}}" style="width: 17px;height: 17px;" {{$item->fkSach->de_xuat == 1 ? 'checked' : ''}} type="checkbox" id="checkDeXuat">
+                            <label class="m-0 ml-1" id="changeContext" style="font-size: 18px;user-select: none;" for="checkDeXuat">Đề xuất</label>
                         </div>
                         <div style="display: flex;flex-direction: row-reverse;">
                             <!-- form -->
@@ -251,7 +227,7 @@
                         </div>
                     </form>
                 </div><!-- az-card-signin -->
-
+                @endforeach
                 <div class="ht-40"></div>
 
 

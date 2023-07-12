@@ -71,6 +71,9 @@
                                     <option value="{{$item->sach_id}}">{{$item->fkSach->ten}}</option>
                                     @endforeach
                                 </select>
+                                <div id="hien_sach">
+
+                                </div>
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="exampleFormControlInput1" class="form-label">Số lượng</label>
