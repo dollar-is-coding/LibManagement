@@ -57,7 +57,7 @@
                         <div style="font-family: 'Sono'">
                             <div class="d-flex justify-content-between shadow-sm border"
                                 style="padding:20px 30px 20px 30px; border-radius:30px">
-                                <div style="width:55%" class="d-flex align-items-center">
+                                <div style="width:60%" class="d-flex align-items-center">
                                     <input style="width:1em;height:1em" type="checkbox" id="all-checked" name="all">
                                     <p class="m-0"><strong>&nbsp;Sách</strong></p>
                                 </div>
@@ -87,7 +87,7 @@
                                         </div>
                                         <hr>
                                         <div class="d-flex justify-content-between">
-                                            <div class="d-flex" style="width:55%">
+                                            <div class="d-flex" style="width:60%">
                                                 <div class="custom-block-icon-wrap">
                                                     <div class="section-overlay"></div>
                                                     <a class="custom-block-image-wrap">

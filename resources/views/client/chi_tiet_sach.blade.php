@@ -83,7 +83,7 @@
                                         <li class="p-2"><small>Vị trí:</small></li>
                                         <li class="shadow-sm border rounded p-2 flex-fill">
                                             {{ $sach->hasThuVien->fkTuSach->ten }},
-                                            {{ $sach->hasThuVien->fkTuSach->ten }}
+                                            {{ $sach->hasThuVien->fkTuSach->fkKhuVuc->ten }}
                                         </li>
                                     </ul>
                                     <ul class="d-flex mb-2 p-0" style="list-style: none;">
@@ -144,8 +144,7 @@
                 </div>
             </div>
         </section>
-
-        @if ($cung_tac_gia->count() > 1)
+        @if ($cung_tac_gia->count() > 0)
             <section class="related-podcast-section section-padding pt-0 {{ $ds_da_xem ? 'pb-5' : '' }}">
                 <div class="container">
                     <div class="row">

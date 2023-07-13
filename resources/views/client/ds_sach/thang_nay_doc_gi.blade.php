@@ -80,32 +80,25 @@
                                             ])
                                         </div>
                                     </div>
-                                    <div class="custom-block-info">
-                                        <div class="custom-block-top d-flex mb-1">
-                                            <small class="me-4">
-                                                <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $item->fkSach->nam_xuat_ban }}
-                                            </small>
-                                            <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $item->fkSach->ma_sach }}</span></small>
-                                            <small>Số lượng <span
-                                                    class="badge">{{ $item->fkSach->hasThuVien->sl_con_lai }}</span></small>
-                                        </div>
-                                        <h5 class="mb-2">
-                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('thong-tin-sach', ['id' => $item->sach_id]) }}">
-                                                {{ $item->fkSach->ten }} </a>
-                                        </h5>
-                                        <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png" class="profile-block-image img-fluid"
-                                                alt="" />
-                                            <p>
-                                                Tác giả
-                                                <strong>
+                                    <div class="custom-block-info d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small class="me-4">
+                                                    <i class="bi-clock-fill custom-icon"></i>
+                                                    {{ $item->fkSach->nam_xuat_ban }}
+                                                </small>
+                                                <small class="me-4">
                                                     <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->fkSach->tac_gia_id]) }}"
-                                                        style="color:#717275">{{ $item->fkSach->fkTacGia->ten }}</a>
-                                                </strong>
-                                            </p>
+                                                        class="author">
+                                                        <i class="bi-person-circle custom-icon"></i>
+                                                        {{ $item->fkSach->fkTacGia->ten }}</a>
+                                                </small>
+                                            </div>
+                                            <h5 class="mb-2">
+                                                <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;  text-align: justify; text-justify: inter-word;"
+                                                    href="{{ route('thong-tin-sach', ['id' => $item->sach_id]) }}">
+                                                    {{ $item->fkSach->ten }} </a>
+                                            </h5>
                                         </div>
                                         @include('client.element.interact_bar', ['sach' => $item->fkSach])
                                     </div>
@@ -132,7 +125,8 @@
                                     </div>
                                     <div class="custom-block-info">
                                         <h5 class="mb-2">
-                                            <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
+                                            <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}"
+                                                style="width:13em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
                                                 {{ $item->fkSach->ten }}</a>
                                         </h5>
                                         <div class="profile-block d-flex">

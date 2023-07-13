@@ -59,7 +59,7 @@
 
                         <div class="owl-carousel owl-theme">
                             @foreach ($de_xuat as $sach)
-                                <div class="owl-carousel-info-wrap item">
+                                <div class="owl-carousel-info-wrap item" style="width:100%; height:480px">
                                     @if ($sach->hinh_anh == '')
                                         <img src="../img/default/no_book_slider.png"
                                             class="owl-carousel-image img-fluid" />
@@ -68,10 +68,10 @@
                                             class="owl-carousel-image img-fluid" width="150px" />
                                     @endif
                                     <div class="owl-carousel-info">
-                                        <h4 class="mb-2">
+                                        <h5 class="mb-2">
                                             <a href="{{ route('thong-tin-sach', ['id' => $sach->id]) }}"
                                                 class="slide">{{ $sach->ten }}</a>
-                                        </h4>
+                                        </h5>
                                         <span class="badge">{{ $sach->fkTacGia->ten }}</span>
                                         <span class="badge">#{{ $sach->ma_sach }}</span>
                                     </div>
@@ -115,50 +115,45 @@
                                             ])
                                         </div>
                                     </div>
-                                    <div class="custom-block-info">
-                                        <div class="custom-block-top d-flex mb-1">
-                                            <small class="me-4">
-                                                <i class="bi-clock-fill custom-icon"></i>
-                                                {{ $item->nam_xuat_ban }}
-                                            </small>
-                                            <small class="me-4">Mã sách <span
-                                                    class="badge">#{{ $item->ma_sach }}</span></small>
-                                            <small>Số lượng <span
-                                                    class="badge">{{ $item->hasThuVien->sl_con_lai }}</span></small>
-                                        </div>
-                                        <h5 class="mb-2">
-                                            <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
-                                                href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
-                                                {{ $item->ten }} </a>
-                                        </h5>
-                                        <div class="profile-block d-flex">
-                                            <img src="../img/default/author.png"
-                                                class="profile-block-image img-fluid" />
-                                            <p>
-                                                Tác giả
-                                                <strong>
+                                    <div class="custom-block-info d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small class="me-4">
+                                                    <i class="bi-clock-fill custom-icon"></i>
+                                                    {{ $item->nam_xuat_ban }}
+                                                </small>
+                                                <small class="me-4">
                                                     <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 2, 'tac_gia' => $item->tac_gia_id]) }}"
-                                                        class="author">{{ $item->fkTacGia->ten }}</a>
-                                                </strong>
-                                            </p>
+                                                        class="author">
+                                                        <i class="bi-person-circle custom-icon"></i>
+                                                        {{ $item->fkTacGia->ten }}</a>
+                                                </small>
+                                            </div>
+                                            <h5 class="mb-2">
+                                                <a style="width:17em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-align: justify; text-justify: inter-word;"
+                                                    href="{{ route('thong-tin-sach', ['id' => $item->id]) }}">
+                                                    {{ $item->ten }}</a>
+                                            </h5>
                                         </div>
                                         @include('client.element.interact_bar', ['sach' => $item])
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-                        <div class="col-lg-4 col-12 mx-auto">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination pagination-lg justify-content-center mt-5">
-                                    <h4>
-                                        <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 1]) }}"
-                                            onMouseOver="this.style.textDecoration='underline'"
-                                            onMouseOut="this.style.textDecoration='none'" href="">Xem tất
-                                            cả</a>
-                                    </h4>
-                                </ul>
-                            </nav>
-                        </div>
+                        @if ($sach_moi->count() > 4)
+                            <div class="col-lg-4 col-12 mx-auto">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination pagination-lg justify-content-center mt-5">
+                                        <h4>
+                                            <a href="{{ route('sach-theo-chu-de', ['dieu_kien' => 1]) }}"
+                                                onMouseOver="this.style.textDecoration='underline'"
+                                                onMouseOut="this.style.textDecoration='none'" href="">
+                                                Xem tất cả</a>
+                                        </h4>
+                                    </ul>
+                                </nav>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </section>
