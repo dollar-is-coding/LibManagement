@@ -149,10 +149,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/phieu-phat', [AdminController::class, 'phieuPhat'])->name('phieu-phat')->middleware('auth');
 
     Route::get('/xoa-tai-khoa/{id}', [AdminController::class, 'xoaTaiKhoan'])->name('xu-ly-xoa-tai-khoan')->middleware('auth');
-
-
+    Route::get('/huy-phieu-duyet-sach/{id}', [AdminController::class, 'huyPhieuMuon'])->name('xu-ly-huy-phieu-muon')->middleware('auth');
 });
-
+Route::get('/xem-sach/{id}', [AdminController::class, 'viewSach'])->name('xem-sach');
 Route::get('/thang-nay-moi-nguoi-doc-gi', [ClientController::class, 'thangNayDocGi'])->name('thang-nay-doc-gi');
 Route::get('/tim-kiem', [ClientController::class, 'timKiem'])->name('tim-kiem');
 Route::get('/thong-tin-sach', [ClientController::class, 'chiTietSach'])->name('thong-tin-sach');

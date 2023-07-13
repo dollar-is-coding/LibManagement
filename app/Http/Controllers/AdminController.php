@@ -809,7 +809,8 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
-        return back();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return redirect()->route('dang-muon-sach');
     }
     public function xuLyMuonSachAll()
     {
@@ -818,6 +819,7 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('dang-muon-sach');
     }
     public function xuLyTraSach(Request $request, $id)
@@ -1130,5 +1132,21 @@ class AdminController extends Controller
         NguoiDung::where('id',$id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
+    }
+    public function viewSach($id){
+        $sach = Sach::where('id',$id)->first();
+        return response()->json(['sach'=>$sach]);
+    }
+    public function huyPhieuMuon($id)
+    {
+        $ds_phieu = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
+        foreach ($ds_phieu as $key => $value) {
+            ThuVien::where('sach_id', $value->sach_id)
+                ->update(['sl_con_lai' => ThuVien::where('sach_id', $value->sach_id)
+                    ->first()->sl_con_lai + 1]);
+        }
+        PhieuMuonSach::where('ma_phieu_muon', $id)->update(['trang_thai' => 0]);
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return redirect()->route('phe-duyet-muon-sach');
     }
 }

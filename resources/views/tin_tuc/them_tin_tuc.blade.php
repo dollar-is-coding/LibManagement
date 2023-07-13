@@ -27,21 +27,23 @@
     @include('/common/link')
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 5])
     @if (Session::has('success'))
-        <script>
-            setTimeout(function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thành công',
-                    text: `{{ Session::get('success') }}`,
-                    showConfirmButton: false,
-                    timer: 1000 // Hiển thị trong 5 giây
-                });
-            }, 100);
-        </script>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
     @endif
     <style>
         textarea {
@@ -66,31 +68,24 @@
                     <span>Thêm tin tức</span>
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
-                    <form action="{{ route('xu-ly-them-tin-tuc') }}" method="post" enctype="multipart/form-data"
-                        class="ml-3">
+                    <form action="{{ route('xu-ly-them-tin-tuc') }}" method="post" enctype="multipart/form-data" class="ml-3">
                         @csrf
                         <div class="form-check">
-                            <input style="width: 18px; height: 18px;" class="form-check-input" name="noi_bat"
-                                type="checkbox" id="flexCheckDefault">
-                            <label style="user-select: none;font-size: 18px;" class="form-check-label"
-                                for="flexCheckDefault">Nổi bật
+                            <input style="width: 18px; height: 18px;" class="form-check-input" name="noi_bat" type="checkbox" id="flexCheckDefault">
+                            <label style="user-select: none;font-size: 18px;" class="form-check-label" for="flexCheckDefault">Nổi bật
                             </label>
                         </div>
                         <div style="display: flex;">
                             <div style="flex-basis: 30%;">
-                                <div class="upload-container border rounded"
-                                    style="background-image: url('/img/avt/income.jpg');margin-top: 10px;">
-                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file"
-                                        name="file_upload" accept="image/*" onchange="chooseFile(this)"
-                                        tabindex="10" />
+                                <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');margin-top: 10px;">
+                                    <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                     <div id="preview-container" class="preview-container">
                                     </div>
                                 </div>
                             </div>
                             <div style="flex-basis: 70%;">
                                 <label for="">Tiêu đề</label>
-                                <input required name="tieu_de" type="text" class="form-control"
-                                    id="exampleFormControlInput1" placeholder="Tiêu đề">
+                                <input required name="tieu_de" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tiêu đề">
                                 <label class="pt-3" for="">Nội dung</label>
                                 <div class="form-floating">
                                     <textarea id="sample" style="height: 200px;" name="noi_dung" class="form-control" placeholder="Nội dung"></textarea>

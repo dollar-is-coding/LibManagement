@@ -97,7 +97,7 @@
                     </div>
                     <div class="card ml-2 mr-2" style="width: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title">SỐ LƯỢNG ĐỌC GIẢ</h5>
+                            <h5 class="card-title">SỐ LƯỢNG ĐỘC GIẢ</h5>
                             <p style="font-size: 30px; font-weight: bold;" class="card-text">{{$sldocgia}}</p>
                             <a href="{{route('quan-ly-tai-khoan')}}" class="btn btn-primary">Xem chi tiết</a>
                         </div>

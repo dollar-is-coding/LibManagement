@@ -29,7 +29,9 @@
 
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 5])
     @if(Session::has('success'))

@@ -27,7 +27,9 @@
     @include('/common/link')
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 4])
     @if (Session::has('success'))
@@ -56,14 +58,14 @@
         }, 100);
     </script>
     @endif
-    <div style="margin-bottom: 65px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Quản trị viên</label>
+                    <label style="font-size: 20px;">Quản trị viên</label>
                     <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Cấp tài khoản</a>
-                        <a href="{{ route('quan-ly-tai-khoan') }}" class="nav-link ">Quản lý tài khoản</a>
+                        <a style="font-size: 18px;" href="#" class="nav-link active">Cấp tài khoản</a>
+                        <a style="font-size: 18px;" href="{{ route('quan-ly-tai-khoan') }}" class="nav-link ">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -75,41 +77,70 @@
                 </div>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <!-- import -->
-                    <div id="import_doc_gia" style="display: none;">
-                        <form action="{{ route('import-sach') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <label class="custom-file-upload">
-                                <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
-                                <span id="file-name">Chọn tệp</span>
-                            </label>
+                    <div style="display: flex;">
 
-                            <style>
-                                .custom-file-upload {
-                                    display: inline-block;
-                                    padding: 6px 12px;
-                                    cursor: pointer;
-                                    border: 1px solid #ccc;
-                                    border-radius: 4px;
-                                    background-color: #f1f1f1;
-                                }
 
-                                .custom-file-upload input[type="file"] {
-                                    display: none;
-                                }
-                            </style>
+                        <div id="import_doc_gia" style="display: none;">
+                            <form action="{{ route('import-sach') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <label class="custom-file-upload">
+                                    <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
+                                    <span id="file-name">Chọn tệp</span>
+                                </label>
+
+                                <style>
+                                    .custom-file-upload {
+                                        display: inline-block;
+                                        padding: 6px 12px;
+                                        cursor: pointer;
+                                        border: 1px solid #ccc;
+                                        border-radius: 4px;
+                                        background-color: #f1f1f1;
+                                    }
+
+                                    .custom-file-upload input[type="file"] {
+                                        display: none;
+                                    }
+                                </style>
+                                <script>
+                                    function showFileName(event) {
+                                        const input = event.target;
+                                        const fileName = input.files[0].name;
+                                        const fileNameSpan = document.getElementById('file-name');
+                                        fileNameSpan.textContent = fileName;
+                                    }
+                                </script>
+
+                                <button style="margin-top: 0px;" type="submit" name="import_csv" class="btn btn-success rounded">Tải lên</button>
+                            </form>
+                        </div>
+                        <div id="tepmau" style="display: none;">
+                            <button type="submit" onclick="downloadFile()" name="tepmau" class="btn btn-success rounded ml-3">Tải tệp mẫu</button>
                             <script>
-                                function showFileName(event) {
-                                    const input = event.target;
-                                    const fileName = input.files[0].name;
-                                    const fileNameSpan = document.getElementById('file-name');
-                                    fileNameSpan.textContent = fileName;
+                                function downloadFile() {
+                                    // Đường dẫn đến file Excel
+                                    var fileUrl = '/file/file_mau.xlsx';
+
+                                    // Tạo một đối tượng hình thức ẩn
+                                    var hiddenElement = document.createElement('a');
+                                    hiddenElement.href = fileUrl;
+                                    hiddenElement.target = '_blank';
+                                    hiddenElement.download = 'file_mau.xlsx'; // Tên file mà bạn muốn hiển thị khi tải xuống
+
+                                    // Gắn đối tượng hình thức ẩn vào trang web
+                                    document.body.appendChild(hiddenElement);
+
+                                    // Tự động kích hoạt sự kiện nhấn nút để tải file xuống
+                                    hiddenElement.click();
+
+                                    // Loại bỏ đối tượng hình thức ẩn khỏi trang web
+                                    document.body.removeChild(hiddenElement);
                                 }
                             </script>
-                            <button style="margin-top: 0px;" type="submit" name="import_csv" class="btn btn-success ">Tải lên</button>
-                        </form>
-                    </div>
-                    <!-- end import -->
 
+                        </div>
+                        <!-- end import -->
+                    </div>
                     <h4 class="az-content-label mg-b-5 ml-3">Cấp tài khoản</h4>
                     <p class="mg-b-5 ml-3 ">
                         Chỉ admin mới có quyền cấp tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
@@ -167,10 +198,10 @@
                                 <select name="vai_tro" id="vai_tro" class="form-control select2-no-search">
                                     <option value="" selected></option>
                                     @if(Auth::user()->vai_tro == 1)
-                                        @if($sl_adminup == 0)
-                                        <option value="0" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
-                                        @elseif($sl_adminup == 1)
-                                        @endif
+                                    @if($sl_adminup == 0)
+                                    <option value="0" {{ old('vai_tro') == 1 ? 'selected' : '' }}>Quản trị viên</option>
+                                    @elseif($sl_adminup == 1)
+                                    @endif
                                     <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
                                     @else if(Auth::user()->vai_tro == 0)
                                     <option value="2" {{ old('vai_tro') == 2 ? 'selected' : '' }}>Thủ thư</option>
@@ -266,6 +297,7 @@
         let ngay_duoi = document.getElementById('ngaysinhanduoi');
         let tren = document.getElementById('for_tren');
         let duoi = document.getElementById('for_duoi');
+        let tepmau = document.getElementById('tepmau');
 
         function hide_show() {
             if (select.value == 3) {
@@ -273,14 +305,16 @@
                 show_import.style.display = 'block';
                 ngay_tren.style.display = 'block';
                 ngay_duoi.style.display = 'none';
+                tepmau.style.display = 'block';
                 tren.setAttribute("name", "ngay_sinh");
                 tren.setAttribute("required", "");
                 duoi.removeAttribute("name");
                 duoi.removeAttribute("required");
-            } else if (select.value == 1 || select.value == 2) {
+            } else if (select.value == 0 || select.value == 1 || select.value == 2) {
                 show.style.display = 'none';
                 show_import.style.display = 'none';
                 ngay_tren.style.display = 'none';
+                tepmau.style.display = 'none';
                 ngay_duoi.style.display = 'block';
                 duoi.setAttribute("name", "ngay_sinh");
                 duoi.setAttribute("required", "");

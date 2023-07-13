@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body style=" display: flex; flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 4])
     @if (Session::has('success'))
@@ -44,14 +44,18 @@
         }, 100);
     </script>
     @endif
-    <div style="margin-bottom: 300px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Quản trị viên</label>
+                    @if(Auth::user()->vai_tro == 2)
+                    <label style="font-size: 20px;">Thủ thư</label>
+                    @else
+                    <label style="font-size: 20px;">Quản trị viên</label>
+                    @endif
                     <nav class="nav flex-column">
-                        <a href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
-                        <a href="#" class="nav-link active">Quản lý tài khoản</a>
+                        <a style="font-size: 18px;" href="{{ route('tao-tai-khoan') }}" class="nav-link">Cấp tài khoản</a>
+                        <a style="font-size: 18px;" href="#" class="nav-link active">Quản lý tài khoản</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -92,11 +96,17 @@
                                         @endif
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     @foreach ($admin as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
+                                        @if($item->vai_tro == Auth::user()->vai_tro)
+                                        <td>
+                                            <p>{{ $item->ho }}</p>
+                                        </td>
+                                        @else
                                         <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
+                                        @endif
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
                                         @if(Auth::user()->vai_tro == 1 && $item->id != Auth::id())
@@ -134,7 +144,13 @@
                                     @foreach ($thuthu as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
+                                        @if($item->vai_tro == Auth::user()->vai_tro)
+                                        <td>
+                                            <p>{{ $item->ho }}</p>
+                                        </td>
+                                        @else
                                         <td><a href="{{route('chi-tiet-tai-khoan',['id'=>$item->id])}}">{{ $item->ho }}</a></td>
+                                        @endif
                                         <td>{{ $item->ten }}</td>
                                         <td>{{ $item->email }}</td>
                                         @if(Auth::user()->vai_tro == 1 || Auth::user()->vai_tro == 0)

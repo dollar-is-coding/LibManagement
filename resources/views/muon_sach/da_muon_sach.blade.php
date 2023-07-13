@@ -30,55 +30,54 @@
 
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 3])
     @if (Session::has('success'))
-        <script>
-            setTimeout(function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thành công',
-                    text: `{{ Session::get('success') }}`,
-                    showConfirmButton: false,
-                    timer: 1000 // Hiển thị trong 5 giây
-                });
-            }, 100);
-        </script>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: `{{ Session::get('success') }}`,
+                showConfirmButton: false,
+                timer: 1000 // Hiển thị trong 5 giây
+            });
+        }, 100);
+    </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
             <div class="az-content-body d-flex flex-column">
                 <form class="row az-signin-header" action="{{ route('tim-kiem-da-muon-sach') }}" method="get">
                     <div class="col-lg">
-                        <input required class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value=""
-                            autocomplete="off">
+                        <input required class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
                     </div>
                 </form>
                 @if (session('export_path'))
-                    <a id="download-link" href="/{{ session('export_path') }}" style="display: none;" download></a>
-                    <script>
-                        // Trigger the download using JavaScript
-                        document.getElementById('download-link').click();
-                    </script>
+                <a id="download-link" href="/{{ session('export_path') }}" style="display: none;" download></a>
+                <script>
+                    // Trigger the download using JavaScript
+                    document.getElementById('download-link').click();
+                </script>
                 @endif
                 @if (session('error'))
-                    <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm"
-                        style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
-                        <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                        <span class="text-danger">{{ session('error') }}</span>
-                    </div>
+                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                    <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
+                    <span class="text-danger">{{ session('error') }}</span>
+                </div>
                 @endif
                 <style>
                     .mumu {
                         margin: 15px 50px 15px 15px !important;
                     }
                 </style>
-                <div class="az-content-left az-content-left-components"
-                    style="border: none;width: 100%;background-color: whitesmoke;">
+                <div class="az-content-left az-content-left-components" style="border: none;width: 100%;background-color: whitesmoke;">
                     <div class="component-item" style="position: sticky;">
                         <nav style="display: flex">
                             <a href="{{ route('phe-duyet-muon-sach') }}" class="nav-link mumu">CHỜ DUYỆT</a>
@@ -90,81 +89,79 @@
                 </div><!-- az-content-left -->
                 <div class="">
                     @if ($so_luong > 0)
-                        <h4 class="mt-3">PHIẾU TRẢ SÁCH ({{ $so_luong }})</h4>
+                    <h4 class="mt-3">PHIẾU TRẢ SÁCH ({{ $so_luong }})</h4>
                     @else
-                        <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU TRẢ SÁCH NÀO !!</h4>
+                    <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU TRẢ SÁCH NÀO !!</h4>
                     @endif
                     <div class="table-responsive">
                         @foreach ($da_muon as $key => $item)
-                            @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
-                                <div class="container border rounded pt-3 pl-4 pr-3 pb-2 mb-2"
-                                    style="display: grid;grid-template-columns: auto;">
-                                    <div class="d-flex">
-                                        <h5 class="mr-4">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</h5>
-                                        <p class="mb-1 mr-4">
-                                            Độc giả:
-                                            <span style="font-weight: bold;">
-                                                {{ $item->fkNguoiDung->ho }}
-                                                {{ $item->fkNguoiDung->ten }}
-                                            </span>
-                                        </p>
-                                        <p class="mb-1 mr-4">
-                                            Người duyệt:
-                                            <span style="font-weight: bold;">
-                                                {{ $item->hasPhieuTraSach->fkNguoiDung->ho }}
-                                                {{ $item->hasPhieuTraSach->fkNguoiDung->ten }}
-                                            </span>
-                                        </p>
-                                        <p class="mb-1 mr-4">
-                                            Ngày mượn:
-                                            <span style="font-weight: bold;">
-                                                {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('d/m/Y') }}
-                                            </span>
-                                        </p>
-                                        <p class="mb-1">Ngày trả:
-                                            <span style="font-weight: bold;">
-                                                {{ \Carbon\Carbon::parse($item->hasPhieuTraSach->created_at)->format('d/m/Y') }}
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div style="font-style: italic; text-decoration:underline">
-                                        Các quyển sách ({{ $item->tong_so_luong }}):</div>
+                        @if ($key == 0 || $item->ma_phieu_muon != $da_muon[$key - 1]->ma_phieu_muon)
+                        <div class="container border rounded pt-3 pl-4 pr-3 pb-2 mb-2" style="display: grid;grid-template-columns: auto;">
+                            <div class="d-flex">
+                                <h5 class="mr-4">Mã phiếu mượn #{{ $item->ma_phieu_muon }}</h5>
+                                <p class="mb-1 mr-4">
+                                    Độc giả:
+                                    <span style="font-weight: bold;">
+                                        {{ $item->fkNguoiDung->ho }}
+                                        {{ $item->fkNguoiDung->ten }}
+                                    </span>
+                                </p>
+                                <p class="mb-1 mr-4">
+                                    Người duyệt:
+                                    <span style="font-weight: bold;">
+                                        {{ $item->hasPhieuTraSach->fkNguoiDung->ho }}
+                                        {{ $item->hasPhieuTraSach->fkNguoiDung->ten }}
+                                    </span>
+                                </p>
+                                <p class="mb-1 mr-4">
+                                    Ngày mượn:
+                                    <span style="font-weight: bold;">
+                                        {{ \Carbon\Carbon::parse($item->ngay_lap_phieu)->format('d/m/Y') }}
+                                    </span>
+                                </p>
+                                <p class="mb-1">Ngày trả:
+                                    <span style="font-weight: bold;">
+                                        {{ \Carbon\Carbon::parse($item->hasPhieuTraSach->created_at)->format('d/m/Y') }}
+                                    </span>
+                                </p>
+                            </div>
+                            <div style="font-style: italic; text-decoration:underline">
+                                Các quyển sách ({{ $item->tong_so_luong }}):</div>
                             @endif
                             @if (
-                                ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
-                                    $key == $da_muon->count() - 1)
-                                <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
-                                    <div style="display: flex;">
-                                        <div class="ml-3">
-                                            <p class="mt-1 mb-0">
-                                                <b>&bull; {{ $item->fkSach->ten }}</b>
-                                                <span class="ml-3">x{{ $item->so_luong }} quyển</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                        <a href="{{ route('chi-tiet-phieu', ['id' => $item->ma_phieu_muon]) }}"
-                                            style="width: 25%;" class="btn btn-indigo rounded m-1">Chi tiết</a>
+                            ($key != $da_muon->count() - 1 && $item->ma_phieu_muon != $da_muon[$key + 1]->ma_phieu_muon) ||
+                            $key == $da_muon->count() - 1)
+                            <div class="ml-2" style="display: grid;grid-template-columns: auto auto">
+                                <div style="display: flex;">
+                                    <div class="ml-3">
+                                        <p class="mt-1 mb-0">
+                                            <b>&bull; {{ $item->fkSach->ten }}</b>
+                                            <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                        </p>
                                     </div>
                                 </div>
-                    </div>
-                @else
-                    <div class="ml-2">
-                        <div class="ml-3">
-                            <p class="mt-1 mb-0">
-                                <b>&bull; {{ $item->fkSach->ten }}</b>
-                                <span class="ml-3">x{{ $item->so_luong }} quyển</span>
-                            </p>
+                                <div style="display: flex;flex-direction: row-reverse;">
+                                    <a href="{{ route('chi-tiet-phieu', ['id' => $item->ma_phieu_muon]) }}" class="btn btn-indigo rounded m-1">Chi tiết</a>
+                                </div>
+                            </div>
                         </div>
+                        @else
+                        <div class="ml-2">
+                            <div class="ml-3">
+                                <p class="mt-1 mb-0">
+                                    <b>&bull; {{ $item->fkSach->ten }}</b>
+                                    <span class="ml-3">x{{ $item->so_luong }} quyển</span>
+                                </p>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
                     </div>
-                    @endif
-                    @endforeach
                 </div>
             </div>
-        </div>
 
 
-    </div><!-- container -->
+        </div><!-- container -->
     </div><!-- az-content -->
     @include('../common/footer')
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">

@@ -38,6 +38,7 @@
 
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
+
             <div class="az-content-body">
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
@@ -59,13 +60,13 @@
                 </form>
                 <h4 class="mt-2">QUẢN LÝ KHO SÁCH ({{ $khosach->count() }})</h4>
                 @endif
-                <div class="table-responsive" style="display: grid;grid-template-columns: repeat(4, minmax(0, 1fr));">
+                <div class="table-responsive" style="display: grid;grid-template-columns: repeat(5, minmax(0, 1fr));">
                     @foreach ($khosach as $item)
                     <div class="card" style="margin: 10px;">
                         @if ($item->fkSach->hinh_anh == '')
-                        <img src="../img/default/no_book_admin.png" class="card-img-top">
+                        <img style="width: 207px !important;height: 250px !important;" src="../img/default/no_book_admin.png" class="card-img-top">
                         @elseif($item->fkSach->hinh_anh != '')
-                        <img src="/img/books/{{ $item->fkSach->hinh_anh }}" class="card-img-top">
+                        <img style="width: 207px !important;height: 250px !important;" src="/img/books/{{ $item->fkSach->hinh_anh }}" class="card-img-top">
                         @endif
                         <div class="card-body">
                             <div style="height: 80px;">
@@ -77,8 +78,6 @@
                     </div>
                     @endforeach
                 </div><!-- az-content-body -->
-
-
             </div>
 
         </div><!-- az-content -->

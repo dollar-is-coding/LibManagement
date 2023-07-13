@@ -50,9 +50,10 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div>
                     <div class="d-flex mb-2">
-                        <a href="{{ url()->previous() }}" style="font-size: 20px" class="mr-2">
-                            <i class="typcn typcn-arrow-back"></i></a>
-                        <h3 class="m-0">Chi tiết phiếu</h3>
+                        <div>
+                            <h3 class="m-0"> <a href="{{ url()->previous() }}" style="font-size: 22px;color: black;" class="mr-2">
+                                    <i class="typcn typcn-arrow-back"></i></a>Chi tiết phiếu</h3>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <div class="rounded p-3" style="background-color: whitesmoke;">
@@ -62,28 +63,36 @@
                                     <p class="m-0 mr-5">Độc giả: <b>{{ $chi_tiet_sach->fkNguoiDung->ho }}
                                             {{ $chi_tiet_sach->fkNguoiDung->ten }}</b></p>
                                     @if ($chi_tiet_sach->thu_thu_id != '' && $chi_tiet_sach->trang_thai == 2)
-                                        <p class="m-0 mr-5">Thủ thư: <b>
-                                                {{ $chi_tiet_sach->fkThuThu->ho }} {{ $chi_tiet_sach->fkThuThu->ten }}
-                                            </b></p>
+                                    <p class="m-0 mr-5">Thủ thư: <b>
+                                            {{ $chi_tiet_sach->fkThuThu->ho }} {{ $chi_tiet_sach->fkThuThu->ten }}
+                                        </b></p>
                                     @elseif($chi_tiet_sach->trang_thai == 3)
-                                        <p class="m-0 mr-5">Thủ thư: <b>
-                                                {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ho }}
-                                                {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ten }}
-                                            </b></p>
+                                    <p class="m-0 mr-5">Thủ thư: <b>
+                                            {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ho }}
+                                            {{ $chi_tiet_sach->hasPhieuTraSach->fkNguoiDung->ten }}
+                                        </b></p>
                                     @endif
                                 </div>
                                 <p class="m-0 mr-5">Ngày mượn:
                                     <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->ngay_lap_phieu)->format('d/m/Y') }}</b>
                                 </p>
                                 @if ($chi_tiet_sach->trang_thai != 3)
-                                    <p class="m-0 mr-5">Ngày cần trả:
-                                        <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->han_tra)->format('d/m/Y') }}</b>
-                                    </p>
+                                <p class="m-0 mr-5">Ngày cần trả:
+                                    <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->han_tra)->format('d/m/Y') }}</b>
+                                </p>
                                 @else
-                                    <p class="m-0 mr-5">Ngày trả:
-                                        <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->hasPhieuTraSach->created_at)->format('d/m/Y') }}</b>
-                                    </p>
+                                <p class="m-0 mr-5">Ngày trả:
+                                    <b>{{ \Carbon\Carbon::parse($chi_tiet_sach->hasPhieuTraSach->created_at)->format('d/m/Y') }}</b>
+                                </p>
                                 @endif
+                                <div>
+                                    @if($chi_tiet_sach->trang_thai ==1)
+                                    <a href="{{route('xu-ly-huy-phieu-muon',[$chi_tiet_sach->ma_phieu_muon])}}" class="btn btn-danger rounded delete-link">Hủy phiếu</a>
+                                    <a href="{{ route('xu-ly-muon-sach', ['id' => $chi_tiet_sach->ma_phieu_muon]) }}" class="btn btn-success rounded">Duyệt</a>
+                                    @elseif($chi_tiet_sach->trang_thai ==2)
+                                    <a href="{{ route('thanh-toan-sach', ['id' => $chi_tiet_sach->ma_phieu_muon]) }}" class="btn btn-success rounded">Trả sách</a>
+                                    @endif
+                                </div>
                             </div>
                             <p class="m-0 mt-2">
                                 Tổng số lượng sách: <b>{{ $chi_tiet_sach->tong_so_luong }} quyển
@@ -142,13 +151,13 @@
             var link = this;
 
             Swal.fire({
-                title: "Bạn có muốn xóa không?",
-                imageUrl: "/img/war.png",
+                title: "Bạn có muốn hủy phiếu không?",
+                // imageUrl: "/img/war.png",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
                 cancelButtonColor: "#3085d6",
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
+                confirmButtonText: "Xác nhận hủy",
+                cancelButtonText: "Không",
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = link.href;
