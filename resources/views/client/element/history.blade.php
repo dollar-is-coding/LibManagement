@@ -21,7 +21,7 @@
                         </div>
                         <div class="custom-block-info">
                             <h5 class="mb-2">
-                                <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}">
+                                <a href="{{ route('thong-tin-sach', ['id' => $item->fkSach->id]) }}" style="width:14em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                     {{ $item->fkSach->ten }}</a>
                             </h5>
                             <div class="profile-block d-flex">

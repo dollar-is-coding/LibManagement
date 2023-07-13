@@ -100,7 +100,7 @@ class ClientController extends Controller
         }
         $sach = Sach::find($id);
         $tac_gia = Sach::find($id)->tac_gia_id;
-        $cung_tac_gia = Sach::where('tac_gia_id', $tac_gia)->get();
+        $cung_tac_gia = Sach::where([['tac_gia_id', $tac_gia], ['id', '!=', $id]])->get();
         $binh_luan = BinhLuan::where([['sach_id', $id], ['binh_luan_id', 0]])->get();
         $phan_hoi = BinhLuan::where([['sach_id', $id], ['binh_luan_id', '!=', 0]])->orderBy('created_at', 'DESC')->get();
         $can_comment = 0;
@@ -152,12 +152,12 @@ class ClientController extends Controller
             $start_of_week = Carbon::now()->startOfWeek();
             $end_of_week = Carbon::now()->endOfWeek();
             $sach = Sach::where([
-                ['updated_at', '>=', $start_of_week],
-                ['updated_at', '<=', $end_of_week]
+                ['created_at', '>=', $start_of_week],
+                ['created_at', '<=', $end_of_week]
             ])->paginate('10');
             $so_luong = Sach::where([
-                ['updated_at', '>=', $start_of_week],
-                ['updated_at', '<=', $end_of_week]
+                ['created_at', '>=', $start_of_week],
+                ['created_at', '<=', $end_of_week]
             ])->get();
             return view('client.ds_sach.sach_theo_chu_de', [
                 'dieu_kien' => 1,
@@ -472,26 +472,13 @@ class ClientController extends Controller
             $noi_bat = TinTuc::find(request()->input('tin_tuc'));
             $tin_tuc = TinTuc::where('noi_bat', 0)->where('id', '!=', request()->input('tin_tuc'))
                 ->orderBy('created_at', 'DESC')->take(6)->get();
-            if (Auth::check()) {
-                $da_xem = LichSuTinTuc::where([
-                    ['doc_gia_id', Auth::id()],
-                    ['tin_tuc_id', request()->input('tin_tuc')]
-                ])->first();
-                if (!$da_xem) {
-                    LichSuTinTuc::create(['doc_gia_id' => Auth::id(), 'tin_tuc_id' => request()->input('tin_tuc')]);
-                    TinTuc::find(request()->input('tin_tuc'))->update(['luot_xem' => $noi_bat->luot_xem + 1]);
-                }
-            }
+            TinTuc::find(request()->input('tin_tuc'))->update(['luot_xem' => $noi_bat->luot_xem + 1]);
         } else {
             $noi_bat = TinTuc::where('noi_bat', 1)->first();
             $tin_tuc = TinTuc::where('noi_bat', 0)->orderBy('created_at', 'DESC')->take(6)->get();
             $isNoiBat = 1;
-            if ($noi_bat && Auth::check()) {
-                $da_xem = LichSuTinTuc::where([['doc_gia_id', Auth::id()], ['tin_tuc_id', $noi_bat->id]])->first();
-                if (!$da_xem) {
-                    LichSuTinTuc::create(['doc_gia_id' => Auth::id(), 'tin_tuc_id' => $noi_bat->id]);
-                    TinTuc::find($noi_bat->id)->update(['luot_xem' => $noi_bat->luot_xem + 1]);
-                }
+            if ($noi_bat) {
+                TinTuc::find($noi_bat->id)->update(['luot_xem' => $noi_bat->luot_xem + 1]);
             }
         }
         return view('client.tin_tuc', [
