@@ -30,10 +30,9 @@
     @include('/common/link')
 </head>
 
-<body style="margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;">
+<body style="
+display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 2])
     @if(Session::has('success'))
@@ -50,10 +49,10 @@
     </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
-        <div class="container">
-            <div class="az-content-body">
+        <div class="container" style="display: flex;">
+            <div class="az-content-body mr-2" style="flex-basis: 60%;">
                 @if (session('error'))
-                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm mb-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
@@ -86,22 +85,22 @@
                             <button type="submit" class="btn btn-success">Bỏ vào kho</button>
                         </div>
                     </form>
-                    @if (session('error'))
-                    <div class="row justify-content-center">
-                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: #402DA1;">
-                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                            <span class="text-danger">{{ session('error') }}</span>
-                        </span>
-                    </div>
-                    @endif
                 </div><!-- az-content-body -->
-
-
+            </div>
+            <div style="flex-basis: 40%;" class=" rounded">
+                <h4 style="text-align: center;">Thông tin sách</h4>
+                <div id="showsach">
+                    <div class="mt-4" style="display: flex;justify-content: center;">
+                        <img id="hinhanhsach" class="border rounded" style="width: 180px;height: 250px;object-fit: contain;" src="../img/default/no_book_admin.png" alt="" srcset="">
+                    </div>
+                    <h4 class="mt-3" style="text-align: center;" id="tensach">Tên sách</h4>
+                </div>
             </div>
 
-
         </div><!-- az-content -->
-        @include('../common/footer')
+        <div style="margin-top: 100px;">
+            @include('../common/footer')
+        </div>
 
         <script src="/lib/jquery/jquery.min.js"></script>
         <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
@@ -152,6 +151,25 @@
                     placeholder: 'Choose one'
                 });
             });
+            let selectBox = document.getElementById('selectBox');
+            let viewdom = document.getElementById('showsach');
+            let tensach = document.getElementById('tensach');
+            let anhsach = document.getElementById("hinhanhsach");
+            let soluong = document.getElementById('so_luong_sach');
+            selectBox.onchange = () => {
+                let val = selectBox.value;
+                fetch('/xem-sach/' + val)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        tensach.innerHTML = data.sach.ten;
+                        if (data.sach.hinh_anh == '') {
+                            anhsach.src = '../img/default/no_book_admin.png';
+                        } else {
+                            anhsach.src = '/img/books/' + data.sach.hinh_anh;
+                        }
+                    })
+            }
         </script>
 </body>
 

@@ -36,13 +36,15 @@
     <link href="../lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="../lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
     <link href="../lib/pickerjs/picker.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
     <link rel='shortcut icon' href='/img/header.png' />
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 5])
     @if(Session::has('success'))
@@ -62,10 +64,10 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Tin tức</label>
+                    <label style="font-size: 20px;">Tin tức</label>
                     <nav class="nav flex-column">
-                        <a href="{{route('them-tin-tuc')}}" class="nav-link ">Thêm tin tức</a>
-                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link">Quản lý tin tức</a>
+                        <a href="{{route('them-tin-tuc')}}" style="font-size: 18px;" class="nav-link ">Thêm tin tức</a>
+                        <a href="{{ route('danh-sach-tin-tuc') }}" style="font-size: 18px;" class="nav-link">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -77,7 +79,22 @@
                 </div>
                 <!-- viet tai day -->
                 @foreach($tintuc as $item)
-                <h3 style="text-align: center;" class="mb-3">{{$item->ten}}</h3>
+                <div style="display: flex;justify-content: end;">
+                    <div class="dropdown">
+                        <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i style="color: black;font-size: 19px;" class="fas fa-ellipsis-h"></i>
+                        </a>
+                        <ul class="dropdown-menu rounded">
+                            <li><a style="font-size: 16px;" class="dropdown-item" href="{{route('sua-tin-tuc',['id'=>$item->id])}}">Sửa tin tức</a></li>
+                            <li><a style="font-size: 16px;" class="dropdown-item delete-link" href="{{route('xoa-tin-tuc',['id'=>$item->id])}}">Xóa tin tức</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="text-align: center;" class="mb-3">{{$item->ten}}</h3>
+                </div>
+
                 <div style="display: flex;">
                     <div style="flex-basis: 30%;">
                         @if ($item->anh_bia == "")
@@ -125,6 +142,26 @@
     <script src="../js/azia.js"></script>
     <script src="../js/chart.chartjs.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        $(document).on("click", ".delete-link", function(event) {
+            event.preventDefault();
+            var link = this;
+
+            Swal.fire({
+                title: "Bạn có muốn xóa không?",
+                imageUrl: "/img/war.png",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Hủy",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = link.href;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -80,7 +80,8 @@ class AdminController extends Controller
         $path = $request->file('file')->getRealPath();
         Excel::import(new ExcelImport, $path);
         FacadesSession::flash('success', 'Xử lý thành công');
-        return back();
+        // return back();
+        return redirect()->route('quan-ly-tai-khoan');
     }
     public function export()
     {
@@ -89,7 +90,8 @@ class AdminController extends Controller
     // THÊM MỚI sách - tác giả - thể loại - nhà xuất bản - khu vực - tủ sách
     public function showThemSach()
     {
-        $tac_gia = TacGia::all();
+        // $tac_gia = TacGia::orderBy('ten', 'asc')->get();
+        $tac_gia = TacGia::orderByRaw("CASE WHEN ten = 'Nhiều tác giả' THEN 0 ELSE 1 END, ten ASC")->get();
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
@@ -390,7 +392,7 @@ class AdminController extends Controller
     public function suaSach($id)
     {
         $sach = ThuVien::where('sach_id', $id)->get();
-        $tac_gia = TacGia::all();
+        $tac_gia = TacGia::orderBy('ten', 'asc')->get();
         $nha_xuat_ban = NhaXuatBan::all();
         $the_loai = TheLoai::all();
         $khu_vuc = KhuVuc::all();
@@ -542,7 +544,7 @@ class AdminController extends Controller
     public function timKiemTheoTacGia(Request $request)
     {
         $timKiem = $request->tim_kiem;
-        $tim_kiem = $request->old('tim_kiem');
+        $tim = $request->input('tim_kiem');
         $sach = Sach::where('ten', 'like', "%$timKiem%")
             ->orderBy('ten', 'asc')
             ->paginate(20);
@@ -558,6 +560,7 @@ class AdminController extends Controller
                 'selected' => 'asc_name',
                 'slsach' => $slsach,
                 'queryString' => $queryString,
+                'tim_kiem'=>$tim
             ]);
         }
     }
@@ -806,7 +809,8 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
-        return back();
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return redirect()->route('dang-muon-sach');
     }
     public function xuLyMuonSachAll()
     {
@@ -815,6 +819,7 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
+        FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('dang-muon-sach');
     }
     public function xuLyTraSach(Request $request, $id)
@@ -1022,6 +1027,7 @@ class AdminController extends Controller
         $khosach = KhoSach::where('so_luong', '>', 0)->get();
         return view('sach.quan_ly_kho', ['khosach' => $khosach]);
     }
+    
     public function quanLyLienHe()
     {
         $lienhe = LienHe::all();
@@ -1126,5 +1132,21 @@ class AdminController extends Controller
         NguoiDung::where('id',$id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
+    }
+    public function viewSach($id){
+        $sach = Sach::where('id',$id)->first();
+        return response()->json(['sach'=>$sach]);
+    }
+    public function huyPhieuMuon($id)
+    {
+        $ds_phieu = PhieuMuonSach::where('ma_phieu_muon', $id)->get();
+        foreach ($ds_phieu as $key => $value) {
+            ThuVien::where('sach_id', $value->sach_id)
+                ->update(['sl_con_lai' => ThuVien::where('sach_id', $value->sach_id)
+                    ->first()->sl_con_lai + 1]);
+        }
+        PhieuMuonSach::where('ma_phieu_muon', $id)->update(['trang_thai' => 0]);
+        FacadesSession::flash('success', 'Xử lý thành công');
+        return redirect()->route('phe-duyet-muon-sach');
     }
 }

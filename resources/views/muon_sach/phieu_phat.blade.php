@@ -30,7 +30,9 @@
 
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 3])
     @if (Session::has('success'))
@@ -142,8 +144,8 @@
                                     </div>
 
                                 </div>
-                                <div style="display: flex;flex-direction: row-reverse;height: 50px;">
-                                    <a href="{{route('export-pdf',['id'=>$item->ma_phieu])}}" style="width: 30%;" class="btn btn-indigo rounded m-1">In phiếu</a>
+                                <div style="display: flex;flex-direction: row-reverse;">
+                                    <a href="{{route('export-pdf',['id'=>$item->ma_phieu])}}" class="btn btn-indigo rounded m-1">In phiếu</a>
                                 </div>
                             </div>
                         </div>

@@ -59,7 +59,7 @@
     </script>
     @endif
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
-        <div class="container">
+        <div class="container" style="margin-bottom: 30px;">
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="">
                     <div style="display: flex;background-color: whitesmoke;" class="rounded">
@@ -120,16 +120,17 @@
                                 </div>
                                 <hr>
                                 @endforeach
-                                <p style="text-align: end;">Tiền phạt hết hạn: {{ $tien_phat_het_han }} VNĐ</p>
-                                <p id="tienmatsach" style="text-align: end;">Tiền mất sách:</p>
-                                <p id="tienhusach" style="text-align: end;">Tiền hư sách:</p>
+                                <p style="text-align: end;font-size: 18px;">Tiền phạt hết hạn: {{ number_format($tien_phat_het_han, 0, ',', '.') }} đ</p>
+                                <p id="tienmatsach" style="text-align: end;font-size: 18px;">Tiền mất sách:</p>
+                                <p id="tienhusach" style="text-align: end;font-size: 18px;">Tiền hư sách:</p>
                                 <hr>
                                 <p style="text-align: end;font-size: 20px;">Tổng tiền</p>
                                 <input hidden class="mb-3" name="tong_tien_phat" id="tongtien" style="pointer-events: none;border: none;font-size: 18px;">
-                                <p style="font-size: 15px;text-align: end;" id="tongtiendv"></p>
+                                <p style="font-size: 18px;text-align: end;" id="tongtiendv"></p>
                                 <div style="display: flex;justify-content: end;">
                                     <button class="btn btn-success abbutton" type="submit">Thanh Toán</button>
                                 </div>
+
                                 <script>
                                     function button_click(event) {
                                         event.preventDefault();
@@ -209,10 +210,19 @@
                                             tong_tien_sach += Number(array[0]);
                                         }
                                         tongtien.value = `${tong_tien_sach}`;
-                                        tongtiendv.innerHTML = tongtien.value + ' VNĐ';
+                                        tongtiendv.innerHTML = Number(tongtien.value).toLocaleString('vi-VI', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        }); + ' đ';
 
-                                        tienhusach.innerHTML = 'Tiền hư sách ' + tien.hu + ' VNĐ';
-                                        tienmatsach.innerHTML = 'Tiền mất sách ' + tien.mat + ' VNĐ';
+                                        tienhusach.innerHTML = 'Tiền hư sách: ' + Number(tien.hu).toLocaleString('vi-VI', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        }); + ' đ';
+                                        tienmatsach.innerHTML = 'Tiền mất sách: ' + Number(tien.mat).toLocaleString('vi-VI', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        }); + ' đ';
 
                                         const buttom_thanh_toan = document.querySelector('.abbutton');
                                         if (Number(tongtien.value) > 0) {
@@ -233,7 +243,10 @@
 
                                     Dom();
                                     tongtien.value = Number(tien_phat.value) + Number(`${tong}`);
-                                    tongtiendv.innerHTML = tongtien.value + ' VNĐ';
+                                    tongtiendv.innerHTML = Number(tongtien.value).toLocaleString('vi-VI', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    }); + ' đ';
                                 </script>
                             </div>
 
@@ -242,6 +255,7 @@
 
                 </div><!-- container -->
             </div><!-- az-content -->
+            @include('../common/footer')
             <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 

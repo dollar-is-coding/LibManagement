@@ -21,9 +21,8 @@
         gtag('config', 'UA-90680653-2');
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <link rel='shortcut icon' href='/img/LIBRO.png' />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Link tới jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -39,8 +38,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
@@ -150,18 +147,7 @@
                             @csrf
                             <div class="form-group d-flex  align-items-center">
                                 <input class=" mb-0" style="width: 17px;height: 17px;" type="checkbox" name="de_xuat" id="checkDeXuat">
-                                <label class=" mb-0 pl-1" id="changeContext" style="font-size: 17px;user-select: none;" for="checkDeXuat"> Không đề xuất</label>
-                                <script>
-                                    let check = document.getElementById('checkDeXuat');
-                                    let text = document.getElementById('changeContext');
-                                    check.onchange = function() {
-                                        if (check.checked === true) {
-                                            text.innerHTML = 'Đề xuất'
-                                        } else {
-                                            text.innerHTML = 'Không đề xuất'
-                                        }
-                                    }
-                                </script>
+                                <label class=" mb-0 pl-1 ml-1" style="font-size: 19px;user-select: none;" for="checkDeXuat">Đề xuất</label>
                             </div>
                             <div style="display: flex;flex-direction: row-reverse;">
                                 <!-- form -->
@@ -206,7 +192,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <select id="form-select" name="the_loai" class="form-control select2-no-search" tabindex="3">
+                                        <select id="form-select" name="the_loai" class="form-control theloaise" tabindex="3">
                                             <option value="">Chọn thể loại</option>
                                             @foreach ($the_loai as $item)
                                             <option value="{{ $item->id }}" {{ $item->id == old('the_loai') ? 'selected' : '' }}>
@@ -225,7 +211,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <select id="form-select" name="nha_xuat_ban" class="form-control select2-no-search" tabindex="4">
+                                        <select id="form-select" name="nha_xuat_ban" class="form-control nxbse" tabindex="4">
                                             <option value="">Chọn nhà xuất bản</option>
                                             @foreach ($nha_xuat_ban as $item)
                                             <option value="{{ $item->id }}" {{ $item->id == old('nha_xuat_ban') ? 'selected' : '' }}>
@@ -282,7 +268,7 @@
                                                 </div>
                                                 @enderror
                                             </div>
-                                            <input type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{ old('gia_tien') }}" tabindex="11">
+                                            <input min="1" type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{ old('gia_tien') }}" tabindex="11">
                                         </div>
                                     </div>
 
@@ -309,7 +295,7 @@
                                         <input type="number" min="1" name="so_luong" id="so_luong" class="form-control" placeholder="Số lượng" value="{{ old('so_luong') }}" tabindex="7" />
                                     </div>
                                     <!-- khu vực -->
-                                    <div class="form-group">
+                                    <div class="form-group" style="width: 85%;">
                                         <div class="d-flex justify-content-between">
                                             <label class="m-0">&nbsp;Khu vực</label>
                                             @error('khu_vuc')
@@ -350,13 +336,13 @@
                     <div style="flex-basis: 30%; padding: 2%; height: auto" class="shadow border rounded az-signin-header">
                         <select id="option-select" class="form-control select2-no-search">
                             <option value="author-form">Tác giả</option>
-                            <option value="publisher-form">Nhà xuất bản</option>
                             <option value="category-form">Thể loại</option>
+                            <option value="publisher-form">Nhà xuất bản</option>
                             <option value="area-form">Khu vực</option>
                             <option value="bookshelf-form">Tủ sách</option>
                         </select>
                         <div id="author-form" class="form active">
-                            <div class="mt-1 mb-1">
+                            <div class="mt-1 mb-1" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                                 @foreach ($tac_gia as $key => $item)
                                 <div class="d-flex {{ $key != count($tac_gia) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
                                     <div>{{ $key + 1 }}. {{ $item->ten }}</div>
@@ -364,7 +350,6 @@
                                         <a href="#" class="btn-open-modal" data-toggle="modal" data-target="#{{ $key + 1 }}_{{ $item->ten }}">
                                             <i class="fa-solid fa-pen-to-square text-secondary"></i></a>
                                         <!-- modal -->
-
                                         <div style="margin-top: 170px;" class="modal fade" id="{{ $key + 1 }}_{{ $item->ten }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -453,7 +438,7 @@
                         </div>
 
                         <div id="publisher-form" class="form">
-                            <div class="mt-1 mb-1">
+                            <div class="mt-1 mb-1" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                                 @foreach ($nha_xuat_ban as $key => $item)
                                 <div class="d-flex {{ $key != count($nha_xuat_ban) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
                                     <div>{{ $key + 1 }}. {{ $item->ten }}</div>
@@ -515,7 +500,7 @@
                         </div>
 
                         <div id="category-form" class="form">
-                            <div class="mt-1 mb-1">
+                            <div class="mt-1 mb-1" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                                 @foreach ($the_loai as $key => $item)
                                 <div class="d-flex {{ $key != count($the_loai) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
                                     <div>{{ $key + 1 }}. {{ $item->ten }}</div>
@@ -579,7 +564,7 @@
                         </div>
 
                         <div id="area-form" class="form">
-                            <div class="mt-1 mb-1">
+                            <div class="mt-1 mb-1" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                                 @foreach ($khu_vuc as $key => $item)
                                 <div class="d-flex {{ $key != count($khu_vuc) - 1 ? 'border-bottom' : '' }} p-2 justify-content-between">
                                     <div>{{ $key + 1 }}. {{ $item->ten }}</div>
@@ -641,12 +626,7 @@
                         </div>
 
                         <div id="bookshelf-form" class="form">
-                            <!-- <div class="mt-1 mb-1">
-                                    <div id="tu-sach-list"></div>
-                                </div> -->
-                            <!-- <form id="them-tu-sach-form" action="{{ route('them-tu-sach') }}" method="post">
-                                @csrf -->
-                            <div id="tusach-container">
+                            <div id="tusach-container" style="overflow: scroll;overflow-x: hidden;height: 300px;">
                                 @foreach ($khu_vuc as $khu_vuc_item)
                                 <div class="tusach-group" data-khu-vuc="{{ $khu_vuc_item->id }}">
                                     @foreach ($tu_sach as $tu_sach_item)
@@ -918,7 +898,6 @@
         });
     </script>
 
-    <script src="/lib/jquery/jquery.min.js"></script>
     <script>
         const deleteLinks = document.querySelectorAll(".delete-link");
         deleteLinks.forEach((link) => {
@@ -957,31 +936,16 @@
                     }
                 });
             });
-        //
-        // $(document).on("click", ".delete-link", function(event) {
-        //     event.preventDefault();
-        //     var link = this;
-
-        //     Swal.fire({
-        //         title: "Bạn có muốn xóa không?",
-        //         imageUrl: "/img/war.png",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#d33",
-        //         cancelButtonColor: "#3085d6",
-        //         confirmButtonText: "Xóa",
-        //         cancelButtonText: "Hủy",
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             window.location.href = link.href;
-        //         }
-        //     });
-        // });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="/lib/select2/js/select2.min.js"></script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/lib/ionicons/ionicons.js"></script>
     <script src="/lib/chart.js/Chart.bundle.min.js"></script>
     <script src="/js/azia.js"></script>
+
 </body>
 
 </html>

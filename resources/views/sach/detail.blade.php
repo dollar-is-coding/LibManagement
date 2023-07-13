@@ -22,7 +22,7 @@
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     @include('/common/link')
 
 </head>
@@ -45,26 +45,8 @@
     @endif
     <div style="margin-bottom: 60px;" class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            <div class="az-content-left az-content-left-components">
-                <div class="component-item">
-                    @foreach ($sach as $item)
-                    <label>{{ $item->fkSach->ten }}</label>
-                    <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Chi tiết</a>
-                        <a href="{{ route('chinh-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" class="nav-link">Chỉnh
-                            sửa</a>
-                    </nav>
-                    @endforeach
-                </div><!-- component-item -->
-            </div><!-- az-content-left -->
-
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
-                <div class="az-content-breadcrumb">
-                    @foreach ($sach as $item)
-                    <span>{{ $item->fkSach->ten }}</span>
-                    @endforeach
-                    <span>Chi tiết</span>
-                </div>
+                <h3>Chi tiết sách</h3>
                 <div class="border shadow-sm rounded p-4 pr-5">
                     <div class="row pl-4">
                         @foreach ($sach as $item)
@@ -106,9 +88,18 @@
                                         Str::ascii($item->fkTuSach->fkKhuVuc->ten),
                                         ) !!}
                                     </div>
-                                    <div>
-                                        <a class="dropdown-item delete-link" href="{{ route('xu-ly-xoa-sach',['id'=>$item->id]) }}"><i class="fas fa-times"></i></a>
+
+                                    <div class="dropdown">
+                                        <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i style="color: black;font-size: 19px;" class="fas fa-ellipsis-h"></i>
+                                        </a>
+                                        <ul class="dropdown-menu rounded">
+                                            <li><a style="font-size: 16px;" class="dropdown-item" href="{{ route('chinh-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}">Chỉnh sửa sách</a></li>
+                                            <li><a style="font-size: 16px;" class="dropdown-item" href="{{ route('xu-ly-xoa-sach',['id'=>$item->id]) }}">Xóa sách</a>
+                                            </li>
+                                        </ul>
                                     </div>
+
                                 </div>
                                 <div style="background-color: #FAFAFA" class=" pl-3 p-2 pr-3 mt-2 mb-2">
                                     <div class="rounded-lg d-flex align-items-end">
@@ -136,15 +127,23 @@
                                 </div>
                             </div>
                         </div>
-
                         @endforeach
                     </div>
+                    <h5 class="ml-2 mt-2">Mô tả</h5>
+                    @foreach ($sach as $item)
+                    <div class="border rounded ml-2 mt-2 pl-2 pr-2">
+                        <p>@php
+                            echo $item->fkSach->mo_ta;
+                            @endphp
+                        </p>
+                    </div>
+                    @endforeach
                 </div><!-- az-card-signin -->
                 <!-- binh luan -->
                 <div style="display: grid;grid-template-columns: auto auto auto;text-align: center;" class="mt-3">
-                    <p>Lượt thích ({{$tongbl->luot_thich}})</p>
-                    <p>Tổng lượt bình luận ({{$tongbl->luot_binh_luan}})</p>
-                    <p>Lượt xem ({{$tongbl->luot_xem}})</p>
+                    <p style="font-size: 18px;"><b>Lượt thích ({{$tongbl->luot_thich}})</b></p>
+                    <p style="font-size: 18px;"><b>Lượt bình luận ({{$tongbl->luot_binh_luan}})</b></p>
+                    <p style="font-size: 18px;"><b>Lượt xem ({{$tongbl->luot_xem}})</b></p>
                 </div>
                 @if($tongbl->luot_binh_luan >0)
                 <div class="border rounded" style="overflow: scroll;overflow-x: hidden;height: 300px;">
@@ -153,7 +152,7 @@
                         <div class="border rounded ml-2" style="display: flex;">
                             <div style="flex-basis: 97%;">
                                 <a class="ml-3" style="color:black" href="{{route('chi-tiet-tai-khoan',['id'=>$bl->nguoi_dung_id])}}">Đọc giả {{$bl->fkNguoiDung->ten}}</a>
-                                <p class="ml-3">{{$bl->noi_dung}}</p>
+                                <p style="font-size: 17px;" class="ml-3">{{$bl->noi_dung}}</p>
                             </div>
                             <div class="pt-2" style="flex-basis: 3%;">
                                 <a style="color: grey;font-size: 16px;" href="{{route('xu-ly-xoa-binh-luan',['id'=>$bl->id])}}">
@@ -164,7 +163,7 @@
                         <div class="border rounded mt-2 ml-5" style="display: flex;">
                             <div style="flex-basis: 97%;">
                                 <a style="color:black" class="ml-3 mt-3" href="{{route('chi-tiet-tai-khoan',['id'=>$bl_rep->nguoi_dung_id])}}">Đọc giả {{$bl_rep->fkNguoiDung->ten}}</a>
-                                <p class="ml-3">{{$bl_rep->noi_dung}}</p>
+                                <p style="font-size: 17px;" class="ml-3">{{$bl_rep->noi_dung}}</p>
                             </div>
                             <div class="pt-2" style="flex-basis: 3%;">
                                 <a style="color: grey;font-size: 16px;" href="{{route('xu-ly-xoa-binh-luan',['id'=>$bl_rep->id])}}">
