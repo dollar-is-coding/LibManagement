@@ -235,7 +235,6 @@ class AdminController extends Controller
             ThuVien::create([
                 'sach_id' => Sach::latest()->first()->id,
                 'tu_sach_id' => $request->tu_sach,
-                'khu_vuc_id' => $request->khu_vuc,
                 'sl_con_lai' => $request->so_luong,
             ]);
             FacadesSession::flash('success', 'Xử lý thành công');

@@ -106,9 +106,9 @@
                                     <div style="display: flex;">
                                         <p>Mã sách: <b>{{ $item->fkSach->ma_sach }}</b></p>
                                         <p class="ml-4">Số lượng: <b>{{ $item->so_luong }}</b></p>
-                                        <p class="ml-4">Khu vực:
+                                        <p class="ml-4">Vị trí:
                                             <b>{{ $item->fkSach->hasThuVien->fkTuSach->ten }},
-                                                {{ $item->fkSach->hasThuVien->fkKhuVuc->ten }}</b>
+                                                {{ $item->fkSach->hasThuVien->fkTuSach->fkKhuVuc->ten }}</b>
                                         </p>
                                     </div>
                                 </div>
