@@ -11,7 +11,7 @@ class ThuVien extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='thu_vien';
-    protected $fillable=['sach_id','tu_sach_id','khu_vuc_id','sl_con_lai'];
+    protected $fillable=['sach_id','tu_sach_id','sl_con_lai'];
 
     public function fkSach()
     {
@@ -21,10 +21,5 @@ class ThuVien extends Model
     public function fkTuSach()
     {
         return $this->belongsTo(TuSach::class,'tu_sach_id');
-    }
-
-    public function fkKhuVuc()
-    {
-        return $this->belongsTo(KhuVuc::class,'khu_vuc_id');
     }
 }
