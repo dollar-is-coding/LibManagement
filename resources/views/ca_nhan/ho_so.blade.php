@@ -30,7 +30,9 @@
 
 </head>
 
-<body>
+<body style="
+display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 9])
     @if(Session::has('success'))
@@ -50,10 +52,10 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Cá nhân</label>
+                    <label style="font-size: 20px;">Cá nhân</label>
                     <nav class="nav flex-column">
-                        <a href="#" class="nav-link active">Hồ sơ</a>
-                        <a href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
+                        <a style="font-size: 18px;" href="#" class="nav-link active">Hồ sơ</a>
+                        <a style="font-size: 18px;" href="{{ route('doi-mat-khau') }}" class="nav-link">Đổi mật khẩu</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->

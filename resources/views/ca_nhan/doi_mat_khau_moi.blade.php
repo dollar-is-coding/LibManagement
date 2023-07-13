@@ -27,7 +27,9 @@
 
 </head>
 
-<body>
+<body style="
+display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 4])
     @if(Session::has('success'))
@@ -147,12 +149,12 @@
 
                 <div class="ht-40"></div>
 
-                @include('../common/footer')
+
 
             </div><!-- az-content-body -->
         </div><!-- container -->
     </div><!-- az-content -->
-
+    @include('../common/footer')
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
