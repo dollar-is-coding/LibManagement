@@ -83,78 +83,78 @@
                     @endforeach
                 </div><!-- az-content-body -->
                 <div style="display: flex;justify-content: center;">{{ $sach->links() }}</div>
-
             </div>
-        </div><!-- az-content -->
-        @include('../common/footer')
+        </div>
+    </div><!-- az-content -->
+    @include('../common/footer')
 
-        <script src="/lib/jquery/jquery.min.js"></script>
-        <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/jquery-ui/ui/widgets/datepicker.js"></script>
 
-        <script src="/lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-        <script src="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+    <script src="/lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+    <script src="/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-        <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/lib/ionicons/ionicons.js"></script>
-        <script src="/lib/chart.js/Chart.bundle.min.js"></script>
-        <script src="/lib/select2/js/select2.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/ionicons/ionicons.js"></script>
+    <script src="/lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="/lib/select2/js/select2.min.js"></script>
 
-        <script src="/js/azia.js"></script>
-        <script src="/js/chart.chartjs.js"></script>
-        <script src="/js/jquery.cookie.js" type="text/javascript"></script>
-        <script>
-            $(function() {
-                // Datepicker
-                $('.fc-datepicker').datepicker({
-                    showOtherMonths: true,
-                    selectOtherMonths: true
-                });
-
-                $('#datepickerNoOfMonths').datepicker({
-                    showOtherMonths: true,
-                    selectOtherMonths: true,
-                    numberOfMonths: 2
-                });
-
-                // AmazeUI Datetimepicker
-                $('#datetimepicker').datepicker({
-                    format: 'mm-dd-yyyy',
-                    autoclose: true, // close the datepicker when a date is selected
-                    todayHighlight: true, // highlight today's date
-                    dateFormat: 'dd/mm/yy'
-                });
-
+    <script src="/js/azia.js"></script>
+    <script src="/js/chart.chartjs.js"></script>
+    <script src="/js/jquery.cookie.js" type="text/javascript"></script>
+    <script>
+        $(function() {
+            // Datepicker
+            $('.fc-datepicker').datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true
             });
 
-            $(document).ready(function() {
-                $('.select2').select2({
-                    placeholder: 'Chọn trường',
-                    searchInputPlaceholder: 'Search'
-                });
-
-                $('.select2-no-search').select2({
-                    minimumResultsForSearch: Infinity,
-                    placeholder: 'Choose one'
-                });
+            $('#datepickerNoOfMonths').datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                numberOfMonths: 2
             });
 
-            function handleCheck(sach) {
-                var noticable = document.getElementById('checkDeXuat' + sach);
-                var isChecked = noticable.checked;
-                var request = new XMLHttpRequest();
-                request.open('GET', '/xu-ly-de-xuat?sach=' + encodeURIComponent(sach) + '&check=' + encodeURIComponent(
-                        isChecked ?
-                        1 :
-                        0),
-                    true);
-                request.send();
-                request.onreadystatechange = function() {
-                    if (request.readyState == 4 && request.status == 200) {
-                        noticable.checked = isChecked;
-                    }
+            // AmazeUI Datetimepicker
+            $('#datetimepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                autoclose: true, // close the datepicker when a date is selected
+                todayHighlight: true, // highlight today's date
+                dateFormat: 'dd/mm/yy'
+            });
+
+        });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Chọn trường',
+                searchInputPlaceholder: 'Search'
+            });
+
+            $('.select2-no-search').select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: 'Choose one'
+            });
+        });
+
+        function handleCheck(sach) {
+            var noticable = document.getElementById('checkDeXuat' + sach);
+            var isChecked = noticable.checked;
+            var request = new XMLHttpRequest();
+            request.open('GET', '/xu-ly-de-xuat?sach=' + encodeURIComponent(sach) + '&check=' + encodeURIComponent(
+                    isChecked ?
+                    1 :
+                    0),
+                true);
+            request.send();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    noticable.checked = isChecked;
                 }
             }
-        </script>
+        }
+    </script>
 </body>
 
 </html>

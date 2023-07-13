@@ -32,13 +32,12 @@
 
 </head>
 
-<body>
-
+<body style="
+display: flex;
+      flex-direction: column; height: 100vh;">
     @include('../common/header', ['view' => 2])
-
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-
             <div class="az-content-body">
                 @if (session('error'))
                 <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
@@ -81,6 +80,7 @@
             </div>
 
         </div><!-- az-content -->
+    </div>
         @include('../common/footer')
 
         <script src="/lib/jquery/jquery.min.js"></script>

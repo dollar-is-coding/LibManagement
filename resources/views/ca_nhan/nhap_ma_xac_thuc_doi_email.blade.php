@@ -27,7 +27,9 @@
 
 </head>
 
-<body class="az-body">
+<body style="
+display: flex;
+      flex-direction: column; height: 100vh;" class="az-body">
     <div class="az-signin-wrapper">
         <div class="az-card-signin">
             <h1 class="az-logo">libro</h1>
@@ -52,6 +54,7 @@
             </div><!-- az-signin-footer -->
         </div><!-- az-card-signin -->
     </div><!-- az-signin-wrapper -->
+    @include('../common/footer')
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../lib/ionicons/ionicons.js"></script>
