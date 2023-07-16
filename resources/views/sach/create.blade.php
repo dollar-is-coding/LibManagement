@@ -271,7 +271,7 @@
                                                 </div>
                                                 @enderror
                                             </div>
-                                            <input min="1" type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{ old('gia_tien') }}" tabindex="11">
+                                            <input min="1000" type="number" name="gia_tien" id="gia_tien" class="form-control" placeholder="Nhập giá tiền" value="{{ old('gia_tien') }}" tabindex="11">
                                         </div>
                                     </div>
 

@@ -563,9 +563,6 @@ class AdminController extends Controller
             ]);
         }
     }
-
-
-
     public function chiTietSach($id)
     {
         $tongbl = Sach::where('id', $id)->first();
