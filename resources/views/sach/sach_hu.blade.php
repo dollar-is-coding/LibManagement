@@ -73,7 +73,7 @@ display: flex;
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="exampleFormControlInput1" class="form-label">Số lượng</label>
-                                <input tabindex="2" name="so_luong" required type="number" min="1" class="form-control" id="exampleFormControlInput1" placeholder="Số lượng">
+                                <input value="1" tabindex="2" name="so_luong" required type="number" min="1" class="form-control" id="exampleFormControlInput1" placeholder="Số lượng">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Lý do</label>

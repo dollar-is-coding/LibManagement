@@ -48,7 +48,7 @@
         <div class="container" style="display: flex;">
             <div class="az-content-body" style="flex-basis: 60%;">
                 @if (session('error'))
-                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
+                <div id="error_ms" class="rounded-lg p-1 pl-2 pr-2 shadow-sm mb-2" style="background-color: #F2F0FE; border:#C6BCF8 1px solid; color: #402DA1;">
                     <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
                     <span class="text-danger">{{ session('error') }}</span>
                 </div>
@@ -78,25 +78,21 @@
                         </div>
 
                         <div class="mb-3" style="display: flex;justify-content: end;">
-                            <a class="btn btn-danger mr-3" href="{{route('xoa-sach-kho',['id'=>$kho->id])}}">Xóa</a>
+                            <a class="btn btn-danger mr-3 delete-link" href="{{route('xoa-sach-kho',['id'=>$kho->id])}}">Xóa</a>
                             <button type="submit" class="btn btn-success">Cập nhật</button>
                         </div>
                     </form>
-                    @if (session('error'))
-                    <div class="row justify-content-center">
-                        <span class="rounded-lg p-1 pl-2 pr-2" style="color: #402DA1;">
-                            <i class="typcn typcn-info text-danger h-4" style="font-size:16px"></i>
-                            <span class="text-danger">{{ session('error') }}</span>
-                        </span>
-                    </div>
-                    @endif
                 </div><!-- az-content-body -->
             </div>
             <div style="flex-basis: 40%;" class=" rounded">
                 <h4 style="text-align: center;">Thông tin sách</h4>
                 <div id="showsach">
                     <div class="mt-4" style="display: flex;justify-content: center;">
+                        @if($kho->fkSach->hinh_anh=='')
+                        <img id="hinhanhsach" class="border rounded" style="width: 180px;height: 250px;object-fit: contain;" src="../img/default/no_book_admin.png" alt="" srcset="">
+                        @else
                         <img id="hinhanhsach" class="border rounded" style="width: 180px;height: 250px;object-fit: contain;" src="/img/books/{{$kho->fkSach->hinh_anh}}" alt="" srcset="">
+                        @endif
                     </div>
                     <h4 class="mt-3" style="text-align: center;" id="tensach">{{$kho->fkSach->ten}}</h4>
                 </div>
@@ -175,6 +171,27 @@
                     }
                 })
         }
+    </script>
+    <script>
+        const deleteLinks = document.querySelectorAll(".delete-link");
+        deleteLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Bạn có muốn xóa sách này không?",
+                    imageUrl: "/img/war.png",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link.href;
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

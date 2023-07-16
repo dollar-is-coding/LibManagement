@@ -747,6 +747,7 @@ class AdminController extends Controller
     public function timKiemDocGiaDuyetSach(Request $request)
     {
         $timKiem = $request->tim_kiem;
+        $tim = $request->input('tim_kiem');
         $cho_duyet = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 1)
             ->orderBy('ma_phieu_muon', 'asc')->get();
         $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 1)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
@@ -758,12 +759,14 @@ class AdminController extends Controller
                 'search' => '',
                 'selected' => 'asc_name',
                 'so_luong' => $so_luong,
+                'tim_kiem' => $tim
             ]);
         }
     }
     public function timKiemDocGiaDangMuonSach(Request $request)
     {
         $timKiem = $request->tim_kiem;
+        $tim = $request->input('tim_kiem');
         $dang_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)
             ->orderBy('ma_phieu_muon', 'asc')->get();
         $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 2)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
@@ -775,12 +778,14 @@ class AdminController extends Controller
                 'search' => '',
                 'selected' => 'asc_name',
                 'so_luong' => $so_luong,
+                'tim_kiem' => $tim
             ]);
         }
     }
     public function timKiemDocGiaDaMuonSach(Request $request)
     {
         $timKiem = $request->tim_kiem;
+        $tim = $request->input('tim_kiem');
         $da_muon = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)
             ->orderBy('ma_phieu_muon', 'asc')->get();
         $so_luong = PhieuMuonSach::where('ma_phieu_muon', 'like', "%$timKiem%")->where('trang_thai', 3)->orderBy('ma_phieu_muon', 'asc')->distinct('ma_phieu_muon')->count();
@@ -792,6 +797,7 @@ class AdminController extends Controller
                 'search' => '',
                 'selected' => 'asc_name',
                 'so_luong' => $so_luong,
+                'tim_kiem' => $tim
             ]);
         }
     }
@@ -808,7 +814,7 @@ class AdminController extends Controller
             'thu_thu_id' => Auth::id(),
             'han_tra' => date('Y/m/d', strtotime(date('Y/m/d') . ' + 14 days')),
         ]);
-        FacadesSession::flash('success', 'Xử lý thành công');
+        // FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('dang-muon-sach');
     }
     public function xuLyMuonSachAll()
@@ -1026,10 +1032,35 @@ class AdminController extends Controller
         $khosach = KhoSach::where('so_luong', '>', 0)->get();
         return view('sach.quan_ly_kho', ['khosach' => $khosach]);
     }
-    
+    // public function timKiemSachTrongKho(Request $request)
+    // {
+    //     $timKiem = $request->tim_kiem;
+    //     $tim = $request->input('tim_kiem');
+    //     $khosach = KhoSach::whereHas('fkSach', function ($query) use ($timKiem) {
+    //         $query->where('ten', 'like', "%$timKiem%");
+    //     })->orderBy('ten', 'asc')
+    //     ->paginate(20);
+
+    //     //---------
+    //     $slsach = $khosach->count();
+    //     if ($khosach->count() == 0) {
+    //         return back()->withInput()->with('error', 'Không tìm thấy kết quả nào!!!');
+    //     } else {
+    //         $queryString = http_build_query(['tim_kiem' => $timKiem]);
+    //         $khosach->appends(['tim_kiem' => $timKiem]);
+    //         return view('sach.quan_ly_kho', [
+    //             'khosach' => $khosach,
+    //             'search' => '',
+    //             'selected' => 'asc_name',
+    //             'slsach' => $slsach,
+    //             'queryString' => $queryString,
+    //             'tim_kiem' => $tim
+    //         ]);
+    //     }
+    // }
     public function quanLyLienHe()
     {
-        $lienhe = LienHe::all();
+        $lienhe = LienHe::orderByDesc('dang_chu_y')->get();
         $sl = LienHe::all()->count();
         return view('lien_he.quan_ly_phan_hoi', ['lienhe' => $lienhe, 'sl' => $sl]);
     }
@@ -1054,14 +1085,26 @@ class AdminController extends Controller
     }
     public function xyLyChinhSuaSachkho(Request $request, $id)
     {
-        KhoSach::where('id', $id)->update([
-            'sach_id' => $request->ten_sach,
-            'thu_thu_id' => Auth::id(),
-            'ly_do' => $request->ly_do,
-            'so_luong' => $request->so_luong,
-        ]);
-        FacadesSession::flash('success', 'Xử lý thành công');
-        return back();
+        $so_luong_tong = ThuVien::where('sach_id', $request->ten_sach)->first();
+        $sl = intval($so_luong_tong->sl_con_lai); //so luong tong trong thu vien
+
+        $so_luong_tru = intval($request->so_luong); //so luong muon bo vao kho
+        $sl_con_lai = $sl - $so_luong_tru; //sl con lại trong thu vien
+        if ($sl < $so_luong_tru) {
+            return back()->with('error', 'Số lượng sách cần bỏ vào kho vượt quá số lượng sách hiện có !!!');
+        }else{
+            KhoSach::where('id', $id)->update([
+                'sach_id' => $request->ten_sach,
+                'thu_thu_id' => Auth::id(),
+                'ly_do' => $request->ly_do,
+                'so_luong' => $request->so_luong,
+            ]);
+            ThuVien::where('sach_id', $request->ten_sach)->update([
+                'sl_con_lai' => $sl_con_lai,
+            ]);
+            FacadesSession::flash('success', 'Xử lý thành công');
+            return back();
+        }
     }
     public function xoaSachKho($id)
     {
@@ -1107,6 +1150,7 @@ class AdminController extends Controller
     public function timKiemPhieuPhat(Request $request)
     {
         $timKiem = $request->tim_kiem;
+        $tim = $request->input('tim_kiem');
         $phieu_phat = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->get();
         $so_luong = PhieuPhat::where('ma_phieu', 'like', "%$timKiem%")->where('ma_phieu', '>', 0)->orderBy('ma_phieu', 'asc')->distinct('ma_phieu')->count();
         if ($phieu_phat->count() === 0) {
@@ -1117,6 +1161,7 @@ class AdminController extends Controller
                 'search' => '',
                 'selected' => 'asc_name',
                 'so_luong' => $so_luong,
+                'tim_kiem' => $tim
             ]);
         }
     }

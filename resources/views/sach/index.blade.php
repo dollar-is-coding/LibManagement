@@ -32,7 +32,9 @@
 
 </head>
 
-<body>
+<body style="
+    display: flex;
+      flex-direction: column; height: 100vh;">
 
     @include('../common/header', ['view' => 2])
 
@@ -55,12 +57,23 @@
                 </div>
                 @endif
 
+                @if(request()->has('tim_kiem'))
+                @if ($slsach > 0)
+                <h4 class="mt-3"> <a href="{{ route('hien-thi-sach') }}" style="font-size: 22px;color: black;" class="mr-2">
+                        <i class="typcn typcn-arrow-back"></i></a>SỐ LƯỢNG SÁCH ĐANG TÌM HIỆN CÓ ({{ $slsach }})</h4>
+                @endif
+                @if ($slsach == 0)
+                <h4 class="mt-2">HIỆN KHÔNG CÓ SÁCH NÀO !!</h4>
+                @endif
+                @else
                 @if ($slsach > 0)
                 <h4 class="mt-3">SỐ LƯỢNG SÁCH HIỆN CÓ ({{ $slsach }})</h4>
                 @endif
                 @if ($slsach == 0)
                 <h4 class="mt-2">HIỆN KHÔNG CÓ SÁCH NÀO !!</h4>
                 @endif
+                @endif
+
                 <div class="table-responsive" style="display: grid;grid-template-columns: repeat(5, minmax(0, 1fr));">
                     @foreach ($sach as $item)
                     <div class="card" style="margin: 10px;width: 208px;">

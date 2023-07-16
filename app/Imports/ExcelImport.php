@@ -25,7 +25,6 @@ class ExcelImport implements ToModel, WithHeadingRow
             'mat_khau' => password_hash($row['mat_khau'], PASSWORD_DEFAULT),
             'vai_tro' => 3,
             'hinh_anh' => '',
-            'dien_thoai' => '',
         ]);
     }
 }
