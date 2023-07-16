@@ -56,7 +56,7 @@
                 @foreach ($sach as $item)
                 <h3><a href="{{ route('chi-tiet-sach', ['id' => $item->id]) }}" style="font-size: 22px;color: black;" class="mr-2">
                         <i class="typcn typcn-arrow-back"></i></a>Chỉnh sửa sách</h3>
-               
+
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -70,7 +70,7 @@
                             <!-- id sách ẩn -->
                             <input type="hidden" name="id_sach" value="{{ $item->fkSach->id }}">
 
-                            <div style="flex-basis: 70%" class="mb-0">
+                            <div style="flex-basis: 76%" class="mb-0">
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between">
                                         <label class="m-0">&nbsp;Tên sách</label>
@@ -171,14 +171,14 @@
                                 </div>
                             </div>
                             <!-- up ảnh -->
-                            <div style="flex-basis: 30%; margin:2%" class="ml-3 mb-0">
+                            <div style="flex-basis: 24%; margin:2%" class="ml-3 mb-0">
                                 @if ($item->fkSach->hinh_anh == '')
-                                <div class="upload-container" style="background-size:cover;background-image: url('/img/default/no_image_available.jpg');">
+                                <div class="upload-container" style="background-size:contain;background-image: url('../img/default/no_book_admin.png');background-size: contain;">
                                     <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                     <div id="preview-container" class="preview-container"></div>
                                 </div>
                                 @else
-                                <div class="upload-container" style="background-size:cover;background-image: url('/img/books/{{ $item->fkSach->hinh_anh }}');">
+                                <div class="upload-container" style="background-size:contain;background-image: url('/img/books/{{ $item->fkSach->hinh_anh }}');">
                                     <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                     <div id="preview-container" class="preview-container"></div>
                                 </div>
@@ -239,7 +239,7 @@
     <style>
         .upload-container {
             position: relative;
-            width: 225px;
+            width: 215px;
             height: 269px;
             border: 1px border #ccc;
             display: flex;

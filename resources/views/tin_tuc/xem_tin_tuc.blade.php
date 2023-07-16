@@ -51,10 +51,10 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Tin tức</label>
+                    <label style="font-size: 20px;">Tin tức</label>
                     <nav class="nav flex-column">
-                        <a href="{{route('them-tin-tuc')}}" class="nav-link ">Thêm tin tức</a>
-                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link active">Quản lý tin tức</a>
+                        <a style="font-size: 18px;" href="{{route('them-tin-tuc')}}" class="nav-link ">Thêm tin tức</a>
+                        <a style="font-size: 18px;" href="{{ route('danh-sach-tin-tuc') }}" class="nav-link active">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->
@@ -69,7 +69,7 @@
                     <h4>HIỆN KHÔNG CÓ TIN TỨC NÀO !!</h4>
                     @else
                     <h3 class="ml-3 mt-3">QUẢN LÝ TIN TỨC ({{$sltintuc}})</h3>
-                    <div class="table-responsive" style="display: grid;grid-template-columns: auto auto auto;">
+                    <div class="table-responsive" style="display: grid;grid-template-columns: repeat(3, minmax(0, 1fr));">
                         @foreach ($tintuc as $key => $item)
                         <div class="card" style="width: 18rem;margin: 10px;">
                             @if($item->anh_bia == '')

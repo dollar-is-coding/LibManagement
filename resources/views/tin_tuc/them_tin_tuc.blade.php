@@ -54,10 +54,10 @@
         <div class="container">
             <div class="az-content-left az-content-left-components">
                 <div class="component-item">
-                    <label>Tin tức</label>
+                    <label style="font-size: 20px;">Tin tức</label>
                     <nav class="nav flex-column">
-                        <a href="{{ route('them-tin-tuc') }}" class="nav-link active">Thêm tin tức</a>
-                        <a href="{{ route('danh-sach-tin-tuc') }}" class="nav-link ">Quản lý tin tức</a>
+                        <a style="font-size: 18px;" href="{{ route('them-tin-tuc') }}" class="nav-link active">Thêm tin tức</a>
+                        <a style="font-size: 18px;" href="{{ route('danh-sach-tin-tuc') }}" class="nav-link ">Quản lý tin tức</a>
                     </nav>
                 </div><!-- component-item -->
             </div><!-- az-content-left -->

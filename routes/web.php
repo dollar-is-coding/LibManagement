@@ -55,6 +55,7 @@ Route::middleware('admin')->group(function () {
 
     //import SÁCH
     Route::post('/import-sach-excel', [AdminController::class, 'import_csv'])->name('import-sach')->middleware('auth');
+
     //export
     Route::post('/export-excel', [AdminController::class, 'export'])->name('export')->middleware('auth');
     // CHỈNH SỬA SÁCH CÁC LOẠI
@@ -104,6 +105,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/tim-kiem-da-muon-sach', [AdminController::class, 'timKiemDocGiaDaMuonSach'])->name('tim-kiem-da-muon-sach')->middleware('auth');
     Route::get('/tim-kiem-phieu-phat', [AdminController::class, 'timKiemPhieuPhat'])->name('tim-kiem-phieu-phat')->middleware('auth');
 
+
     Route::get('/muon-sach', [AdminController::class, 'duyetMuonSach'])->name('phe-duyet-muon-sach')->middleware('auth');
     Route::get('/muon-sach/{id}', [AdminController::class, 'xuLyMuonSach'])->name('xu-ly-muon-sach')->middleware('auth');
     Route::get('/muon-sach-tat-ca', [AdminController::class, 'xuLyMuonSachAll'])->name('xu-ly-muon-tat-ca-sach')->middleware('auth');
@@ -141,6 +143,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/chi-tiet-kho/{id}', [AdminController::class, 'xyLyChinhSuaSachkho'])->name('xu-ly-sua-sach-kho')->middleware('auth');
 
     Route::get('/xoa-sach-kho/{id}', [AdminController::class, 'xoaSachKho'])->name('xoa-sach-kho')->middleware('auth');
+    // Route::get('/tim-kiem-kho-sach', [AdminController::class, 'timKiemSachTrongKho'])->name('tim-kiem-kho-sach')->middleware('auth');
 
     Route::get('/xoa-binh-luan/{id}', [AdminController::class, 'xuLyXoaBinhLuan'])->name('xu-ly-xoa-binh-luan')->middleware('auth');
     Route::get('/xoa-sach/{id}', [AdminController::class, 'xoaSach'])->name('xu-ly-xoa-sach')->middleware('auth');

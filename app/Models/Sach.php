@@ -66,4 +66,7 @@ class Sach extends Model
     {
         return $this->belongsTo(TheLoai::class,'the_loai_id');
     }
+    public function hasKho(){
+        return $this->hasOne(KhoSach::class,'sach_id');
+    }
 }

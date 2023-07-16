@@ -53,7 +53,7 @@
             <div class="az-content-body d-flex flex-column">
                 <form class="row az-signin-header" action="{{ route('tim-kiem-phieu-phat') }}" method="get">
                     <div class="col-lg">
-                        <input required class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="" autocomplete="off">
+                        <input required class="form-control" name="tim_kiem" placeholder="Tìm kiếm" type="text" value="{{ old('tim_kiem', isset($tim_kiem) ? $tim_kiem : '') }}" autocomplete="off">
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-indigo btn-block m-0">Tìm kiếm</button>
@@ -89,7 +89,12 @@
                 </div><!-- az-content-left -->
                 <div class="">
                     @if ($so_luong > 0)
-                    <h4 class="mt-3">PHIẾU PHẠT ({{ $so_luong }})</h4>
+                    @if(request()->has('tim_kiem'))
+                    <h4 class="m-0"><a href="{{route('phieu-phat')}}" style="font-size: 22px;color: black;" class="mr-2">
+                            <i class="typcn typcn-arrow-back"></i></a>TÌM THẤY ({{ $so_luong }}) PHIẾU</h4>
+                    @else
+                    <h4 class="m-0">PHIẾU PHẠT ({{ $so_luong }})</h4>
+                    @endif
                     @else
                     <h4 class="mt-3">HIỆN TẠI KHÔNG CÓ PHIẾU PHẠT NÀO !!</h4>
                     @endif

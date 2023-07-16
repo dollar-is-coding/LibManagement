@@ -62,7 +62,7 @@
                         <div>
                             <!-- import -->
                             <!-- <div>
-                                <form action="{{route('import-sach')}}" method="POST" enctype="multipart/form-data">
+                                <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <label class="custom-file-upload">
                                         <input required type="file" name="file" accept=".xlsx" onchange="showFileName(event)">
@@ -91,7 +91,7 @@
                                             fileNameSpan.textContent = fileName;
                                         }
                                     </script>
-                                    <input style="margin-top: 0px;" type="submit" value="Import CSV" name="import_csv" class="btn btn-success rounded">
+                                    <input style="margin-top: 0px;" type="submit" value="Import Sách" name="import_csv" class="btn btn-success rounded">
                                 </form>
                             </div> -->
                             <!-- end import -->
@@ -177,10 +177,13 @@
                                         <select id="form-select" name="tac_gia" class="form-control select2-no-search" tabindex="2">
                                             <option value="">Chọn tác giả</option>
                                             @foreach ($tac_gia as $item)
+
                                             <option value="{{ $item->id }}" {{ $item->id == old('tac_gia') ? 'selected' : '' }}>
                                                 {{ $item->ten }}
                                             </option>
+
                                             @endforeach
+
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -277,7 +280,7 @@
                                 </div>
                                 <!-- up ảnh -->
                                 <div class="upload-container row" style="flex-basis: 30%; margin-right: 2%;">
-                                    <div class="upload-container border rounded" style="background-image: url('/img/avt/income.jpg');">
+                                    <div class="upload-container border rounded" style="background-image: url('../img/default/no_book_admin.png');background-size: contain;">
                                         <input style="font-size: 120px; opacity: 0" type="file" id="upload-file" name="file_upload" accept="image/*" onchange="chooseFile(this)" tabindex="10" />
                                         <div id="preview-container" class="preview-container">
                                         </div>

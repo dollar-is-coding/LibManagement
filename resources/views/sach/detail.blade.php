@@ -52,7 +52,7 @@
                         @foreach ($sach as $item)
                         <div class="border-right pr-4">
                             @if ($item->fkSach->hinh_anh == '')
-                            <img src="/img/default/no_image_available.jpg" width="240em" height="320em" style="object-fit: cover">
+                            <img src="../img/default/no_book_admin.png" width="240em" height="320em" style="object-fit: cover">
                             @else
                             <img src="/img/books/{{ $item->fkSach->hinh_anh }}" width="240em" height="320em" style="object-fit: cover">
                             @endif
@@ -72,7 +72,7 @@
                                         <div style="font-size: 26px">{{ $item->fkSach->ten }}</div>
 
                                     </div>
-                                    <div>
+                                    <div style="visibility: hidden;">
                                         {!! QrCode::size(80)->generate(
                                         '(sach) ' .
                                         Str::ascii($item->fkSach->ten) .
@@ -95,7 +95,7 @@
                                         </a>
                                         <ul class="dropdown-menu rounded">
                                             <li><a style="font-size: 16px;" class="dropdown-item" href="{{ route('chinh-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}">Chỉnh sửa sách</a></li>
-                                            <li><a style="font-size: 16px;" class="dropdown-item" href="{{ route('xu-ly-xoa-sach',['id'=>$item->id]) }}">Xóa sách</a>
+                                            <li><a style="font-size: 16px;" class="dropdown-item delete-link" href="{{ route('xu-ly-xoa-sach',['id'=>$item->id]) }}">Xóa sách</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -197,7 +197,7 @@
             link.addEventListener("click", (event) => {
                 event.preventDefault();
                 Swal.fire({
-                    title: "Bạn có muốn xóa không?",
+                    title: "Bạn có muốn xóa sách này không?",
                     imageUrl: "/img/war.png",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",
