@@ -49,8 +49,8 @@ class ClientController extends Controller
         $start_of_month = Carbon::now()->startOfMonth();
         $end_of_month = Carbon::now()->endOfMonth();
         $xu_huong = PhieuMuonSach::where([
-            ['updated_at', '>=', $start_of_month],
-            ['updated_at', '<=', $end_of_month],
+            ['created_at', '>=', $start_of_month],
+            ['created_at', '<=', $end_of_month],
             ['trang_thai', '>', 1]
         ])->groupBy('sach_id')
             ->select('sach_id', PhieuMuonSach::raw('count(*) as total'))

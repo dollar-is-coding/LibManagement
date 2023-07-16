@@ -57,9 +57,7 @@ class AdminController extends Controller
         $phieu_phat = PhieuPhat::where('ma_phieu', $id)->get();
         if ($phieu_phat->count() > 0) {
             $documentFileName = "thanh-toan.pdf";
-            $data = [
-                'phieu_phat' => $phieu_phat,
-            ];
+            $data = ['phieu_phat' => $phieu_phat];
             $view = view()->make('muon_sach.phieu_thanh_toan_phat', $data);
             $html = $view->render();
             $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -105,6 +103,7 @@ class AdminController extends Controller
         if ($get_id) {
             $id = $get_id->id + 1;
         }
+
         $ma = '';
         switch ($request->the_loai) {
             case 1: {
@@ -233,7 +232,7 @@ class AdminController extends Controller
                 ]);
             }
             ThuVien::create([
-                'sach_id' => Sach::latest()->first()->id,
+                'sach_id' => Sach::orderBy('id','DESC')->first()->id,
                 'tu_sach_id' => $request->tu_sach,
                 'sl_con_lai' => $request->so_luong,
             ]);
@@ -559,11 +558,10 @@ class AdminController extends Controller
                 'selected' => 'asc_name',
                 'slsach' => $slsach,
                 'queryString' => $queryString,
-                'tim_kiem'=>$tim
+                'tim_kiem' => $tim
             ]);
         }
     }
-
 
 
     public function chiTietSach($id)
@@ -577,8 +575,8 @@ class AdminController extends Controller
     // Cấp tài khoản - quản lý tài khoản
     public function capTaiKhoan()
     {
-        $sl_adminup = NguoiDung::where('vai_tro',0)->count();
-        return view('tai_khoan.create',['sl_adminup'=> $sl_adminup]);
+        $sl_adminup = NguoiDung::where('vai_tro', 0)->count();
+        return view('tai_khoan.create', ['sl_adminup' => $sl_adminup]);
     }
     public function xuLyTaoTaiKhoan(CapTaiKhoanRequest $request)
     {
@@ -1092,7 +1090,7 @@ class AdminController extends Controller
         $sl_con_lai = $sl - $so_luong_tru; //sl con lại trong thu vien
         if ($sl < $so_luong_tru) {
             return back()->with('error', 'Số lượng sách cần bỏ vào kho vượt quá số lượng sách hiện có !!!');
-        }else{
+        } else {
             KhoSach::where('id', $id)->update([
                 'sach_id' => $request->ten_sach,
                 'thu_thu_id' => Auth::id(),
@@ -1172,14 +1170,16 @@ class AdminController extends Controller
         FacadesSession::flash('success', 'Xử lý thành công');
         return redirect()->route('hien-thi-sach');
     }
-    public function xoaTaiKhoan($id){
-        NguoiDung::where('id',$id)->delete();
+    public function xoaTaiKhoan($id)
+    {
+        NguoiDung::where('id', $id)->delete();
         FacadesSession::flash('success', 'Xử lý thành công');
         return back();
     }
-    public function viewSach($id){
-        $sach = Sach::where('id',$id)->first();
-        return response()->json(['sach'=>$sach]);
+    public function viewSach($id)
+    {
+        $sach = Sach::where('id', $id)->first();
+        return response()->json(['sach' => $sach]);
     }
     public function huyPhieuMuon($id)
     {
