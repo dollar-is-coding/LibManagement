@@ -54,8 +54,8 @@
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <!-- đây mục trỏ-->
                 @foreach ($sach as $item)
-                <h3><a href="{{ route('chi-tiet-sach', ['id' => $item->id]) }}" style="font-size: 22px;color: black;" class="mr-2">
-                        <i class="typcn typcn-arrow-back"></i></a>Chỉnh sửa sách</h3>
+                <h3><a href="{{ route('chi-tiet-sach', ['id' => $item->sach_id]) }}" style="font-size: 22px;color: black;" class="mr-2">
+                        <i class="typcn typcn-arrow-back"></i></a>Chỉnh sửa sách {{$item->sach_id}}</h3>
 
                 <div class="border shadow-sm rounded p-4 pr-5 az-signin-header">
                     <form action="{{ route('xu-ly-sua-sach', ['id' => $item->sach_id,'id_tv'=>$item->id]) }}" id="form_them_sach" method="POST" enctype="multipart/form-data">
