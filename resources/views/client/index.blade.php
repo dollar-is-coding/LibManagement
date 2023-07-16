@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        @if ($sach_moi->count() > 4)
+                        @if ($sach_moi->count() > 3)
                             <div class="col-lg-4 col-12 mx-auto">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination pagination-lg justify-content-center mt-5">
